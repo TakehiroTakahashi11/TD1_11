@@ -17,6 +17,12 @@
     <Filter Include="Game">
       <UniqueIdentifier>{9321402b-28c6-46c1-ba0b-4a8e7c3c0040}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Static">
+      <UniqueIdentifier>{f8132e7e-a263-41ab-96b6-9bb595270302}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{7b3599f4-5ed7-4ca5-8fdf-39d097b28fd7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -31,11 +37,58 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp">
       <Filter>KamataEngine\Source</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp">
       <Filter>KamataEngine\Adapter</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Delta.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Easing.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMouseInput.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="MyFunc.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Datas.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,6 +172,51 @@
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Delta.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Easing.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMouseInput.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="MyFunc.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Datas.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

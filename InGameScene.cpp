@@ -1,0 +1,23 @@
+#include "InGameScene.h"
+#include "Datas.h"
+#include "Camera.h"
+#include "Quad.h"
+#include "KeyMouseInput.h"
+#include "Game.h"
+
+InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
+{
+}
+
+void InGameScene::Init() {
+	getCameraMain().setScale(1.0f);
+	getGame().ChangePhase(Game::kUpdate);
+}
+void InGameScene::Update() {
+}
+void InGameScene::Draw() {
+	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex,0,0,BLACK);
+}
+void InGameScene::Finalise() {
+
+}
