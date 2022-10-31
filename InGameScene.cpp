@@ -5,6 +5,7 @@
 #include "KeyMouseInput.h"
 #include "Game.h"
 #include "EfffectManager.h"
+#include "Player.h"
 
 InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
 {

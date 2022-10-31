@@ -8,6 +8,7 @@
 #include "Datas.h"
 #include "Delta.h"
 #include "EfffectManager.h"
+#include "FieldManager.h"
 #include "Player.h"
 #include "Camera.h"
 
@@ -30,13 +31,14 @@ Game::Game()
     mNowPhase = kInit;
 
     // マウスを非表示
-    // Novice::SetMouseCursorVisibility(0);
+    // Novice::SetMouseCursorVisibility(false);
 
     // フルスクリーン
     // Novice::SetWindowMode(kFullscreen);
 
     // エフェクト初期化
     EffectManager::Init(*this);
+    FieldManager::Init(*this);
 
     // 生成
     mCameraMain = new Camera(*this);
@@ -56,8 +58,9 @@ Game::~Game()
     delete mCameraUI;
     delete player;
 
-    // ファイナライズ
     EffectManager::Finalise();
+    FieldManager::Finalise();
+    // ファイナライズ
     Novice::Finalize();
 }
 
