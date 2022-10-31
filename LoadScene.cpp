@@ -20,7 +20,7 @@ void LoadScene::Update() {
 	}
 }
 void LoadScene::Draw() {
-
+	Novice::DrawBox(0, 0, 1920, 1080, 0.0f, BLACK, kFillModeSolid);
 }
 void LoadScene::Finalise() {
 	getGame().ChangeScene(Game::kInGameScene);
