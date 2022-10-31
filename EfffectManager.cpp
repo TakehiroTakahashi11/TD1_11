@@ -56,7 +56,7 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				effects[nextIndex] = new ClickEffect(*pGame, position);// ’Ç‰Á
 				break;
-			case EffectType::None:
+			case EffectType::NoneEffect:
 			default:
 				break;
 			}

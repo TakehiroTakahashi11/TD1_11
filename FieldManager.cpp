@@ -9,7 +9,7 @@ void FieldManager::Init(Game& Game)
 	// 一旦ベースエフェクトで初期化
 	for (int i = 0; i < fieldArraySize; i++) {
 		fields[i] = new BaseField(*pGame);
-		fieldsNums[i] = FieldType::None;
+		fieldsNums[i] = FieldType::NoneField;
 		fields[i]->BaseInit();
 	}
 
@@ -43,7 +43,7 @@ int FieldManager::MakeNewField(Vector2D position, Vector2D width, FieldType fiel
 				fields[nextIndex] = new BaseField(*pGame, position, width);// 追加
 				fieldsNums[nextIndex] = FieldType::DestroyCircle;// 管理用配列にも追加
 				break;
-			case FieldType::None:
+			case FieldType::NoneField:
 			default:
 				break;
 			}
@@ -95,7 +95,7 @@ bool FieldManager::isHit(Vector2D t, Vector2D pos, Vector2D wid, FieldType field
 	case DestroyCircle:
 		return CollisionCircle(t, pos, wid);
 		break;
-	case None:
+	case NoneField:
 	default:
 		break;
 	}
