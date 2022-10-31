@@ -23,6 +23,12 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{7b3599f4-5ed7-4ca5-8fdf-39d097b28fd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{a247187c-b754-4a36-97a6-a325eeba0231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module\Effect">
+      <UniqueIdentifier>{7a35e437-d509-493f-961b-7030470e7581}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -85,11 +91,26 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Datas.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Datas.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="Obj.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="EfffectManager.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseEffect.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickEffect.cpp">
+      <Filter>Module\Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +239,21 @@
     </ClInclude>
     <ClInclude Include="Datas.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="EfffectManager.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEffect.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ClickEffect.h">
+      <Filter>Module\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
