@@ -1,5 +1,4 @@
 #pragma once
-#include "Camera.h"
 
 class BaseScene;
 
@@ -30,19 +29,16 @@ public:
 	/// @brief デストラクタ
 	~Game();
 
-	Camera& getCameraMain();
-	Camera& getCameraSub();
-	Camera& getCameraUI();
-
 	/// @brief メインループ
 	void Run();
 
 	/// @brief シーンチェンジ関数
 	/// @param scene シーン
-	void ChangeScene(Scene scene);
+	void ChangeScene(Scene scene) { mNowScene = scene; }
 
-	/// @brief フェーズチェンジ関数(Init, Update, Finalise)
-	void ChangePhase(Process process);
+	/// @brief フェーズチェンジ関数
+	/// @param process (kInit, kUpdate, kFinalise)
+	void ChangePhase(Process process){ mNowPhase = process; }
 
 private:
 	/// @brief フレーム開始
@@ -57,13 +53,21 @@ private:
 	/// @brief フレーム終了
 	void EndFrame();
 
-public:
-
 private:
+	// プレイヤー
+	class Player* player;
+
 	// カメラ
-	Camera mCameraMain;
-	Camera mCameraSub;
-	Camera mCameraUI;
+	class Camera* mCameraMain;
+	Camera* mCameraSub;
+	Camera* mCameraUI;
+
+public:
+	Player& getPlayer() { return *player; }
+	Camera& getCameraMain() { return *mCameraMain; }
+	Camera& getCameraSub() { return *mCameraSub; }
+	Camera& getCameraUI() { return *mCameraUI; }
+private:
 
 	// 現在のどのシーンか
 	Scene mNowScene;

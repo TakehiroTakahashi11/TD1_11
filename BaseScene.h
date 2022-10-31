@@ -1,13 +1,11 @@
 #pragma once
 #include "GameObject.h"
 
-class Game;
-
 // シ－ン 基底クラス
 class BaseScene : public GameObject
 {
 public:
-	BaseScene(Game& pGame);
+	BaseScene(class Game& pGame);
 	virtual ~BaseScene();
 
 	virtual void Init() = 0;

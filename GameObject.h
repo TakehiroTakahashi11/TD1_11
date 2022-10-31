@@ -6,11 +6,11 @@ public:
 	GameObject(class Game& pGame);
 	virtual ~GameObject();
 
-	class Game& getGame() const;
+	Game& getGame() const;
 	class Camera& getCameraMain() const;
-	class Camera& getCameraSub() const;
-	class Camera& getCameraUI() const;
+	Camera& getCameraSub() const;
+	Camera& getCameraUI() const;
 private:
-	/// @brief ゲームのポインタ
+	// ゲームのポインタ
 	Game& pGame;
 };
