@@ -2,8 +2,8 @@
 #include "Vector2D.h"
 
 enum FieldType {
-	// エフェクト無し
-	None,
+	// フィールド無し
+	NoneField,
 	DestroyCircle,
 };
 

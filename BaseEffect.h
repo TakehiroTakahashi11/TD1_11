@@ -3,7 +3,7 @@
 
 enum EffectType {
 	// エフェクト無し
-	None,
+	NoneEffect,
 	Click,
 };
 
@@ -48,9 +48,9 @@ public:
 
 	/// @brief メインカメラを取得する関数
 	class Camera& getCameraMain();
-	/// @brief メインカメラを取得する関数
+	/// @brief サブカメラを取得する関数
 	Camera& getCameraSub();
-	/// @brief メインカメラを取得する関数
+	/// @brief UIカメラを取得する関数
 	Camera& getCameraUI();
 
 protected:
