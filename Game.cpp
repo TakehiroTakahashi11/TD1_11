@@ -7,8 +7,11 @@
 #include "KeyMouseInput.h"
 #include "Datas.h"
 #include "Delta.h"
+#include "EfffectManager.h"
+#include "Player.h"
+#include "Camera.h"
 
-Game::Game() : mCameraMain(*this), mCameraSub(*this), mCameraUI(*this)
+Game::Game()
 {
     // イニシャライズ
     Novice::Initialize(Datas::WINDOW_TITLE, static_cast<int>(Datas::SCREEN_WIDTH), static_cast<int>(Datas::SCREEN_HEIGHT));
@@ -31,28 +34,31 @@ Game::Game() : mCameraMain(*this), mCameraSub(*this), mCameraUI(*this)
 
     // フルスクリーン
     // Novice::SetWindowMode(kFullscreen);
+
+    // エフェクト初期化
+    EffectManager::Init(*this);
+
+    // 生成
+    mCameraMain = new Camera(*this);
+    mCameraSub = new Camera(*this);
+    mCameraUI = new Camera(*this);
+    player = new Player(*this);
 }
 
 Game::~Game()
 {
-    // シーンを全てdelete
+    // 全てdelete
     for (int i = 0; i < kSceneNum; i++) {
         delete pScene[i];
     }
+    delete mCameraMain;
+    delete mCameraSub;
+    delete mCameraUI;
+    delete player;
+
     // ファイナライズ
+    EffectManager::Finalise();
     Novice::Finalize();
-}
-
-Camera& Game::getCameraMain(){
-    return mCameraMain;
-}
-
-Camera& Game::getCameraSub(){
-    return mCameraSub;
-}
-
-Camera& Game::getCameraUI(){
-    return mCameraUI;
 }
 
 /// @brief ゲームループ
@@ -75,14 +81,6 @@ void Game::Run() {
             break;
         }
     }
-}
-
-void Game::ChangeScene(Scene scene) {
-    mNowScene = scene;
-}
-
-void Game::ChangePhase(Process process) {
-    mNowPhase = process;
 }
 
 /// @brief 開始時処理
@@ -111,9 +109,9 @@ void Game::Update() {
         pScene[mNowScene]->Update();
 
         // カメラ更新処理
-        mCameraMain.Update();
-        mCameraSub.Update();
-        mCameraUI.Update();
+        mCameraMain->Update();
+        mCameraSub->Update();
+        mCameraUI->Update();
         break;
     case Game::kFinalise:
         // 現在のシーンに応じて終了処理
@@ -123,16 +121,25 @@ void Game::Update() {
     default:
         break;
     }
+
+    // エフェクト更新
+    EffectManager::Update();
 }
 
 /// @brief 描画処理
 void Game::Draw() {
     // 現在のシーンに応じて描画処理
     pScene[mNowScene]->Draw();
+
+    // マウステクスチャの問題でロード中以外マウス描画
+    // 外で読み込んで後で外す
     if (mNowScene != kLoadScene)
     {
         Mouse::Draw(Datas::MouseTex);
     }
+
+    // エフェクト描画
+    EffectManager::Draw();
 }
 
 /// @brief 終了時処理
