@@ -58,9 +58,6 @@
     <ClCompile Include="Delta.cpp">
       <Filter>Static</Filter>
     </ClCompile>
-    <ClCompile Include="Easing.cpp">
-      <Filter>Static</Filter>
-    </ClCompile>
     <ClCompile Include="KeyMouseInput.cpp">
       <Filter>Static</Filter>
     </ClCompile>
@@ -210,9 +207,6 @@
     <ClInclude Include="Delta.h">
       <Filter>Static</Filter>
     </ClInclude>
-    <ClInclude Include="Easing.h">
-      <Filter>Static</Filter>
-    </ClInclude>
     <ClInclude Include="KeyMouseInput.h">
       <Filter>Static</Filter>
     </ClInclude>
@@ -269,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="BaseField.h">
       <Filter>Module\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Lerp.h">
+      <Filter>Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
