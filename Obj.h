@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Vector2D.h"
 
 class Obj : public GameObject
 {
@@ -19,6 +20,12 @@ public:
 
 	/// @brief •`‰æˆ—
 	virtual void Draw() = 0;
-private:
+protected:
+	// À•W
+	Vector2D position;
 
+	// •
+	float width;
+	// ‚‚³
+	float height;
 };
