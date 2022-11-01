@@ -32,6 +32,9 @@
     <Filter Include="Module\Field">
       <UniqueIdentifier>{92568748-3be0-40e0-8c1e-29d6799a1d73}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\Obj">
+      <UniqueIdentifier>{a91c8cb9-c1d8-4d93-b145-395ea8d06d09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -97,12 +100,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Obj.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
     <ClCompile Include="EfffectManager.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
@@ -120,6 +117,18 @@
     </ClCompile>
     <ClCompile Include="ControllerInput.cpp">
       <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj.cpp">
+      <Filter>Module\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Module\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Module\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Module\Obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,12 +255,6 @@
     <ClInclude Include="Datas.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Obj.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Module</Filter>
-    </ClInclude>
     <ClInclude Include="EfffectManager.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
@@ -272,6 +275,18 @@
     </ClInclude>
     <ClInclude Include="ControllerInput.h">
       <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>Module\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Module\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Module\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Module\Obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -95,6 +95,7 @@
     <ClCompile Include="BaseEffect.cpp" />
     <ClCompile Include="BaseField.cpp" />
     <ClCompile Include="BaseScene.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\WinApp.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="Datas.cpp" />
     <ClCompile Include="Delta.cpp" />
     <ClCompile Include="EfffectManager.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FieldManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -131,6 +133,7 @@
     <ClInclude Include="BaseEffect.h" />
     <ClInclude Include="BaseField.h" />
     <ClInclude Include="BaseScene.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\CircleShadow.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DebugCamera.h" />
     <ClInclude Include="C:\KamataEngine\DirectXGame\3d\DirectionalLight.h" />
@@ -158,6 +161,7 @@
     <ClInclude Include="Datas.h" />
     <ClInclude Include="Delta.h" />
     <ClInclude Include="EfffectManager.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FieldManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
