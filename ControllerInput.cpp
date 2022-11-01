@@ -23,6 +23,15 @@ void Controller::SetState(){
 }
 
 bool Controller::IsUse() {
+	int x = 0, y = 0;
+	GetRightStick(0, x, y);
+	if (x != 0 || y != 0) {
+		return true;
+	}
+	GetLeftStick(0, x, y);
+	if (x != 0 || y != 0) {
+		return true;
+	}
 	if (number != 0) {
 		for (int num = 0; num < number; num++) {
 			if (

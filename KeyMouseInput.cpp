@@ -17,10 +17,25 @@ void Key::SetState() {
 }
 
 bool Key::IsUse(){
-	for(int i = 0; i < 256; i++){
-		if(keys[i] != 0){
-			return true;
-		}
+	if (keys[DIK_W] != 0
+		|| keys[DIK_A] != 0
+		|| keys[DIK_S] != 0
+		|| keys[DIK_D] != 0
+		|| keys[DIK_Z] != 0
+		|| keys[DIK_X] != 0
+		|| keys[DIK_C] != 0
+		|| keys[DIK_F] != 0
+		|| keys[DIK_V] != 0
+		|| keys[DIK_ESCAPE] != 0
+		|| keys[DIK_SPACE] != 0
+		|| keys[DIK_UP] != 0
+		|| keys[DIK_DOWN] != 0
+		|| keys[DIK_LEFT] != 0
+		|| keys[DIK_RIGHT] != 0
+		|| Mouse::IsTriggerButton(0)
+		|| Mouse::IsTriggerButton(1)
+		|| Mouse::IsTriggerButton(2)) {
+		return true;
 	}
 	return false;
 }
