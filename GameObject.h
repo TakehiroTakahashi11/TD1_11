@@ -11,6 +11,7 @@ public:
 	Camera& getCameraSub() const;
 	Camera& getCameraUI() const;
 	bool IsDebug() const;
+	bool IsCntMode() const;
 private:
 	// ゲームのポインタ
 	Game& pGame;
