@@ -118,6 +118,9 @@
     <ClCompile Include="BaseField.cpp">
       <Filter>Module\Field</Filter>
     </ClCompile>
+    <ClCompile Include="ControllerInput.cpp">
+      <Filter>Static</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -265,6 +268,9 @@
       <Filter>Module\Field</Filter>
     </ClInclude>
     <ClInclude Include="Lerp.h">
+      <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerInput.h">
       <Filter>Static</Filter>
     </ClInclude>
   </ItemGroup>

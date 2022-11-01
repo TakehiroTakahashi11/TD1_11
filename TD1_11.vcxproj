@@ -102,6 +102,7 @@
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClickEffect.cpp" />
+    <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="Datas.cpp" />
     <ClCompile Include="Delta.cpp" />
     <ClCompile Include="EfffectManager.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClickEffect.h" />
+    <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="Datas.h" />
     <ClInclude Include="Delta.h" />
     <ClInclude Include="EfffectManager.h" />
