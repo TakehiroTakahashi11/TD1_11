@@ -1,6 +1,7 @@
 #pragma once
 #include "Obj.h"
 #include "Vector2D.h"
+#include "ControllerInput.h"
 
 class Player : public Obj
 {
@@ -18,10 +19,23 @@ public:
 	/// @brief •`‰æˆ—
 	void Draw() override;
 
+	enum DashLevel {
+		Dash1,
+		Dash2,
+		Dash3
+	};
+
 private:
-	/// @brief À•W
+	/// @brief ˆÚ“®ˆ—
+	void Move();
+
+private:
+	// À•W
 	Vector2D position;
 
-	/// @brief ˆÚ“®—Ê
-	Vector2D velocity;
+	// •
+	float width;
+	// ‚‚³
+	float height;
+
 };

@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "EfffectManager.h"
 #include "Player.h"
+#include "Game.h"
 
 InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
 {
@@ -20,11 +21,12 @@ void InGameScene::Init() {
 }
 
 void InGameScene::Update() {
-	
+	getGame().getPlayer().Update();
 }
 
 void InGameScene::Draw() {
-	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex,0,0,BLACK);
+	// getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex,0,0,BLACK);
+	getGame().getPlayer().Draw();
 }
 
 void InGameScene::Finalise() {
