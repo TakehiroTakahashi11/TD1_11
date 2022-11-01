@@ -56,6 +56,8 @@ private:
 private:
 	// プレイヤー
 	class Player* player;
+	// ボス
+	class Boss* boss;
 
 	// カメラ
 	class Camera* mCameraMain;
@@ -64,13 +66,18 @@ private:
 
 public:
 	Player& getPlayer() { return *player; }
+	Boss& getBoss() { return *boss; }
 	Camera& getCameraMain() { return *mCameraMain; }
 	Camera& getCameraSub() { return *mCameraSub; }
 	Camera& getCameraUI() { return *mCameraUI; }
 	bool IsDebug() { return isDebug; }
+	bool IsCntMode() { return ControllerMode; }
 private:
 	// デバッグモード
 	bool isDebug;
+
+	// コントローラーモード
+	bool ControllerMode;
 
 	// 現在のどのシーンか
 	Scene mNowScene;

@@ -12,6 +12,7 @@
 #include "FieldManager.h"
 #include "Player.h"
 #include "Camera.h"
+#include "Boss.h"
 
 Game::Game()
 {
@@ -49,6 +50,7 @@ Game::Game()
     mCameraSub = new Camera(*this);
     mCameraUI = new Camera(*this);
     player = new Player(*this);
+    boss = new Boss(*this);
 }
 
 Game::~Game()
@@ -102,6 +104,12 @@ void Game::BeginFrame() {
     Key::SetState();
     Mouse::SetState();
     Controller::SetState();
+    if (Key::IsUse()) {
+        ControllerMode = false;
+    }
+    if (Controller::IsUse()) {
+        ControllerMode = true;
+    }
 }
 
 /// @brief çXêVèàóù
