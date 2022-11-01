@@ -1,6 +1,5 @@
 #pragma once
 #include "Obj.h"
-#include "Vector2D.h"
 #include "ControllerInput.h"
 
 class Player : public Obj
@@ -29,13 +28,25 @@ private:
 	/// @brief 移動処理
 	void Move();
 
+	/// @brief 攻撃処理
+	void Dash();
+
+	/// @brief 防御処理
+	void Guard();
+
 private:
-	// 座標
-	Vector2D position;
+	// 入力
+	Controller::StickMagnitude l_stick_mag;
 
-	// 幅
-	float width;
-	// 高さ
-	float height;
+	// 移動量
+	Vector2D velocity;
 
+	// 速度
+	float speed;
+	float dash_speed;
+
+	// ダッシュ中か
+	bool isDash;
+	// ガード中か
+	bool isGuard;
 };
