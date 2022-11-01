@@ -67,7 +67,10 @@ public:
 	Camera& getCameraMain() { return *mCameraMain; }
 	Camera& getCameraSub() { return *mCameraSub; }
 	Camera& getCameraUI() { return *mCameraUI; }
+	bool IsDebug() { return isDebug; }
 private:
+	// デバッグモード
+	bool isDebug;
 
 	// 現在のどのシーンか
 	Scene mNowScene;

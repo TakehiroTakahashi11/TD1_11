@@ -5,6 +5,7 @@
 #include "LoadScene.h"
 #include "InGameScene.h"
 #include "KeyMouseInput.h"
+#include "ControllerInput.h"
 #include "Datas.h"
 #include "Delta.h"
 #include "EfffectManager.h"
@@ -31,10 +32,13 @@ Game::Game()
     mNowPhase = kInit;
 
     // マウスを非表示
-    // Novice::SetMouseCursorVisibility(false);
+    Novice::SetMouseCursorVisibility(false);
 
     // フルスクリーン
-    // Novice::SetWindowMode(kFullscreen);
+    Novice::SetWindowMode(kFullscreen);
+
+    // デバッグモード
+    isDebug = true;
 
     // エフェクト初期化
     EffectManager::Init(*this);
@@ -97,6 +101,7 @@ void Game::BeginFrame() {
     // 入力取得
     Key::SetState();
     Mouse::SetState();
+    Controller::SetState();
 }
 
 /// @brief 更新処理
@@ -134,11 +139,11 @@ void Game::Draw() {
     // 現在のシーンに応じて描画処理
     pScene[mNowScene]->Draw();
 
-    // マウステクスチャの問題でロード中以外マウス描画
+    // 何かしらのフラグ中以外マウス描画、メニュー
     // 外で読み込んで後で外す
     if (mNowScene != kLoadScene)
     {
-        Mouse::Draw(Datas::MouseTex);
+        // Mouse::Draw(Datas::MouseTex);
     }
 
     // エフェクト描画

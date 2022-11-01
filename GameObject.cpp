@@ -9,3 +9,4 @@ Game& GameObject::getGame() const { return pGame; }
 Camera& GameObject::getCameraMain() const { return pGame.getCameraMain(); }
 Camera& GameObject::getCameraSub() const { return pGame.getCameraSub(); }
 Camera& GameObject::getCameraUI() const { return pGame.getCameraUI(); }
+bool GameObject::IsDebug() const { return pGame.IsDebug(); }
