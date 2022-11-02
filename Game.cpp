@@ -16,37 +16,38 @@
 
 Game::Game()
 {
-    // ƒCƒjƒVƒƒƒ‰ƒCƒY
+    // ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚º
     Novice::Initialize(Datas::WINDOW_TITLE, static_cast<int>(Datas::SCREEN_WIDTH), static_cast<int>(Datas::SCREEN_HEIGHT));
 
     // Srand
     My::SetSrand();
 
-    // ƒV[ƒ“ƒ|ƒCƒ“ƒ^
+    // ã‚·ãƒ¼ãƒ³ãƒã‚¤ãƒ³ã‚¿
     pScene[kLoadScene] = new LoadScene(*this);
     pScene[kInGameScene] = new InGameScene(*this);
 
-    // ‰ŠúƒV[ƒ“‚ğƒ^ƒCƒgƒ‹‚É
+    // åˆæœŸã‚·ãƒ¼ãƒ³ã‚’ã‚¿ã‚¤ãƒˆãƒ«ã«
     mNowScene = kLoadScene;
 
-    // ‰ŠúƒtƒF[ƒY‚ğƒCƒjƒbƒg‚É
+    // åˆæœŸãƒ•ã‚§ãƒ¼ã‚ºã‚’ã‚¤ãƒ‹ãƒƒãƒˆã«
     mNowPhase = kInit;
 
-    // ƒ}ƒEƒX‚ğ”ñ•\¦
+    // ãƒã‚¦ã‚¹ã‚’éè¡¨ç¤º
     if (Datas::MOUSE_INV_MODE) {
         Novice::SetMouseCursorVisibility(false);
     }
 
-    // ƒtƒ‹ƒXƒNƒŠ[ƒ“
+    // ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³
     if (Datas::FULL_SCREEN_MODE) {
         Novice::SetWindowMode(kFullscreen);
     }
 
-    // ƒGƒtƒFƒNƒg‰Šú‰»
+    // åˆæœŸåŒ–
     EffectManager::Init(*this);
     FieldManager::Init(*this);
+    ControllerMode = false;
 
-    // ¶¬
+    // ç”Ÿæˆ
     mCameraMain = new Camera(*this);
     mCameraSub = new Camera(*this);
     mCameraUI = new Camera(*this);
@@ -56,7 +57,7 @@ Game::Game()
 
 Game::~Game()
 {
-    // ‘S‚Ädelete
+    // å…¨ã¦delete
     for (int i = 0; i < kSceneNum; i++) {
         delete pScene[i];
     }
@@ -67,41 +68,41 @@ Game::~Game()
 
     EffectManager::Finalise();
     FieldManager::Finalise();
-    // ƒtƒ@ƒCƒiƒ‰ƒCƒY
+    // ãƒ•ã‚¡ã‚¤ãƒŠãƒ©ã‚¤ã‚º
     Novice::Finalize();
 }
 
-/// @brief ƒQ[ƒ€ƒ‹[ƒv
+/// @brief ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 void Game::Run() {
     while (Novice::ProcessMessage() == 0) {
-        // ƒtƒŒ[ƒ€ŠJn
+        // ãƒ•ãƒ¬ãƒ¼ãƒ é–‹å§‹
         BeginFrame();
 
-        // XVˆ—
+        // æ›´æ–°å‡¦ç†
         Update();
 
-        // •`‰æˆ—
+        // æç”»å‡¦ç†
         Draw();
 
-        // ƒtƒŒ[ƒ€I—¹
+        // ãƒ•ãƒ¬ãƒ¼ãƒ çµ‚äº†
         EndFrame();
 
-        // ESC‰Ÿ‚µ‚½‚çI—¹
+        // ESCæŠ¼ã—ãŸã‚‰çµ‚äº†
         if (Key::IsPressed(DIK_ESCAPE)) {
             break;
         }
     }
 }
 
-/// @brief ŠJnˆ—
+/// @brief é–‹å§‹æ™‚å‡¦ç†
 void Game::BeginFrame() {
-    // ƒtƒŒ[ƒ€ŠJn
+    // ãƒ•ãƒ¬ãƒ¼ãƒ é–‹å§‹
     Novice::BeginFrame();
 
-    // ƒfƒ‹ƒ^ƒ^ƒCƒ€æ“¾
+    // ãƒ‡ãƒ«ã‚¿ã‚¿ã‚¤ãƒ å–å¾—
     Delta::Update();
 
-    // “ü—Íæ“¾
+    // å…¥åŠ›å–å¾—
     Key::SetState();
     Mouse::SetState();
     Controller::SetState();
@@ -113,25 +114,25 @@ void Game::BeginFrame() {
     }
 }
 
-/// @brief XVˆ—
+/// @brief æ›´æ–°å‡¦ç†
 void Game::Update() {
     switch (mNowPhase)
     {
     case Game::kInit:
-        // Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚Ä‰Šú‰»ˆ—
+        // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã«å¿œã˜ã¦åˆæœŸåŒ–å‡¦ç†
         pScene[mNowScene]->Init();
         break;
     case Game::kUpdate:
-        // Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚ÄXVˆ—
+        // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã«å¿œã˜ã¦æ›´æ–°å‡¦ç†
         pScene[mNowScene]->Update();
 
-        // ƒJƒƒ‰XVˆ—
+        // ã‚«ãƒ¡ãƒ©æ›´æ–°å‡¦ç†
         mCameraMain->Update();
         mCameraSub->Update();
         mCameraUI->Update();
         break;
     case Game::kFinalise:
-        // Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚ÄI—¹ˆ—
+        // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã«å¿œã˜ã¦çµ‚äº†å‡¦ç†
         pScene[mNowScene]->Finalise();
         break;
     case Game::kPhaseNum:
@@ -139,28 +140,28 @@ void Game::Update() {
         break;
     }
 
-    // ƒGƒtƒFƒNƒgXV
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæ›´æ–°
     EffectManager::Update();
 }
 
-/// @brief •`‰æˆ—
+/// @brief æç”»å‡¦ç†
 void Game::Draw() {
-    // Œ»İ‚ÌƒV[ƒ“‚É‰‚¶‚Ä•`‰æˆ—
+    // ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã«å¿œã˜ã¦æç”»å‡¦ç†
     pScene[mNowScene]->Draw();
 
-    // ‰½‚©‚µ‚ç‚Ìƒtƒ‰ƒO’†ˆÈŠOƒ}ƒEƒX•`‰æAƒƒjƒ…[
-    // ŠO‚Å“Ç‚İ‚ñ‚ÅŒã‚ÅŠO‚·
+    // ä½•ã‹ã—ã‚‰ã®ãƒ•ãƒ©ã‚°ä¸­ä»¥å¤–ãƒã‚¦ã‚¹æç”»ã€ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+    // å¤–ã§èª­ã¿è¾¼ã‚“ã§å¾Œã§å¤–ã™
     if (mNowScene != kLoadScene)
     {
         // Mouse::Draw(Datas::MouseTex);
     }
 
-    // ƒGƒtƒFƒNƒg•`‰æ
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»
     EffectManager::Draw();
 }
 
-/// @brief I—¹ˆ—
+/// @brief çµ‚äº†æ™‚å‡¦ç†
 void Game::EndFrame() {
-    // ƒtƒŒ[ƒ€I—¹
+    // ãƒ•ãƒ¬ãƒ¼ãƒ çµ‚äº†
     Novice::EndFrame();
 }

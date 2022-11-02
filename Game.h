@@ -2,11 +2,11 @@
 
 class BaseScene;
 
-// ƒQ[ƒ€–{‘Ì
+// ã‚²ãƒ¼ãƒ æœ¬ä½“
 class Game
 {
 public:
-	/// @brief ƒV[ƒ“
+	/// @brief ã‚·ãƒ¼ãƒ³
 	enum Scene {
 		kLoadScene,
 		kInGameScene,
@@ -14,7 +14,7 @@ public:
 		kSceneNum
 	};
 
-	/// @brief ƒtƒF[ƒY
+	/// @brief ãƒ•ã‚§ãƒ¼ã‚º
 	enum Process {
 		kInit,
 		kUpdate,
@@ -23,43 +23,43 @@ public:
 		kPhaseNum
 	};
 
-	/// @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	/// @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Game();
 
-	/// @brief ƒfƒXƒgƒ‰ƒNƒ^
+	/// @brief ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~Game();
 
-	/// @brief ƒƒCƒ“ƒ‹[ƒv
+	/// @brief ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—
 	void Run();
 
-	/// @brief ƒV[ƒ“ƒ`ƒFƒ“ƒWŠÖ”
-	/// @param scene ƒV[ƒ“
+	/// @brief ã‚·ãƒ¼ãƒ³ãƒã‚§ãƒ³ã‚¸é–¢æ•°
+	/// @param scene ã‚·ãƒ¼ãƒ³
 	void ChangeScene(Scene scene) { mNowScene = scene; }
 
-	/// @brief ƒtƒF[ƒYƒ`ƒFƒ“ƒWŠÖ”
+	/// @brief ãƒ•ã‚§ãƒ¼ã‚ºãƒã‚§ãƒ³ã‚¸é–¢æ•°
 	/// @param process (kInit, kUpdate, kFinalise)
 	void ChangePhase(Process process){ mNowPhase = process; }
 
 private:
-	/// @brief ƒtƒŒ[ƒ€ŠJn
+	/// @brief ãƒ•ãƒ¬ãƒ¼ãƒ é–‹å§‹
 	void BeginFrame();
 
-	/// @brief XVˆ—
+	/// @brief æ›´æ–°å‡¦ç†
 	void Update();
 
-	/// @brief •`‰æ
+	/// @brief æç”»
 	void Draw();
 
-	/// @brief ƒtƒŒ[ƒ€I—¹
+	/// @brief ãƒ•ãƒ¬ãƒ¼ãƒ çµ‚äº†
 	void EndFrame();
 
 private:
-	// ƒvƒŒƒCƒ„[
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 	class Player* player;
-	// ƒ{ƒX
+	// ãƒœã‚¹
 	class Boss* boss;
 
-	// ƒJƒƒ‰
+	// ã‚«ãƒ¡ãƒ©
 	class Camera* mCameraMain;
 	Camera* mCameraSub;
 	Camera* mCameraUI;
@@ -71,14 +71,15 @@ public:
 	Camera& getCameraSub() { return *mCameraSub; }
 	Camera& getCameraUI() { return *mCameraUI; }
 	bool IsCntMode() { return ControllerMode; }
-private:// ƒRƒ“ƒgƒ[ƒ‰[ƒ‚[ƒh
+private:
+	// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãƒ¢ãƒ¼ãƒ‰
 	bool ControllerMode;
 
-	// Œ»İ‚Ì‚Ç‚ÌƒV[ƒ“‚©
+	// ç¾åœ¨ã®ã©ã®ã‚·ãƒ¼ãƒ³ã‹
 	Scene mNowScene;
-	// ƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^”z—ñ
+	// ã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿é…åˆ—
 	BaseScene* pScene[kSceneNum];
 
-	// Œ»İ‚Ç‚ÌƒtƒF[ƒY‚©
+	// ç¾åœ¨ã©ã®ãƒ•ã‚§ãƒ¼ã‚ºã‹
 	Process mNowPhase;
 };

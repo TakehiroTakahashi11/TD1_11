@@ -111,6 +111,7 @@
     <ClCompile Include="FieldManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Gauntlets.cpp" />
     <ClCompile Include="InGameScene.cpp" />
     <ClCompile Include="KeyMouseInput.cpp" />
     <ClCompile Include="LoadScene.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="FieldManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Gauntlets.h" />
     <ClInclude Include="InGameScene.h" />
     <ClInclude Include="KeyMouseInput.h" />
     <ClInclude Include="Lerp.h" />
