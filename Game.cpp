@@ -33,13 +33,14 @@ Game::Game()
     mNowPhase = kInit;
 
     // マウスを非表示
-    Novice::SetMouseCursorVisibility(false);
+    if (Datas::MOUSE_INV_MODE) {
+        Novice::SetMouseCursorVisibility(false);
+    }
 
     // フルスクリーン
-    Novice::SetWindowMode(kFullscreen);
-
-    // デバッグモード
-    isDebug = true;
+    if (Datas::FULL_SCREEN_MODE) {
+        Novice::SetWindowMode(kFullscreen);
+    }
 
     // エフェクト初期化
     EffectManager::Init(*this);

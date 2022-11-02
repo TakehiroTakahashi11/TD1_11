@@ -19,21 +19,38 @@ Player::Player(Game& pGame)
 void Player::Init() {
 	l_stick_mag = { 0,0 };
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
+	velocity = { 0.0f,0.0f };
+	direciton = { 0.0f,0.0f };
 	width = Datas::PLAYER_WIDTH;
 	height = Datas::PLAYER_HEIGHT;
-	speed = Datas::PLAYER_SPEED;
-	dash_speed = Datas::PLAYER_DASH_SPEED;
+	speed = Datas::PLAYER_SPD;
+	dash_length = 0.0f;
+	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
 	isGuard = false;
 }
 
 /// @brief 更新処理
 void Player::Update() {
+	Dash();// 攻撃処理
+	Guard();// 防御処理
 	if (!isDash && !isGuard) {
 		Move();// 移動処理
 	}
-	Dash();// 攻撃処理
-	Guard();// 防御処理
+
+	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、移動していたら
+		direciton = velocity.Normalized();// 移動量から方向を保存
+	}
+
+	if (Datas::DEBUG_MODE) {// デバッグ用文字列
+		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
+		Novice::ScreenPrintf(0, 40, "position:%.1f", position.x);
+		Novice::ScreenPrintf(100, 40, "position:%.1f", position.y);
+		Novice::ScreenPrintf(0, 70, "velocity:%.1f", velocity.x);
+		Novice::ScreenPrintf(100, 70, "velocity:%.1f", velocity.y);
+		Novice::ScreenPrintf(0, 100, "direction:%.1f", direciton.x);
+		Novice::ScreenPrintf(100, 100, "direction:%.1f", direciton.y);
+	}
 }
 
 /// @brief 描画処理
@@ -64,34 +81,46 @@ void Player::Move()
 		}
 	}
 
-	if (IsDebug()) {
-		Novice::ScreenPrintf(0, 0, "CntMode:%d", IsCntMode());
-	}
-
 	// 計算
 	velocity = velocity.Normalized() * speed;// 正規化して速度をかける
 	position += velocity * Delta::getTotalDelta();// 実際に加算
 }
 
 void Player::Dash() {
-	bool n = false;// 宣言
-
 	if (!isDash) {// ダッシュ中でないなら入力を取る
 		if (IsCntMode()) {// コントローラー
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
-				n = true;// 入力あり
+				isDash = true;// ダッシュ中に変更
+				dash_length = 0.0f;// ダッシュした長さを初期化
+				velocity = direciton * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
 		else {// キーボード
 			if (Key::IsTrigger(DIK_SPACE)) {// SPACEを押したなら
-				n = true;// 入力あり
+				isDash = true;// ダッシュ中に変更
+				dash_length = 0.0f;// ダッシュした長さを初期化
+				velocity = direciton * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
 	}
+	else {// ダッシュ中なら
+		dash_length += Delta::getTotalDelta();// カウントフレーム加算
 
-	//if (n) {// 入力があったなら
-	//	velocity = 
-	//}
+		if (Datas::PLAYER_DASH_START_RIGID + Datas::PLAYER_DASH_LEN + Datas::PLAYER_DASH_END_RIGID < dash_length) {// 最大距離までダッシュして、硬直も終わったら
+			isDash = false;// ダッシュオフ
+		}
+		else if (Datas::PLAYER_DASH_LEN < dash_length) {// 最大距離までダッシュしたら
+			// 硬直
+			// 何かしらのなにか、アニメーションだの
+		}
+		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// 最初の硬直が終わってたら
+			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
+		}
+		else {
+			// 硬直
+			// 何かしらのなにか、アニメーションだの
+		}
+	}
 }
 
 void Player::Guard() {

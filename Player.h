@@ -40,13 +40,18 @@ private:
 
 	// 移動量
 	Vector2D velocity;
-
+	// 方向
+	Vector2D direciton;
 	// 速度
 	float speed;
-	float dash_speed;
 
+	// ダッシュの長さ
+	float dash_length;
+	// ダッシュ速度
+	float dash_speed;
 	// ダッシュ中か
 	bool isDash;
+
 	// ガード中か
 	bool isGuard;
 };
