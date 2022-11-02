@@ -10,7 +10,7 @@
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
-Camera::Camera(Game& pGame)
+Camera::Camera(Game* pGame)
 : GameObject(pGame),
 mPosition({0,0}),
 mCenterPos({Datas::SCREEN_HALF_WIDTH,Datas::SCREEN_HALF_HEIGHT}),

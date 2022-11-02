@@ -7,9 +7,13 @@
 #include "Delta.h"
 #include "Novice.h"
 
+Player::Player()
+{
+}
+
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
-Player::Player(Game& pGame) 
+Player::Player(Game* pGame) 
 	: Obj(pGame)
 {
 	Init();

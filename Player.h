@@ -5,17 +5,20 @@
 class Player : public Obj
 {
 public:
-	/// @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	/// @param pGame ƒQ[ƒ€‚Ìƒ|ƒCƒ“ƒ^
-	Player(class Game& pGame);
+	/// @brief ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	Player();
 
-	/// @brief ‰Šú‰»ˆ—
+	/// @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	/// @param pGame ã‚²ãƒ¼ãƒ ã®ãƒã‚¤ãƒ³ã‚¿
+	Player(class Game* pGame);
+
+	/// @brief åˆæœŸåŒ–å‡¦ç†
 	void Init() override;
 
-	/// @brief XVˆ—
+	/// @brief æ›´æ–°å‡¦ç†
 	void Update() override;
 
-	/// @brief •`‰æˆ—
+	/// @brief æç”»å‡¦ç†
 	void Draw() override;
 
 	enum DashLevel {
@@ -25,33 +28,36 @@ public:
 	};
 
 private:
-	/// @brief ˆÚ“®ˆ—
+	/// @brief ç§»å‹•å‡¦ç†
 	void Move();
 
-	/// @brief UŒ‚ˆ—
+	/// @brief æ”»æ’ƒå‡¦ç†
 	void Dash();
 
-	/// @brief –hŒäˆ—
+	/// @brief é˜²å¾¡å‡¦ç†
 	void Guard();
 
-private:
-	// “ü—Í
-	Controller::StickMagnitude l_stick_mag;
-
-	// ˆÚ“®—Ê
-	Vector2D velocity;
-	// •ûŒü
+protected:
+	// æ–¹å‘
 	Vector2D direciton;
-	// ‘¬“x
+	// é€Ÿåº¦
 	float speed;
 
-	// ƒ_ƒbƒVƒ…‚Ì’·‚³
+	// ãƒ€ãƒƒã‚·ãƒ¥ã®é•·ã•
 	float dash_length;
-	// ƒ_ƒbƒVƒ…‘¬“x
+	// ãƒ€ãƒƒã‚·ãƒ¥é€Ÿåº¦
 	float dash_speed;
-	// ƒ_ƒbƒVƒ…’†‚©
+	// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã‹
 	bool isDash;
 
-	// ƒK[ƒh’†‚©
+	// ã‚¬ãƒ¼ãƒ‰ä¸­ã‹
 	bool isGuard;
+
+private:
+	// å…¥åŠ›
+	Controller::StickMagnitude l_stick_mag;
+
+	// ç§»å‹•é‡
+	Vector2D velocity;
+
 };

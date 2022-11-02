@@ -1,8 +1,12 @@
 #include "Obj.h"
 
+Obj::Obj()
+{
+}
+
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
-Obj::Obj(Game& pGame):GameObject(pGame)
+Obj::Obj(Game* pGame):GameObject(pGame)
 {
 	height = 0.0f;
 	width = 0.0f;
