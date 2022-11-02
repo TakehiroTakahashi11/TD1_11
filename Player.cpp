@@ -7,15 +7,15 @@
 #include "Delta.h"
 #include "Novice.h"
 
-/// @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-/// @param pGame ƒQ[ƒ€‚Ìƒ|ƒCƒ“ƒ^
+/// @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+/// @param pGame ã‚²ãƒ¼ãƒ ã®ãƒã‚¤ãƒ³ã‚¿
 Player::Player(Game& pGame) 
 	: Obj(pGame)
 {
 	Init();
 }
 
-/// @brief ‰Šú‰»ˆ—
+/// @brief åˆæœŸåŒ–å‡¦ç†
 void Player::Init() {
 	l_stick_mag = { 0,0 };
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
@@ -30,43 +30,46 @@ void Player::Init() {
 	isGuard = false;
 }
 
-/// @brief XVˆ—
+/// @brief æ›´æ–°å‡¦ç†
 void Player::Update() {
-	Dash();// UŒ‚ˆ—
-	Guard();// –hŒäˆ—
-	if (!isDash && !isGuard) {
-		Move();// ˆÚ“®ˆ—
+	Dash();// æ”»æ’ƒå‡¦ç†
+
+	if (!isDash) {// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã§ãªã„ãªã‚‰
+		Guard();// é˜²å¾¡å‡¦ç†
+	}
+	if (!isDash && !isGuard) {// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã€ã‚¬ãƒ¼ãƒ‰ä¸­ã§ãªã„ãªã‚‰
+		Move();// ç§»å‹•å‡¦ç†
 	}
 
-	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ƒ_ƒbƒVƒ…‚Å‚È‚­AˆÚ“®‚µ‚Ä‚¢‚½‚ç
-		direciton = velocity.Normalized();// ˆÚ“®—Ê‚©‚ç•ûŒü‚ğ•Û‘¶
+	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ãƒ€ãƒƒã‚·ãƒ¥ã§ãªãã€ç§»å‹•ã—ã¦ã„ãŸã‚‰
+		direciton = velocity.Normalized();// ç§»å‹•é‡ã‹ã‚‰æ–¹å‘ã‚’ä¿å­˜
 	}
 
-	if (Datas::DEBUG_MODE) {// ƒfƒoƒbƒO—p•¶š—ñ
+	if (Datas::DEBUG_MODE) {// ãƒ‡ãƒãƒƒã‚°ç”¨æ–‡å­—åˆ—
 		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
 		Novice::ScreenPrintf(0, 40, "position:%.1f", position.x);
-		Novice::ScreenPrintf(100, 40, "position:%.1f", position.y);
+		Novice::ScreenPrintf(150, 40, "position:%.1f", position.y);
 		Novice::ScreenPrintf(0, 70, "velocity:%.1f", velocity.x);
-		Novice::ScreenPrintf(100, 70, "velocity:%.1f", velocity.y);
+		Novice::ScreenPrintf(150, 70, "velocity:%.1f", velocity.y);
 		Novice::ScreenPrintf(0, 100, "direction:%.1f", direciton.x);
-		Novice::ScreenPrintf(100, 100, "direction:%.1f", direciton.y);
+		Novice::ScreenPrintf(150, 100, "direction:%.1f", direciton.y);
 	}
 }
 
-/// @brief •`‰æˆ—
+/// @brief æç”»å‡¦ç†
 void Player::Draw() {
-	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_TEX);// ƒvƒŒƒCƒ„[•`‰æ
+	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_TEX);// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æç”»
 }
 
 void Player::Move()
 {
-	velocity = { 0.0f,0.0f };// ‰Šú‰»
+	velocity = { 0.0f,0.0f };// åˆæœŸåŒ–
 
-	if (IsCntMode()) {// ƒRƒ“ƒgƒ[ƒ‰[
-		Controller::GetLeftStick(0, l_stick_mag);// ¶ƒXƒeƒBƒbƒNæ“¾
-		velocity = { static_cast<float>(l_stick_mag.x),static_cast<float>(l_stick_mag.y) };// vector2‚ÉƒLƒƒƒXƒg
+	if (IsCntMode()) {// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+		Controller::GetLeftStick(0, l_stick_mag);// å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯å–å¾—
+		velocity = { static_cast<float>(l_stick_mag.x),static_cast<float>(l_stick_mag.y) };// vector2ã«ã‚­ãƒ£ã‚¹ãƒˆ
 	}
-	else {// ƒL[ƒ{[ƒh
+	else {// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
 		if (Key::IsPressed(DIK_W) || Key::IsPressed(DIK_UP)) {
 			velocity.y += 1.0f;
 		}
@@ -81,63 +84,60 @@ void Player::Move()
 		}
 	}
 
-	// ŒvZ
-	velocity = velocity.Normalized() * speed;// ³‹K‰»‚µ‚Ä‘¬“x‚ğ‚©‚¯‚é
-	position += velocity * Delta::getTotalDelta();// ÀÛ‚É‰ÁZ
+	// è¨ˆç®—
+	velocity = velocity.Normalized() * speed;// æ­£è¦åŒ–ã—ã¦é€Ÿåº¦ã‚’ã‹ã‘ã‚‹
+	position += velocity * Delta::getTotalDelta();// å®Ÿéš›ã«åŠ ç®—
 }
 
 void Player::Dash() {
-	if (!isDash) {// ƒ_ƒbƒVƒ…’†‚Å‚È‚¢‚È‚ç“ü—Í‚ğæ‚é
-		if (IsCntMode()) {// ƒRƒ“ƒgƒ[ƒ‰[
-			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RB‚ğ‰Ÿ‚µ‚½‚È‚ç
-				isDash = true;// ƒ_ƒbƒVƒ…’†‚É•ÏX
-				dash_length = 0.0f;// ƒ_ƒbƒVƒ…‚µ‚½’·‚³‚ğ‰Šú‰»
-				velocity = direciton * dash_speed;// •ûŒü‚Éƒ_ƒbƒVƒ…‘¬“x‚ğ‚©‚¯‚é
+	if (!isDash) {// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã§ãªã„ãªã‚‰å…¥åŠ›ã‚’å–ã‚‹
+		if (IsCntMode()) {// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBã‚’æŠ¼ã—ãŸãªã‚‰
+				isDash = true;// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã«å¤‰æ›´
+				dash_length = 0.0f;// ãƒ€ãƒƒã‚·ãƒ¥ã—ãŸé•·ã•ã‚’åˆæœŸåŒ–
+				velocity = direciton * dash_speed;// æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥é€Ÿåº¦ã‚’ã‹ã‘ã‚‹
 			}
 		}
-		else {// ƒL[ƒ{[ƒh
-			if (Key::IsTrigger(DIK_SPACE)) {// SPACE‚ğ‰Ÿ‚µ‚½‚È‚ç
-				isDash = true;// ƒ_ƒbƒVƒ…’†‚É•ÏX
-				dash_length = 0.0f;// ƒ_ƒbƒVƒ…‚µ‚½’·‚³‚ğ‰Šú‰»
-				velocity = direciton * dash_speed;// •ûŒü‚Éƒ_ƒbƒVƒ…‘¬“x‚ğ‚©‚¯‚é
+		else {// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
+			if (Key::IsTrigger(DIK_SPACE)) {// SPACEã‚’æŠ¼ã—ãŸãªã‚‰
+				isDash = true;// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ã«å¤‰æ›´
+				dash_length = 0.0f;// ãƒ€ãƒƒã‚·ãƒ¥ã—ãŸé•·ã•ã‚’åˆæœŸåŒ–
+				velocity = direciton * dash_speed;// æ–¹å‘ã«ãƒ€ãƒƒã‚·ãƒ¥é€Ÿåº¦ã‚’ã‹ã‘ã‚‹
 			}
 		}
 	}
-	else {// ƒ_ƒbƒVƒ…’†‚È‚ç
-		dash_length += Delta::getTotalDelta();// ƒJƒEƒ“ƒgƒtƒŒ[ƒ€‰ÁZ
+	else {// ãƒ€ãƒƒã‚·ãƒ¥ä¸­ãªã‚‰
+		dash_length += Delta::getTotalDelta();// ã‚«ã‚¦ãƒ³ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ åŠ ç®—
 
-		if (Datas::PLAYER_DASH_START_RIGID + Datas::PLAYER_DASH_LEN + Datas::PLAYER_DASH_END_RIGID < dash_length) {// Å‘å‹——£‚Ü‚Åƒ_ƒbƒVƒ…‚µ‚ÄAd’¼‚àI‚í‚Á‚½‚ç
-			isDash = false;// ƒ_ƒbƒVƒ…ƒIƒt
+		if (Datas::PLAYER_DASH_START_RIGID + Datas::PLAYER_DASH_LEN + Datas::PLAYER_DASH_END_RIGID < dash_length) {// æœ€å¤§è·é›¢ã¾ã§ãƒ€ãƒƒã‚·ãƒ¥ã—ã¦ã€ç¡¬ç›´ã‚‚çµ‚ã‚ã£ãŸã‚‰
+			isDash = false;// ãƒ€ãƒƒã‚·ãƒ¥ã‚ªãƒ•
 		}
-		else if (Datas::PLAYER_DASH_LEN < dash_length) {// Å‘å‹——£‚Ü‚Åƒ_ƒbƒVƒ…‚µ‚½‚ç
-			// d’¼
-			// ‰½‚©‚µ‚ç‚Ì‚È‚É‚©AƒAƒjƒ[ƒVƒ‡ƒ“‚¾‚Ì
+		else if (Datas::PLAYER_DASH_LEN < dash_length) {// æœ€å¤§è·é›¢ã¾ã§ãƒ€ãƒƒã‚·ãƒ¥ã—ãŸã‚‰
+			// ç¡¬ç›´
+			// ä½•ã‹ã—ã‚‰ã®ãªã«ã‹ã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã ã®
 		}
-		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// Å‰‚Ìd’¼‚ªI‚í‚Á‚Ä‚½‚ç
-			position += velocity * Delta::getTotalDelta();// ÀÛ‚É‰ÁZ‚µ‚ÄˆÚ“®
+		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// æœ€åˆã®ç¡¬ç›´ãŒçµ‚ã‚ã£ã¦ãŸã‚‰
+			position += velocity * Delta::getTotalDelta();// å®Ÿéš›ã«åŠ ç®—ã—ã¦ç§»å‹•
 		}
 		else {
-			// d’¼
-			// ‰½‚©‚µ‚ç‚Ì‚È‚É‚©AƒAƒjƒ[ƒVƒ‡ƒ“‚¾‚Ì
+			// ç¡¬ç›´
+			// ä½•ã‹ã—ã‚‰ã®ãªã«ã‹ã€ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã ã®
 		}
 	}
 }
 
 void Player::Guard() {
-	isGuard = false;// ‰Šú‰»
+	isGuard = false;// åˆæœŸåŒ–
 
-	if (!isDash) {// ƒ_ƒbƒVƒ…’†‚Å‚È‚¢‚È‚ç“ü—Í‚ğæ‚é
-		if (IsCntMode()) {// ƒRƒ“ƒgƒ[ƒ‰[
-			if (Controller::IsPressedButton(0, Controller::lSHOULDER)) {// Lb‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚È‚ç
-				isGuard = true;// ƒK[ƒh’†‚É‚·‚é
-			}
-		}
-		else {// ƒL[ƒ{[ƒh
-			if (Key::IsPressed(DIK_Z)) {// Z‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚È‚ç
-				isGuard = true;// ƒK[ƒh’†‚É‚·‚é
-			}
+	if (IsCntMode()) {// ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+		if (Controller::IsPressedButton(0, Controller::lSHOULDER)) {// LbãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ãªã‚‰
+			isGuard = true;// ã‚¬ãƒ¼ãƒ‰ä¸­ã«ã™ã‚‹
 		}
 	}
-
+	else {// ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
+		if (Key::IsPressed(DIK_Z)) {// ZãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ãªã‚‰
+			isGuard = true;// ã‚¬ãƒ¼ãƒ‰ä¸­ã«ã™ã‚‹
+		}
+	}
 
 }
