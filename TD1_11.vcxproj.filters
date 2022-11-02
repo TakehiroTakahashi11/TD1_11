@@ -130,6 +130,9 @@
     <ClCompile Include="Boss.cpp">
       <Filter>Module\Obj</Filter>
     </ClCompile>
+    <ClCompile Include="Gauntlets.cpp">
+      <Filter>Module\Obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -286,6 +289,9 @@
       <Filter>Module\Obj</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
+      <Filter>Module\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="Gauntlets.h">
       <Filter>Module\Obj</Filter>
     </ClInclude>
   </ItemGroup>
