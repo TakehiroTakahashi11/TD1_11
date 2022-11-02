@@ -22,14 +22,30 @@ public:
     // PLAYER
     static constexpr float PLAYER_POS_X = Datas::SCREEN_HALF_WIDTH;// 初期ポジションx
     static constexpr float PLAYER_POS_Y = 0.0f;// 初期ポジションy
-    static constexpr int PLAYER_WIDTH = 25;// 幅
-    static constexpr int PLAYER_HEIGHT = 25;// 高さ
+    static constexpr int PLAYER_WIDTH = 64;// 幅
+    static constexpr int PLAYER_HEIGHT = 64;// 高さ
     static constexpr int PLAYER_SPD = 10;// 移動の速度
     static constexpr int PLAYER_DASH_SPD = 30;// ダッシュの速度
+    static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
     static constexpr float PLAYER_DASH_LEN = 10.0f;// ダッシュする時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_START_RIGID = 3.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_END_RIGID = 3.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
-    static Texture PLAYER_TEX;// テクスチャ
+
+    static Texture PLAYER_UP_TEX;// テクスチャ
+    static Texture PLAYER_DOWN_TEX;
+    static Texture PLAYER_LEFT_TEX;
+    static Texture PLAYER_RIGHT_TEX;
+    static Texture PLAYER_UP_LEFT_TEX;
+    static Texture PLAYER_UP_RIGHT_TEX;
+    static Texture PLAYER_DOWN_LEFT_TEX;
+    static Texture PLAYER_DOWN_RIGHT_TEX;
+
+    // =========================
+    // GAUNTLETS
+    static constexpr int GAUNTLET_WIDTH = 40;// 幅
+    static constexpr int GAUNTLET_HEIGHT = 40;// 高さ
+    static constexpr int GAUNTLET_PLAYER_DISTANCE = 60;// プレイヤーとガントレットとの距離(中心座標)
+    static Texture GAUNTLET_TEX;// テクスチャ
 
     // =========================
     // BOSS

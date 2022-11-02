@@ -2,7 +2,7 @@
 #include "Datas.h"
 #include "Camera.h"
 
-Boss::Boss(Game* pGame) : Obj(pGame)
+Boss::Boss(Game& pGame) : Obj(pGame)
 {
 	Init();
 }

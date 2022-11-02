@@ -56,6 +56,8 @@ private:
 private:
 	// プレイヤー
 	class Player* player;
+	// ガントレット
+	class Gauntlets* gauntlets;
 	// ボス
 	class Boss* boss;
 
@@ -66,6 +68,7 @@ private:
 
 public:
 	Player& getPlayer() { return *player; }
+	Gauntlets& getGauntlets() { return *gauntlets; }
 	Boss& getBoss() { return *boss; }
 	Camera& getCameraMain() { return *mCameraMain; }
 	Camera& getCameraSub() { return *mCameraSub; }

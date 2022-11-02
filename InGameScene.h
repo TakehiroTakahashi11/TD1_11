@@ -4,7 +4,7 @@
 class InGameScene : public BaseScene
 {
 public:
-	InGameScene(Game* pGame);
+	InGameScene(Game& pGame);
 
 	void Init() override;
 	void Update() override;

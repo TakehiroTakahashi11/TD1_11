@@ -5,7 +5,7 @@
 class BaseScene : public GameObject
 {
 public:
-	BaseScene(class Game* pGame);
+	BaseScene(class Game& pGame);
 	virtual ~BaseScene();
 
 	virtual void Init() = 0;

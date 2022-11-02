@@ -9,7 +9,7 @@ class Camera : public GameObject
 public:
 	/// @brief コンストラクタ
 	/// @param pGame ゲームのポインタ
-	Camera(class Game* pGame);
+	Camera(class Game& pGame);
 	
 	/// @brief デストラクタ
 	~Camera();

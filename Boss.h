@@ -6,7 +6,7 @@ class Boss : public Obj
 public:
 	/// @brief コンストラクタ
 	/// @param pGame ゲームのポインタ
-	Boss(class Game* pGame);
+	Boss(class Game& pGame);
 
 	/// @brief 初期化処理
 	void Init() override;

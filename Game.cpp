@@ -23,8 +23,8 @@ Game::Game()
     My::SetSrand();
 
     // シーンポインタ
-    pScene[kLoadScene] = new LoadScene(this);
-    pScene[kInGameScene] = new InGameScene(this);
+    pScene[kLoadScene] = new LoadScene(*this);
+    pScene[kInGameScene] = new InGameScene(*this);
 
     // 初期シーンをタイトルに
     mNowScene = kLoadScene;
@@ -48,11 +48,12 @@ Game::Game()
     ControllerMode = false;
 
     // 生成
-    mCameraMain = new Camera(this);
-    mCameraSub = new Camera(this);
-    mCameraUI = new Camera(this);
-    player = new Player(this);
-    boss = new Boss(this);
+    mCameraMain = new Camera(*this);
+    mCameraSub = new Camera(*this);
+    mCameraUI = new Camera(*this);
+    gauntlets = new Gauntlets(*this);
+    player = new Player(*this);
+    boss = new Boss(*this);
 }
 
 Game::~Game()

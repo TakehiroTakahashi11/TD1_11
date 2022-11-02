@@ -1,12 +1,25 @@
 #pragma once
-#include "Player.h"
+#include "Obj.h"
 
-class Gauntlets : public Player
+class Gauntlets : public Obj
 {
 public:
-	Gauntlets();
+	Gauntlets(class Game& game);
 	~Gauntlets();
 
+	void Init() override;
+	void Update() override;
+	void Draw() override;
+
+	bool GetIsBreak() { return isBreak; }
+
 private:
-	Vector2D Gauntlets_pos;
+	// 座標
+	Vector2D gauntlets_pos;
+
+	// アニメーション
+	int x_anim;
+
+	// 壊れているか
+	bool isBreak;
 };

@@ -9,7 +9,7 @@
 #include "Boss.h"
 #include "Game.h"
 
-InGameScene::InGameScene(Game* pGame) : BaseScene(pGame)
+InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
 {
 }
 
@@ -17,17 +17,17 @@ void InGameScene::Init() {
 	getCameraMain().setScale(1.0f);
 
 	// ‰Šú‰»‚ð”²‚¯‚é
-	getGame()->ChangePhase(Game::kUpdate);
+	getGame().ChangePhase(Game::kUpdate);
 }
 
 void InGameScene::Update() {
-	getGame()->getPlayer().Update();
-	getGame()->getBoss().Update();
+	getGame().getPlayer().Update();
+	getGame().getBoss().Update();
 }
 
 void InGameScene::Draw() {
-	getGame()->getPlayer().Draw();
-	getGame()->getBoss().Draw();
+	getGame().getPlayer().Draw();
+	getGame().getBoss().Draw();
 }
 
 void InGameScene::Finalise() {
