@@ -6,14 +6,13 @@
 #include "KeyMouseInput.h"
 #include "Delta.h"
 #include "Novice.h"
-
-Player::Player()
-{
-}
+#include "Gauntlets.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
-Player::Player(Game* pGame) 
+Player::Player(Game& pGame) 
 	: Obj(pGame)
 {
 	Init();
@@ -24,7 +23,7 @@ void Player::Init() {
 	l_stick_mag = { 0,0 };
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	velocity = { 0.0f,0.0f };
-	direciton = { 0.0f,0.0f };
+	direction = { 0.0f,0.0f };
 	width = Datas::PLAYER_WIDTH;
 	height = Datas::PLAYER_HEIGHT;
 	speed = Datas::PLAYER_SPD;
@@ -32,6 +31,8 @@ void Player::Init() {
 	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
 	isGuard = false;
+	enum_direction = kUp;
+	getGauntlets().Init();
 }
 
 /// @brief 更新処理
@@ -41,39 +42,91 @@ void Player::Update() {
 	if (!isDash) {// ダッシュ中でないなら
 		Guard();// 防御処理
 	}
-	if (!isDash && !isGuard) {// ダッシュ中、ガード中でないなら
+	if (!isDash) {// ダッシュ中、ガード中でないなら
 		Move();// 移動処理
 	}
 
-	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、移動していたら
-		direciton = velocity.Normalized();// 移動量から方向を保存
+	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
+		direction = velocity.Normalized();// 移動量から方向を保存
+		enum_direction = DirectionConv();// enumに変換して保存
 	}
+
+	getGauntlets().Update();// ガントレットの更新処理
 
 	if (Datas::DEBUG_MODE) {// デバッグ用文字列
 		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
+		if (isDash) {
+			Novice::ScreenPrintf(50, 0, "Dash");
+		}
+		if (isGuard) {
+			Novice::ScreenPrintf(50, 0, "Guard");
+		}
 		Novice::ScreenPrintf(0, 40, "position:%.1f", position.x);
 		Novice::ScreenPrintf(150, 40, "position:%.1f", position.y);
-		Novice::ScreenPrintf(0, 70, "velocity:%.1f", velocity.x);
-		Novice::ScreenPrintf(150, 70, "velocity:%.1f", velocity.y);
-		Novice::ScreenPrintf(0, 100, "direction:%.1f", direciton.x);
-		Novice::ScreenPrintf(150, 100, "direction:%.1f", direciton.y);
+		Novice::ScreenPrintf(0, 60, "velocity:%.1f", velocity.x);
+		Novice::ScreenPrintf(150, 60, "velocity:%.1f", velocity.y);
+		Novice::ScreenPrintf(0, 80, "direction:%.1f", direction.x);
+		Novice::ScreenPrintf(150, 80, "direction:%.1f", direction.y);
 	}
 }
 
 /// @brief 描画処理
 void Player::Draw() {
-	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_TEX);// プレイヤー描画
+	if (!getGauntlets().GetIsBreak() && direction.x < 0) {// プレイヤーが左向きならば
+		getGauntlets().Draw();// プレイヤーより後に描画
+
+		if (Datas::DEBUG_MODE) {// デバッグ用文字列
+			Novice::ScreenPrintf(0, 140, "gauntlet_wo_ushiro_ni_byouga");
+		}
+	}
+
+	// プレイヤー描画
+	switch (enum_direction)
+	{
+	case Player::kDown:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_DOWN_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	case Player::kR:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_RIGHT_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	case Player::kL:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_LEFT_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	case Player::kDownR:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_DOWN_RIGHT_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	case Player::kDownL:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_DOWN_LEFT_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	case Player::kUpR:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_UP_RIGHT_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	case Player::kUpL:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_UP_LEFT_TEX, move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	default:
+	case Player::kUp:
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f}, width, height }, Datas::PLAYER_UP_TEX,move_anim / Datas::PLAYER_ANIM_SPD);
+		break;
+	}
+
+	if (!getGauntlets().GetIsBreak() && 0 <= direction.x) {// プレイヤーが右向きならば
+		getGauntlets().Draw();// プレイヤーより前に描画
+
+		if (Datas::DEBUG_MODE) {// デバッグ用文字列
+			Novice::ScreenPrintf(0, 140, "gauntlet_wo_mae_ni_byouga");
+		}
+	}
 }
 
 void Player::Move()
 {
-	velocity = { 0.0f,0.0f };// 初期化
-
 	if (IsCntMode()) {// コントローラー
 		Controller::GetLeftStick(0, l_stick_mag);// 左スティック取得
 		velocity = { static_cast<float>(l_stick_mag.x),static_cast<float>(l_stick_mag.y) };// vector2にキャスト
 	}
 	else {// キーボード
+		velocity = { 0.0f,0.0f };// 初期化
 		if (Key::IsPressed(DIK_W) || Key::IsPressed(DIK_UP)) {
 			velocity.y += 1.0f;
 		}
@@ -90,7 +143,21 @@ void Player::Move()
 
 	// 計算
 	velocity = velocity.Normalized() * speed;// 正規化して速度をかける
-	position += velocity * Delta::getTotalDelta();// 実際に加算
+	if (!isGuard) {// ガード中でないなら
+		position += velocity * Delta::getTotalDelta();// 実際に加算、移動
+	}
+
+	// アニメーション
+	if (velocity.x != 0.0f || velocity.y != 0.0f) {
+		move_anim += Delta::getTotalDelta();// 動いていたらアニメーション
+	}
+	else {
+		move_anim = 0.0f;
+	}
+
+	if (3.0f * Datas::PLAYER_ANIM_SPD < move_anim) {// 最大コマ
+		move_anim = 0.0f;
+	}
 }
 
 void Player::Dash() {
@@ -99,14 +166,14 @@ void Player::Dash() {
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
-				velocity = direciton * dash_speed;// 方向にダッシュ速度をかける
+				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
 		else {// キーボード
 			if (Key::IsTrigger(DIK_SPACE)) {// SPACEを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
-				velocity = direciton * dash_speed;// 方向にダッシュ速度をかける
+				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
 	}
@@ -143,5 +210,71 @@ void Player::Guard() {
 			isGuard = true;// ガード中にする
 		}
 	}
+}
 
+Player::DirectionEnum Player::DirectionConv()
+{
+	Vector2D vec[4];
+	float rad;
+	for (int i = 0; i < 4; i++) {
+		rad = ((22.5 + i * 45) * M_PI) / 180;
+		vec[i].x = cosf(rad);
+		vec[i].y = sinf(rad);
+	}
+	float dot_result[8];
+	for (int i = 0; i < 4; i++) {
+		dot_result[i] = vec[i].Dot(direction);
+		dot_result[i + 4] = -dot_result[i];
+	}
+
+	if (dot_result[0] > 0 && dot_result[3] >= 0){
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "Up");
+		}
+		return DirectionEnum::kUp;
+	}
+	if (dot_result[1] > 0 && dot_result[4] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "UpLeft");
+		}
+		return DirectionEnum::kUpL;
+	}
+	if (dot_result[2] > 0 && dot_result[5] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "Left");
+		}
+		return DirectionEnum::kL;
+	}
+	if (dot_result[3] > 0 && dot_result[6] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "DownLeft");
+		}
+		return DirectionEnum::kDownL;
+	}
+	if (dot_result[4] > 0 && dot_result[7] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "Down");
+		}
+		return DirectionEnum::kDown;
+	}
+	if (dot_result[5] > 0 && dot_result[0] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "DownRight");
+		}
+		return DirectionEnum::kDownR;
+	}
+	if (dot_result[6] > 0 && dot_result[1] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "Right");
+		}
+		return DirectionEnum::kR;
+	}
+	if (dot_result[7] > 0 && dot_result[2] >= 0) {
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(270, 80, "UpRight");
+		}
+		return DirectionEnum::kUpR;
+	}
+
+	return DirectionEnum::kUp;
 }
