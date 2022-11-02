@@ -12,10 +12,10 @@ void LoadScene::Init() {
 	mThread = std::thread(Datas::LoadTexture);
 }
 void LoadScene::Update() {
-	if (Datas::GetIsEnd) {
-		// ƒtƒ@ƒCƒiƒ‰ƒCƒY‚ÉˆÚs
+	if (Datas::GetIsEnd()) {
+		// ãƒ•ã‚¡ã‚¤ãƒŠãƒ©ã‚¤ã‚ºã«ç§»è¡Œ
 		getGame().ChangePhase(Game::kFinalise);
-		// ƒXƒŒƒbƒh‚Æ“¯Šú
+		// ã‚¹ãƒ¬ãƒƒãƒ‰ã¨åŒæœŸ
 		mThread.join();
 	}
 }
