@@ -29,6 +29,8 @@ Camera::~Camera(){}
 /// @param position カメラ位置(ワールド座標)
 void Camera::setPosition(const Vector2D& position) {
 	mPosition = position;
+	mPosition.x -= Datas::SCREEN_HALF_WIDTH;
+	mPosition.y -= Datas::SCREEN_HALF_HEIGHT;
 	setCenterPos();
 }
 
@@ -36,6 +38,8 @@ void Camera::setPosition(const Vector2D& position) {
 /// @param velocity 移動ベクトル
 void Camera::MovePosition(const Vector2D& velocity) {
 	mPosition += velocity;
+	mPosition.x -= Datas::SCREEN_HALF_WIDTH;
+	mPosition.y -= Datas::SCREEN_HALF_HEIGHT;
 	setCenterPos();
 }
 

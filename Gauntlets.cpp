@@ -3,6 +3,10 @@
 #include "Camera.h"
 #include "Datas.h"
 #include "Player.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
+#include "MyFunc.h"
+#include "Quad.h"
 
 Gauntlets::Gauntlets(Game& game) : Obj(game)
 {
@@ -23,9 +27,17 @@ void Gauntlets::Init()
 void Gauntlets::Update()
 {
 	Vector2D pos = getPlayer().GetPosition();// プレイヤー座標取得
+	Vector2D dir = getPlayer().GetDirection();
 
 	if (getPlayer().GetIsGuard()) {// ガード中なら
-		pos += getPlayer().GetDirection() * Datas::GAUNTLET_PLAYER_DISTANCE;// 正面に描画
+		pos += dir * Datas::GAUNTLET_PLAYER_GUARD_DISTANCE;
+	}
+	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
+		pos += dir * Datas::GAUNTLET_PLAYER_DASH_DISTANCE;
+	}
+	else {// ムーブ中なら
+		dir = dir.Rotated(270 * M_PI / 180);
+		pos += dir * Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
 	}
 
 	gauntlets_pos = pos;// 反映
@@ -33,5 +45,18 @@ void Gauntlets::Update()
 
 void Gauntlets::Draw()
 {
-	getCameraMain().DrawQuad({ {gauntlets_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,gauntlets_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f},Datas::GAUNTLET_WIDTH,Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_TEX, x_anim, 0, 0x000000FF);
+	Quad temp = { { gauntlets_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,gauntlets_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f }, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT };
+
+	if (getPlayer().GetIsGuard()) {// ガード中なら
+		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + 90 * M_PI / 180, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+	}
+	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
+		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+	}
+	else {// ムーブ中なら
+		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+	}
 }
