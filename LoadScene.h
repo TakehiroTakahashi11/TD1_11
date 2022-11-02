@@ -5,7 +5,7 @@
 class LoadScene : public BaseScene
 {
 public:
-	LoadScene(Game& pGame);
+	LoadScene(Game* pGame);
 
 	void Init() override;
 	void Update() override;

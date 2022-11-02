@@ -5,9 +5,12 @@
 class Obj : public GameObject
 {
 public:
+	/// @brief デフォルトコンストラクタ
+	Obj();
+
 	/// @brief コンストラクタ
 	/// @param pGame ゲームのポインタ
-	Obj(class Game& pGame);
+	Obj(class Game* pGame);
 
 	/// @brief デストラクタ
 	virtual ~Obj();
