@@ -24,8 +24,8 @@ public:
     static constexpr float PLAYER_POS_Y = 0.0f;// 初期ポジションy
     static constexpr int PLAYER_WIDTH = 25;// 幅
     static constexpr int PLAYER_HEIGHT = 25;// 高さ
-    static constexpr int PLAYER_SPD = 20;// 移動の速度
-    static constexpr int PLAYER_DASH_SPD = 50;// ダッシュの速度
+    static constexpr int PLAYER_SPD = 10;// 移動の速度
+    static constexpr int PLAYER_DASH_SPD = 30;// ダッシュの速度
     static constexpr float PLAYER_DASH_LEN = 10.0f;// ダッシュする時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_START_RIGID = 3.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_END_RIGID = 3.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
