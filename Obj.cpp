@@ -1,10 +1,12 @@
 #include "Obj.h"
 
-/// @brief コンストラクタ
-/// @param pGame ゲームのポインタ
+/// @brief 繧ｳ繝ｳ繧ｹ繝医Λ繧ｯ繧ｿ
+/// @param pGame 繧ｲ繝ｼ繝縺ｮ繝昴う繝ｳ繧ｿ
 Obj::Obj(Game& pGame):GameObject(pGame)
 {
+	height = 0.0f;
+	width = 0.0f;
 }
 
-/// @brief デストラクタ
+/// @brief 繝�繧ｹ繝医Λ繧ｯ繧ｿ
 Obj::~Obj(){}
