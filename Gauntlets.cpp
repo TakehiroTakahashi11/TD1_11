@@ -3,6 +3,8 @@
 #include "Camera.h"
 #include "Datas.h"
 #include "Player.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 Gauntlets::Gauntlets(Game& game) : Obj(game)
 {
@@ -24,8 +26,11 @@ void Gauntlets::Update()
 {
 	Vector2D pos = getPlayer().GetPosition();// プレイヤー座標取得
 
-	if (getPlayer().GetIsGuard()) {// ガード中なら
+	if (getPlayer().GetIsGuard() || getPlayer().GetIsDash()) {// ガード中なら
 		pos += getPlayer().GetDirection() * Datas::GAUNTLET_PLAYER_DISTANCE;// 正面に描画
+	}
+	else {
+		pos += getPlayer().GetDirection().Rotated(270 * M_PI / 180) * Datas::GAUNTLET_PLAYER_DISTANCE;
 	}
 
 	gauntlets_pos = pos;// 反映
