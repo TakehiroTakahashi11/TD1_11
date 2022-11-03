@@ -24,6 +24,14 @@ public:
 	void PtoBCollision();
 
 private:
+	// ノックバック
+	void SetKnockBack();
+	void KnockBack();
+
+private:
+	// ノックバック
+	bool isKnockBack;
+	Vector2D knockBackVel;
 
 	// 浮いているか
 	bool isFloating;
