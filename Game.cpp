@@ -8,7 +8,7 @@
 #include "ControllerInput.h"
 #include "Datas.h"
 #include "Delta.h"
-#include "EfffectManager.h"
+#include "EffectManager.h"
 #include "FieldManager.h"
 #include "Player.h"
 #include "Camera.h"
@@ -40,6 +40,11 @@ Game::Game()
     // フルスクリーン
     if (Datas::FULL_SCREEN_MODE) {
         Novice::SetWindowMode(kFullscreen);
+    }
+
+    // デバッグモードなら速度変更
+    if (Datas::DEBUG_MODE) {
+        Delta::SetDynDelta(Datas::DEBUG_SPEED);
     }
 
     // 初期化

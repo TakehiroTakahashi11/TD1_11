@@ -4,7 +4,7 @@
 #include "Quad.h"
 #include "KeyMouseInput.h"
 #include "Game.h"
-#include "EfffectManager.h"
+#include "EffectManager.h"
 #include "Player.h"
 #include "Boss.h"
 #include "Game.h"

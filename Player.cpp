@@ -10,6 +10,7 @@
 #include "MyFunc.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "EffectManager.h"
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
@@ -24,7 +25,7 @@ void Player::Init() {
 	l_stick_mag = { 0,0 };
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	velocity = { 0.0f,0.0f };
-	direction = { 0.0f,0.0f };
+	direction = { 0.0f,1.0f };
 	width = Datas::PLAYER_WIDTH;
 	height = Datas::PLAYER_HEIGHT;
 	speed = Datas::PLAYER_SPD;
@@ -32,8 +33,9 @@ void Player::Init() {
 	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
 	isGuard = false;
-	enum_direction = kUp;
 	getGauntlets().Init();
+	health = Datas::PLAYER_MAX_HEALTH;
+	taken_damage = 0.0f;
 }
 
 /// @brief 更新処理
@@ -49,22 +51,20 @@ void Player::Update() {
 
 	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
 		direction = velocity.Normalized();// 移動量から方向を保存
-		enum_direction = DirectionConv();// enumに変換して保存
 	}
 
 	// カメラ追尾
 	 getCameraMain().setPosition(position);
-	 getCameraMain().setScale(2.0f);
 
 	getGauntlets().Update();// ガントレットの更新処理
 
 	if (Datas::DEBUG_MODE) {// デバッグ用文字列
 		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
 		if (isDash) {
-			Novice::ScreenPrintf(50, 0, "Dash");
+			Novice::ScreenPrintf(150, 0, "Dash");
 		}
 		if (isGuard) {
-			Novice::ScreenPrintf(50, 0, "Guard");
+			Novice::ScreenPrintf(150, 0, "Guard");
 		}
 		Novice::ScreenPrintf(0, 40, "position:%.1f", position.x);
 		Novice::ScreenPrintf(150, 40, "position:%.1f", position.y);
@@ -121,7 +121,7 @@ void Player::Move()
 		move_anim = 0.0f;
 	}
 
-	if (4.0f * Datas::PLAYER_ANIM_SPD < move_anim) {// 最大コマ
+	if (Datas::PLAYER_ANIM_MAX * Datas::PLAYER_ANIM_SPD < move_anim) {// 最大コマ
 		move_anim = 0.0f;
 	}
 }
@@ -176,62 +176,4 @@ void Player::Guard() {
 			isGuard = true;// ガード中にする
 		}
 	}
-}
-
-Player::DirectionEnum Player::DirectionConv()
-{
-	switch (My::VectorDirection8(direction))
-	{
-	default:
-	case 0:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Up");
-		}
-		return DirectionEnum::kUp;
-		break;
-	case 1:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "UpLeft");
-		}
-		return DirectionEnum::kUpL;
-		break;
-	case 2:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Left");
-		}
-		return DirectionEnum::kL;
-		break;
-	case 3:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "DownLeft");
-		}
-		return DirectionEnum::kDownL;
-		break;
-	case 4:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Down");
-		}
-		return DirectionEnum::kDown;
-		break;
-	case 5:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "DownRight");
-		}
-		return DirectionEnum::kDownR;
-		break;
-	case 6:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Right");
-		}
-		return DirectionEnum::kR;
-		break;
-	case 7:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "UpRight");
-		}
-		return DirectionEnum::kUpR;
-		break;
-	}
-
-	return DirectionEnum::kUp;
 }

@@ -102,11 +102,11 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ClickEffect.cpp" />
+    <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="Datas.cpp" />
     <ClCompile Include="Delta.cpp" />
-    <ClCompile Include="EfffectManager.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FieldManager.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -157,11 +157,11 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="ClickEffect.h" />
+    <ClInclude Include="HitEffect.h" />
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="Datas.h" />
     <ClInclude Include="Delta.h" />
-    <ClInclude Include="EfffectManager.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FieldManager.h" />
     <ClInclude Include="Game.h" />

@@ -100,10 +100,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="EfffectManager.cpp">
+    <ClCompile Include="EffectManager.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
-    <ClCompile Include="ClickEffect.cpp">
+    <ClCompile Include="HitEffect.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
     <ClCompile Include="FieldManager.cpp">
@@ -258,13 +258,13 @@
     <ClInclude Include="Datas.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="EfffectManager.h">
+    <ClInclude Include="EffectManager.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="BaseEffect.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="ClickEffect.h">
+    <ClInclude Include="HitEffect.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="FieldManager.h">
