@@ -90,7 +90,6 @@ namespace My {
     {
         Vector2D after = { pos2.x - pos.x,pos2.y - pos.y };
         after.y *= rad_x / rad_y;
-        Novice::ScreenPrintf(500, 500, "%f", after.Length() - 90);
         if (after.Length() <= rad_x) {
             return true;
         }
