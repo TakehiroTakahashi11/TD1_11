@@ -152,6 +152,8 @@ void Game::Update() {
 
 /// @brief 描画処理
 void Game::Draw() {
+    Novice::DrawBox(0, 0, static_cast<int>(Datas::SCREEN_WIDTH), static_cast<int>(Datas::SCREEN_HEIGHT), 0.0f, 0x1B182CFF, kFillModeSolid);
+
     // 現在のシーンに応じて描画処理
     pScene[mNowScene]->Draw();
 

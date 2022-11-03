@@ -17,8 +17,14 @@ public:
 	/// @brief 描画処理
 	void Draw() override;
 
-private:
+	/// @brief 衝突判定
+	void Collision();
+
+	/// @brief プレイヤーとボスの判定
+	void PtoBCollision();
 
 private:
-	
+
+	// 浮いているか
+	bool isFloating;
 };

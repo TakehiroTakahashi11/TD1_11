@@ -23,7 +23,7 @@ void HitEffect::Init()
 		//エフェクトの位置、速度、サイズ初期化
 		hitEffect[i].position = position;
 		hitEffect[i].velocity = { My::RandomF(5.0f, 7.0f, 1), My::RandomF(5.0f, 7.0f, 1) };
-		hitEffect[i].size = { 16, 16 };
+		hitEffect[i].size = { Datas::EFFECTS_HIT_SIZE, Datas::EFFECTS_HIT_SIZE };
 
 		//エフェクトが向かう方向をランダムにする
 		hitEffect[i].theta = My::Random(0, 360);
@@ -64,7 +64,7 @@ void HitEffect::Draw()
 {
 	for (int i = 0; i < HitEffectMaxNum; i++) {
 		if (!hitEffect[i].isEnd) {
-			getCameraMain().DrawQuad({ {hitEffect[i].position},hitEffect[i].size.x,hitEffect[i].size.y }, Datas::EFFECTS_HIT_TEX);
+			getCameraMain().DrawQuad({ {hitEffect[i].position.x - hitEffect[i].size.x * 0.5f,hitEffect[i].position.y - hitEffect[i].size.y * 0.5f},hitEffect[i].size.x,hitEffect[i].size.y }, Datas::EFFECTS_HIT_TEX);
 		}
 	}
 }

@@ -5,7 +5,7 @@
 
 Texture Datas::PLAYER_TEX = Texture(32, 32);
 Texture Datas::GAUNTLET_TEX = Texture(64, 64);
-Texture Datas::BOSS_TEX = Texture(BOSS_WIDTH, BOSS_HEIGHT);
+Texture Datas::BOSS1_TEX = Texture(256, 256);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
 Texture Datas::MouseTex = Texture(16, 16);
 Texture Datas::BackGroundTex = Texture(1920, 1080);
@@ -16,7 +16,7 @@ void Datas::LoadTexture()
 	Per++;
 	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntret/Gauntret_New.png"));
 	Per++;
-	BOSS_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
+	BOSS1_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss1/Boss1.png"));
 	Per++;
 	EFFECTS_HIT_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
