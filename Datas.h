@@ -15,17 +15,17 @@ public:
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
     // モード
-    static constexpr bool DEBUG_MODE = false;// デバッグ用モードにするか
-    static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
     static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
+    static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
+    static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
 
     // =========================
     // PLAYER
     // パラメータ
     static constexpr float PLAYER_POS_X = Datas::SCREEN_HALF_WIDTH;// 初期ポジションx
     static constexpr float PLAYER_POS_Y = 0.0f;// 初期ポジションy
-    static constexpr float PLAYER_MAX_HEALTH = 300.0f;//初期体力
+    static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
     static constexpr float PLAYER_MAX_INV = 5.0f;// 無敵時間
     static constexpr int PLAYER_SPD = 10;// 移動の速度
     static constexpr int PLAYER_DASH_SPD = 30;// ダッシュの速度
@@ -50,6 +50,8 @@ public:
     // GAUNTLETS
     static constexpr int GAUNTLET_WIDTH = 128;// 幅
     static constexpr int GAUNTLET_HEIGHT = 128;// 高さ
+    static constexpr float GAUNTLET_MAX_HEALTH = 300.0f;// 最大耐久力
+    static constexpr float GAUNTLET_KNOCKBACK_POWER = 10.0f;// ノックバック距離
 
     // アニメーション
     static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 60;// プレイヤーとガントレットとの距離(通常)
