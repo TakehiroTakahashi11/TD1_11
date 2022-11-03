@@ -54,7 +54,6 @@ void Player::Update() {
 
 	// カメラ追尾
 	 getCameraMain().setPosition(position);
-	 getCameraMain().setScale(2.0f);
 
 	getGauntlets().Update();// ガントレットの更新処理
 
@@ -121,7 +120,7 @@ void Player::Move()
 		move_anim = 0.0f;
 	}
 
-	if (4.0f * Datas::PLAYER_ANIM_SPD < move_anim) {// 最大コマ
+	if (Datas::PLAYER_ANIM_MAX * Datas::PLAYER_ANIM_SPD < move_anim) {// 最大コマ
 		move_anim = 0.0f;
 	}
 }

@@ -11,9 +11,9 @@ Texture Datas::BackGroundTex = Texture(1920, 1080);
 
 void Datas::LoadTexture()
 {
-	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Up.png"));
+	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_New.png"));
 	Per++;
-	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntret/Gauntret_Up.png"));
+	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntret/Gauntret_New.png"));
 	Per++;
 	BOSS_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;

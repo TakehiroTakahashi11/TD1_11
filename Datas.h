@@ -27,6 +27,7 @@ public:
     static constexpr int PLAYER_SPD = 10;// 移動の速度
     static constexpr int PLAYER_DASH_SPD = 30;// ダッシュの速度
     static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
+    static constexpr float PLAYER_ANIM_MAX = 8.0f;// 移動アニメーション最大コマ
     static constexpr float PLAYER_DASH_LEN = 10.0f;// ダッシュする時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_START_RIGID = 3.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_END_RIGID = 3.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
@@ -37,9 +38,9 @@ public:
     // GAUNTLETS
     static constexpr int GAUNTLET_WIDTH = 64;// 幅
     static constexpr int GAUNTLET_HEIGHT = 64;// 高さ
-    static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 50;// プレイヤーとガントレットとの距離(通常)
-    static constexpr int GAUNTLET_PLAYER_GUARD_DISTANCE = 20;// プレイヤーとガントレットとの距離(ガード中)
-    static constexpr int GAUNTLET_PLAYER_DASH_DISTANCE = 35;// プレイヤーとガントレットとの距離(ダッシュ中)
+    static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 30;// プレイヤーとガントレットとの距離(通常)
+    static constexpr int GAUNTLET_PLAYER_GUARD_DISTANCE = 23;// プレイヤーとガントレットとの距離(ガード中)
+    static constexpr int GAUNTLET_PLAYER_DASH_DISTANCE = 45;// プレイヤーとガントレットとの距離(ダッシュ中)
     static Texture GAUNTLET_TEX;// テクスチャ
 
     // =========================

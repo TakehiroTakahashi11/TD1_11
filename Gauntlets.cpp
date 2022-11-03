@@ -40,12 +40,13 @@ void Gauntlets::Update()
 		pos += dir * Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
 	}
 
-	gauntlets_pos = pos;// îΩâf
+	Vector2D center = { Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_HEIGHT * 0.5f };
+	gauntlets_pos = pos + center;// îΩâf
 }
 
 void Gauntlets::Draw()
 {
-	Quad temp = { { gauntlets_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,gauntlets_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f }, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT };
+	Quad temp = { {0.0f,0.0f},0.0f,0.0f };
 
 	if (getPlayer().GetIsGuard()) {// ÉKÅ[ÉhíÜÇ»ÇÁ
 		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + 90 * M_PI / 180, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
