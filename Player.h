@@ -27,17 +27,6 @@ public:
 		Dash3
 	};
 
-	enum DirectionEnum {
-		kDown,
-		kUp,
-		kR,
-		kL,
-		kDownR,
-		kDownL,
-		kUpR,
-		kUpL
-	};
-
 private:
 	/// @brief 移動処理
 	void Move();
@@ -48,15 +37,11 @@ private:
 	/// @brief 防御処理
 	void Guard();
 
-	/// @brief 防御処理
-	DirectionEnum DirectionConv();
-
 public:// ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
 	Vector2D GetVelocity() { return velocity; }
 	Vector2D GetDirection() { return direction; }
-	DirectionEnum GetEnumDirection() { return enum_direction; }
 	bool GetIsDash() { return isDash; }
 	bool GetIsGuard() { return isGuard; }
 
@@ -68,7 +53,6 @@ private:
 	Vector2D velocity;
 	// 方向
 	Vector2D direction;
-	DirectionEnum enum_direction;
 	// 速度
 	float speed;
 

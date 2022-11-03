@@ -25,7 +25,7 @@ void Player::Init() {
 	l_stick_mag = { 0,0 };
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	velocity = { 0.0f,0.0f };
-	direction = { 0.0f,0.0f };
+	direction = { 0.0f,1.0f };
 	width = Datas::PLAYER_WIDTH;
 	height = Datas::PLAYER_HEIGHT;
 	speed = Datas::PLAYER_SPD;
@@ -33,7 +33,6 @@ void Player::Init() {
 	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
 	isGuard = false;
-	enum_direction = kUp;
 	getGauntlets().Init();
 }
 
@@ -50,7 +49,6 @@ void Player::Update() {
 
 	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
 		direction = velocity.Normalized();// 移動量から方向を保存
-		enum_direction = DirectionConv();// enumに変換して保存
 	}
 
 	// カメラ追尾
@@ -176,62 +174,4 @@ void Player::Guard() {
 			isGuard = true;// ガード中にする
 		}
 	}
-}
-
-Player::DirectionEnum Player::DirectionConv()
-{
-	switch (My::VectorDirection8(direction))
-	{
-	default:
-	case 0:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Up");
-		}
-		return DirectionEnum::kUp;
-		break;
-	case 1:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "UpLeft");
-		}
-		return DirectionEnum::kUpL;
-		break;
-	case 2:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Left");
-		}
-		return DirectionEnum::kL;
-		break;
-	case 3:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "DownLeft");
-		}
-		return DirectionEnum::kDownL;
-		break;
-	case 4:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Down");
-		}
-		return DirectionEnum::kDown;
-		break;
-	case 5:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "DownRight");
-		}
-		return DirectionEnum::kDownR;
-		break;
-	case 6:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "Right");
-		}
-		return DirectionEnum::kR;
-		break;
-	case 7:
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(300, 80, "UpRight");
-		}
-		return DirectionEnum::kUpR;
-		break;
-	}
-
-	return DirectionEnum::kUp;
 }

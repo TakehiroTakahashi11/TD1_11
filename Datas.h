@@ -15,7 +15,7 @@ public:
     static constexpr float SCREEN_HALF_WIDTH = SCREEN_WIDTH * 0.5f;
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
     static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
-    static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
+    static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
 
     // =========================
@@ -41,6 +41,9 @@ public:
     static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 30;// プレイヤーとガントレットとの距離(通常)
     static constexpr int GAUNTLET_PLAYER_GUARD_DISTANCE = 23;// プレイヤーとガントレットとの距離(ガード中)
     static constexpr int GAUNTLET_PLAYER_DASH_DISTANCE = 45;// プレイヤーとガントレットとの距離(ダッシュ中)
+    static constexpr float GAUNTLET_GUARD_DIR_SPD = 15.0f;// ガード時、ガード解除時の回転の速さ
+    static constexpr float GAUNTLET_DASH_DIS_SPD = 1.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(縦)
+    static constexpr float GAUNTLET_DASH_DIR_SPD = 15.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(横)
     static Texture GAUNTLET_TEX;// テクスチャ
 
     // =========================

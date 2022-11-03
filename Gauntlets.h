@@ -18,7 +18,13 @@ private:
 	Vector2D gauntlets_pos;
 
 	// 耐久力
-	
+	float health;
+
+	// ガードアニメーション角度
+	float guard_dir;
+	// ダッシュアニメーション
+	float dash_dis;
+	float dash_dir;
 
 	// アニメーション
 	int x_anim;
