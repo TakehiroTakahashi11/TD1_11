@@ -10,6 +10,7 @@
 #include "MyFunc.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "EffectManager.h"
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
@@ -60,10 +61,10 @@ void Player::Update() {
 	if (Datas::DEBUG_MODE) {// デバッグ用文字列
 		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
 		if (isDash) {
-			Novice::ScreenPrintf(50, 0, "Dash");
+			Novice::ScreenPrintf(150, 0, "Dash");
 		}
 		if (isGuard) {
-			Novice::ScreenPrintf(50, 0, "Guard");
+			Novice::ScreenPrintf(150, 0, "Guard");
 		}
 		Novice::ScreenPrintf(0, 40, "position:%.1f", position.x);
 		Novice::ScreenPrintf(150, 40, "position:%.1f", position.y);

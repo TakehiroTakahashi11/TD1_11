@@ -15,7 +15,7 @@ public:
     static constexpr float SCREEN_HALF_WIDTH = SCREEN_WIDTH * 0.5f;
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
     static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
-    static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
+    static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
 
     // =========================
@@ -50,6 +50,12 @@ public:
     static constexpr int BOSS_WIDTH = 250;// 幅
     static constexpr int BOSS_HEIGHT = 250;// 高さ
     static Texture BOSS_TEX;// テクスチャ
+
+    // =========================
+    // EFFECTS
+    static constexpr int EFFECTS_HIT_MAX_NUM = 30;// ヒットエフェクト最大数
+    static constexpr int EFFECTS_HIT_SIZE = 16;// ヒットエフェクト大きさ
+    static Texture EFFECTS_HIT_TEX;// テクスチャ
 
     // =========================
     // 仮Texture

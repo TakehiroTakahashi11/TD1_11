@@ -8,7 +8,7 @@
 #include "ControllerInput.h"
 #include "Datas.h"
 #include "Delta.h"
-#include "EfffectManager.h"
+#include "EffectManager.h"
 #include "FieldManager.h"
 #include "Player.h"
 #include "Camera.h"

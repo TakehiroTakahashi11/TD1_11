@@ -4,7 +4,7 @@
 enum EffectType {
 	// エフェクト無し
 	NoneEffect,
-	Click,
+	Hit,
 };
 
 class BaseEffect

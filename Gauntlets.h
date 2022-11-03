@@ -17,6 +17,9 @@ private:
 	// 座標
 	Vector2D gauntlets_pos;
 
+	// 耐久力
+	
+
 	// アニメーション
 	int x_anim;
 

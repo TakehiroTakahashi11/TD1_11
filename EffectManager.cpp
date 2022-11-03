@@ -1,6 +1,6 @@
 #include "Game.h"
-#include "EfffectManager.h"
-#include "ClickEffect.h"
+#include "EffectManager.h"
+#include "HitEffect.h"
 
 void EffectManager::Init(Game& Game)
 {
@@ -40,7 +40,6 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 {
 	// 追加するまでループ
 	while (true) {
-
 		// 検索
 		nextIndex++;
 		if (nextIndex >= effectArraySize) {
@@ -52,9 +51,9 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 			// 処理に合わせてcase変更、追加
 			switch (effectType)
 			{
-			case EffectType::Click:
+			case EffectType::Hit:
 				delete effects[nextIndex];// 入ってるのをdelete
-				effects[nextIndex] = new ClickEffect(*pGame, position);// 追加
+				effects[nextIndex] = new HitEffect(*pGame, position);// 追加
 				break;
 			case EffectType::NoneEffect:
 			default:
