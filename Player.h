@@ -44,6 +44,8 @@ public:// ゲッターセッター
 	Vector2D GetDirection() { return direction; }
 	bool GetIsDash() { return isDash; }
 	bool GetIsGuard() { return isGuard; }
+	
+	void SetDamage(float damage) { taken_damage = damage; }
 
 private:
 	// 入力
@@ -55,6 +57,11 @@ private:
 	Vector2D direction;
 	// 速度
 	float speed;
+
+	// 体力
+	float health;
+	// 現在受けたダメージ量
+	float taken_damage;
 
 	// ダッシュの長さ
 	float dash_length;

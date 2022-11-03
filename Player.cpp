@@ -34,6 +34,8 @@ void Player::Init() {
 	isDash = false;
 	isGuard = false;
 	getGauntlets().Init();
+	health = Datas::PLAYER_MAX_HEALTH;
+	taken_damage = 0.0f;
 }
 
 /// @brief 更新処理
