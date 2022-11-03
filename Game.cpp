@@ -42,6 +42,11 @@ Game::Game()
         Novice::SetWindowMode(kFullscreen);
     }
 
+    // デバッグモードなら速度変更
+    if (Datas::DEBUG_MODE) {
+        Delta::SetDynDelta(Datas::DEBUG_SPEED);
+    }
+
     // 初期化
     EffectManager::Init(*this);
     FieldManager::Init(*this);
