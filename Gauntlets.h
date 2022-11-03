@@ -11,13 +11,15 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	/// @brief アニメーション関数
+	void Animation();
+
+public://ゲッターセッター
+
+	Vector2D GetPosition() { return position; }
 	bool GetIsBreak() { return isBreak; }
 
-private:
-	// 座標
-	Vector2D gauntlets_pos;
-
-	// 耐久力
+private:// 耐久力
 	float health;
 
 	// ガードアニメーション角度

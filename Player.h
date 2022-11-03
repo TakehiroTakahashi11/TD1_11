@@ -55,6 +55,7 @@ public:// ゲッターセッター
 	
 	void SetDamage(float damage) { taken_damage = damage; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
+	void SetMove() { isDash = false; isGuard = false; }
 
 private:
 	// 入力

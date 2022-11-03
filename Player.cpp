@@ -95,7 +95,9 @@ void Player::Update() {// ======================================================
 	// =====================================================================================
 	// デバッグ用文字列
 	if (Datas::DEBUG_MODE) {
-		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
+		if (isInv) {
+			Novice::ScreenPrintf(0, 0, "invincible");
+		}
 		if (isDash) {
 			Novice::ScreenPrintf(150, 0, "Dash");
 		}
