@@ -25,8 +25,16 @@ public:
 
 private:
 	// ノックバック
-	void SetKnockBack();
 	void KnockBack();
+
+	// アニメーション
+	void Animation();
+
+	// アクション
+	void Action();
+
+	// 待機アクション
+	void Action1();
 
 private:
 	// ノックバック
@@ -35,4 +43,7 @@ private:
 
 	// 浮いているか
 	bool isFloating;
+
+	// アニメーション
+	float anim;
 };

@@ -20,10 +20,14 @@ void Boss::Init()
 	isKnockBack = false;
 	knockBackVel = { 0.0f,0.0f };
 	isFloating = false;
+	anim = 0.0f;
 }
 
 void Boss::Update()
 {
+	// アクション
+	Action();
+
 	// 当たり判定
 	Collision();
 
@@ -31,6 +35,9 @@ void Boss::Update()
 	if (isKnockBack) {
 		KnockBack();
 	}
+
+	// アニメーション
+	Animation();
 
 	if (Datas::DEBUG_MODE) {
 		Novice::ScreenPrintf(300, 40, "position:%.1f", position.x);
@@ -42,7 +49,8 @@ void Boss::Update()
 
 void Boss::Draw()
 {
-	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_TEX);
+	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_TEX,
+		static_cast<int>(anim) % Datas::BOSS1_ANIM_MAX_X, anim < Datas::BOSS1_ANIM_MAX_X ? 0 : 1);
 }
 
 void Boss::Collision()
@@ -91,4 +99,22 @@ void Boss::KnockBack()
 	else {
 		isKnockBack = false;
 	}
+}
+
+void Boss::Animation()
+{
+	anim += Delta::getTotalDelta() / Datas::BOSS1_ANIM_SPD;
+	if (Datas::BOSS1_ANIM_MAX_X * Datas::BOSS1_ANIM_MAX_Y < anim) {
+		anim = 0.0f;
+	}
+}
+
+void Boss::Action()
+{
+
+}
+
+void Boss::Action1()
+{
+
 }

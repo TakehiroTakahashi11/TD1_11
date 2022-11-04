@@ -18,7 +18,7 @@ void Screen::DrawQuad(const Quad& quad, const Texture& texture, int x_anim, int 
 		static_cast<int>(quad.righttop.x + mScreenCenter.x), static_cast<int>(quad.righttop.y * -1 + mScreenCenter.y),
 		static_cast<int>(quad.leftbottom.x + mScreenCenter.x), static_cast<int>(quad.leftbottom.y * -1 + mScreenCenter.y),
 		static_cast<int>(quad.rightbottom.x + mScreenCenter.x), static_cast<int>(quad.rightbottom.y * -1 + mScreenCenter.y),
-		texture.width * x_anim, texture.width * y_anim,
+		texture.width * x_anim, texture.height * y_anim,
 		texture.width, texture.height,
 		texture.GetHandle(), color);
 }

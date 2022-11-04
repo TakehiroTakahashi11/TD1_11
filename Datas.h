@@ -73,6 +73,11 @@ public:
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
     static Texture BOSS1_TEX;// テクスチャ
 
+    // アニメーション
+    static constexpr int BOSS1_ANIM_SPD = 3;// アニメーション速度
+    static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
+    static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
+
     // =========================
     // EFFECTS
     static constexpr int EFFECTS_HIT_MAX_NUM = 30;// ヒットエフェクト最大数
