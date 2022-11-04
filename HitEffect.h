@@ -28,13 +28,13 @@ private:
 	//elapseFrame ... 存在時間
 	//isEnd ... エフェクトが終了しているか
 	struct HitStruct {
-		Vector2D position;
-		Vector2D size;
-		Vector2D velocity;
-		float acceleration;
-		float theta;
-		float elapseFrame;
-		bool isEnd;
+		Vector2D position = {0.0f,0.0f};
+		Vector2D size = { 16.0f,16.0f };
+		Vector2D velocity = { 0.0f,0.0f };
+		float acceleration = 0.15f;
+		float theta = 0.0f;
+		float elapseFrame = 0.0f;
+		bool isEnd = false;
 	};
 
 	HitStruct hitEffect[HitEffectMaxNum];

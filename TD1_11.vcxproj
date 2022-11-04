@@ -62,6 +62,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);C:\KamataEngine\DirectXGame\math;C:\KamataEngine\DirectXGame\2d;C:\KamataEngine\DirectXGame\3d;C:\KamataEngine\DirectXGame\audio;C:\KamataEngine\DirectXGame\base;C:\KamataEngine\DirectXGame\input;C:\KamataEngine\DirectXGame\scene;C:\KamataEngine\DirectXGame\lib\DirectXTex\include;C:\KamataEngine\Adapter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -102,6 +103,7 @@
     <ClCompile Include="C:\KamataEngine\DirectXGame\scene\GameScene.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Easing.cpp" />
     <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
     <ClCompile Include="Datas.cpp" />
@@ -116,6 +118,7 @@
     <ClCompile Include="KeyMouseInput.cpp" />
     <ClCompile Include="LoadScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MyFunc.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -157,6 +160,7 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\scene\GameScene.h" />
     <ClInclude Include="C:\KamataEngine\Adapter\Novice.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Easing.h" />
     <ClInclude Include="HitEffect.h" />
     <ClInclude Include="ControllerInput.h" />
     <ClInclude Include="Datas.h" />
@@ -171,6 +175,7 @@
     <ClInclude Include="KeyMouseInput.h" />
     <ClInclude Include="Lerp.h" />
     <ClInclude Include="LoadScene.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MyFunc.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Player.h" />

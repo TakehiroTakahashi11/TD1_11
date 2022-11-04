@@ -1,11 +1,9 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Camera.h"
-#include "Datas.h"
-#include "ControllerInput.h"
 #include "KeyMouseInput.h"
 #include "Delta.h"
-#include "Novice.h"
+#include <Novice.h>
 #include "Gauntlets.h"
 #include "MyFunc.h"
 #define _USE_MATH_DEFINES
@@ -22,44 +20,84 @@ Player::Player(Game& pGame)
 
 /// @brief 初期化処理
 void Player::Init() {
+	width = Datas::PLAYER_WIDTH;
+	height = Datas::PLAYER_HEIGHT;
+
 	l_stick_mag = { 0,0 };
+	r_stick_mag = { 0,0 };
+	camera_pos = { 0.0f,0.0f };
+
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	velocity = { 0.0f,0.0f };
 	direction = { 0.0f,1.0f };
-	width = Datas::PLAYER_WIDTH;
-	height = Datas::PLAYER_HEIGHT;
 	speed = Datas::PLAYER_SPD;
+
+	health = Datas::PLAYER_MAX_HEALTH;
+	taken_damage = 0.0f;
+	isInv = true;
+	inv_count = 0.0f;
+
+	knockBackVel = { 0.0f,0.0f };
+	knockBackRigidCount = 0.0f;
+	isKnockBack = false;
+
 	dash_length = 0.0f;
 	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
+
 	isGuard = false;
+
+	move_anim = 0.0f;
+
 	getGauntlets().Init();
-	health = Datas::PLAYER_MAX_HEALTH;
-	taken_damage = 0.0f;
 }
 
 /// @brief 更新処理
-void Player::Update() {
-	Dash();// 攻撃処理
+void Player::Update() {// =====================================================================================
+	// 基本処理
+	if (!isKnockBack) {// ノックバックされていないなら
+		Dash();// ダッシュ処理
+		if (!isDash) {// ダッシュ中でないなら
+			Guard();// ガード処理
+		}
+		if (!isDash) {// ダッシュ中、ガード中でないなら
+			Move();// 移動処理
+		}
 
-	if (!isDash) {// ダッシュ中でないなら
-		Guard();// 防御処理
-	}
-	if (!isDash) {// ダッシュ中、ガード中でないなら
-		Move();// 移動処理
+		if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
+			direction = velocity.Normalized();// 移動量から方向を保存
+		}
 	}
 
-	if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
-		direction = velocity.Normalized();// 移動量から方向を保存
+	// 仰け反り処理
+	if (isKnockBack) {
+		KnockBack();
+	}
+
+	// 無敵処理
+	if (isInv) {
+		inv_count += Delta::getTotalDelta();
+
+		if (Datas::PLAYER_MAX_INV < inv_count) {
+			inv_count = 0.0f;
+			isInv = false;
+		}
 	}
 
 	// カメラ追尾
-	 getCameraMain().setPosition(position);
+	MoveCamera();
+	getCameraMain().setPosition(position + camera_pos);
 
-	getGauntlets().Update();// ガントレットの更新処理
+	// =====================================================================================
+	// ガントレットの更新処理
+	getGauntlets().Update();
 
-	if (Datas::DEBUG_MODE) {// デバッグ用文字列
-		Novice::ScreenPrintf(0, 0, "isController:%d", IsCntMode());
+	// =====================================================================================
+	// デバッグ用文字列
+	if (Datas::DEBUG_MODE) {
+		if (isInv) {
+			Novice::ScreenPrintf(0, 0, "invincible");
+		}
 		if (isDash) {
 			Novice::ScreenPrintf(150, 0, "Dash");
 		}
@@ -73,14 +111,17 @@ void Player::Update() {
 		Novice::ScreenPrintf(0, 80, "direction:%.1f", direction.x);
 		Novice::ScreenPrintf(150, 80, "direction:%.1f", direction.y);
 	}
+	// =====================================================================================
 }
 
 /// @brief 描画処理
 void Player::Draw() {
+	// =====================================================================================
 	// プレイヤー描画
 	Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
-	getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, move_anim / Datas::PLAYER_ANIM_SPD);// 実際に描画
+	getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
 
+	// =====================================================================================
 	// ガントレット描画
 	getGauntlets().Draw();
 }
@@ -113,8 +154,9 @@ void Player::Move()
 		position += velocity * Delta::getTotalDelta();// 実際に加算、移動
 	}
 
+	// =====================================================================================
 	// アニメーション
-	if (velocity.x != 0.0f || velocity.y != 0.0f) {
+	if ((velocity.x != 0.0f || velocity.y != 0.0f) && !isGuard) {
 		move_anim += Delta::getTotalDelta();// 動いていたらアニメーション
 	}
 	else {
@@ -175,5 +217,48 @@ void Player::Guard() {
 		if (Key::IsPressed(DIK_Z)) {// Zが押されているなら
 			isGuard = true;// ガード中にする
 		}
+	}
+}
+
+void Player::MoveCamera()
+{
+	Vector2D r_stk = { 0.0f,0.0f };
+	if (IsCntMode()) {// コントローラーなら
+		Controller::GetRightStick(0, r_stick_mag);// 左スティック取得
+		r_stk = { static_cast<float>(r_stick_mag.x),static_cast<float>(r_stick_mag.y) };// vector2にキャスト
+		camera_pos += r_stk * 0.0001f * Datas::PLAYER_CAMARA_SPD;// カメラ移動
+	}
+	if (r_stk.x == 0.0f && r_stk.y == 0.0f) {// 入力がないなら
+		camera_pos -= camera_pos.Normalized() * Datas::PLAYER_CAMARA_SPD;// 真ん中に戻す
+		if (camera_pos.Length() <= Datas::PLAYER_CAMARA_SPD + 0.1f) {// 最小値クランプ
+			camera_pos.setZero();
+		}
+	}
+	if (Datas::PLAYER_CAMARA_OFFSET < camera_pos.Length()) {// 最大値クランプ
+		camera_pos = camera_pos.Normalized() * Datas::PLAYER_CAMARA_OFFSET;
+	}
+}
+
+void Player::KnockBack()
+{
+	if (knockBackVel.x != 0.0f || knockBackVel.y != 0.0f) {
+		knockBackVel -= knockBackVel.Normalized() * Datas::PLAYER_KNOCKBACK_DIS * Delta::getTotalDelta();
+		if (knockBackVel.Length() < Datas::PLAYER_KNOCKBACK_DIS + 0.1f) {
+			knockBackVel.setZero();
+		}
+		position += knockBackVel * Delta::getTotalDelta();
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(0, 150, "knockBackVel.x:%.1f", knockBackVel.x);
+			Novice::ScreenPrintf(170, 150, "knockBackVel.x:%.1f", knockBackVel.x);
+		}
+	}
+	else if(0.0f < knockBackRigidCount) {
+		knockBackRigidCount -= Delta::getTotalDelta();
+		if (Datas::DEBUG_MODE) {
+			Novice::ScreenPrintf(50, 150, "knockBackRigid");
+		}
+	}
+	else {
+		isKnockBack = false;
 	}
 }

@@ -8,6 +8,7 @@
 #include "MyFunc.h"
 #include "Quad.h"
 #include "Delta.h"
+#include <Novice.h>
 
 Gauntlets::Gauntlets(Game& game) : Obj(game)
 {
@@ -20,14 +21,39 @@ Gauntlets::~Gauntlets()
 
 void Gauntlets::Init()
 {
-	x_anim = 0;
-	gauntlets_pos = { 0.0f,0.0f };
-	isBreak = false;
+	position = { 0.0f,0.0f };
+	health = 300.0f;
 	guard_dir = 0.0f;
 	dash_dis = 0.0f;
+	dash_dir = 0.0f;
+	x_anim = 0;
+	isBreak = false;
 }
 
 void Gauntlets::Update()
+{
+	Animation();
+}
+
+void Gauntlets::Draw()
+{
+	Quad temp = { {0.0f,0.0f},0.0f,0.0f };
+
+	if (getPlayer().GetIsGuard()) {// ガード中なら
+		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+	}
+	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
+		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+	}
+	else {// ムーブ中なら
+		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+	}
+}
+
+void Gauntlets::Animation()
 {
 	Vector2D pos = getPlayer().GetPosition();// プレイヤー座標取得
 	Vector2D dir = getPlayer().GetDirection();
@@ -42,7 +68,7 @@ void Gauntlets::Update()
 		}
 
 		// 計算
-		dir = dir.Rotated((guard_dir + 270) * M_PI / 180);
+		dir = dir.Rotated(static_cast<float>((guard_dir + 270) * M_PI / 180));
 		pos += dir * Datas::GAUNTLET_PLAYER_GUARD_DISTANCE;
 	}
 	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
@@ -64,7 +90,7 @@ void Gauntlets::Update()
 		}
 
 		// 計算
-		dir = dir.Rotated((dash_dir + 270) * M_PI / 180);
+		dir = dir.Rotated(static_cast<float>((dash_dir + 270) * M_PI / 180));
 		pos += dir * (Datas::GAUNTLET_PLAYER_DASH_DISTANCE * dash_dis);
 	}
 	else {// ムーブ中なら
@@ -95,28 +121,10 @@ void Gauntlets::Update()
 		}
 
 		// 計算
-		dir = dir.Rotated((dash_dir + guard_dir + 270) * M_PI / 180);
+		dir = dir.Rotated(static_cast<float>((dash_dir + guard_dir + 270) * M_PI / 180));
 		pos += dir * Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
 	}
 
 	Vector2D center = { Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_HEIGHT * 0.5f };
-	gauntlets_pos = pos + center;// 反映
-}
-
-void Gauntlets::Draw()
-{
-	Quad temp = { {0.0f,0.0f},0.0f,0.0f };
-
-	if (getPlayer().GetIsGuard()) {// ガード中なら
-		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + guard_dir * M_PI / 180, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-	}
-	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
-		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-	}
-	else {// ムーブ中なら
-		temp = My::RotateCenter(gauntlets_pos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + guard_dir * M_PI / 180, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-	}
+	position = pos + center;// 反映
 }

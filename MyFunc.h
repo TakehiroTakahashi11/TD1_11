@@ -13,4 +13,7 @@ namespace My {
     int VectorDirection8(Vector2D vec);
 
     Quad RotateCenter(Vector2D& pos, float theta, float width, float height);
+
+    /// @brief ‘È‰~‚Æ“_‚Ì“–‚½‚è”»’è
+    bool CollisonCircletoPoint(Vector2D pos, float rad_x, float rad_y, Vector2D pos2);
 }
