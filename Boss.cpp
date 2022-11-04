@@ -6,6 +6,8 @@
 #include "EffectManager.h"
 #include <Novice.h>
 #include "Delta.h"
+#define _USE_MATH_DEFINES
+#include <cmath>
 
 Boss::Boss(Game& pGame) : Obj(pGame)
 {
@@ -17,9 +19,18 @@ void Boss::Init()
 	position = { Datas::BOSS1_POS_X,Datas::BOSS1_POS_Y };
 	width = Datas::BOSS1_WIDTH;
 	height = Datas::BOSS1_HEIGHT;
+
 	isKnockBack = false;
 	knockBackVel = { 0.0f,0.0f };
+
+	nowAction = None;
+	nextAction = kMove;
+
+	beforePos = { 0.0f,0.0f };
+	moveTheta = 0.0f;
+
 	isFloating = false;
+
 	anim = 0.0f;
 }
 
@@ -101,20 +112,59 @@ void Boss::KnockBack()
 	}
 }
 
+void Boss::Action()
+{
+	// 移行処理
+	switch (nextAction)
+	{
+	case Boss::kMove:
+		beforePos = position;
+		break;
+	case Boss::None:
+	default:
+		break;
+	}
+
+	// 実行
+	switch (nowAction)
+	{
+	case Boss::kMove:
+		Move();
+		break;
+	case Boss::None:
+	default:
+		if (nowAction != nextAction && nextAction != None) {// 予約アクションがある、かつ次のアクションがNoneでないなら
+			nowAction = nextAction;
+			nextAction = None;
+		}
+		break;
+	}
+}
+
+void Boss::Move()
+{
+	moveTheta += Datas::BOSS1_MOVE_SPD;
+	if (360.0f < moveTheta) {
+		moveTheta -= 360.0f;
+	}
+	position.y = beforePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
+
+	if (nowAction != nextAction && nextAction != None) {// 予約アクションがあるなら
+		// 終了処理
+
+
+		if (beforePos == position) {
+			nowAction = nextAction;
+			nextAction = None;
+		}
+	}
+}
+
+
 void Boss::Animation()
 {
 	anim += Delta::getTotalDelta() / Datas::BOSS1_ANIM_SPD;
 	if (Datas::BOSS1_ANIM_MAX_X * Datas::BOSS1_ANIM_MAX_Y < anim) {
 		anim = 0.0f;
 	}
-}
-
-void Boss::Action()
-{
-
-}
-
-void Boss::Action1()
-{
-
 }

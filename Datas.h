@@ -70,6 +70,8 @@ public:
     static constexpr int BOSS1_HEIGHT = 512;// 高さ
     static constexpr int BOSS1_COL_WIDTH = 180;// 第一形態の当たり判定縦
     static constexpr int BOSS1_COL_HEIGHT = 128;// 第一形態の当たり判定横
+    static constexpr float BOSS1_MOVE_SPD = 0.007f;
+    static constexpr float BOSS1_MOVE_AMP = 30.0f;
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
     static Texture BOSS1_TEX;// テクスチャ
 

@@ -27,19 +27,36 @@ private:
 	// ノックバック
 	void KnockBack();
 
-	// アニメーション
-	void Animation();
+	// アクションenum
+	enum BossAction
+	{
+		kMove,
+
+		None
+	};
 
 	// アクション
 	void Action();
 
 	// 待機アクション
-	void Action1();
+	void Move();
+
+	// アニメーション
+	void Animation();
 
 private:
 	// ノックバック
 	bool isKnockBack;
 	Vector2D knockBackVel;
+
+	// アクション状態
+	BossAction nowAction;
+	// 予約アクション
+	BossAction nextAction;
+
+	// アクション1用回転角
+	Vector2D beforePos;
+	float moveTheta;
 
 	// 浮いているか
 	bool isFloating;
