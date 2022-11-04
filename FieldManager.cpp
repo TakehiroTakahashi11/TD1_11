@@ -99,6 +99,7 @@ bool FieldManager::isHit(Vector2D t, Vector2D pos, Vector2D wid, FieldType field
 	default:
 		break;
 	}
+	return false;
 }
 
 bool FieldManager::CollisionBox(Vector2D t, Vector2D pos, Vector2D wid)

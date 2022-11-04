@@ -15,7 +15,7 @@ namespace My {
     }
 
     float RandomF(float min, float max,int num) {
-        int Num = pow(10, num);
+        int Num = static_cast<int>(pow(10, num));
         return static_cast<float>(Random(static_cast<int>(max * Num), static_cast<int>(min * Num)) * (1.0f / static_cast<float>(Num)));
     }
 
@@ -82,7 +82,7 @@ namespace My {
     Quad RotateCenter(Vector2D& pos, float theta, float width, float height)
     {
         Quad temp = { {pos.x - width * 0.5f,pos.y - height * 0.5f}, width, height };// ˆêŽž
-        temp = temp.Translation(-pos).Rotation(theta - 90 * M_PI / 180).Translation({ pos.x - width * 0.5f ,pos.y - height * 0.5f });// ‰ñ“]
+        temp = temp.Translation(-pos).Rotation(static_cast<float>(theta - 90 * M_PI / 180)).Translation({ pos.x - width * 0.5f ,pos.y - height * 0.5f });// ‰ñ“]
         return temp;
     }
 

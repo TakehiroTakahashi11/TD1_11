@@ -40,7 +40,7 @@ void Gauntlets::Draw()
 	Quad temp = { {0.0f,0.0f},0.0f,0.0f };
 
 	if (getPlayer().GetIsGuard()) {// ガード中なら
-		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + guard_dir * M_PI / 180, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
 		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
 	}
 	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
@@ -48,7 +48,7 @@ void Gauntlets::Draw()
 		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
 	}
 	else {// ムーブ中なら
-		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + guard_dir * M_PI / 180, Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
 		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
 	}
 }
@@ -68,7 +68,7 @@ void Gauntlets::Animation()
 		}
 
 		// 計算
-		dir = dir.Rotated((guard_dir + 270) * M_PI / 180);
+		dir = dir.Rotated(static_cast<float>((guard_dir + 270) * M_PI / 180));
 		pos += dir * Datas::GAUNTLET_PLAYER_GUARD_DISTANCE;
 	}
 	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
@@ -90,7 +90,7 @@ void Gauntlets::Animation()
 		}
 
 		// 計算
-		dir = dir.Rotated((dash_dir + 270) * M_PI / 180);
+		dir = dir.Rotated(static_cast<float>((dash_dir + 270) * M_PI / 180));
 		pos += dir * (Datas::GAUNTLET_PLAYER_DASH_DISTANCE * dash_dis);
 	}
 	else {// ムーブ中なら
@@ -121,7 +121,7 @@ void Gauntlets::Animation()
 		}
 
 		// 計算
-		dir = dir.Rotated((dash_dir + guard_dir + 270) * M_PI / 180);
+		dir = dir.Rotated(static_cast<float>((dash_dir + guard_dir + 270) * M_PI / 180));
 		pos += dir * Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
 	}
 

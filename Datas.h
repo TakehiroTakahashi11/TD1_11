@@ -40,7 +40,7 @@ public:
     static constexpr int PLAYER_HEIGHT = 64;// 高さ
     static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
     static constexpr float PLAYER_ANIM_MAX = 8.0f;// 移動アニメーション最大コマ
-    static constexpr float PLAYER_DASH_LEN = 10.0f;// ダッシュする時間の長さ(フレーム)
+    static constexpr float PLAYER_DASH_LEN = 15.0f;// ダッシュする時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_START_RIGID = 3.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_END_RIGID = 3.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
 

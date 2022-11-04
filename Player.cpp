@@ -119,7 +119,7 @@ void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
 	Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
-	getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, move_anim / Datas::PLAYER_ANIM_SPD);// 実際に描画
+	getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
 
 	// =====================================================================================
 	// ガントレット描画

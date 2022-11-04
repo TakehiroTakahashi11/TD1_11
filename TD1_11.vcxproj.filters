@@ -35,6 +35,9 @@
     <Filter Include="Module\Obj">
       <UniqueIdentifier>{a91c8cb9-c1d8-4d93-b145-395ea8d06d09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\Map">
+      <UniqueIdentifier>{7425941c-cec8-4f1c-a007-5cfc2c8fc0db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -135,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="Easing.cpp">
       <Filter>Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Module\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="Easing.h">
       <Filter>Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Module\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

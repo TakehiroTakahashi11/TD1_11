@@ -26,8 +26,8 @@ void HitEffect::Init()
 		hitEffect[i].size = { Datas::EFFECTS_HIT_SIZE, Datas::EFFECTS_HIT_SIZE };
 
 		//エフェクトが向かう方向をランダムにする
-		hitEffect[i].theta = My::Random(0, 360);
-		hitEffect[i].theta = hitEffect[i].theta * (M_PI / 180.0f);
+		hitEffect[i].theta = static_cast<float>(My::Random(0, 360));
+		hitEffect[i].theta = static_cast<float>(hitEffect[i].theta * (M_PI / 180.0f));
 
 		//エフェクト表示
 		hitEffect[i].isEnd = false;
