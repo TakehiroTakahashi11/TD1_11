@@ -18,6 +18,10 @@ void LoadScene::Update() {
 		// スレッドと同期
 		mThread.join();
 	}
+
+	if (Datas::DEBUG_MODE) {
+		Novice::ScreenPrintf(500, 500, "loading : %d / %d", Datas::GetPer(), Datas::Max_Per);
+	}
 }
 void LoadScene::Draw() {
 	Novice::DrawBox(0, 0, 1920, 1080, 0.0f, BLACK, kFillModeSolid);
