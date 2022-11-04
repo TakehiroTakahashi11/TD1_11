@@ -12,11 +12,11 @@ Texture Datas::BackGroundTex = Texture(1920, 1080);
 
 void Datas::LoadTexture()
 {
-	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_New.png"));
+	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player.png"));
 	Per++;
-	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntret/Gauntret_New.png"));
+	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet.png"));
 	Per++;
-	BOSS1_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss1/Boss1.png"));
+	BOSS1_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
 	Per++;
 	EFFECTS_HIT_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
