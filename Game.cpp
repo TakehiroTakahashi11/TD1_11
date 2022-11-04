@@ -10,6 +10,7 @@
 #include "Delta.h"
 #include "EffectManager.h"
 #include "FieldManager.h"
+#include "BulletManager.h"
 #include "Player.h"
 #include "Camera.h"
 #include "Boss.h"
@@ -50,6 +51,7 @@ Game::Game()
     // 初期化
     EffectManager::Init(*this);
     FieldManager::Init(*this);
+    BulletManager::Init(*this);
     ControllerMode = false;
 
     // 生成
@@ -72,6 +74,7 @@ Game::~Game()
     delete mCameraUI;
     delete player;
 
+    BulletManager::Finalise();
     EffectManager::Finalise();
     FieldManager::Finalise();
     // ファイナライズ
@@ -148,6 +151,7 @@ void Game::Update() {
 
     // エフェクト更新
     EffectManager::Update();
+    BulletManager::Update();
 }
 
 /// @brief 描画処理
@@ -165,6 +169,7 @@ void Game::Draw() {
     }
 
     // エフェクト描画
+    BulletManager::Draw();
     EffectManager::Draw();
 }
 
