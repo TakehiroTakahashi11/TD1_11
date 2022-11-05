@@ -186,6 +186,8 @@ void Player::Dash() {
 		}
 	}
 	else {// ダッシュ中なら
+		isGuard = false;// ガードを無効に
+
 		dash_length += Delta::getTotalDelta();// カウントフレーム加算
 
 		if (Datas::PLAYER_DASH_START_RIGID + Datas::PLAYER_DASH_LEN + Datas::PLAYER_DASH_END_RIGID < dash_length) {// 最大距離までダッシュして、硬直も終わったら

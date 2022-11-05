@@ -38,6 +38,9 @@
     <Filter Include="Module\Map">
       <UniqueIdentifier>{7425941c-cec8-4f1c-a007-5cfc2c8fc0db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module\Ballet">
+      <UniqueIdentifier>{0cc464ff-f6e1-4b68-8c1e-47ef918f6dc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp">
@@ -141,6 +144,15 @@
     </ClCompile>
     <ClCompile Include="Map.cpp">
       <Filter>Module\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Module\Ballet</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseBullet.cpp">
+      <Filter>Module\Ballet</Filter>
+    </ClCompile>
+    <ClCompile Include="BossAttack1.cpp">
+      <Filter>Module\Ballet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,6 +320,15 @@
     </ClInclude>
     <ClInclude Include="Map.h">
       <Filter>Module\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Module\Ballet</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseBullet.h">
+      <Filter>Module\Ballet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAttack1.h">
+      <Filter>Module\Ballet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
