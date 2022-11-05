@@ -59,7 +59,7 @@ void HitEffect::Update()
 	// I—¹ˆ—
 	for (int i = 0; i < HitEffectMaxNum; i++) {
 		if (!hitEffect[i].isEnd) {
-			break;
+			return;
 		}
 		isEnd = true;
 	}
