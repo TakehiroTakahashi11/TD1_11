@@ -56,7 +56,7 @@ void Boss::Init()
 void Boss::Update()
 {
 	if (Datas::DEBUG_MODE) {
-		if (Key::IsTrigger(DIK_J)) {
+		if (Controller::IsTriggerButton(0,Controller::bB)) {
 			SetNextAction(kAttack1);
 		}
 	}
