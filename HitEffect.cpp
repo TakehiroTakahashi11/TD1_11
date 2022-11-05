@@ -53,10 +53,15 @@ void HitEffect::Update()
 
 			hitEffect[i].size -= {1.0f, 1.0f };
 		}
+	}
 
-		if (elapsedFrame >= 100.0f) {
-			isEnd = true;
+
+	// I—¹ˆ—
+	for (int i = 0; i < HitEffectMaxNum; i++) {
+		if (!hitEffect[i].isEnd) {
+			break;
 		}
+		isEnd = true;
 	}
 }
 
