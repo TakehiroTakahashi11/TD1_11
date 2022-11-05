@@ -15,7 +15,7 @@ public:
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
     // モード
-    static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
+    static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
     static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
     static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
@@ -95,13 +95,16 @@ public:
     static Texture EFFECTS_ATK_TEX;// テクスチャ
 
     static constexpr float EFFECTS_THUNDER_SIZE = 400.0f;// テクスチャ
-    static constexpr int EFFECTS_THUNDER_SIZE_Y = 67;// 当たり判定大きさ
-    static constexpr int EFFECTS_THUNDER_SIZE_X = 79;// 当たり判定大きさ
+    static constexpr int EFFECTS_THUNDER_SIZE_Y = 76;// 当たり判定大きさ
+    static constexpr int EFFECTS_THUNDER_SIZE_X = 113;// 当たり判定大きさ
     static Texture EFFECTS_THUNDER_TEX;// テクスチャ
+
+    static constexpr float EFFECTS_PRETHUNDER_SIZE = 400.0f;// テクスチャ
+    static Texture EFFECTS_PRETHUNDER_TEX;// テクスチャ
 
     // =========================
     // BULLETS
-    // パラメータ
+    // 周りばらまき弾幕
     static constexpr float BOSS_ATTACK1_DIS = 100.0f;// 初期位置の中心からの距離
     static constexpr float BOSS_ATTACK1_SHOOT_DIS = 5.0f;// 発射間隔
     static constexpr float BOSS_ATTACK1_WAVE_DIS = 50.0f;// ウェーブ間隔
@@ -111,6 +114,11 @@ public:
     // テクスチャ
     static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ
     static Texture BOSS_ATTACK1_TEX;// テクスチャ
+
+    // 雷攻撃
+    static constexpr float BOSS_THUNDER1_PRETIME = 15.0f;// 予兆表示時間
+    static constexpr float BOSS_THUNDER1_TIME_DIS = 30.0f;// 発射間隔
+    static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ
 
     // =========================
     // Map

@@ -9,6 +9,7 @@ Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
 Texture Datas::EFFECTS_ATK_TEX = Texture(EFFECTS_ATK_SIZE, EFFECTS_ATK_SIZE);
 Texture Datas::EFFECTS_THUNDER_TEX = Texture(400, 400);
+Texture Datas::EFFECTS_PRETHUNDER_TEX = Texture(400, 400);
 Texture Datas::BOSS_ATTACK1_TEX = Texture(32, 32);
 Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::BackGroundTex = Texture(1920, 1080);
@@ -26,6 +27,8 @@ void Datas::LoadTexture()
 	EFFECTS_ATK_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
 	EFFECTS_THUNDER_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/Thunder.png"));
+	Per++;
+	EFFECTS_PRETHUNDER_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/PreThunder.png"));
 	Per++;
 	BOSS_ATTACK1_TEX.SetHandle(Novice::LoadTexture("./Resources/Bullet/Bullet.png"));
 	Per++;
