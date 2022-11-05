@@ -81,7 +81,7 @@ void BossAttack1::Draw()
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
 		if (!bossAttack1[i].isEnd) {
 			getCameraMain().DrawQuad({ {bossAttack1[i].position.x - bossAttack1[i].size.x * 0.5f,bossAttack1[i].position.y - bossAttack1[i].size.y * 0.5f},
-				bossAttack1[i].size.x,bossAttack1[i].size.y }, Datas::EFFECTS_HIT_TEX);
+				bossAttack1[i].size.x,bossAttack1[i].size.y }, Datas::BOSS_ATTACK1_TEX);
 		}
 	}
 }
