@@ -98,6 +98,7 @@
     <ClCompile Include="BaseField.cpp" />
     <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossAttack1.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\TextureManager.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="..\DirectXGame\math\Vector2.h" />
     <ClInclude Include="..\DirectXGame\math\Vector3.h" />
     <ClInclude Include="..\DirectXGame\math\Vector4.h" />
+    <ClInclude Include="BossAttack1.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="BaseBullet.h" />
     <ClInclude Include="BaseEffect.h" />

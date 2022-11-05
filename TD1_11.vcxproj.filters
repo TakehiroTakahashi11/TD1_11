@@ -151,6 +151,9 @@
     <ClCompile Include="BaseBullet.cpp">
       <Filter>Module\Ballet</Filter>
     </ClCompile>
+    <ClCompile Include="BossAttack1.cpp">
+      <Filter>Module\Ballet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -322,6 +325,9 @@
       <Filter>Module\Ballet</Filter>
     </ClInclude>
     <ClInclude Include="BaseBullet.h">
+      <Filter>Module\Ballet</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAttack1.h">
       <Filter>Module\Ballet</Filter>
     </ClInclude>
   </ItemGroup>
