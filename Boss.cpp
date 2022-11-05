@@ -46,7 +46,6 @@ void Boss::Init()
 	attack1bullet8Time = 0.0f;
 	attack1bullet9Time = 0.0f;
 	attack1bullet10Time = 0.0f;
-	bullet_handle = 0;
 
 	isFloating = false;
 
@@ -56,7 +55,7 @@ void Boss::Init()
 void Boss::Update()
 {
 	if (Datas::DEBUG_MODE) {
-		if (Controller::IsTriggerButton(0,Controller::bB)) {
+		if (Controller::IsTriggerButton(0,Controller::bB) || Key::IsTrigger(DIK_J)) {
 			SetNextAction(kAttack1);
 		}
 	}
@@ -96,7 +95,7 @@ void Boss::Collision()
 
 void Boss::PtoBCollision()
 {
-	if (!getPlayer().GetIsInvincible() && !isFloating) {// –³“G‚¶‚á‚È‚¢‚È‚ç
+	if (!isFloating) {// •‚‚¢‚Ä‚È‚¢‚È‚ç
 		Vector2D center = { Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_HEIGHT * 0.5f };
 		Vector2D p_pos = getPlayer().GetPosition() - center;
 		if (getPlayer().GetIsDash()) {
@@ -105,12 +104,14 @@ void Boss::PtoBCollision()
 				isKnockBack = true;
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos, kHit);
+				EffectManager::MakeNewEffect(p_pos, kAtttack);
 			}
 		}
 		else {
 			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos)) {
-				getPlayer().SetDamage(Datas::BOSS1_HIT_DAMAGE);
+				if (!getPlayer().GetIsInvincible()) {
+					getPlayer().SetDamage(Datas::BOSS1_HIT_DAMAGE);
+				}
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
 				EffectManager::MakeNewEffect(p_pos, kHit);
@@ -197,7 +198,7 @@ void Boss::Move()
 	if (!isKnockBack) {
 		moveTheta += Datas::BOSS1_MOVE_SPD;
 		if (2.0f * M_PI < moveTheta) {
-			moveTheta -= 2.0f * M_PI;
+			moveTheta -= static_cast<float>(2.0f * M_PI);
 		}
 		position.y = beforePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
 	}

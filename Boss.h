@@ -89,7 +89,7 @@ private:
 	float attack1bullet9Time;
 	float attack1bullet10Time;
 
-	int bullet_handle;
+	// Attack2
 
 	// •‚‚¢‚Ä‚¢‚é‚©
 	bool isFloating;
