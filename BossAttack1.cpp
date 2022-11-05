@@ -40,6 +40,7 @@ void BossAttack1::Update()
 	// “–‚½‚è”»’è—péŒ¾
 	Vector2D p_pos = pGame.getPlayer().GetPosition();
 	p_pos = { p_pos.x - Datas::PLAYER_HEIGHT * 0.5f,p_pos.y - Datas::PLAYER_HEIGHT * 0.5f };
+	Vector2D g_pos = pGame.getGauntlets().GetPosition();
 	bool isDash = pGame.getPlayer().GetIsDash();
 	bool isGuard = pGame.getPlayer().GetIsGuard();
 
@@ -58,13 +59,20 @@ void BossAttack1::Update()
 			bossAttack1[i].position += bossAttack1[i].velocity * Datas::BOSS_ATTACK1_SPEED * Delta::getTotalDelta();
 
 			// “–‚½‚è”»’è
-			if (!isGuard) {
-				if (Datas::PLAYER_HEIGHT * 0.5f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
-					pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+			if (!isDash) {
+				if (!isGuard) {
+					if (Datas::PLAYER_HEIGHT * 0.25f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - p_pos).Length()) {
+						pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+					}
 				}
-			}
-			else {
+				else {
+					/*if () {
 
+					}*/
+					if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
+						pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+					}
+				}
 			}
 		}
 

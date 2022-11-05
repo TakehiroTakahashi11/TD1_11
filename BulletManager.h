@@ -36,7 +36,7 @@ public:
 
 private:
 	// 配列のサイズ
-	const static int bulletArraySize = 30;
+	const static int bulletArraySize = 256;
 
 	// アップキャスト用配列
 	static BaseBullet* bullets[bulletArraySize];

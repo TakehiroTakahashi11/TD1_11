@@ -93,6 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AttackEffect.cpp" />
     <ClCompile Include="BaseBullet.cpp" />
     <ClCompile Include="BaseEffect.cpp" />
     <ClCompile Include="BaseField.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="..\DirectXGame\math\Vector2.h" />
     <ClInclude Include="..\DirectXGame\math\Vector3.h" />
     <ClInclude Include="..\DirectXGame\math\Vector4.h" />
+    <ClInclude Include="AttackEffect.h" />
     <ClInclude Include="BossAttack1.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="BaseBullet.h" />

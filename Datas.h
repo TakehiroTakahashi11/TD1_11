@@ -15,7 +15,7 @@ public:
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
     // モード
-    static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
+    static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
     static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
     static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
@@ -89,7 +89,14 @@ public:
     static constexpr float EFFECTS_HIT_SPD = 2.0f;// ヒットエフェクト速度
     static Texture EFFECTS_HIT_TEX;// テクスチャ
 
+    static constexpr int EFFECTS_ATK_MAX_NUM = 30;// ヒットエフェクト最大数
+    static constexpr int EFFECTS_ATK_SIZE = 64;// ヒットエフェクト大きさ
+    static constexpr float EFFECTS_ATK_SPD = 2.0f;// ヒットエフェクト速度
+    static Texture EFFECTS_ATK_TEX;// テクスチャ
+
     static constexpr float EFFECTS_THUNDER_SIZE = 400.0f;// テクスチャ
+    static constexpr int EFFECTS_THUNDER_SIZE_Y = 67;// 当たり判定大きさ
+    static constexpr int EFFECTS_THUNDER_SIZE_X = 79;// 当たり判定大きさ
     static Texture EFFECTS_THUNDER_TEX;// テクスチャ
 
     // =========================
