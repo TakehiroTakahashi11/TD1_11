@@ -8,6 +8,7 @@
 #include <math.h>
 #include "Delta.h"
 #include "Player.h"
+#include "Gauntlets.h"
 
 BossAttack1::BossAttack1(Game& game, Vector2D pos) : BaseBullet(game, pos)
 {
@@ -43,6 +44,7 @@ void BossAttack1::Update()
 	Vector2D g_pos = pGame.getGauntlets().GetPosition();
 	bool isDash = pGame.getPlayer().GetIsDash();
 	bool isGuard = pGame.getPlayer().GetIsGuard();
+	bool isInv = pGame.getPlayer().GetIsInvincible();
 
 	// íeåüçı
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
@@ -59,17 +61,21 @@ void BossAttack1::Update()
 			bossAttack1[i].position += bossAttack1[i].velocity * Datas::BOSS_ATTACK1_SPEED * Delta::getTotalDelta();
 
 			// ìñÇΩÇËîªíË
-			if (!isDash) {
+			if (!isDash && !isInv) {
 				if (!isGuard) {
 					if (Datas::PLAYER_HEIGHT * 0.25f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - p_pos).Length()) {
 						pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
 					}
 				}
 				else {
-					/*if () {
+					Vector2D g_pos = pGame.getGauntlets().GetPosition();
+					g_pos -= {Datas::GAUNTLET_HEIGHT * 0.5f, Datas::GAUNTLET_HEIGHT * 0.5f};
 
-					}*/
-					if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
+					if (bossAttack1[i].size.x * 1.2f > (bossAttack1[i].position - g_pos).Length()) {
+						// ã„èB
+						bossAttack1[i].isEnd = true;
+					}
+					else if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
 						pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
 					}
 				}
