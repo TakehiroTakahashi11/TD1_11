@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "EffectManager.h"
+#include "BaseEffect.h"
 #include "HitEffect.h"
+#include "Thunder.h"
 
 void EffectManager::Init(Game& Game)
 {
@@ -51,9 +53,13 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 			// ˆ—‚É‡‚í‚¹‚Äcase•ÏXA’Ç‰Á
 			switch (effectType)
 			{
-			case EffectType::Hit:
+			case EffectType::kHit:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ğdelete
 				effects[nextIndex] = new HitEffect(*pGame, position);// ’Ç‰Á
+				break;
+			case EffectType::kThunder:
+				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ğdelete
+				effects[nextIndex] = new Thunder(*pGame, position);// ’Ç‰Á
 				break;
 			case EffectType::NoneEffect:
 			default:
