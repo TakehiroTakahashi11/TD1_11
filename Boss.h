@@ -44,9 +44,11 @@ private:
 
 	// 待機アクション
 	void Move();
+	void MoveMig();
 
 	// 攻撃1
 	void Attack1();
+	void Attack1Mig();
 
 	// アニメーション
 	void Animation();
@@ -56,16 +58,37 @@ private:
 	bool isKnockBack;
 	Vector2D knockBackVel;
 
+	// 経過時間
+	float elapsedTime;
+	// 最後にノックバックした時間
+	float lastKnockBackTime;
+	// 最後にアクションした時間
+	float lastActionTime;
+
 	// アクション状態
 	BossAction nowAction;
 	// 予約アクション
 	BossAction nextAction;
+	// 移行できるか
+	bool canMigration;
 
 	// Move
 	Vector2D beforePos;
 	float moveTheta;
 
 	// Attack1
+	float attack1Elapsed;
+	float attack1bullet1Time;
+	float attack1bullet2Time;
+	float attack1bullet3Time;
+	float attack1bullet4Time;
+	float attack1bullet5Time;
+	float attack1bullet6Time;
+	float attack1bullet7Time;
+	float attack1bullet8Time;
+	float attack1bullet9Time;
+	float attack1bullet10Time;
+
 	int bullet_handle;
 
 	// 浮いているか

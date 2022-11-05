@@ -5,7 +5,7 @@
 
 Map::Map(Game& game) : GameObject(game)
 {
-	map_num = 1;
+	map_num = 0;
 }
 
 Map::~Map()

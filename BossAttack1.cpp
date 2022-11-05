@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "Delta.h"
+#include "Player.h"
 
 BossAttack1::BossAttack1(Game& game, Vector2D pos) : BaseBullet(game, pos)
 {
@@ -36,11 +37,18 @@ void BossAttack1::Init()
 
 void BossAttack1::Update()
 {
+	// 当たり判定用宣言
+	Vector2D p_pos = pGame.getPlayer().GetPosition();
+	p_pos = { p_pos.x - Datas::PLAYER_HEIGHT * 0.5f,p_pos.y - Datas::PLAYER_HEIGHT * 0.5f };
+	bool isDash = pGame.getPlayer().GetIsDash();
+	bool isGuard = pGame.getPlayer().GetIsGuard();
+
+	// 弾検索
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
 		if (bossAttack1[i].isEnd == false) {
-			if (bossAttack1[i].position.x + bossAttack1[i].size.x < -Datas::STAGE1_WIDTH
+			if (bossAttack1[i].position.x - bossAttack1[i].size.x < -Datas::STAGE1_WIDTH
 				|| Datas::STAGE1_WIDTH < bossAttack1[i].position.x + bossAttack1[i].size.x
-				|| bossAttack1[i].position.y + bossAttack1[i].size.y < -Datas::STAGE1_HEIGHT
+				|| bossAttack1[i].position.y - bossAttack1[i].size.y < -Datas::STAGE1_HEIGHT
 				|| Datas::STAGE1_HEIGHT < bossAttack1[i].position.y + bossAttack1[i].size.y) {// もし壁より外なら
 				//エフェクト終了
 				bossAttack1[i].isEnd = true;
@@ -48,6 +56,16 @@ void BossAttack1::Update()
 
 			// 移動処理
 			bossAttack1[i].position += bossAttack1[i].velocity * Datas::BOSS_ATTACK1_SPEED * Delta::getTotalDelta();
+
+			// 当たり判定
+			if (!isGuard) {
+				if (Datas::PLAYER_HEIGHT * 0.5f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
+					pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+				}
+			}
+			else {
+
+			}
 		}
 
 	}

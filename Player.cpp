@@ -78,9 +78,15 @@ void Player::Update() {// ======================================================
 	if (isInv) {
 		inv_count += Delta::getTotalDelta();
 
+		if (static_cast<int>(inv_count) % Datas::PLAYER_INV_ANIM_SPD == 0) {
+			inv_count += 1.0f;
+			isDrawn = !isDrawn;
+		}
+
 		if (Datas::PLAYER_MAX_INV < inv_count) {
 			inv_count = 0.0f;
 			isInv = false;
+			isDrawn = true;
 		}
 	}
 
@@ -95,8 +101,9 @@ void Player::Update() {// ======================================================
 	// =====================================================================================
 	// デバッグ用文字列
 	if (Datas::DEBUG_MODE) {
+		Novice::ScreenPrintf(0, 0, "health:%.1f", health);
 		if (isInv) {
-			Novice::ScreenPrintf(0, 0, "invincible");
+			Novice::ScreenPrintf(150, 0, "invincible");
 		}
 		if (isDash) {
 			Novice::ScreenPrintf(150, 0, "Dash");
@@ -118,8 +125,10 @@ void Player::Update() {// ======================================================
 void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
-	Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
-	getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
+	if (isDrawn) {
+		Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
+		getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
+	}
 
 	// =====================================================================================
 	// ガントレット描画

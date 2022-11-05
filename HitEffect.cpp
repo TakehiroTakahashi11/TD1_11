@@ -51,7 +51,7 @@ void HitEffect::Update()
 			hitEffect[i].velocity.x += hitEffect[i].acceleration * Delta::getTotalDelta();
 			hitEffect[i].velocity.y += hitEffect[i].acceleration * Delta::getTotalDelta();
 
-			hitEffect[i].size -= {1.0f, 1.0f };
+			hitEffect[i].size -= {Datas::EFFECTS_HIT_SPD, Datas::EFFECTS_HIT_SPD};
 		}
 	}
 

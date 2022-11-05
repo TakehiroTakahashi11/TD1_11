@@ -22,6 +22,10 @@ void InGameScene::Init() {
 }
 
 void InGameScene::Update() {
+	// if(チュートリアル終了){
+	getGame().getMap().SetMapNum(1);// ステージ1に
+	// }
+
 	getGame().getPlayer().Update();
 	getGame().getBoss().Update();
 }

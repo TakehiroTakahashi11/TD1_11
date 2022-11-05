@@ -37,19 +37,21 @@ void Gauntlets::Update()
 
 void Gauntlets::Draw()
 {
-	Quad temp = { {0.0f,0.0f},0.0f,0.0f };
+	if (getPlayer().GetIsDrawn()) {
+		Quad temp = { {0.0f,0.0f},0.0f,0.0f };
 
-	if (getPlayer().GetIsGuard()) {// ガード中なら
-		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-	}
-	else if (getPlayer().GetIsDash()) {// ダッシュ中なら
-		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-	}
-	else {// ムーブ中なら
-		temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-		getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		if (getPlayer().GetIsGuard()) {// ガード中なら
+			temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		}
+		else if (getPlayer().GetIsDash()) {// ダッシュ中なら
+			temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		}
+		else {// ムーブ中なら
+			temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		}
 	}
 }
 
