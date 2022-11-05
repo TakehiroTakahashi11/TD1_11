@@ -3,8 +3,8 @@
 #include "KeyMouseInput.h"
 
 
-Texture Datas::PLAYER_TEX = Texture(32, 32);
-Texture Datas::GAUNTLET_TEX = Texture(64, 64);
+Texture Datas::PLAYER_TEX = Texture(64, 64);
+Texture Datas::GAUNTLET_TEX = Texture(128, 128);
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
 Texture Datas::EFFECTS_THUNDER_TEX = Texture(400, 400);
