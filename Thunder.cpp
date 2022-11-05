@@ -5,6 +5,9 @@
 #include "Datas.h"
 #include "MyFunc.h"
 #include "Delta.h"
+#include "Game.h"
+#include "Player.h"
+#include "Datas.h"
 
 Thunder::Thunder(Game& game, Vector2D pos) : BaseEffect(game, pos)
 {
@@ -23,10 +26,12 @@ void Thunder::Init()
 void Thunder::Update()
 {
 	// “–‚½‚è”»’è
-	
+	if (!pGame.getPlayer().GetIsDash() && !pGame.getPlayer().GetIsInvincible()) {
+		
+	}
 
 	// I—¹ˆ—
-	if (40.0f < elapsedFrame) {
+	if (30.0f < elapsedFrame) {
 		isEnd = true;
 	}
 }
