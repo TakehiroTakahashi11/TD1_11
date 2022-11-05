@@ -105,7 +105,7 @@ void Boss::PtoBCollision()
 				isKnockBack = true;
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos, Hit);
+				EffectManager::MakeNewEffect(p_pos, kHit);
 			}
 		}
 		else {
@@ -113,7 +113,7 @@ void Boss::PtoBCollision()
 				getPlayer().SetDamage(Datas::BOSS1_HIT_DAMAGE);
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos, Hit);
+				EffectManager::MakeNewEffect(p_pos, kHit);
 			}
 		}
 	}
@@ -218,6 +218,7 @@ void Boss::Attack1()
 	attack1Elapsed += Delta::getTotalDelta();
 	if (attack1bullet1Time == 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
+		EffectManager::MakeNewEffect(position, kThunder);
 		attack1bullet1Time = attack1Elapsed;
 	}
 	if (attack1bullet2Time == 0.0f && attack1Elapsed - attack1bullet1Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet1Time != 0.0f) {

@@ -129,6 +129,7 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Thunder.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +190,7 @@
     <ClInclude Include="Screen.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Thunder.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

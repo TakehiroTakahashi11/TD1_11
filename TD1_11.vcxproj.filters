@@ -154,6 +154,9 @@
     <ClCompile Include="BossAttack1.cpp">
       <Filter>Module\Ballet</Filter>
     </ClCompile>
+    <ClCompile Include="Thunder.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -329,6 +332,9 @@
     </ClInclude>
     <ClInclude Include="BossAttack1.h">
       <Filter>Module\Ballet</Filter>
+    </ClInclude>
+    <ClInclude Include="Thunder.h">
+      <Filter>Module\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

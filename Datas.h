@@ -89,6 +89,9 @@ public:
     static constexpr float EFFECTS_HIT_SPD = 2.0f;// ヒットエフェクト速度
     static Texture EFFECTS_HIT_TEX;// テクスチャ
 
+    static constexpr float EFFECTS_THUNDER_SIZE = 400.0f;// テクスチャ
+    static Texture EFFECTS_THUNDER_TEX;// テクスチャ
+
     // =========================
     // BULLETS
     // パラメータ
