@@ -161,13 +161,6 @@ void Game::Draw() {
     // 現在のシーンに応じて描画処理
     pScene[mNowScene]->Draw();
 
-    // 何かしらのフラグ中以外マウス描画、メニュー
-    // 外で読み込んで後で外す
-    if (mNowScene != kLoadScene)
-    {
-        // Mouse::Draw(Datas::MouseTex);
-    }
-
     // エフェクト描画
     BulletManager::Draw();
     EffectManager::Draw();
