@@ -41,21 +41,19 @@ void BossAttack1::Update()
 			if (bossAttack1[i].position.x + bossAttack1[i].size.x < -Datas::STAGE1_WIDTH
 				|| Datas::STAGE1_WIDTH < bossAttack1[i].position.x + bossAttack1[i].size.x
 				|| bossAttack1[i].position.y + bossAttack1[i].size.y < -Datas::STAGE1_HEIGHT
-				|| Datas::STAGE1_HEIGHT < bossAttack1[i].position.y + bossAttack1[i].size.y) {
+				|| Datas::STAGE1_HEIGHT < bossAttack1[i].position.y + bossAttack1[i].size.y) {// もし壁より外なら
 				//エフェクト終了
 				bossAttack1[i].isEnd = true;
 			}
 
+			// 移動処理
 			bossAttack1[i].position += bossAttack1[i].velocity * Datas::BOSS_ATTACK1_SPEED * Delta::getTotalDelta();
 		}
 
 	}
 
 	// 終了処理
-	for (int i = 0; i < BossAttack1MaxNum; i++) {
-		if (!bossAttack1[i].isEnd) {
-			break;
-		}
+	if (endCheck()) {
 		isEnd = true;
 	}
 }
@@ -68,4 +66,14 @@ void BossAttack1::Draw()
 				bossAttack1[i].size.x,bossAttack1[i].size.y }, Datas::EFFECTS_HIT_TEX);
 		}
 	}
+}
+
+bool BossAttack1::endCheck()
+{
+	for (int i = 0; i < BossAttack1MaxNum; i++) {
+		if (!bossAttack1[i].isEnd) {// 終わっていないなら抜ける
+			return false;
+		}
+	}
+	return true;
 }

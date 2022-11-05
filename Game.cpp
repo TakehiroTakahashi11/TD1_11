@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "Boss.h"
+#include "Map.h"
 
 Game::Game()
 {
@@ -61,6 +62,7 @@ Game::Game()
     gauntlets = new Gauntlets(*this);
     player = new Player(*this);
     boss = new Boss(*this);
+    map = new Map(*this);
 }
 
 Game::~Game()

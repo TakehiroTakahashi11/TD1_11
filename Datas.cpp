@@ -8,7 +8,7 @@ Texture Datas::GAUNTLET_TEX = Texture(64, 64);
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
 Texture Datas::BOSS_ATTACK1_TEX = Texture(32, 32);
-Texture Datas::MAP_TEX = Texture(32, 32);
+Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::BackGroundTex = Texture(1920, 1080);
 
 void Datas::LoadTexture()

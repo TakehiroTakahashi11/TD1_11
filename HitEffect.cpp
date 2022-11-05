@@ -57,10 +57,7 @@ void HitEffect::Update()
 
 
 	// I—¹ˆ—
-	for (int i = 0; i < HitEffectMaxNum; i++) {
-		if (!hitEffect[i].isEnd) {
-			return;
-		}
+	if (endCheck()) {
 		isEnd = true;
 	}
 }
@@ -72,4 +69,14 @@ void HitEffect::Draw()
 			getCameraMain().DrawQuad({ {hitEffect[i].position.x - hitEffect[i].size.x * 0.5f,hitEffect[i].position.y - hitEffect[i].size.y * 0.5f},hitEffect[i].size.x,hitEffect[i].size.y }, Datas::EFFECTS_HIT_TEX);
 		}
 	}
+}
+
+bool HitEffect::endCheck()
+{
+	for (int i = 0; i < HitEffectMaxNum; i++) {
+		if (!hitEffect[i].isEnd) {// I‚í‚Á‚Ä‚¢‚È‚¢‚È‚ç”²‚¯‚é
+			return false;
+		}
+	}
+	return true;
 }

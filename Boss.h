@@ -31,15 +31,22 @@ private:
 	enum BossAction
 	{
 		kMove,
+		kAttack1,
 
 		None
 	};
+
+	// アクションセット
+	void SetNextAction(BossAction bossaction);
 
 	// アクション
 	void Action();
 
 	// 待機アクション
 	void Move();
+
+	// 攻撃1
+	void Attack1();
 
 	// アニメーション
 	void Animation();
@@ -54,9 +61,12 @@ private:
 	// 予約アクション
 	BossAction nextAction;
 
-	// アクション1用回転角
+	// Move
 	Vector2D beforePos;
 	float moveTheta;
+
+	// Attack1
+	int bullet_handle;
 
 	// 浮いているか
 	bool isFloating;

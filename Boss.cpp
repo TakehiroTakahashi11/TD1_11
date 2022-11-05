@@ -8,6 +8,8 @@
 #include "Delta.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "KeyMouseInput.h"
+#include "BulletManager.h"
 
 Boss::Boss(Game& pGame) : Obj(pGame)
 {
@@ -29,6 +31,8 @@ void Boss::Init()
 	beforePos = { 0.0f,0.0f };
 	moveTheta = 0.0f;
 
+	bullet_handle = 0;
+
 	isFloating = false;
 
 	anim = 0.0f;
@@ -36,6 +40,12 @@ void Boss::Init()
 
 void Boss::Update()
 {
+	if (Datas::DEBUG_MODE) {
+		if (Key::IsTrigger(DIK_J)) {
+			SetNextAction(kAttack1);
+		}
+	}
+
 	// アクション
 	Action();
 
@@ -78,7 +88,7 @@ void Boss::PtoBCollision()
 			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos)) {
 				knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
 				isKnockBack = true;
-				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER);
+				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
 				EffectManager::MakeNewEffect(p_pos, Hit);
 			}
@@ -102,23 +112,29 @@ void Boss::KnockBack()
 			knockBackVel.setZero();
 		}
 		position += knockBackVel * Delta::getTotalDelta();
-
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(400, 0, "BOSS_KNOCKBACK");
-		}
 	}
 	else {
 		isKnockBack = false;
+		beforePos = position;
 	}
+}
+
+void Boss::SetNextAction(BossAction bossaction)
+{
+	nextAction = bossaction;
 }
 
 void Boss::Action()
 {
-	// 移行処理
+	// 辻褄合わせ移行処理等
 	switch (nextAction)
 	{
 	case Boss::kMove:
 		beforePos = position;
+		moveTheta = 0.0f;
+		break;
+	case Boss::kAttack1:
+		BulletManager::MakeNewBullet(position,kBossAttack1);
 		break;
 	case Boss::None:
 	default:
@@ -131,33 +147,34 @@ void Boss::Action()
 	case Boss::kMove:
 		Move();
 		break;
+	case Boss::kAttack1:
+		Attack1();
+		break;
 	case Boss::None:
 	default:
-		if (nowAction != nextAction && nextAction != None) {// 予約アクションがある、かつ次のアクションがNoneでないなら
-			nowAction = nextAction;
-			nextAction = None;
-		}
 		break;
+	}
+
+	if (nextAction != None) {// 予約アクションがあるなら
+		nowAction = nextAction;
+		nextAction = None;
 	}
 }
 
 void Boss::Move()
 {
-	moveTheta += Datas::BOSS1_MOVE_SPD;
-	if (360.0f < moveTheta) {
-		moveTheta -= 360.0f;
-	}
-	position.y = beforePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
-
-	if (nowAction != nextAction && nextAction != None) {// 予約アクションがあるなら
-		// 終了処理
-
-
-		if (beforePos == position) {
-			nowAction = nextAction;
-			nextAction = None;
+	if (!isKnockBack) {
+		moveTheta += Datas::BOSS1_MOVE_SPD;
+		if (360.0f < moveTheta) {
+			moveTheta -= 360.0f;
 		}
+		position.y = beforePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
 	}
+}
+
+void Boss::Attack1()
+{
+	SetNextAction(kMove);
 }
 
 

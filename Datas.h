@@ -51,7 +51,7 @@ public:
     static constexpr int GAUNTLET_WIDTH = 128;// 幅
     static constexpr int GAUNTLET_HEIGHT = 128;// 高さ
     static constexpr float GAUNTLET_MAX_HEALTH = 300.0f;// 最大耐久力
-    static constexpr float GAUNTLET_KNOCKBACK_POWER = 10.0f;// ノックバック距離
+    static constexpr float GAUNTLET_KNOCKBACK_POWER = 20.0f;// ノックバック距離
 
     // アニメーション
     static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 60;// プレイヤーとガントレットとの距離(通常)
@@ -63,28 +63,23 @@ public:
     static Texture GAUNTLET_TEX;// テクスチャ
 
     // =========================
-    // BOSS
+    // BOSS1
     static constexpr float BOSS1_POS_X = 0.0f;// 初期ポジションx
     static constexpr float BOSS1_POS_Y = 0.0f;// 初期ポジションy
     static constexpr int BOSS1_WIDTH = 512;// 幅
     static constexpr int BOSS1_HEIGHT = 512;// 高さ
-    static constexpr int BOSS1_COL_WIDTH = 180;// 第一形態の当たり判定縦
-    static constexpr int BOSS1_COL_HEIGHT = 128;// 第一形態の当たり判定横
-    static constexpr float BOSS1_MOVE_SPD = 0.007f;
-    static constexpr float BOSS1_MOVE_AMP = 30.0f;
+    static constexpr int BOSS1_COL_WIDTH = 180;// 第一形態の当たり判定横
+    static constexpr int BOSS1_COL_HEIGHT = 128;// 第一形態の当たり判定縦
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
     static Texture BOSS1_TEX;// テクスチャ
 
     // アニメーション
+    static constexpr float BOSS1_MOVE_SPD = 0.007f;// ふわふわ速度
+    static constexpr float BOSS1_MOVE_AMP = 30.0f;// ふわふわ振幅
     static constexpr int BOSS1_ANIM_SPD = 3;// アニメーション速度
     static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
-
-    // =========================
-    // STAGE
-    static constexpr float STAGE1_WIDTH = 768.0f;
-    static constexpr float STAGE1_HEIGHT = 768.0f;
-
+    
     // =========================
     // EFFECTS
     static constexpr int EFFECTS_HIT_MAX_NUM = 30;// ヒットエフェクト最大数
@@ -94,8 +89,8 @@ public:
     // =========================
     // BULLETS
     // パラメータ
-    static constexpr float BOSS_ATTACK1_DIS = 50.0f;// 初期位置の中心からの距離
-    static constexpr float BOSS_ATTACK1_SPEED = 5.0f;// 速度
+    static constexpr float BOSS_ATTACK1_DIS = 100.0f;// 初期位置の中心からの距離
+    static constexpr float BOSS_ATTACK1_SPEED = 10.0f;// 速度
 
     // テクスチャ
     static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ
@@ -103,7 +98,19 @@ public:
 
     // =========================
     // Map
+    static constexpr int MAP_SIZE = 64;// 大きさ
     static Texture MAP_TEX;// テクスチャ
+
+    // =========================
+    // STAGE
+    static constexpr float STAGE0_WIDTH = 512.0f;// チュートリアルステージの横幅(半分
+    static constexpr float STAGE0_HEIGHT = 512.0f;
+    static constexpr float STAGE0_MAP_X = STAGE0_WIDTH * 2 / MAP_SIZE;// チュートリアルステージの横幅のマップチップ数
+    static constexpr float STAGE0_MAP_Y = STAGE0_HEIGHT * 2 / MAP_SIZE;
+    static constexpr float STAGE1_WIDTH = 1024.0f;// ステージ1の横幅(半分
+    static constexpr float STAGE1_HEIGHT = 1024.0f;
+    static constexpr float STAGE1_MAP_X = STAGE1_WIDTH * 2 / MAP_SIZE;// ステージ1の横幅のマップチップ数
+    static constexpr float STAGE1_MAP_Y = STAGE1_HEIGHT * 2 / MAP_SIZE;
 
     // =========================
     // 仮Texture

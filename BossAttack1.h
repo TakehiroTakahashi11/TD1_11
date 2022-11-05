@@ -20,6 +20,8 @@ public:
 
 private:
 
+	bool endCheck();
+
 	struct BossAttack1Struct {
 		Vector2D position = { 0.0f,0.0f };
 		Vector2D size = { 32.0f,32.0f };

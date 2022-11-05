@@ -60,6 +60,8 @@ private:
 	class Gauntlets* gauntlets;
 	// ボス
 	class Boss* boss;
+	// マップ
+	class Map* map;
 
 	// カメラ
 	class Camera* mCameraMain;
@@ -70,6 +72,7 @@ public:
 	Player& getPlayer() { return *player; }
 	Gauntlets& getGauntlets() { return *gauntlets; }
 	Boss& getBoss() { return *boss; }
+	Map& getMap() { return *map; }
 	Camera& getCameraMain() { return *mCameraMain; }
 	Camera& getCameraSub() { return *mCameraSub; }
 	Camera& getCameraUI() { return *mCameraUI; }
