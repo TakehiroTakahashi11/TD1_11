@@ -102,9 +102,10 @@ void Boss::PtoBCollision()
 			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos)) {
 				knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
 				isKnockBack = true;
-				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
+				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
+				getPlayer().SetKnockBack(temp);
 				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos, kAtttack);
+				EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
 			}
 		}
 		else {
@@ -112,9 +113,10 @@ void Boss::PtoBCollision()
 				if (!getPlayer().GetIsInvincible()) {
 					getPlayer().SetDamage(Datas::BOSS1_HIT_DAMAGE);
 				}
+				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos, kHit);
+				EffectManager::MakeNewEffect(p_pos - (temp * 2.0f), kHit);
 			}
 		}
 	}

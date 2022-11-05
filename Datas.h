@@ -89,9 +89,9 @@ public:
     static constexpr float EFFECTS_HIT_SPD = 2.0f;// ヒットエフェクト速度
     static Texture EFFECTS_HIT_TEX;// テクスチャ
 
-    static constexpr int EFFECTS_ATK_MAX_NUM = 30;// ヒットエフェクト最大数
-    static constexpr int EFFECTS_ATK_SIZE = 64;// ヒットエフェクト大きさ
-    static constexpr float EFFECTS_ATK_SPD = 2.0f;// ヒットエフェクト速度
+    static constexpr int EFFECTS_ATK_MAX_NUM = 20;// ヒットエフェクト最大数
+    static constexpr int EFFECTS_ATK_SIZE = 32;// ヒットエフェクト大きさ
+    static constexpr float EFFECTS_ATK_SPD = 1.0f;// ヒットエフェクト速度
     static Texture EFFECTS_ATK_TEX;// テクスチャ
 
     static constexpr float EFFECTS_THUNDER_SIZE = 400.0f;// テクスチャ

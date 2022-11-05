@@ -32,7 +32,7 @@ void AttackEffect::Init()
 
 		//エフェクト表示
 		attackEffect[i].isEnd = false;
-		attackEffect[i].acceleration = 0.15f;
+		attackEffect[i].acceleration = 0.08f;
 	}
 }
 
