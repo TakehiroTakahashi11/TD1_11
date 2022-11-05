@@ -47,6 +47,17 @@ void Boss::Init()
 	attack1bullet9Time = 0.0f;
 	attack1bullet10Time = 0.0f;
 
+	thunder1Elapsed = 0.0f;
+	thunder1pos = { 0.0f ,0.0f };
+	thunder2pos = { 0.0f ,0.0f };
+	thunder3pos = { 0.0f ,0.0f };
+	prethunder1_num = -1;
+	prethunder2_num = -1;
+	prethunder3_num = -1;
+	thunder1_created = false;
+	thunder2_created = false;
+	thunder3_created = false;
+
 	isFloating = false;
 
 	anim = 0.0f;
@@ -57,6 +68,9 @@ void Boss::Update()
 	if (Datas::DEBUG_MODE) {
 		if (Controller::IsTriggerButton(0,Controller::bB) || Key::IsTrigger(DIK_J)) {
 			SetNextAction(kAttack1);
+		}
+		if (Controller::IsTriggerButton(0, Controller::bA) || Key::IsTrigger(DIK_K)) {
+			SetNextAction(kThunder1);
 		}
 	}
 
@@ -156,6 +170,9 @@ void Boss::Action()
 	case Boss::kAttack1:
 		Attack1();
 		break;
+	case Boss::kThunder1:
+		Thunder1();
+		break;
 	case Boss::None:
 	default:
 		break;
@@ -171,6 +188,9 @@ void Boss::Action()
 		case Boss::kAttack1:
 			Attack1Mig();
 			break;
+		case Boss::kThunder1:
+			Thunder1Mig();
+			break;
 		case Boss::None:
 		default:
 			canMigration = true;
@@ -180,11 +200,15 @@ void Boss::Action()
 
 	// ˆÚs‰Â”\‚È‚çˆÚsŽžˆê‰ñ‚Ì‚Ý‚Ìˆ—
 	if (nextAction != None && canMigration) {
+		Vector2D wid = { Datas::PLAYER_WIDTH * 0.5f,Datas::PLAYER_WIDTH * 0.9f };
 		switch (nextAction)
 		{
 		case Boss::kMove:
 			break;
 		case Boss::kAttack1:
+			break;
+		case Boss::kThunder1:
+			thunder1pos = getPlayer().GetPosition() - wid;
 			break;
 		case Boss::None:
 		default:
@@ -221,7 +245,6 @@ void Boss::Attack1()
 	attack1Elapsed += Delta::getTotalDelta();
 	if (attack1bullet1Time == 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
-		EffectManager::MakeNewEffect(position, kThunder);
 		attack1bullet1Time = attack1Elapsed;
 	}
 	if (attack1bullet2Time == 0.0f && attack1Elapsed - attack1bullet1Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet1Time != 0.0f) {
@@ -277,6 +300,56 @@ void Boss::Attack1Mig()
 	attack1bullet8Time = 0.0f;
 	attack1bullet9Time = 0.0f;
 	attack1bullet10Time = 0.0f;
+	canMigration = true;
+}
+
+void Boss::Thunder1()
+{
+	thunder1Elapsed += Delta::getTotalDelta();
+
+	if (prethunder1_num == -1) {
+		prethunder1_num = EffectManager::MakeNewEffect(thunder1pos, kPreThunder);
+	}
+	if (!thunder1_created && EffectManager::GetIsEnd(prethunder1_num)) {
+		thunder1_created = true;
+		EffectManager::MakeNewEffect(thunder1pos, kThunder);
+	}
+
+	if (prethunder2_num == -1 && Datas::BOSS_THUNDER1_TIME_DIS < thunder1Elapsed) {
+		Vector2D wid = { Datas::PLAYER_WIDTH * 0.5f,Datas::PLAYER_WIDTH * 0.9f };
+		thunder2pos = getPlayer().GetPosition() - wid;
+		prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
+	}
+	if (!thunder2_created && EffectManager::GetIsEnd(prethunder2_num)) {
+		thunder2_created = true;
+		EffectManager::MakeNewEffect(thunder2pos, kThunder);
+	}
+
+	if (prethunder3_num == -1 && Datas::BOSS_THUNDER1_TIME_DIS * 2 < thunder1Elapsed) {
+		Vector2D wid = { Datas::PLAYER_WIDTH * 0.5f,Datas::PLAYER_WIDTH * 0.9f };
+		thunder3pos = getPlayer().GetPosition() - wid;
+		prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);
+	}
+	if (!thunder3_created && EffectManager::GetIsEnd(prethunder3_num)) {
+		thunder3_created = true;
+		EffectManager::MakeNewEffect(thunder3pos, kThunder);
+		SetNextAction(kMove);
+	}
+
+}
+
+void Boss::Thunder1Mig()
+{
+	thunder1Elapsed = 0.0f;
+	thunder1pos = { 0.0f ,0.0f };
+	thunder2pos = { 0.0f ,0.0f };
+	thunder3pos = { 0.0f ,0.0f };
+	prethunder1_num = -1;
+	prethunder2_num = -1;
+	prethunder3_num = -1;
+	thunder1_created = false;
+	thunder2_created = false;
+	thunder3_created = false;
 	canMigration = true;
 }
 

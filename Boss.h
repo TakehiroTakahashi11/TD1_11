@@ -32,6 +32,7 @@ private:
 	{
 		kMove,
 		kAttack1,
+		kThunder1,
 
 		None
 	};
@@ -49,6 +50,10 @@ private:
 	// 攻撃1
 	void Attack1();
 	void Attack1Mig();
+
+	// 攻撃1
+	void Thunder1();
+	void Thunder1Mig();
 
 	// アニメーション
 	void Animation();
@@ -89,7 +94,17 @@ private:
 	float attack1bullet9Time;
 	float attack1bullet10Time;
 
-	// Attack2
+	// Thunder1
+	float thunder1Elapsed;
+	Vector2D thunder1pos;
+	Vector2D thunder2pos;
+	Vector2D thunder3pos;
+	int prethunder1_num;
+	int prethunder2_num;
+	int prethunder3_num;
+	bool thunder1_created;
+	bool thunder2_created;
+	bool thunder3_created;
 
 	// 浮いているか
 	bool isFloating;
