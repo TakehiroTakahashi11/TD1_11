@@ -7,7 +7,8 @@ Texture Datas::PLAYER_TEX = Texture(32, 32);
 Texture Datas::GAUNTLET_TEX = Texture(64, 64);
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
-Texture Datas::MouseTex = Texture(16, 16);
+Texture Datas::BOSS_ATTACK1_TEX = Texture(32, 32);
+Texture Datas::MAP_TEX = Texture(32, 32);
 Texture Datas::BackGroundTex = Texture(1920, 1080);
 
 void Datas::LoadTexture()
@@ -20,7 +21,9 @@ void Datas::LoadTexture()
 	Per++;
 	EFFECTS_HIT_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
-	MouseTex.SetHandle(Novice::LoadTexture("white1x1.png"));
+	BOSS_ATTACK1_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
+	Per++;
+	MAP_TEX.SetHandle(Novice::LoadTexture("./Resources/Map/ChipTile.png"));
 	Per++;
 	BackGroundTex.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
@@ -28,5 +31,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 6;
+const int Datas::Max_Per = 7;
 bool Datas::IsEnd = false;

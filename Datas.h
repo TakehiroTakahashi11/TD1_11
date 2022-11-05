@@ -23,8 +23,8 @@ public:
     // =========================
     // PLAYER
     // パラメータ
-    static constexpr float PLAYER_POS_X = Datas::SCREEN_HALF_WIDTH;// 初期ポジションx
-    static constexpr float PLAYER_POS_Y = 0.0f;// 初期ポジションy
+    static constexpr float PLAYER_POS_X = 0.0f;// 初期ポジションx
+    static constexpr float PLAYER_POS_Y = -500.0f;// 初期ポジションy
     static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
     static constexpr float PLAYER_MAX_INV = 5.0f;// 無敵時間
     static constexpr int PLAYER_SPD = 10;// 移動の速度
@@ -64,8 +64,8 @@ public:
 
     // =========================
     // BOSS
-    static constexpr float BOSS1_POS_X = Datas::SCREEN_HALF_WIDTH;// 初期ポジションx
-    static constexpr float BOSS1_POS_Y = 500.0f;// 初期ポジションy
+    static constexpr float BOSS1_POS_X = 0.0f;// 初期ポジションx
+    static constexpr float BOSS1_POS_Y = 0.0f;// 初期ポジションy
     static constexpr int BOSS1_WIDTH = 512;// 幅
     static constexpr int BOSS1_HEIGHT = 512;// 高さ
     static constexpr int BOSS1_COL_WIDTH = 180;// 第一形態の当たり判定縦
@@ -81,15 +81,32 @@ public:
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
 
     // =========================
+    // STAGE
+    static constexpr float STAGE1_WIDTH = 768.0f;
+    static constexpr float STAGE1_HEIGHT = 768.0f;
+
+    // =========================
     // EFFECTS
     static constexpr int EFFECTS_HIT_MAX_NUM = 30;// ヒットエフェクト最大数
     static constexpr int EFFECTS_HIT_SIZE = 64;// ヒットエフェクト大きさ
     static Texture EFFECTS_HIT_TEX;// テクスチャ
 
     // =========================
-    // 仮Texture
+    // BULLETS
+    // パラメータ
+    static constexpr float BOSS_ATTACK1_DIS = 50.0f;// 初期位置の中心からの距離
+    static constexpr float BOSS_ATTACK1_SPEED = 5.0f;// 速度
 
-    static Texture MouseTex;
+    // テクスチャ
+    static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ
+    static Texture BOSS_ATTACK1_TEX;// テクスチャ
+
+    // =========================
+    // Map
+    static Texture MAP_TEX;// テクスチャ
+
+    // =========================
+    // 仮Texture
     static Texture BackGroundTex;
 
     // =========================
