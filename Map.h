@@ -10,6 +10,7 @@ public:
 	void Draw();
 
 	void SetMapNum(int num);
+	int GetMapNum() { return map_num; }
 
 private:
 	int map_num;
