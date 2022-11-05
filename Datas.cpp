@@ -24,7 +24,7 @@ void Datas::LoadTexture()
 	Per++;
 	EFFECTS_THUNDER_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/Thunder.png"));
 	Per++;
-	BOSS_ATTACK1_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
+	BOSS_ATTACK1_TEX.SetHandle(Novice::LoadTexture("./Resources/Bullet/Bullet.png"));
 	Per++;
 	MAP_TEX.SetHandle(Novice::LoadTexture("./Resources/Map/ChipTile.png"));
 	Per++;
