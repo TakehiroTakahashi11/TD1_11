@@ -5,6 +5,7 @@ enum EffectType {
 	// エフェクト無し
 	NoneEffect,
 	kHit,
+	kAtttack,
 	kThunder,
 };
 

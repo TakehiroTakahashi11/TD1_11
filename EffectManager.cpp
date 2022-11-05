@@ -2,6 +2,7 @@
 #include "EffectManager.h"
 #include "BaseEffect.h"
 #include "HitEffect.h"
+#include "AttackEffect.h"
 #include "Thunder.h"
 
 void EffectManager::Init(Game& Game)
@@ -56,6 +57,10 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 			case EffectType::kHit:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				effects[nextIndex] = new HitEffect(*pGame, position);// ’Ç‰Á
+				break;
+			case EffectType::kAtttack:
+				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				effects[nextIndex] = new AttackEffect(*pGame, position);// ’Ç‰Á
 				break;
 			case EffectType::kThunder:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
