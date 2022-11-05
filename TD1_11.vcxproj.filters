@@ -160,6 +160,9 @@
     <ClCompile Include="AttackEffect.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="PreThunder.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -340,6 +343,9 @@
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="AttackEffect.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="PreThunder.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,6 +4,7 @@
 #include "HitEffect.h"
 #include "AttackEffect.h"
 #include "Thunder.h"
+#include "PreThunder.h"
 
 void EffectManager::Init(Game& Game)
 {
@@ -66,6 +67,10 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				effects[nextIndex] = new Thunder(*pGame, position);// ’Ç‰Á
 				break;
+			case EffectType::kPreThunder:
+				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				effects[nextIndex] = new PreThunder(*pGame, position);// ’Ç‰Á
+				break;
 			case EffectType::NoneEffect:
 			default:
 				break;
@@ -86,6 +91,9 @@ void EffectManager::SetEnd(int effectNum)
 
 bool EffectManager::GetIsEnd(int effectNum)
 {
+	if (effectNum == -1) {
+		return false;
+	}
 	return effects[effectNum]->GetIsEnd();
 }
 
