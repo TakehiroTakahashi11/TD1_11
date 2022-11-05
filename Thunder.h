@@ -17,6 +17,5 @@ public:
 	void Draw() override;
 
 private:
-
-	
+	Vector2D col_pos;
 };
