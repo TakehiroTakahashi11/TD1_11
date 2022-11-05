@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "Camera.h"
 #include "Boss.h"
+#include "Map.h"
 
 Game::Game()
 {
@@ -61,6 +62,7 @@ Game::Game()
     gauntlets = new Gauntlets(*this);
     player = new Player(*this);
     boss = new Boss(*this);
+    map = new Map(*this);
 }
 
 Game::~Game()
@@ -160,13 +162,6 @@ void Game::Draw() {
 
     // 現在のシーンに応じて描画処理
     pScene[mNowScene]->Draw();
-
-    // 何かしらのフラグ中以外マウス描画、メニュー
-    // 外で読み込んで後で外す
-    if (mNowScene != kLoadScene)
-    {
-        // Mouse::Draw(Datas::MouseTex);
-    }
 
     // エフェクト描画
     BulletManager::Draw();

@@ -51,16 +51,13 @@ void HitEffect::Update()
 			hitEffect[i].velocity.x += hitEffect[i].acceleration * Delta::getTotalDelta();
 			hitEffect[i].velocity.y += hitEffect[i].acceleration * Delta::getTotalDelta();
 
-			hitEffect[i].size -= {1.0f, 1.0f };
+			hitEffect[i].size -= {Datas::EFFECTS_HIT_SPD, Datas::EFFECTS_HIT_SPD};
 		}
 	}
 
 
 	// èIóπèàóù
-	for (int i = 0; i < HitEffectMaxNum; i++) {
-		if (!hitEffect[i].isEnd) {
-			break;
-		}
+	if (endCheck()) {
 		isEnd = true;
 	}
 }
@@ -72,4 +69,14 @@ void HitEffect::Draw()
 			getCameraMain().DrawQuad({ {hitEffect[i].position.x - hitEffect[i].size.x * 0.5f,hitEffect[i].position.y - hitEffect[i].size.y * 0.5f},hitEffect[i].size.x,hitEffect[i].size.y }, Datas::EFFECTS_HIT_TEX);
 		}
 	}
+}
+
+bool HitEffect::endCheck()
+{
+	for (int i = 0; i < HitEffectMaxNum; i++) {
+		if (!hitEffect[i].isEnd) {// èIÇÌÇ¡ÇƒÇ¢Ç»Ç¢Ç»ÇÁî≤ÇØÇÈ
+			return false;
+		}
+	}
+	return true;
 }

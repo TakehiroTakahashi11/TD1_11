@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "BulletManager.h"
+#include "BossAttack1.h"
 
 void BulletManager::Init(Game& Game)
 {
@@ -50,9 +51,9 @@ int BulletManager::MakeNewBullet(Vector2D position, BulletType bulletType)
 			// ˆ—‚É‡‚í‚¹‚Äcase•ÏXA’Ç‰Á
 			switch (bulletType)
 			{
-			case BulletType::Bullet1:
+			case BulletType::kBossAttack1:
 				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ğdelete
-				bullets[nextIndex] = new BaseBullet(*pGame, position);// ’Ç‰Á
+				bullets[nextIndex] = new BossAttack1(*pGame, position);// ’Ç‰Á
 				break;
 			case BulletType::NoneBullet:
 			default:

@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Boss.h"
 #include "Game.h"
+#include "Map.h"
 
 InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
 {
@@ -21,11 +22,16 @@ void InGameScene::Init() {
 }
 
 void InGameScene::Update() {
+	// if(チュートリアル終了){
+	getGame().getMap().SetMapNum(1);// ステージ1に
+	// }
+
 	getGame().getPlayer().Update();
 	getGame().getBoss().Update();
 }
 
 void InGameScene::Draw() {
+	getGame().getMap().Draw();
 	getGame().getPlayer().Draw();
 	getGame().getBoss().Draw();
 }

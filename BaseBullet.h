@@ -4,7 +4,7 @@
 enum BulletType {
 	// エフェクト無し
 	NoneBullet,
-	Bullet1,
+	kBossAttack1,
 };
 
 class BaseBullet

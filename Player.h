@@ -52,8 +52,9 @@ public:// ゲッターセッター
 	bool GetIsDash() { return isDash; }
 	bool GetIsGuard() { return isGuard; }
 	bool GetIsInvincible() { return isInv; }
+	bool GetIsDrawn() { return isDrawn; }
 	
-	void SetDamage(float damage) { taken_damage = damage; }
+	void SetDamage(float damage) { taken_damage = damage; isInv = true; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove() { isDash = false; isGuard = false; }
 
@@ -79,6 +80,8 @@ private:
 	bool isInv;
 	// 無敵状態のカウンター
 	float inv_count;
+	// 描画するか
+	bool isDrawn;
 
 	// ノックバック移動量
 	Vector2D knockBackVel;

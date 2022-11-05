@@ -20,6 +20,8 @@ public:
 
 private:
 
+	bool endCheck();
+
 	/******** エフェクト **********/
 	//position ... x, y座標
 	//size ... 矩形のサイズ

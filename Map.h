@@ -7,9 +7,10 @@ public:
 	Map(class Game& game);
 	~Map();
 
-	void Update();
 	void Draw();
 
-private:
+	void SetMapNum(int num);
 
+private:
+	int map_num;
 };
