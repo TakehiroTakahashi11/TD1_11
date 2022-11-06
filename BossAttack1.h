@@ -7,7 +7,7 @@ class BossAttack1 : public BaseBullet
 {
 public:
 	/// @brief コンストラクタ
-	BossAttack1(class Game& game, Vector2D pos);
+	BossAttack1(class Game& game, Vector2D pos,int n=0);
 
 	/// @brief デストラクタ
 	~BossAttack1();
@@ -32,4 +32,6 @@ private:
 	};
 
 	BossAttack1Struct bossAttack1[BossAttack1MaxNum];
+
+	int t;
 };

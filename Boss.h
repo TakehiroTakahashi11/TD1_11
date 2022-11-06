@@ -38,6 +38,8 @@ private:
 	{
 		kMove1,
 		kAttack1,
+		kAttack1_1,
+		kAttack1_2,
 		kThunder1,
 
 		None
@@ -54,6 +56,11 @@ private:
 
 	// UŒ‚1
 	void Attack1();
+	// UŒ‚1_1
+	void Attack1_1();
+	// UŒ‚1_2
+	void Attack1_2();
+
 
 	// UŒ‚1
 	void Thunder1();
@@ -95,6 +102,12 @@ private:
 	float attack1bullet8Time;
 	float attack1bullet9Time;
 	float attack1bullet10Time;
+
+	// Attack1_1
+	bool attack1_1Flag;
+
+	// Attack1_2
+	bool attack1_2Flag;
 
 	// Thunder1
 	bool thunder1Flag;
