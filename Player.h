@@ -112,6 +112,8 @@ private:
 	float dash_speed;
 	// ダッシュ中か
 	bool isDash;
+	// ダッシュアニメーションフラグ
+	bool isDashAnim;
 
 	// ガード中か
 	bool isGuard;

@@ -52,6 +52,7 @@ void Player::Init() {
 	dash_length = 0.0f;
 	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
+	isDashAnim = false;
 
 	isGuard = false;
 
@@ -233,8 +234,12 @@ void Player::Dash() {
 		}
 		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// 最初の硬直が終わってたら
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
-			if (dash_length < Datas::Datas::PLAYER_DASH_LEN * 0.95f ) {
+			if (isDashAnim) {
 				EffectManager::MakeNewEffect(position, kPlayerDash);
+				isDashAnim = false;
+			}
+			else {
+				isDashAnim = true;
 			}
 		}
 		else {
