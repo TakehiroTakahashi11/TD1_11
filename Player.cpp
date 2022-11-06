@@ -233,6 +233,9 @@ void Player::Dash() {
 		}
 		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// 最初の硬直が終わってたら
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
+			if (dash_length < Datas::Datas::PLAYER_DASH_LEN * 0.95f ) {
+				EffectManager::MakeNewEffect(position, kPlayerDash);
+			}
 		}
 		else {
 			// 硬直
@@ -337,4 +340,9 @@ void Player::WallCollision()
 	default:
 		break;
 	}
+}
+
+float Player::GetIsDir()
+{
+	return static_cast<float>(atan2f(direction.y, direction.x) - 90 * M_PI / 180);
 }

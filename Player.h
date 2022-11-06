@@ -57,6 +57,7 @@ public:// ゲッターセッター
 	bool GetIsGuard() { return isGuard; }
 	bool GetIsInvincible() { return isInv; }
 	bool GetIsDrawn() { return isDrawn; }
+	float GetIsDir();
 	
 	void SetDamage(float damage) { health -= damage; taken_damage += damage; isInv = true; }
 	void AddStamina(float add) { stamina += add; if (Datas::PLAYER_MAX_STAMINA < stamina) { stamina = Datas::PLAYER_MAX_STAMINA; } }

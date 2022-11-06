@@ -57,6 +57,7 @@ public:
     static constexpr int PLAYER_INV_ANIM_SPD = 10;// 無敵アニメーション速度
 
     static Texture PLAYER_TEX;// テクスチャ
+    static Texture PLAYER_DASH_TEX;// テクスチャ
 
     // =========================
     // GAUNTLETS

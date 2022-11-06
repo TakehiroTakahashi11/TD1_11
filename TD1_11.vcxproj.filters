@@ -163,6 +163,12 @@
     <ClCompile Include="PreThunder.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="BossAttack1Anim.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDashAnim.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -346,6 +352,12 @@
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="PreThunder.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAttack1Anim.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDashAnim.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
   </ItemGroup>

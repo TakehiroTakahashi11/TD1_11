@@ -4,6 +4,7 @@
 
 
 Texture Datas::PLAYER_TEX = Texture(64, 64);
+Texture Datas::PLAYER_DASH_TEX = Texture(64, 64);
 Texture Datas::GAUNTLET_TEX = Texture(128, 128);
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
@@ -17,6 +18,8 @@ Texture Datas::BackGroundTex = Texture(1920, 1080);
 void Datas::LoadTexture()
 {
 	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player.png"));
+	Per++;
+	PLAYER_DASH_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Dash.png"));
 	Per++;
 	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet.png"));
 	Per++;
@@ -40,5 +43,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 10;
+const int Datas::Max_Per = 11;
 bool Datas::IsEnd = false;

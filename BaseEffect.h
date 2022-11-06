@@ -8,6 +8,7 @@ enum EffectType {
 	kAtttack,
 	kThunder,
 	kPreThunder,
+	kPlayerDash,
 };
 
 class BaseEffect
