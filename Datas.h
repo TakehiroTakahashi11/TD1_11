@@ -15,7 +15,7 @@ public:
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
     // モード
-    static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
+    static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
     static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
     static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
@@ -29,8 +29,11 @@ public:
     static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
 
     static constexpr float PLAYER_MAX_STAMINA = 300.0f;//最大スタミナ
+    static constexpr float PLAYER_DASH_STAMINA = 50.0f;// ダッシュ消費スタミナ
+    static constexpr float PLAYER_GUARD_STAMINA = 0.1f;// ガード消費スタミナ
+    static constexpr float PLAYER_STAMINA_REGEN = 0.25f;// スタミナ自然回復
 
-    static constexpr float PLAYER_MAX_INV = 55.0f;// 無敵時間
+    static constexpr float PLAYER_MAX_INV = 100.0f;// 無敵時間
 
     static constexpr int PLAYER_SPD = 8;// 移動の速度
     static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
@@ -122,14 +125,12 @@ public:
     static constexpr float EFFECTS_PRETHUNDER_SIZE = 400.0f;// テクスチャ
     static Texture EFFECTS_PRETHUNDER_TEX;// テクスチャ
 
-    // =========================
-    // BULLETS
-    // 周りばらまき弾幕
     static constexpr float BOSS_ATTACK1_DIS = 100.0f;// 初期位置の中心からの距離
     static constexpr float BOSS_ATTACK1_SHOOT_DIS = 5.0f;// 発射間隔
     static constexpr float BOSS_ATTACK1_WAVE_DIS = 50.0f;// ウェーブ間隔
     static constexpr float BOSS_ATTACK1_SPEED = 10.0f;// 速度
     static constexpr float BOSS_ATTACK1_DAMAGE = 5.0f;// ダメージ
+    static constexpr float BOSS_ATTACK1_GUARD_HEAL = 3.5f;// ガード吸収時のスタミナ回復量
 
     // テクスチャ
     static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ

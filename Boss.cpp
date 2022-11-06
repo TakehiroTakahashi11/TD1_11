@@ -86,10 +86,8 @@ void Boss::Update()
 	Animation();
 
 	if (Datas::DEBUG_MODE) {
-		Novice::ScreenPrintf(300, 40, "bosspos:%.1f", position.x);
-		Novice::ScreenPrintf(450, 40, "bosspos:%.1f", position.y);
-		Novice::ScreenPrintf(300, 60, " bossknockBackvelx:%.1f", knockBackVel.x);
-		Novice::ScreenPrintf(450, 60, " bossknockBackvely:%.1f", knockBackVel.y);
+		Novice::ScreenPrintf(0, 0, "BOSS_POS_X:%.1f", position.x);
+		Novice::ScreenPrintf(200, 0, "BOSS_POS_Y:%.1f", position.y);
 	}
 }
 
@@ -239,7 +237,7 @@ void Boss::SetNextAction(BossAction bossaction)
 		if (!attack1Flag) {
 			attack1Flag = true;
 			attack1Elapsed = 0.0f;
-			attack1bullet1Time = 0.0f;
+			attack1bullet1Time = -1.0f;
 			attack1bullet2Time = 0.0f;
 			attack1bullet3Time = 0.0f;
 			attack1bullet4Time = 0.0f;
@@ -305,7 +303,7 @@ void Boss::Move1()
 void Boss::Attack1()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == 0.0f) {
+	if (attack1bullet1Time == -1.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet1Time = attack1Elapsed;
 	}

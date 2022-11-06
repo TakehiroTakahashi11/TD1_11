@@ -18,4 +18,6 @@ public:
 
 private:
 	Vector2D col_pos;
+
+	bool isChecked;
 };

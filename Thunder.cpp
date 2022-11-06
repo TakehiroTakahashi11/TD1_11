@@ -23,16 +23,18 @@ void Thunder::Init()
 {
 	elapsedFrame = 0.0f;
 	col_pos = { position.x + 145.0f, position.y + 45.0f };
+	isChecked = false;
 }
 
 void Thunder::Update()
 {
 	Vector2D temp = { Datas::PLAYER_WIDTH * 1.9f,-Datas::PLAYER_WIDTH * 0.5f };
 	// “–‚½‚è”»’è
-	if (!pGame.getPlayer().GetIsDash() && !pGame.getPlayer().GetIsInvincible()) {
+	if (3.0f < elapsedFrame && !isChecked && !pGame.getPlayer().GetIsDash() && !pGame.getPlayer().GetIsInvincible()) {
 		if (My::CollisonCircletoPoint(col_pos, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_Y, pGame.getPlayer().GetPosition() + temp)) {
 			pGame.getPlayer().SetDamage(Datas::BOSS_THUNDER1_DAMAGE);
 		}
+		isChecked = true;
 	}
 
 	// I—¹ˆ—

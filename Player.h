@@ -58,7 +58,8 @@ public:// ゲッターセッター
 	bool GetIsInvincible() { return isInv; }
 	bool GetIsDrawn() { return isDrawn; }
 	
-	void SetDamage(float damage) { taken_damage = damage; isInv = true; }
+	void SetDamage(float damage) { health -= damage; taken_damage += damage; isInv = true; }
+	void AddStamina(float add) { stamina += add; if (Datas::PLAYER_MAX_STAMINA < stamina) { stamina = Datas::PLAYER_MAX_STAMINA; } }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove() { isDash = false; isGuard = false; }
 
@@ -78,14 +79,18 @@ private:
 	// 速度
 	float speed;
 
+	// 最大体力
+	float healthMax;
 	// 体力
 	float health;
+	// 現在受けたダメージ量
+	float taken_damage;
+
 	// スタミナ最大値
 	float staminaMax;
 	// スタミナ
 	float stamina;
-	// 現在受けたダメージ量
-	float taken_damage;
+
 	// 無敵状態か
 	bool isInv;
 	// 無敵状態のカウンター

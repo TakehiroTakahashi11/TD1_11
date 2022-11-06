@@ -70,7 +70,9 @@ void BossAttack1::Update()
 					g_pos -= {Datas::GAUNTLET_HEIGHT * 0.5f, Datas::GAUNTLET_HEIGHT * 0.5f};
 
 					if (bossAttack1[i].size.x * 1.1f > (bossAttack1[i].position - g_pos).Length()) {
-						// ‹ãB
+						// ‹zŽû
+						pGame.getPlayer().AddStamina(Datas::BOSS_ATTACK1_GUARD_HEAL);
+						// 
 						bossAttack1[i].isEnd = true;
 					}
 					else if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {

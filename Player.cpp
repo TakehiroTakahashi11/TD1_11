@@ -35,10 +35,13 @@ void Player::Init() {
 	direction = { 0.0f,1.0f };
 	speed = Datas::PLAYER_SPD;
 
+	healthMax = Datas::PLAYER_MAX_HEALTH;
 	health = Datas::PLAYER_MAX_HEALTH;
+	taken_damage = 0.0f;
+
 	staminaMax = Datas::PLAYER_MAX_STAMINA;
 	stamina = Datas::PLAYER_MAX_STAMINA;
-	taken_damage = 0.0f;
+
 	isInv = true;
 	inv_count = 0.0f;
 
@@ -72,6 +75,17 @@ void Player::Update() {// ======================================================
 		if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
 			direction = velocity.Normalized();// 移動量から方向を保存
 		}
+	}
+
+	// スタミナリジェネ
+	if (!isDash && !isGuard) {
+		stamina += Datas::PLAYER_STAMINA_REGEN;
+	}
+	if (Datas::PLAYER_MAX_STAMINA < stamina) {
+		stamina = Datas::PLAYER_MAX_STAMINA;
+	}
+	if (stamina < 0.0f) {
+		stamina = 0.0f;
 	}
 
 	// 仰け反り処理
@@ -112,22 +126,20 @@ void Player::Update() {// ======================================================
 	// =====================================================================================
 	// デバッグ用文字列
 	if (Datas::DEBUG_MODE) {
-		Novice::ScreenPrintf(0, 0, "health:%.1f", health);
+		Novice::ScreenPrintf(0, 100, "health:%.1f/max:%.1f", health, healthMax);
+		Novice::ScreenPrintf(0, 140, "stamina:%.1f/max:%.1f", stamina, staminaMax);
+
 		if (isInv) {
-			Novice::ScreenPrintf(150, 0, "invincible");
+			Novice::ScreenPrintf(350, 0, "invincible");
 		}
 		if (isDash) {
-			Novice::ScreenPrintf(150, 0, "Dash");
+			Novice::ScreenPrintf(350, 0, "Dash");
 		}
 		if (isGuard) {
-			Novice::ScreenPrintf(150, 0, "Guard");
+			Novice::ScreenPrintf(350, 0, "Guard");
 		}
-		Novice::ScreenPrintf(0, 40, "position:%.1f", position.x);
-		Novice::ScreenPrintf(150, 40, "position:%.1f", position.y);
-		Novice::ScreenPrintf(0, 60, "velocity:%.1f", velocity.x);
-		Novice::ScreenPrintf(150, 60, "velocity:%.1f", velocity.y);
-		Novice::ScreenPrintf(0, 80, "direction:%.1f", direction.x);
-		Novice::ScreenPrintf(150, 80, "direction:%.1f", direction.y);
+		Novice::ScreenPrintf(0, 40, "PLAYER_POS_X:%.1f", position.x);
+		Novice::ScreenPrintf(200, 40, "PLAYER_POS_Y:%.1f", position.y);
 	}
 	// =====================================================================================
 }
@@ -189,12 +201,13 @@ void Player::Move()
 }
 
 void Player::Dash() {
-	if (!isDash) {// ダッシュ中でないなら入力を取る
+	if (!isDash && Datas::PLAYER_DASH_STAMINA < stamina) {// ダッシュ中でないなら入力を取る
 		if (IsCntMode()) {// コントローラー
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
+				stamina -= Datas::PLAYER_DASH_STAMINA;
 			}
 		}
 		else {// キーボード
@@ -202,6 +215,7 @@ void Player::Dash() {
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
+				stamina -= Datas::PLAYER_DASH_STAMINA;
 			}
 		}
 	}
@@ -233,11 +247,13 @@ void Player::Guard() {
 	if (IsCntMode()) {// コントローラー
 		if (Controller::IsPressedButton(0, Controller::lSHOULDER)) {// Lbが押されているなら
 			isGuard = true;// ガード中にする
+			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
 	}
 	else {// キーボード
 		if (Key::IsPressed(DIK_Z)) {// Zが押されているなら
 			isGuard = true;// ガード中にする
+			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
 	}
 }
@@ -269,16 +285,9 @@ void Player::KnockBack()
 			knockBackVel.setZero();
 		}
 		position += knockBackVel * Delta::getTotalDelta();
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(0, 150, "knockBackVel.x:%.1f", knockBackVel.x);
-			Novice::ScreenPrintf(170, 150, "knockBackVel.x:%.1f", knockBackVel.x);
-		}
 	}
 	else if(0.0f < knockBackRigidCount) {
 		knockBackRigidCount -= Delta::getTotalDelta();
-		if (Datas::DEBUG_MODE) {
-			Novice::ScreenPrintf(50, 150, "knockBackRigid");
-		}
 	}
 	else {
 		isKnockBack = false;
