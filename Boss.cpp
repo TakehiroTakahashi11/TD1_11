@@ -19,6 +19,7 @@ Boss::Boss(Game& pGame) : Obj(pGame)
 void Boss::Init()
 {
 	position = { Datas::BOSS1_POS_X,Datas::BOSS1_POS_Y };
+	homePos = { 0.0f,0.0f };
 	width = Datas::BOSS1_WIDTH;
 	height = Datas::BOSS1_HEIGHT;
 
@@ -26,15 +27,13 @@ void Boss::Init()
 	knockBackVel = { 0.0f,0.0f };
 
 	elapsedTime = 0.0f;
-	lastKnockBackTime = 0.0f;
 	lastActionTime = 0.0f;
 
-	nowAction = None;
-	nextAction = kMove;
+	migrationTime = 0.0f;
 
-	beforePos = { 0.0f,0.0f };
 	moveTheta = 0.0f;
 
+	attack1Flag = false;
 	attack1Elapsed = 0.0f;
 	attack1bullet1Time = 0.0f;
 	attack1bullet2Time = 0.0f;
@@ -47,6 +46,7 @@ void Boss::Init()
 	attack1bullet9Time = 0.0f;
 	attack1bullet10Time = 0.0f;
 
+	thunder1Flag = false;
 	thunder1Elapsed = 0.0f;
 	thunder1pos = { 0.0f ,0.0f };
 	thunder2pos = { 0.0f ,0.0f };
@@ -65,14 +65,11 @@ void Boss::Init()
 
 void Boss::Update()
 {
-	if (Datas::DEBUG_MODE) {
-		if (Controller::IsTriggerButton(0,Controller::bB) || Key::IsTrigger(DIK_J)) {
-			SetNextAction(kAttack1);
-		}
-		if (Controller::IsTriggerButton(0, Controller::bA) || Key::IsTrigger(DIK_K)) {
-			SetNextAction(kThunder1);
-		}
-	}
+	// 移行可能か計算
+	Migration();
+
+	// アクション管理タイムライン
+	TimeLine();
 
 	// アクション
 	Action();
@@ -147,96 +144,161 @@ void Boss::KnockBack()
 	}
 	else {
 		isKnockBack = false;
-		beforePos = position;
+		homePos = position;
 		moveTheta = 0.0f;
+	}
+}
+
+void Boss::TimeLine()
+{
+	if (canMigration) {
+		if ((position - getPlayer().GetCenterPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {
+			switch (My::Random(1, 5))
+			{
+			case 1:
+				SetNextAction(kAttack1);
+				break;
+			case 2:
+				SetNextAction(kAttack1);
+				break;
+			case 3:
+				SetNextAction(kAttack1);
+				break;
+			case 4:
+				SetNextAction(kAttack1);
+				break;
+			case 5:
+			default:
+				SetNextAction(kAttack1);
+				break;
+			}
+		}
+		else if ((position - getPlayer().GetCenterPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
+			switch (My::Random(1, 5))
+			{
+			case 1:
+				SetNextAction(kAttack1);
+				break;
+			case 2:
+				SetNextAction(kThunder1);
+				break;
+			case 3:
+				SetNextAction(kAttack1);
+				break;
+			case 4:
+				SetNextAction(kThunder1);
+				break;
+			case 5:
+			default:
+				SetNextAction(None);
+				break;
+			}
+		}
+		else {
+			switch (My::Random(1, 5))
+			{
+			case 1:
+				SetNextAction(kThunder1);
+				break;
+			case 2:
+				SetNextAction(kThunder1);
+				break;
+			case 3:
+				SetNextAction(kThunder1);
+				break;
+			case 4:
+				SetNextAction(kThunder1);
+				break;
+			case 5:
+			default:
+				SetNextAction(None);
+				break;
+			}
+		}
+	}
+}
+
+void Boss::Migration()
+{
+	migrationTime -= Delta::getTotalDelta();
+
+	if (migrationTime < 0.0f) {
+		migrationTime = 0.0f;
+		canMigration = true;
+	}
+	if (canMigration) {
+		migrationTime = 0.0f;
 	}
 }
 
 void Boss::SetNextAction(BossAction bossaction)
 {
-	nextAction = bossaction;
+	switch (bossaction)
+	{
+	case Boss::kAttack1:
+		if (!attack1Flag) {
+			attack1Flag = true;
+			attack1Elapsed = 0.0f;
+			attack1bullet1Time = 0.0f;
+			attack1bullet2Time = 0.0f;
+			attack1bullet3Time = 0.0f;
+			attack1bullet4Time = 0.0f;
+			attack1bullet5Time = 0.0f;
+			attack1bullet6Time = 0.0f;
+			attack1bullet7Time = 0.0f;
+			attack1bullet8Time = 0.0f;
+			attack1bullet9Time = 0.0f;
+			attack1bullet10Time = 0.0f;
+			canMigration = false;
+			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+		}
+		break;
+	case Boss::kThunder1:
+		if (!thunder1Flag) {
+			thunder1Flag = true;
+			thunder1pos = getPlayer().GetCenterPosition();
+			thunder1Elapsed = 0.0f;
+			thunder2pos = { 0.0f ,0.0f };
+			thunder3pos = { 0.0f ,0.0f };
+			prethunder1_num = -1;
+			prethunder2_num = -1;
+			prethunder3_num = -1;
+			thunder1_created = false;
+			thunder2_created = false;
+			thunder3_created = false;
+			canMigration = false;
+			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
+		}
+		break;
+	case Boss::None:
+	default:
+		canMigration = false;
+		migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+		break;
+	}
 }
 
 void Boss::Action()
 {
-	canMigration = false;
-
-	// 実行
-	switch (nowAction)
-	{
-	case Boss::kMove:
-		Move();
-		break;
-	case Boss::kAttack1:
-		Attack1();
-		break;
-	case Boss::kThunder1:
-		Thunder1();
-		break;
-	case Boss::None:
-	default:
-		break;
-	}
-
-	// 予約アクションがあるなら、移行可能までの判定処理
-	if (nextAction != None) {
-		switch (nowAction)
-		{
-		case Boss::kMove:
-			MoveMig();
-			break;
-		case Boss::kAttack1:
-			Attack1Mig();
-			break;
-		case Boss::kThunder1:
-			Thunder1Mig();
-			break;
-		case Boss::None:
-		default:
-			canMigration = true;
-			break;
-		}
-	}
-
-	// 移行可能なら移行時一回のみの処理
-	if (nextAction != None && canMigration) {
-		Vector2D wid = { Datas::PLAYER_WIDTH * 0.5f,Datas::PLAYER_WIDTH * 0.9f };
-		switch (nextAction)
-		{
-		case Boss::kMove:
-			break;
-		case Boss::kAttack1:
-			break;
-		case Boss::kThunder1:
-			thunder1pos = getPlayer().GetPosition() - wid;
-			break;
-		case Boss::None:
-		default:
-			break;
-		}
-		nowAction = nextAction;
-		nextAction = None;
-	}
-}
-
-void Boss::Move()
-{
 	if (!isKnockBack) {
-		moveTheta += Datas::BOSS1_MOVE_SPD;
-		if (2.0f * M_PI < moveTheta) {
-			moveTheta -= static_cast<float>(2.0f * M_PI);
-		}
-		position.y = beforePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
+		Move1();
+	}
+
+	if (attack1Flag) {
+		Attack1();
+	}
+	if (thunder1Flag) {
+		Thunder1();
 	}
 }
 
-void Boss::MoveMig()
+void Boss::Move1()
 {
-	if ((-Datas::BOSS1_MOVE_SPD < moveTheta && moveTheta < Datas::BOSS1_MOVE_SPD)
-		|| (-Datas::BOSS1_MOVE_SPD < moveTheta - M_PI && moveTheta - M_PI < Datas::BOSS1_MOVE_SPD)) {
-		beforePos = position;
-		moveTheta = 0.0f;
-		canMigration = true;
+	position.y = homePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
+	moveTheta += Datas::BOSS1_MOVE_SPD * Delta::getTotalDelta();
+
+	if (2.0f * M_PI < moveTheta) {
+		moveTheta -= static_cast<float>(2.0f * M_PI);
 	}
 }
 
@@ -282,25 +344,8 @@ void Boss::Attack1()
 	if (attack1bullet10Time == 0.0f && attack1Elapsed - attack1bullet9Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet9Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet10Time = attack1Elapsed;
-		SetNextAction(kMove);
+		attack1Flag = false;
 	}
-
-}
-
-void Boss::Attack1Mig()
-{
-	attack1Elapsed = 0.0f;
-	attack1bullet1Time = 0.0f;
-	attack1bullet2Time = 0.0f;
-	attack1bullet3Time = 0.0f;
-	attack1bullet4Time = 0.0f;
-	attack1bullet5Time = 0.0f;
-	attack1bullet6Time = 0.0f;
-	attack1bullet7Time = 0.0f;
-	attack1bullet8Time = 0.0f;
-	attack1bullet9Time = 0.0f;
-	attack1bullet10Time = 0.0f;
-	canMigration = true;
 }
 
 void Boss::Thunder1()
@@ -316,8 +361,7 @@ void Boss::Thunder1()
 	}
 
 	if (prethunder2_num == -1 && Datas::BOSS_THUNDER1_TIME_DIS < thunder1Elapsed) {
-		Vector2D wid = { Datas::PLAYER_WIDTH * 0.5f,Datas::PLAYER_WIDTH * 0.9f };
-		thunder2pos = getPlayer().GetPosition() - wid;
+		thunder2pos = getPlayer().GetCenterPosition();
 		prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
 	}
 	if (!thunder2_created && EffectManager::GetIsEnd(prethunder2_num)) {
@@ -326,33 +370,15 @@ void Boss::Thunder1()
 	}
 
 	if (prethunder3_num == -1 && Datas::BOSS_THUNDER1_TIME_DIS * 2 < thunder1Elapsed) {
-		Vector2D wid = { Datas::PLAYER_WIDTH * 0.5f,Datas::PLAYER_WIDTH * 0.9f };
-		thunder3pos = getPlayer().GetPosition() - wid;
+		thunder3pos = getPlayer().GetCenterPosition();
 		prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);
 	}
 	if (!thunder3_created && EffectManager::GetIsEnd(prethunder3_num)) {
 		thunder3_created = true;
 		EffectManager::MakeNewEffect(thunder3pos, kThunder);
-		SetNextAction(kMove);
+		thunder1Flag = false;
 	}
-
 }
-
-void Boss::Thunder1Mig()
-{
-	thunder1Elapsed = 0.0f;
-	thunder1pos = { 0.0f ,0.0f };
-	thunder2pos = { 0.0f ,0.0f };
-	thunder3pos = { 0.0f ,0.0f };
-	prethunder1_num = -1;
-	prethunder2_num = -1;
-	prethunder3_num = -1;
-	thunder1_created = false;
-	thunder2_created = false;
-	thunder3_created = false;
-	canMigration = true;
-}
-
 
 void Boss::Animation()
 {

@@ -25,24 +25,32 @@ public:
     // パラメータ
     static constexpr float PLAYER_POS_X = 0.0f;// 初期ポジションx
     static constexpr float PLAYER_POS_Y = -500.0f;// 初期ポジションy
+
     static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
+
+    static constexpr float PLAYER_MAX_STAMINA = 300.0f;//最大スタミナ
+
     static constexpr float PLAYER_MAX_INV = 55.0f;// 無敵時間
-    static constexpr int PLAYER_SPD = 10;// 移動の速度
-    static constexpr int PLAYER_DASH_SPD = 30;// ダッシュの速度
+
+    static constexpr int PLAYER_SPD = 8;// 移動の速度
+    static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
+    static constexpr float PLAYER_ANIM_MAX = 8.0f;// 移動アニメーション最大コマ
+
+    static constexpr int PLAYER_DASH_SPD = 35;// ダッシュの速度
+    static constexpr float PLAYER_DASH_LEN = 7.0f;// ダッシュする時間の長さ(フレーム)
+    static constexpr float PLAYER_DASH_START_RIGID = 0.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
+    static constexpr float PLAYER_DASH_END_RIGID = 2.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
+
     static constexpr float PLAYER_KNOCKBACK_POWER = 20.0f;// ボスに当たった時のノックバック力
     static constexpr float PLAYER_KNOCKBACK_DIS = 0.7f;// ノックバック速度が減る速度
     static constexpr float PLAYER_KNOCKBACK_RIGID = 15.0f;// ノックバック後の硬直時間(フレーム)
+
     static constexpr float PLAYER_CAMARA_OFFSET = 100.0f;// カメラ
     static constexpr float PLAYER_CAMARA_SPD = 5.0f;// カメラが戻る速度
 
     // アニメーション
     static constexpr int PLAYER_WIDTH = 64;// 幅
     static constexpr int PLAYER_HEIGHT = 64;// 高さ
-    static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
-    static constexpr float PLAYER_ANIM_MAX = 8.0f;// 移動アニメーション最大コマ
-    static constexpr float PLAYER_DASH_LEN = 15.0f;// ダッシュする時間の長さ(フレーム)
-    static constexpr float PLAYER_DASH_START_RIGID = 3.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
-    static constexpr float PLAYER_DASH_END_RIGID = 3.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
     static constexpr int PLAYER_INV_ANIM_SPD = 10;// 無敵アニメーション速度
 
     static Texture PLAYER_TEX;// テクスチャ
@@ -51,7 +59,9 @@ public:
     // GAUNTLETS
     static constexpr int GAUNTLET_WIDTH = 128;// 幅
     static constexpr int GAUNTLET_HEIGHT = 128;// 高さ
+
     static constexpr float GAUNTLET_MAX_HEALTH = 300.0f;// 最大耐久力
+
     static constexpr float GAUNTLET_KNOCKBACK_POWER = 10.0f;// ボスを殴った時のノックバック距離
     static constexpr float GAUNTLET_KNOCKBACK_DIS = 0.3f;// ノックバック速度が減る速度
 
@@ -68,12 +78,21 @@ public:
     // BOSS1
     static constexpr float BOSS1_POS_X = 0.0f;// 初期ポジションx
     static constexpr float BOSS1_POS_Y = 0.0f;// 初期ポジションy
+
     static constexpr int BOSS1_WIDTH = 512;// 幅
     static constexpr int BOSS1_HEIGHT = 512;// 高さ
+
     static constexpr int BOSS1_COL_WIDTH = 180;// 第一形態の当たり判定横
     static constexpr int BOSS1_COL_HEIGHT = 128;// 第一形態の当たり判定縦
+
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
-    static Texture BOSS1_TEX;// テクスチャ
+
+    // タイムライン関係
+    static constexpr float BOSS_TIMELINE_DISTANCE_1 = 450.0f;// ボスが行動を変える距離1
+    static constexpr float BOSS_TIMELINE_DISTANCE_2 = 700.0f;// ボスが行動を変える距離2
+
+    static constexpr float BOSS_ATTACK1_OFFSET = 160.0f;// アタック1の後に攻撃が行われない時間
+    static constexpr float BOSS_THUNDER1_OFFSET = 60.0f;
 
     // アニメーション
     static constexpr float BOSS1_MOVE_SPD = 0.02f;// ふわふわ速度
@@ -81,6 +100,7 @@ public:
     static constexpr int BOSS1_ANIM_SPD = 3;// アニメーション速度
     static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
+    static Texture BOSS1_TEX;// テクスチャ
     
     // =========================
     // EFFECTS
@@ -117,7 +137,7 @@ public:
 
     // 雷攻撃
     static constexpr float BOSS_THUNDER1_PRETIME = 15.0f;// 予兆表示時間
-    static constexpr float BOSS_THUNDER1_TIME_DIS = 30.0f;// 発射間隔
+    static constexpr float BOSS_THUNDER1_TIME_DIS = 50.0f;// 発射間隔
     static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ
 
     // =========================

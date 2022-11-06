@@ -9,6 +9,7 @@
 #include "Delta.h"
 #include "Player.h"
 #include "Gauntlets.h"
+#include "Map.h"
 
 BossAttack1::BossAttack1(Game& game, Vector2D pos) : BaseBullet(game, pos)
 {
@@ -49,10 +50,7 @@ void BossAttack1::Update()
 	// 弾検索
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
 		if (bossAttack1[i].isEnd == false) {
-			if (bossAttack1[i].position.x - bossAttack1[i].size.x < -Datas::STAGE1_WIDTH
-				|| Datas::STAGE1_WIDTH < bossAttack1[i].position.x + bossAttack1[i].size.x
-				|| bossAttack1[i].position.y - bossAttack1[i].size.y < -Datas::STAGE1_HEIGHT
-				|| Datas::STAGE1_HEIGHT < bossAttack1[i].position.y + bossAttack1[i].size.y) {// もし壁より外なら
+			if (pGame.getMap().IsWall(bossAttack1[i].position, bossAttack1[i].size)) {// もし壁より外なら
 				//エフェクト終了
 				bossAttack1[i].isEnd = true;
 			}
@@ -71,7 +69,7 @@ void BossAttack1::Update()
 					Vector2D g_pos = pGame.getGauntlets().GetPosition();
 					g_pos -= {Datas::GAUNTLET_HEIGHT * 0.5f, Datas::GAUNTLET_HEIGHT * 0.5f};
 
-					if (bossAttack1[i].size.x * 1.2f > (bossAttack1[i].position - g_pos).Length()) {
+					if (bossAttack1[i].size.x * 1.1f > (bossAttack1[i].position - g_pos).Length()) {
 						// 九州
 						bossAttack1[i].isEnd = true;
 					}

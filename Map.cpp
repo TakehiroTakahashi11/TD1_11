@@ -47,3 +47,30 @@ void Map::SetMapNum(int num)
 	}
 	map_num = num;
 }
+
+bool Map::IsWall(Vector2D pos, Vector2D size)
+{
+	switch (map_num)
+	{
+	case 0:
+		if (pos.x - size.x < -Datas::STAGE0_WIDTH
+			|| Datas::STAGE0_WIDTH < pos.x + size.x
+			|| pos.y - size.y < -Datas::STAGE0_HEIGHT
+			|| Datas::STAGE0_HEIGHT < pos.y + size.y) {// ‚à‚µ•Ç‚æ‚èŠO‚È‚ç
+			return true;
+		}
+		break;
+	case 1:
+		if (pos.x - size.x < -Datas::STAGE1_WIDTH
+			|| Datas::STAGE1_WIDTH < pos.x + size.x
+			|| pos.y - size.y < -Datas::STAGE1_HEIGHT
+			|| Datas::STAGE1_HEIGHT < pos.y + size.y) {// ‚à‚µ•Ç‚æ‚èŠO‚È‚ç
+			return true;
+		}
+		break;
+	default:
+		break;
+	}
+	
+	return false;
+}

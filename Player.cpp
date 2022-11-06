@@ -8,7 +8,9 @@
 #include "MyFunc.h"
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include "Game.h"
 #include "EffectManager.h"
+#include "Map.h"
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
@@ -26,13 +28,16 @@ void Player::Init() {
 	l_stick_mag = { 0,0 };
 	r_stick_mag = { 0,0 };
 	camera_pos = { 0.0f,0.0f };
-
+	
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
+	centerPosition = { Datas::PLAYER_POS_X + Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_POS_Y + Datas::PLAYER_HEIGHT * 0.5f };
 	velocity = { 0.0f,0.0f };
 	direction = { 0.0f,1.0f };
 	speed = Datas::PLAYER_SPD;
 
 	health = Datas::PLAYER_MAX_HEALTH;
+	staminaMax = Datas::PLAYER_MAX_STAMINA;
+	stamina = Datas::PLAYER_MAX_STAMINA;
 	taken_damage = 0.0f;
 	isInv = true;
 	inv_count = 0.0f;
@@ -90,9 +95,15 @@ void Player::Update() {// ======================================================
 		}
 	}
 
+	// 中心座標割り出し
+	centerPosition = { position.x - Datas::PLAYER_WIDTH * 0.5f, position.y - Datas::PLAYER_HEIGHT * 0.5f };
+
+	// 壁判定
+	WallCollision();
+
 	// カメラ追尾
 	MoveCamera();
-	getCameraMain().setPosition(position + camera_pos);
+	getCameraMain().setPosition(centerPosition + camera_pos);
 
 	// =====================================================================================
 	// ガントレットの更新処理
@@ -271,5 +282,50 @@ void Player::KnockBack()
 	}
 	else {
 		isKnockBack = false;
+	}
+}
+
+void Player::WallCollision()
+{
+	switch (getGame().getMap().GetMapNum())
+	{
+	case 0:
+		if (centerPosition.x - Datas::PLAYER_WIDTH * 0.5f < -Datas::STAGE0_WIDTH) {// もし壁より外なら
+			centerPosition.x = Datas::PLAYER_WIDTH * 0.5f - Datas::STAGE0_WIDTH;
+			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		}
+		if (Datas::STAGE0_WIDTH < centerPosition.x + Datas::PLAYER_WIDTH * 0.5f) {
+			centerPosition.x = Datas::STAGE0_WIDTH - Datas::PLAYER_WIDTH * 0.5f;
+			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		}
+		if (centerPosition.y - Datas::PLAYER_HEIGHT * 0.5f < -Datas::STAGE0_HEIGHT) {
+			centerPosition.y = Datas::PLAYER_HEIGHT * 0.5f - Datas::STAGE0_HEIGHT;
+			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		}
+		if (Datas::STAGE0_HEIGHT < centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f) {
+			centerPosition.y = Datas::STAGE0_HEIGHT - Datas::PLAYER_HEIGHT * 0.5f;
+			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		}
+		break;
+	case 1:
+		if (centerPosition.x - Datas::PLAYER_WIDTH * 0.5f < -Datas::STAGE1_WIDTH) {// もし壁より外なら
+			centerPosition.x = Datas::PLAYER_WIDTH * 0.5f - Datas::STAGE1_WIDTH;
+			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		}
+		if (Datas::STAGE1_WIDTH < centerPosition.x + Datas::PLAYER_WIDTH * 0.5f) {
+			centerPosition.x = Datas::STAGE1_WIDTH - Datas::PLAYER_WIDTH * 0.5f;
+			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		}
+		if (centerPosition.y - Datas::PLAYER_HEIGHT * 0.5f < -Datas::STAGE1_HEIGHT) {
+			centerPosition.y = Datas::PLAYER_HEIGHT * 0.5f - Datas::STAGE1_HEIGHT;
+			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		}
+		if (Datas::STAGE1_HEIGHT < centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f) {
+			centerPosition.y = Datas::STAGE1_HEIGHT - Datas::PLAYER_HEIGHT * 0.5f;
+			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		}
+		break;
+	default:
+		break;
 	}
 }
