@@ -235,6 +235,7 @@ void Player::Dash() {
 		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// 最初の硬直が終わってたら
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
 			if (isDashAnim) {
+				EffectManager::MakeNewEffect(centerPosition, kPlayerBoost);
 				EffectManager::MakeNewEffect(position, kPlayerDash);
 				isDashAnim = false;
 			}

@@ -6,6 +6,7 @@
 #include "Thunder.h"
 #include "PreThunder.h"
 #include "PlayerDashAnim.h"
+#include "PlayerBoost.h"
 
 void EffectManager::Init(Game& Game)
 {
@@ -75,6 +76,10 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 			case EffectType::kPlayerDash:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				effects[nextIndex] = new PlayerDashAnim(*pGame, position);// ’Ç‰Á
+				break;
+			case EffectType::kPlayerBoost:
+				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				effects[nextIndex] = new PlayerBoost(*pGame, position);// ’Ç‰Á
 				break;
 			case EffectType::NoneEffect:
 			default:

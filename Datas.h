@@ -31,7 +31,7 @@ public:
     static constexpr float PLAYER_MAX_STAMINA = 300.0f;//最大スタミナ
     static constexpr float PLAYER_DASH_STAMINA = 50.0f;// ダッシュ消費スタミナ
     static constexpr float PLAYER_GUARD_STAMINA = 0.1f;// ガード消費スタミナ
-    static constexpr float PLAYER_STAMINA_REGEN = 0.25f;// スタミナ自然回復
+    static constexpr float PLAYER_STAMINA_REGEN = 100.25f;// スタミナ自然回復
 
     static constexpr float PLAYER_MAX_INV = 100.0f;// 無敵時間
 
@@ -141,6 +141,9 @@ public:
     static constexpr float BOSS_THUNDER1_PRETIME = 15.0f;// 予兆表示時間
     static constexpr float BOSS_THUNDER1_TIME_DIS = 50.0f;// 発射間隔
     static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ
+
+    // ブースト
+    static Texture PLAYER_BOOST_TEX;// テクスチャ
 
     // =========================
     // Map
