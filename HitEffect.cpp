@@ -19,6 +19,7 @@ HitEffect::~HitEffect()
 
 void HitEffect::Init()
 {
+	layer = 2;
 	for (int i = 0; i < HitEffectMaxNum; i++) {
 		//エフェクトの位置、速度、サイズ初期化
 		hitEffect[i].position = position;

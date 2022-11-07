@@ -20,6 +20,7 @@ AttackEffect::~AttackEffect()
 
 void AttackEffect::Init()
 {
+	layer = 2;
 	for (int i = 0; i < AttackEffectMaxNum; i++) {
 		//エフェクトの位置、速度、サイズ初期化
 		attackEffect[i].position = position;

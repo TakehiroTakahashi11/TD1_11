@@ -446,43 +446,16 @@ void Boss::Attack1_2()
 	attack1Elapsed += Delta::getTotalDelta();
 	if (attack1bullet1Time == -1.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_9);
-		attack1bullet1Time = attack1Elapsed;
-	}
-	if (attack1bullet2Time == 0.0f && attack1Elapsed - attack1bullet1Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet1Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_8);
-		attack1bullet2Time = attack1Elapsed;
-	}
-	if (attack1bullet3Time == 0.0f && attack1Elapsed - attack1bullet2Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet2Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_7);
-		attack1bullet3Time = attack1Elapsed;
-	}
-	if (attack1bullet4Time == 0.0f && attack1Elapsed - attack1bullet3Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet3Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_6);
-		attack1bullet4Time = attack1Elapsed;
-	}
-	if (attack1bullet5Time == 0.0f && attack1Elapsed - attack1bullet4Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet4Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_5);
-		attack1bullet5Time = attack1Elapsed;
-	}
-	if (attack1bullet6Time == 0.0f && attack1Elapsed - attack1bullet5Time > Datas::BOSS_ATTACK1_WAVE_DIS && attack1bullet5Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_4);
-		attack1bullet6Time = attack1Elapsed;
-	}
-	if (attack1bullet7Time == 0.0f && attack1Elapsed - attack1bullet6Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet6Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_3);
-		attack1bullet7Time = attack1Elapsed;
-	}
-	if (attack1bullet8Time == 0.0f && attack1Elapsed - attack1bullet7Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet7Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_2);
-		attack1bullet8Time = attack1Elapsed;
-	}
-	if (attack1bullet9Time == 0.0f && attack1Elapsed - attack1bullet8Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet8Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_1);
-		attack1bullet9Time = attack1Elapsed;
-	}
-	if (attack1bullet10Time == 0.0f && attack1Elapsed - attack1bullet9Time > Datas::BOSS_ATTACK1_SHOOT_DIS && attack1bullet9Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
-		attack1bullet10Time = attack1Elapsed;
+		attack1bullet1Time = attack1Elapsed;
 		attack1_2Flag = false;
 	}
 }

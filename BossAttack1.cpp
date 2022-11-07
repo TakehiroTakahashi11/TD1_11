@@ -31,34 +31,34 @@ void BossAttack1::Init()
 			bossAttack1[i].theta = static_cast<float>(i * (360 / BossAttack1MaxNum) * (M_PI / 180.0f));
 			break;
 		case 1:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 2:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 3:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 4:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 5:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 6:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 7:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 8:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 9:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		case 10:
-			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 3.0f * t) * (M_PI / 180.0f));
 			break;
 		default:
 			break;
