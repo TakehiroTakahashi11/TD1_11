@@ -9,9 +9,11 @@
 #include "Delta.h"
 #include "Player.h"
 #include "Gauntlets.h"
+#include "Map.h"
 
-BossAttack1::BossAttack1(Game& game, Vector2D pos) : BaseBullet(game, pos)
+BossAttack1::BossAttack1(Game& game, Vector2D pos, int n) : BaseBullet(game, pos)
 {
+	t = n;
 	BaseInit(pos);
 }
 
@@ -23,7 +25,45 @@ void BossAttack1::Init()
 {
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
 		//弾が向かう方向
-		bossAttack1[i].theta = static_cast<float>(i * (360 / BossAttack1MaxNum) * (M_PI / 180.0f));
+		switch (t)
+		{
+		case 0:
+			bossAttack1[i].theta = static_cast<float>(i * (360 / BossAttack1MaxNum) * (M_PI / 180.0f));
+			break;
+		case 1:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 2:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 3:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 4:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 5:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 6:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 7:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 8:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 9:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		case 10:
+			bossAttack1[i].theta = static_cast<float>((i * (360 / BossAttack1MaxNum) + 6.0f * t) * (M_PI / 180.0f));
+			break;
+		default:
+			break;
+		}
+		
 
 		//弾の位置、速度、サイズ初期化
 		bossAttack1[i].velocity = { cosf(bossAttack1[i].theta), sinf(bossAttack1[i].theta) };
@@ -49,10 +89,7 @@ void BossAttack1::Update()
 	// 弾検索
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
 		if (bossAttack1[i].isEnd == false) {
-			if (bossAttack1[i].position.x - bossAttack1[i].size.x < -Datas::STAGE1_WIDTH
-				|| Datas::STAGE1_WIDTH < bossAttack1[i].position.x + bossAttack1[i].size.x
-				|| bossAttack1[i].position.y - bossAttack1[i].size.y < -Datas::STAGE1_HEIGHT
-				|| Datas::STAGE1_HEIGHT < bossAttack1[i].position.y + bossAttack1[i].size.y) {// もし壁より外なら
+			if (pGame.getMap().IsWall(bossAttack1[i].position, bossAttack1[i].size)) {// もし壁より外なら
 				//エフェクト終了
 				bossAttack1[i].isEnd = true;
 			}
@@ -71,8 +108,10 @@ void BossAttack1::Update()
 					Vector2D g_pos = pGame.getGauntlets().GetPosition();
 					g_pos -= {Datas::GAUNTLET_HEIGHT * 0.5f, Datas::GAUNTLET_HEIGHT * 0.5f};
 
-					if (bossAttack1[i].size.x * 1.2f > (bossAttack1[i].position - g_pos).Length()) {
-						// 九州
+					if (bossAttack1[i].size.x * 1.1f > (bossAttack1[i].position - g_pos).Length()) {
+						// 吸収
+						pGame.getPlayer().AddStamina(Datas::BOSS_ATTACK1_GUARD_HEAL);
+						// 
 						bossAttack1[i].isEnd = true;
 					}
 					else if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {

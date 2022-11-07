@@ -1,14 +1,14 @@
 #pragma once
 #include "BaseEffect.h"
 
-class Thunder : public BaseEffect
+class PlayerDashAnim : public BaseEffect
 {
 public:
 	/// @brief コンストラクタ
-	Thunder(class Game& game, Vector2D pos);
+	PlayerDashAnim(class Game& game, Vector2D pos);
 
 	/// @brief デストラクタ
-	~Thunder();
+	~PlayerDashAnim();
 
 	// 継承
 
@@ -17,7 +17,6 @@ public:
 	void Draw() override;
 
 private:
-	Vector2D col_pos;
-
-	bool isChecked;
+	float theta;
+	Vector2D pos;
 };

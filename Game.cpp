@@ -127,10 +127,6 @@ void Game::BeginFrame() {
 
 /// @brief 更新処理
 void Game::Update() {
-    if (Datas::DEBUG_MODE) {
-        Novice::ScreenPrintf(10, 1000, "boss attack1:B|DIK_J , boss attack2:A|DIK_K");
-    }
-
     switch (mNowPhase)
     {
     case Game::kInit:

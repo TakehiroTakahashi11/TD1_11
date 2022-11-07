@@ -55,6 +55,46 @@ int BulletManager::MakeNewBullet(Vector2D position, BulletType bulletType)
 				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				bullets[nextIndex] = new BossAttack1(*pGame, position);// ’Ç‰Á
 				break;
+			case BulletType::kBossAttack1_1:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position,1);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_2:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 2);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_3:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 3);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_4:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 4);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_5:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 5);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_6:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 6);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_7:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 7);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_8:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 8);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_9:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 9);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttack1_10:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new BossAttack1(*pGame, position, 10);// ’Ç‰Á
+				break;
 			case BulletType::NoneBullet:
 			default:
 				break;

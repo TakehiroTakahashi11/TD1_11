@@ -5,6 +5,16 @@ enum BulletType {
 	// エフェクト無し
 	NoneBullet,
 	kBossAttack1,
+	kBossAttack1_1,
+	kBossAttack1_2,
+	kBossAttack1_3,
+	kBossAttack1_4,
+	kBossAttack1_5,
+	kBossAttack1_6,
+	kBossAttack1_7,
+	kBossAttack1_8,
+	kBossAttack1_9,
+	kBossAttack1_10,
 };
 
 class BaseBullet

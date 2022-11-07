@@ -27,11 +27,19 @@ private:
 	// ノックバック
 	void KnockBack();
 
+	// タイムライン
+	void TimeLine();
+
+	// 移行減算
+	void Migration();
+
 	// アクションenum
 	enum BossAction
 	{
-		kMove,
+		kMove1,
 		kAttack1,
+		kAttack1_1,
+		kAttack1_2,
 		kThunder1,
 
 		None
@@ -44,44 +52,45 @@ private:
 	void Action();
 
 	// 待機アクション
-	void Move();
-	void MoveMig();
+	void Move1();
 
 	// 攻撃1
 	void Attack1();
-	void Attack1Mig();
+	// 攻撃1_1
+	void Attack1_1();
+	// 攻撃1_2
+	void Attack1_2();
+
 
 	// 攻撃1
 	void Thunder1();
-	void Thunder1Mig();
 
 	// アニメーション
 	void Animation();
 
 private:
+	// ホームポジション
+	Vector2D homePos;
+
 	// ノックバック
 	bool isKnockBack;
 	Vector2D knockBackVel;
 
 	// 経過時間
 	float elapsedTime;
-	// 最後にノックバックした時間
-	float lastKnockBackTime;
 	// 最後にアクションした時間
 	float lastActionTime;
 
-	// アクション状態
-	BossAction nowAction;
-	// 予約アクション
-	BossAction nextAction;
 	// 移行できるか
 	bool canMigration;
+	// 移行できるまでの時間
+	float migrationTime;
 
-	// Move
-	Vector2D beforePos;
+	// Move1
 	float moveTheta;
 
 	// Attack1
+	bool attack1Flag;
 	float attack1Elapsed;
 	float attack1bullet1Time;
 	float attack1bullet2Time;
@@ -94,7 +103,14 @@ private:
 	float attack1bullet9Time;
 	float attack1bullet10Time;
 
+	// Attack1_1
+	bool attack1_1Flag;
+
+	// Attack1_2
+	bool attack1_2Flag;
+
 	// Thunder1
+	bool thunder1Flag;
 	float thunder1Elapsed;
 	Vector2D thunder1pos;
 	Vector2D thunder2pos;
