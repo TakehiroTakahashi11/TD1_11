@@ -96,7 +96,7 @@ public:
     static constexpr float BOSS_TIMELINE_DISTANCE_2 = 700.0f;// ボスが行動を変える距離2
 
     static constexpr float BOSS_ATTACK1_OFFSET = 160.0f;// アタック1の後に攻撃が行われない時間
-    static constexpr float BOSS_THUNDER1_OFFSET = 60.0f;
+    static constexpr float BOSS_THUNDER1_OFFSET = 350.0f;
 
     // アニメーション
     static constexpr float BOSS1_MOVE_SPD = 0.02f;// ふわふわ速度

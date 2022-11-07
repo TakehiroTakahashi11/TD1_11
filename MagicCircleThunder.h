@@ -27,5 +27,16 @@ private:
 		float size = 0.0f;
 	};
 
+
+	Vector2D thunder1pos;
+	Vector2D thunder2pos;
+	Vector2D thunder3pos;
+	int prethunder1_num;
+	int prethunder2_num;
+	int prethunder3_num;
+	bool thunder1_created;
+	bool thunder2_created;
+	bool thunder3_created;
+
 	std::vector<MagicCircleThunderStruct>effects;
 };

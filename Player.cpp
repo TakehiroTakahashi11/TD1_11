@@ -42,7 +42,7 @@ void Player::Init() {
 	staminaMax = Datas::PLAYER_MAX_STAMINA;
 	stamina = Datas::PLAYER_MAX_STAMINA;
 
-	isInv = true;
+	isInv = false;
 	inv_count = 0.0f;
 
 	knockBackVel = { 0.0f,0.0f };

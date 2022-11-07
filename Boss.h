@@ -23,9 +23,6 @@ public:
 	/// @brief プレイヤーとボスの判定
 	void PtoBCollision();
 
-	/// @brief 雷を撃ち終わったら
-	bool EndThunder() { if (thunder1End) { thunder1End = false; return true; } return false; };
-
 	/// @brief 
 	Vector2D GetPosition() { return position; };
 
@@ -47,6 +44,7 @@ private:
 		kAttack1_1,
 		kAttack1_2,
 		kThunder1,
+		kThunder1_1,
 
 		None
 	};
@@ -70,6 +68,8 @@ private:
 
 	// 攻撃1
 	void Thunder1();
+	// 攻撃1_1
+	void Thunder1_1();
 
 	// アニメーション
 	void Animation();
@@ -117,18 +117,10 @@ private:
 
 	// Thunder1
 	bool thunder1Flag;
-	float thunder1Elapsed;
-	Vector2D thunder1pos;
-	Vector2D thunder2pos;
-	Vector2D thunder3pos;
-	int prethunder1_num;
-	int prethunder2_num;
-	int prethunder3_num;
-	bool thunder1_created;
-	bool thunder2_created;
-	bool thunder3_created;
+	int thunder1num;
 
-	bool thunder1End;
+	// Thunder1_1
+	bool thunder1_1Flag;
 
 	// 浮いているか
 	bool isFloating;

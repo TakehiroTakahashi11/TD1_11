@@ -29,7 +29,8 @@ void Boss::Init()
 	elapsedTime = 0.0f;
 	lastActionTime = 0.0f;
 
-	migrationTime = 0.0f;
+	canMigration = false;
+	migrationTime = 120.0f;
 
 	moveTheta = 0.0f;
 
@@ -51,17 +52,8 @@ void Boss::Init()
 	attack1_2Flag = false;
 
 	thunder1Flag = false;
-	thunder1Elapsed = 0.0f;
-	thunder1pos = { 0.0f ,0.0f };
-	thunder2pos = { 0.0f ,0.0f };
-	thunder3pos = { 0.0f ,0.0f };
-	prethunder1_num = -1;
-	prethunder2_num = -1;
-	prethunder3_num = -1;
-	thunder1_created = false;
-	thunder2_created = false;
-	thunder3_created = false;
-	thunder1End = false;
+
+	thunder1_1Flag = false;
 
 	isFloating = false;
 
@@ -204,13 +196,13 @@ void Boss::TimeLine()
 				SetNextAction(kThunder1);
 				break;
 			case 2:
-				SetNextAction(kThunder1);
+				SetNextAction(kThunder1_1);
 				break;
 			case 3:
 				SetNextAction(kThunder1);
 				break;
 			case 4:
-				SetNextAction(kThunder1);
+				SetNextAction(kThunder1_1);
 				break;
 			case 5:
 			default:
@@ -294,21 +286,18 @@ void Boss::SetNextAction(BossAction bossaction)
 		break;
 	case Boss::kThunder1:
 		if (!thunder1Flag) {
-			thunder1Flag = true;
-			thunder1pos = getPlayer().GetCenterPosition();
-			thunder1Elapsed = 0.0f;
-			thunder2pos = { 0.0f ,0.0f };
-			thunder3pos = { 0.0f ,0.0f };
-			prethunder1_num = -1;
-			prethunder2_num = -1;
-			prethunder3_num = -1;
-			thunder1_created = false;
-			thunder2_created = false;
-			thunder3_created = false;
-			thunder1End = false;
+			thunder1Flag = true;;
+			thunder1num = -1;
 			canMigration = false;
 			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
-			EffectManager::MakeNewEffect(position, kPrePreThunder);
+		}
+		break;
+	case Boss::kThunder1_1:
+		if (!thunder1_1Flag) {
+			thunder1_1Flag = true;
+			thunder1num = -1;
+			canMigration = false;
+			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
 		}
 		break;
 	case Boss::None:
@@ -336,6 +325,9 @@ void Boss::Action()
 	}
 	if (thunder1Flag) {
 		Thunder1();
+	}
+	if (thunder1_1Flag) {
+		Thunder1_1();
 	}
 }
 
@@ -462,36 +454,21 @@ void Boss::Attack1_2()
 
 void Boss::Thunder1()
 {
-	thunder1Elapsed += Delta::getTotalDelta();
-
-	if (prethunder1_num == -1 && Datas::BOSS_THUNDER1_PREPRETIME < thunder1Elapsed) {
-		prethunder1_num = EffectManager::MakeNewEffect(thunder1pos, kPreThunder);
+	if (thunder1num == -1) {
+		thunder1num = EffectManager::MakeNewEffect(position, kPrePreThunder);
 	}
-	if (!thunder1_created && EffectManager::GetIsEnd(prethunder1_num)) {
-		thunder1_created = true;
-		EffectManager::MakeNewEffect(thunder1pos, kThunder);
-		thunder1End = true;
-	}
-
-	if (prethunder2_num == -1 && Datas::BOSS_THUNDER1_PREPRETIME + Datas::BOSS_THUNDER1_TIME_DIS < thunder1Elapsed) {
-		thunder2pos = getPlayer().GetCenterPosition();
-		prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
-	}
-	if (!thunder2_created && EffectManager::GetIsEnd(prethunder2_num)) {
-		thunder2_created = true;
-		EffectManager::MakeNewEffect(thunder2pos, kThunder);
-		thunder1End = true;
-	}
-
-	if (prethunder3_num == -1 && Datas::BOSS_THUNDER1_PREPRETIME + Datas::BOSS_THUNDER1_TIME_DIS * 2 < thunder1Elapsed) {
-		thunder3pos = getPlayer().GetCenterPosition();
-		prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);
-	}
-	if (!thunder3_created && EffectManager::GetIsEnd(prethunder3_num)) {
-		thunder3_created = true;
-		EffectManager::MakeNewEffect(thunder3pos, kThunder);
-		thunder1End = true;
+	if (EffectManager::GetIsEnd(thunder1num)) {
 		thunder1Flag = false;
+	}
+}
+
+void Boss::Thunder1_1()
+{
+	if (thunder1num == -1) {
+		thunder1num = EffectManager::MakeNewEffect(position, kPrePreThunder);
+	}
+	if (EffectManager::GetIsEnd(thunder1num)) {
+		thunder1_1Flag = false;
 	}
 }
 
