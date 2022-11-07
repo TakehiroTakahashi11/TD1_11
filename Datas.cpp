@@ -12,6 +12,7 @@ Texture Datas::EFFECTS_ATK_TEX = Texture(EFFECTS_ATK_SIZE, EFFECTS_ATK_SIZE);
 Texture Datas::EFFECTS_THUNDER_TEX = Texture(400, 400);
 Texture Datas::EFFECTS_PRETHUNDER_TEX = Texture(400, 400);
 Texture Datas::BOSS_ATTACK1_TEX = Texture(32, 32);
+Texture Datas::MAGIC_CIRCLE_TEX = Texture(128, 128);
 Texture Datas::PLAYER_BOOST_TEX = Texture(32, 32);
 Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::BackGroundTex = Texture(1920, 1080);
@@ -38,6 +39,8 @@ void Datas::LoadTexture()
 	Per++;
 	PLAYER_BOOST_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Boost/Boost.png"));
 	Per++;
+	MAGIC_CIRCLE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/MagicCircle.png"));
+	Per++;
 	MAP_TEX.SetHandle(Novice::LoadTexture("./Resources/Map/ChipTile.png"));
 	Per++;
 	BackGroundTex.SetHandle(Novice::LoadTexture("white1x1.png"));
@@ -46,5 +49,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 11;
+const int Datas::Max_Per = 12;
 bool Datas::IsEnd = false;

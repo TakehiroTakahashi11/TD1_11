@@ -23,6 +23,9 @@ public:
 	/// @brief プレイヤーとボスの判定
 	void PtoBCollision();
 
+	/// @brief 雷を撃ち終わったら
+	bool EndThunder() { if (thunder1End) { thunder1End = false; return true; } return false; };
+
 private:
 	// ノックバック
 	void KnockBack();
@@ -121,6 +124,8 @@ private:
 	bool thunder1_created;
 	bool thunder2_created;
 	bool thunder3_created;
+
+	bool thunder1End;
 
 	// 浮いているか
 	bool isFloating;

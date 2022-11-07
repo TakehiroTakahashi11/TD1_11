@@ -7,6 +7,7 @@
 #include "PreThunder.h"
 #include "PlayerDashAnim.h"
 #include "PlayerBoost.h"
+#include "MagicCircleThunder.h"
 
 void EffectManager::Init(Game& Game)
 {
@@ -72,6 +73,10 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 			case EffectType::kPreThunder:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				effects[nextIndex] = new PreThunder(*pGame, position);// ’Ç‰Á
+				break;
+			case EffectType::kPrePreThunder:
+				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				effects[nextIndex] = new MagicCircleThunder(*pGame, position);// ’Ç‰Á
 				break;
 			case EffectType::kPlayerDash:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete

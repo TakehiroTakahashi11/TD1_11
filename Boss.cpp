@@ -61,6 +61,7 @@ void Boss::Init()
 	thunder1_created = false;
 	thunder2_created = false;
 	thunder3_created = false;
+	thunder1End = false;
 
 	isFloating = false;
 
@@ -304,8 +305,10 @@ void Boss::SetNextAction(BossAction bossaction)
 			thunder1_created = false;
 			thunder2_created = false;
 			thunder3_created = false;
+			thunder1End = false;
 			canMigration = false;
 			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
+			EffectManager::MakeNewEffect(position, kPrePreThunder);
 		}
 		break;
 	case Boss::None:
@@ -488,30 +491,33 @@ void Boss::Thunder1()
 {
 	thunder1Elapsed += Delta::getTotalDelta();
 
-	if (prethunder1_num == -1) {
+	if (prethunder1_num == -1 && Datas::BOSS_THUNDER1_PREPRETIME < thunder1Elapsed) {
 		prethunder1_num = EffectManager::MakeNewEffect(thunder1pos, kPreThunder);
 	}
 	if (!thunder1_created && EffectManager::GetIsEnd(prethunder1_num)) {
 		thunder1_created = true;
 		EffectManager::MakeNewEffect(thunder1pos, kThunder);
+		thunder1End = true;
 	}
 
-	if (prethunder2_num == -1 && Datas::BOSS_THUNDER1_TIME_DIS < thunder1Elapsed) {
+	if (prethunder2_num == -1 && Datas::BOSS_THUNDER1_PREPRETIME + Datas::BOSS_THUNDER1_TIME_DIS < thunder1Elapsed) {
 		thunder2pos = getPlayer().GetCenterPosition();
 		prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
 	}
 	if (!thunder2_created && EffectManager::GetIsEnd(prethunder2_num)) {
 		thunder2_created = true;
 		EffectManager::MakeNewEffect(thunder2pos, kThunder);
+		thunder1End = true;
 	}
 
-	if (prethunder3_num == -1 && Datas::BOSS_THUNDER1_TIME_DIS * 2 < thunder1Elapsed) {
+	if (prethunder3_num == -1 && Datas::BOSS_THUNDER1_PREPRETIME + Datas::BOSS_THUNDER1_TIME_DIS * 2 < thunder1Elapsed) {
 		thunder3pos = getPlayer().GetCenterPosition();
 		prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);
 	}
 	if (!thunder3_created && EffectManager::GetIsEnd(prethunder3_num)) {
 		thunder3_created = true;
 		EffectManager::MakeNewEffect(thunder3pos, kThunder);
+		thunder1End = true;
 		thunder1Flag = false;
 	}
 }
