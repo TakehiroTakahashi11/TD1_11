@@ -29,10 +29,30 @@ void EffectManager::Update()
 	}
 }
 
-void EffectManager::Draw()
+void EffectManager::Draw0()
 {
 	for (int i = 0; i < effectArraySize; i++) {
-		effects[i]->BaseDraw();
+		if (effects[i]->GetIsLayer() == 0) {
+			effects[i]->BaseDraw();
+		}
+	}
+}
+
+void EffectManager::Draw1()
+{
+	for (int i = 0; i < effectArraySize; i++) {
+		if (effects[i]->GetIsLayer() == 1) {
+			effects[i]->BaseDraw();
+		}
+	}
+}
+
+void EffectManager::Draw2()
+{
+	for (int i = 0; i < effectArraySize; i++) {
+		if (effects[i]->GetIsLayer() == 2) {
+			effects[i]->BaseDraw();
+		}
 	}
 }
 

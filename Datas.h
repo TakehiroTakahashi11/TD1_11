@@ -138,7 +138,7 @@ public:
     static Texture BOSS_ATTACK1_TEX;// テクスチャ
 
     // 雷攻撃
-    static constexpr float BOSS_THUNDER1_PREPRETIME = 120.0f;// 予兆表示時間
+    static constexpr float BOSS_THUNDER1_PREPRETIME = 90.0f;// 魔法陣予兆表示時間
     static constexpr float BOSS_THUNDER1_PRETIME = 15.0f;// 予兆表示時間
     static constexpr float BOSS_THUNDER1_TIME_DIS = 50.0f;// 発射間隔
     static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ

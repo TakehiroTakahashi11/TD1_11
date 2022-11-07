@@ -28,6 +28,7 @@ void BaseEffect::BaseInit()
 	isEnd = true;
 	elapsedFrame = 0.0f;
 	position = { 0.0f,0.0f };
+	layer = 1;
 
 	Init();
 }
@@ -35,6 +36,7 @@ void BaseEffect::BaseInit()
 void BaseEffect::BaseInit(Vector2D pos)
 {
 	isEnd = false;
+	layer = 0;
 	elapsedFrame = 0.0f;
 	position = pos;
 

@@ -165,7 +165,7 @@ void Game::Draw() {
 
     // エフェクト描画
     BulletManager::Draw();
-    EffectManager::Draw();
+    EffectManager::Draw2();
 }
 
 /// @brief 終了時処理

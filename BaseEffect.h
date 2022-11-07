@@ -51,6 +51,8 @@ public:
 	void SetEnd() { isEnd = true; }
 	/// @brief エフェクトが終わっているか
 	bool GetIsEnd() { return isEnd; }
+	/// @brief レイヤー番号
+	bool GetIsLayer() { return layer; }
 
 	/// @brief メインカメラを取得する関数
 	class Camera& getCameraMain();
@@ -67,6 +69,9 @@ protected:
 
 	// 終了したか
 	bool isEnd;
+
+	// レイヤー番号
+	int layer;
 
 	// ゲームのポインタ
 	Game& pGame;

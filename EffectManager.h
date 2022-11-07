@@ -11,7 +11,13 @@ public:
 	static void Update();
 
 	/// @brief •`‰æˆ—
-	static void Draw();
+	static void Draw0();
+
+	/// @brief •`‰æˆ—
+	static void Draw1();
+
+	/// @brief •`‰æˆ—
+	static void Draw2();
 
 	/// @brief I—¹ˆ—
 	static void Finalise();

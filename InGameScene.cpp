@@ -32,8 +32,10 @@ void InGameScene::Update() {
 
 void InGameScene::Draw() {
 	getGame().getMap().Draw();
+	EffectManager::Draw0();
 	getGame().getPlayer().Draw();
 	getGame().getBoss().Draw();
+	EffectManager::Draw1();
 }
 
 void InGameScene::Finalise() {
