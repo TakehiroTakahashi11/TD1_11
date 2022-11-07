@@ -1,7 +1,7 @@
 #pragma 
 #include "BaseEffect.h"
 #include <vector>
-#define MagicCircleRadius 512
+#define MagicCircleRadius 256
 #define MagicCircleMAX 3
 
 class MagicCircleThunder : public BaseEffect {
@@ -22,9 +22,9 @@ private:
 		Vector2D position;
 		Vector2D velocity;
 		Vector2D rotation;
-		float theta;
-		float rotatetheta;
-		float size;
+		float theta = 0.0f;
+		float rotatetheta = 0.0f;
+		float size = 0.0f;
 	};
 
 	std::vector<MagicCircleThunderStruct>effects;

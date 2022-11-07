@@ -26,6 +26,9 @@ public:
 	/// @brief 雷を撃ち終わったら
 	bool EndThunder() { if (thunder1End) { thunder1End = false; return true; } return false; };
 
+	/// @brief 
+	Vector2D GetPosition() { return position; };
+
 private:
 	// ノックバック
 	void KnockBack();
