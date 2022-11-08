@@ -64,6 +64,7 @@ void MagicCircleThunder::Update() {
 				if (!thunder1_created && EffectManager::GetIsEnd(prethunder1_num)) {
 					thunder1_created = true;
 					EffectManager::MakeNewEffect(thunder1pos, kThunder);
+					pGame.getCameraMain().CameraShake({ Datas::BOSS_THUNDER1_SHAKE_AMP_X,Datas::BOSS_THUNDER1_SHAKE_AMP_Y }, { Datas::BOSS_THUNDER1_SHAKE_DIS_X,Datas::BOSS_THUNDER1_SHAKE_DIS_Y }, 20.0f);
 					effects.pop_back();
 				}
 			}
@@ -75,6 +76,7 @@ void MagicCircleThunder::Update() {
 				if (!thunder2_created && EffectManager::GetIsEnd(prethunder2_num)) {
 					thunder2_created = true;
 					EffectManager::MakeNewEffect(thunder2pos, kThunder);
+					pGame.getCameraMain().CameraShake({ Datas::BOSS_THUNDER1_SHAKE_AMP_X,Datas::BOSS_THUNDER1_SHAKE_AMP_Y }, { Datas::BOSS_THUNDER1_SHAKE_DIS_X,Datas::BOSS_THUNDER1_SHAKE_DIS_Y }, 20.0f);
 					effects.pop_back();
 				}
 			}
@@ -86,6 +88,7 @@ void MagicCircleThunder::Update() {
 				if (!thunder3_created && EffectManager::GetIsEnd(prethunder3_num)) {
 					thunder3_created = true;
 					EffectManager::MakeNewEffect(thunder3pos, kThunder);
+					pGame.getCameraMain().CameraShake({ Datas::BOSS_THUNDER1_SHAKE_AMP_X,Datas::BOSS_THUNDER1_SHAKE_AMP_Y }, { Datas::BOSS_THUNDER1_SHAKE_DIS_X,Datas::BOSS_THUNDER1_SHAKE_DIS_Y }, 20.0f);
 					effects.pop_back();
 				}
 			}
