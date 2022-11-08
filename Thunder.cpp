@@ -31,9 +31,22 @@ void Thunder::Update()
 {
 	// “–‚½‚è”»’è
 	if (2.5f < elapsedFrame && !isChecked) {
-		if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_X, pGame.getPlayer().GetCenterPosition())
-			&& !pGame.getPlayer().GetIsDash() && !pGame.getPlayer().GetIsInvincible()) {
-			pGame.getPlayer().SetDamage(Datas::BOSS_THUNDER1_DAMAGE);
+		if (!pGame.getPlayer().GetIsInvincible()) {
+			if (pGame.getPlayer().GetIsDash()) {
+				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition1())
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition2())
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition3())
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition4())
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition5())
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition6())) {
+					pGame.getPlayer().SetIsJustDodge();
+				}
+			}
+			else {
+				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_X, pGame.getPlayer().GetCenterPosition())) {
+					pGame.getPlayer().SetDamage(Datas::BOSS_THUNDER1_DAMAGE);
+				}
+			}
 		}
 		isChecked = true;
 	}

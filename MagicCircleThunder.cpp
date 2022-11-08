@@ -44,6 +44,7 @@ void MagicCircleThunder::Update() {
 	for (int i = 0; i < effects.size(); i++) {
 
 		effects[i].theta += 1.0f / 60.0f * static_cast<float>(M_PI) * Delta::getTotalDelta();
+			effects[i].position = pGame.getBoss().GetPosition() + effects[i].rotation.Rotated(effects[i].rotatetheta) * MagicCircleRadius;
 
 		if (effects[i].size < 128) {
 			effects[i].size += 0.01f * 128 * Delta::getTotalDelta();

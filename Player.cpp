@@ -31,6 +31,12 @@ void Player::Init() {
 
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	centerPosition = { Datas::PLAYER_POS_X + Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_POS_Y + Datas::PLAYER_HEIGHT * 0.5f };
+	JustDodgePosition1 = { -50000.0f,-50000.0f };
+	JustDodgePosition2 = { -50000.0f,-50000.0f };
+	JustDodgePosition3 = { -50000.0f,-50000.0f };
+	JustDodgePosition4 = { -50000.0f,-50000.0f };
+	JustDodgePosition5 = { -50000.0f,-50000.0f };
+	JustDodgePosition6 = { -50000.0f,-50000.0f };
 	velocity = { 0.0f,0.0f };
 	direction = { 0.0f,1.0f };
 	speed = Datas::PLAYER_SPD;
@@ -41,6 +47,9 @@ void Player::Init() {
 
 	staminaMax = Datas::PLAYER_MAX_STAMINA;
 	stamina = Datas::PLAYER_MAX_STAMINA;
+	guard_break = false;
+
+	justDodge = false;
 
 	isInv = false;
 	inv_count = 0.0f;
@@ -66,7 +75,7 @@ void Player::Update() {// ======================================================
 	// 基本処理
 	if (!isKnockBack) {// ノックバックされていないなら
 		Dash();// ダッシュ処理
-		if (!isDash) {// ダッシュ中でないなら
+		if (!isDash && !guard_break) {// ダッシュ中でないなら
 			Guard();// ガード処理
 		}
 		if (!isDash) {// ダッシュ中、ガード中でないなら
@@ -87,6 +96,13 @@ void Player::Update() {// ======================================================
 	}
 	if (stamina < 0.0f) {
 		stamina = 0.0f;
+		guard_break = true;
+		isGuard = false;
+	}
+	if (guard_break) {
+		if (Datas::PLAYER_GUARD_COOLTIME < stamina) {
+			guard_break = false;
+		}
 	}
 
 	// 仰け反り処理
@@ -141,6 +157,8 @@ void Player::Update() {// ======================================================
 		}
 		Novice::ScreenPrintf(0, 40, "PLAYER_POS_X:%.1f", position.x);
 		Novice::ScreenPrintf(200, 40, "PLAYER_POS_Y:%.1f", position.y);
+
+		Novice::ScreenPrintf(500, 540, "JUST:%d", justDodge);
 	}
 	// =====================================================================================
 }
@@ -207,6 +225,7 @@ void Player::Dash() {
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
+				JustDodgePosition1 = centerPosition;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
@@ -214,6 +233,7 @@ void Player::Dash() {
 			if (Key::IsTrigger(DIK_SPACE)) {// SPACEを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
+				JustDodgePosition1 = centerPosition;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
@@ -225,6 +245,15 @@ void Player::Dash() {
 
 		if (Datas::PLAYER_DASH_START_RIGID + Datas::PLAYER_DASH_LEN + Datas::PLAYER_DASH_END_RIGID < dash_length) {// 最大距離までダッシュして、硬直も終わったら
 			isDash = false;// ダッシュオフ
+			JustDodgePosition1 = { -50000.0f,-50000.0f };
+			JustDodgePosition2 = { -50000.0f,-50000.0f };
+			JustDodgePosition3 = { -50000.0f,-50000.0f };
+			JustDodgePosition4 = { -50000.0f,-50000.0f };
+			JustDodgePosition5 = { -50000.0f,-50000.0f };
+			JustDodgePosition6 = { -50000.0f,-50000.0f };
+			if (justDodge) {
+				CheckJust();
+			}
 		}
 		else if (Datas::PLAYER_DASH_LEN < dash_length) {// 最大距離までダッシュしたら
 			// 硬直
@@ -233,9 +262,29 @@ void Player::Dash() {
 		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// 最初の硬直が終わってたら
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
 			if (isDashAnim) {
+				if (justDodge) {
+					EffectManager::MakeNewEffect(position, kPlayerDash);
+				}
 				EffectManager::MakeNewEffect(centerPosition, kPlayerBoost);
-				EffectManager::MakeNewEffect(position, kPlayerDash);
 				isDashAnim = false;
+				if (JustDodgePosition1.x == -50000.0f) {
+					JustDodgePosition1 = centerPosition;
+				}
+				else if (JustDodgePosition2.x == -50000.0f) {
+					JustDodgePosition2 = centerPosition;
+				}
+				else if (JustDodgePosition3.x == -50000.0f) {
+					JustDodgePosition3 = centerPosition;
+				}
+				else if (JustDodgePosition4.x == -50000.0f) {
+					JustDodgePosition4 = centerPosition;
+				}
+				else if (JustDodgePosition5.x == -50000.0f) {
+					JustDodgePosition5 = centerPosition;
+				}
+				else if (JustDodgePosition6.x == -50000.0f) {
+					JustDodgePosition6 = centerPosition;
+				}
 			}
 			else {
 				isDashAnim = true;
@@ -252,13 +301,13 @@ void Player::Guard() {
 	isGuard = false;// 初期化
 
 	if (IsCntMode()) {// コントローラー
-		if (Controller::IsPressedButton(0, Controller::lSHOULDER) && stamina != 0.0f) {// Lbが押されているなら
+		if (Controller::IsPressedButton(0, Controller::lSHOULDER)) {// Lbが押されているなら
 			isGuard = true;// ガード中にする
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
 	}
 	else {// キーボード
-		if (Key::IsPressed(DIK_Z) && stamina != 0.0f) {// Zが押されているなら
+		if (Key::IsPressed(DIK_Z)) {// Zが押されているなら
 			isGuard = true;// ガード中にする
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
@@ -344,6 +393,11 @@ void Player::WallCollision()
 	default:
 		break;
 	}
+}
+
+void Player::CheckJust()
+{
+	justDodge = false;
 }
 
 float Player::GetIsDir()

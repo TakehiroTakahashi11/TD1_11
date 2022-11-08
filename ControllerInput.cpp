@@ -1,5 +1,7 @@
 #include "ControllerInput.h"
+#include "Datas.h"
 #include <Novice.h>
+#include "Delta.h"
 // 静的メンバ変数の再宣言
 
 XINPUT_STATE Controller::state[MAX_CONTROLLER_NUM] = { 0 };
@@ -11,6 +13,8 @@ SHORT Controller::leftStickDeadZone[MAX_CONTROLLER_NUM] = { XINPUT_GAMEPAD_LEFT_
 SHORT Controller::rightStickDeadZone[MAX_CONTROLLER_NUM] = { XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE };
 
 int Controller::number = 0;
+XINPUT_VIBRATION Controller::vibration = { 0,0 };
+int Controller::vibration_vel = 0.0f;
 
 // メンバ関数の定義
 
@@ -19,6 +23,19 @@ void Controller::SetState(){
 	for (int num = 0; num < MAX_CONTROLLER_NUM; num++) {
 		previousState[num] = state[num];
  		number = (XInputGetState(num, &state[num]) == ERROR_SUCCESS ? number + 1 : number);
+		if (0 < vibration.wRightMotorSpeed) {
+			vibration.wRightMotorSpeed -= vibration_vel * Delta::getDeltaTime();
+		}
+		if (0 < vibration.wLeftMotorSpeed) {
+			vibration.wLeftMotorSpeed -= vibration_vel * Delta::getDeltaTime();
+		}
+		if (vibration.wLeftMotorSpeed < 8000) {
+			vibration.wLeftMotorSpeed = 0;
+		}
+		if (vibration.wRightMotorSpeed < 8000) {
+			vibration.wRightMotorSpeed = 0;
+		}
+		XInputSetState(num, &vibration);
 	}
 }
 
@@ -42,7 +59,7 @@ bool Controller::IsUse() {
 				(state[number].Gamepad.sThumbRY <  rightStickDeadZone[number] && state[number].Gamepad.sThumbRY > -rightStickDeadZone[number]) ||
 				(state[number].Gamepad.sThumbLX <  rightStickDeadZone[number] && state[number].Gamepad.sThumbLX > -rightStickDeadZone[number]) ||
 				(state[number].Gamepad.sThumbLY <  rightStickDeadZone[number] && state[number].Gamepad.sThumbLY > -rightStickDeadZone[number])){
-				return true;								   
+				return true;
 				}
 		}
 	}
@@ -236,6 +253,13 @@ bool Controller::GetLeftStick(int number, int& outx, int& outy){
 
 bool Controller::GetLeftStick(int number, StickMagnitude& out) {
 	return GetLeftStick(number, out.x, out.y);
+}
+
+void Controller::isVibration(int vel) {
+	vibration_vel = vel;
+	vibration.wLeftMotorSpeed = static_cast<int>(USHRT_MAX * Datas::VIBRATION);
+	vibration.wRightMotorSpeed = static_cast<int>(USHRT_MAX * Datas::VIBRATION);
+	XInputSetState(0, &vibration);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

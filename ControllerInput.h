@@ -60,6 +60,9 @@ private:
 	static SHORT leftStickDeadZone[MAX_CONTROLLER_NUM];		// 左スティックのデッドゾーン
 	static SHORT rightStickDeadZone[MAX_CONTROLLER_NUM];	// 右スティックのデッドゾーン
 
+	static XINPUT_VIBRATION vibration;
+	static int vibration_vel;
+
 	static int number; // コントローラーの数
 
 public:
@@ -178,6 +181,9 @@ public:
 	static bool GetLeftStick(int number, StickMagnitude& out);
 
 	static int GetConnectionNumber() { return number; }
+
+	// バイブレーション
+	static void isVibration(int vel);
 
 private:
 
