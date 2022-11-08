@@ -29,9 +29,8 @@ public:
     static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
 
     static constexpr float PLAYER_MAX_STAMINA = 300.0f;//最大スタミナ
-    static constexpr float PLAYER_DASH_STAMINA = 50.0f;// ダッシュ消費スタミナ
     static constexpr float PLAYER_GUARD_STAMINA = 0.1f;// ガード消費スタミナ
-    static constexpr float PLAYER_STAMINA_REGEN = 100.25f;// スタミナ自然回復
+    static constexpr float PLAYER_STAMINA_REGEN = 0.25f;// スタミナ自然回復
 
     static constexpr float PLAYER_MAX_INV = 100.0f;// 無敵時間
 
@@ -105,7 +104,7 @@ public:
     static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
     static Texture BOSS1_TEX;// テクスチャ
-    
+
     // =========================
     // EFFECTS
     static constexpr int EFFECTS_HIT_MAX_NUM = 30;// ヒットエフェクト最大数
@@ -141,6 +140,10 @@ public:
     static constexpr float BOSS_THUNDER1_PREPRETIME = 90.0f;// 魔法陣予兆表示時間
     static constexpr float BOSS_THUNDER1_PRETIME = 15.0f;// 予兆表示時間
     static constexpr float BOSS_THUNDER1_TIME_DIS = 50.0f;// 発射間隔
+    static constexpr float BOSS_THUNDER1_SHAKE_AMP_X = 7.0f;// カメラシェイク振幅
+    static constexpr float BOSS_THUNDER1_SHAKE_AMP_Y = 5.0f;// カメラシェイク振幅
+    static constexpr float BOSS_THUNDER1_SHAKE_DIS_X = -0.3f;// カメラシェイク減衰
+    static constexpr float BOSS_THUNDER1_SHAKE_DIS_Y = -0.3f;// カメラシェイク減衰
     static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ
 
     static Texture MAGIC_CIRCLE_TEX;// テクスチャ
