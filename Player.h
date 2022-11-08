@@ -58,9 +58,9 @@ public:// ゲッターセッター
 	bool GetIsInvincible() { return isInv; }
 	bool GetIsDrawn() { return isDrawn; }
 	float GetIsDir();
-	
+
 	void SetDamage(float damage) { health -= damage; taken_damage += damage; isInv = true; }
-	void AddStamina(float add) { stamina += add; if (Datas::PLAYER_MAX_STAMINA < stamina) { stamina = Datas::PLAYER_MAX_STAMINA; } }
+	void SetGuardDis(float damage) { stamina -= damage; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove() { isDash = false; isGuard = false; }
 

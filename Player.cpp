@@ -14,7 +14,7 @@
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
-Player::Player(Game& pGame) 
+Player::Player(Game& pGame)
 	: Obj(pGame)
 {
 	Init();
@@ -28,7 +28,7 @@ void Player::Init() {
 	l_stick_mag = { 0,0 };
 	r_stick_mag = { 0,0 };
 	camera_pos = { 0.0f,0.0f };
-	
+
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	centerPosition = { Datas::PLAYER_POS_X + Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_POS_Y + Datas::PLAYER_HEIGHT * 0.5f };
 	velocity = { 0.0f,0.0f };
@@ -202,13 +202,12 @@ void Player::Move()
 }
 
 void Player::Dash() {
-	if (!isDash && Datas::PLAYER_DASH_STAMINA < stamina) {// ダッシュ中でないなら入力を取る
+	if (!isDash) {// ダッシュ中でないなら入力を取る
 		if (IsCntMode()) {// コントローラー
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
-				stamina -= Datas::PLAYER_DASH_STAMINA;
 			}
 		}
 		else {// キーボード
@@ -216,7 +215,6 @@ void Player::Dash() {
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
-				stamina -= Datas::PLAYER_DASH_STAMINA;
 			}
 		}
 	}
@@ -254,13 +252,13 @@ void Player::Guard() {
 	isGuard = false;// 初期化
 
 	if (IsCntMode()) {// コントローラー
-		if (Controller::IsPressedButton(0, Controller::lSHOULDER)) {// Lbが押されているなら
+		if (Controller::IsPressedButton(0, Controller::lSHOULDER) && stamina != 0.0f) {// Lbが押されているなら
 			isGuard = true;// ガード中にする
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
 	}
 	else {// キーボード
-		if (Key::IsPressed(DIK_Z)) {// Zが押されているなら
+		if (Key::IsPressed(DIK_Z) && stamina != 0.0f) {// Zが押されているなら
 			isGuard = true;// ガード中にする
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
