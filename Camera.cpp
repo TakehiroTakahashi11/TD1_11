@@ -97,10 +97,10 @@ void Camera::CameraShake(Vector2D range, Vector2D velocity, float finish_time){
 // 更新処理
 void Camera::Update(){
 	if(IsShake){// シェイクフラグがtrueの時
-		float delta = Delta::getDeltaTime();// デルタタイム
+		float delta = Delta::getTotalDelta();// デルタタイム
 
-		mShakePos.x += My::RandomF(-mRange.x, mRange.x,5);// カメラシェイク
-		mShakePos.y += My::RandomF(-mRange.y, mRange.y,5);
+		mShakePos.x = My::RandomF(-mRange.x, mRange.x,5);// カメラシェイク
+		mShakePos.y = My::RandomF(-mRange.y, mRange.y,5);
 
 		if(mRange.x > 0){// レンジを変化させていく
 			mRange.x += mVelocity.x * delta;
@@ -118,7 +118,7 @@ void Camera::Update(){
 
 		mFinish -= delta;// 終了時間を引いていく
 
-		if(mFinish < 0.0f){// もし終了時間に達したら
+		if((mRange.x == 0.0f && mRange.y == 0.0f) || mFinish < 0.0f) {// もし終了時間に達したら
 			mShakePos = { 0.0f,0.0f };
 			IsShake = false;// フラグをfalseに
 		}

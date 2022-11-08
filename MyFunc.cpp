@@ -45,7 +45,7 @@ namespace My {
         return -1;    //‚±‚È‚¢‚Í‚¸
     }
 
-    int VectorDirection8(Vector2D vec)  
+    int VectorDirection8(Vector2D vec)
     {
         int i;
 
@@ -93,7 +93,7 @@ namespace My {
         if (after.Length() <= rad_x) {
             return true;
         }
-        
+
         return false;
     }
 }
