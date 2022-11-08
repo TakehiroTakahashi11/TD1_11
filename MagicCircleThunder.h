@@ -1,4 +1,4 @@
-#pragma 
+#pragma once
 #include "BaseEffect.h"
 #include <vector>
 #define MagicCircleRadius 256
