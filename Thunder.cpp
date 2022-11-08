@@ -23,16 +23,16 @@ Thunder::~Thunder()
 void Thunder::Init()
 {
 	elapsedFrame = 0.0f;
-	col_pos = { position.x + 145.0f, position.y + 45.0f };
 	isChecked = false;
+	layer = 2;
 }
 
 void Thunder::Update()
 {
-	Vector2D temp = { Datas::PLAYER_WIDTH * 1.9f,-Datas::PLAYER_WIDTH * 0.5f };
 	// “–‚½‚è”»’è
-	if (3.0f < elapsedFrame && !isChecked && !pGame.getPlayer().GetIsDash() && !pGame.getPlayer().GetIsInvincible()) {
-		if (My::CollisonCircletoPoint(col_pos, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_Y, pGame.getPlayer().GetPosition() + temp)) {
+	if (2.5f < elapsedFrame && !isChecked) {
+		if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_X, pGame.getPlayer().GetCenterPosition())
+			&& !pGame.getPlayer().GetIsDash() && !pGame.getPlayer().GetIsInvincible()) {
 			pGame.getPlayer().SetDamage(Datas::BOSS_THUNDER1_DAMAGE);
 		}
 		isChecked = true;
@@ -47,7 +47,7 @@ void Thunder::Update()
 void Thunder::Draw()
 {
 	if (!isEnd) {
-		getCameraMain().DrawQuad({ {position.x - 145.0f,position.y - 45.0f} ,Datas::EFFECTS_THUNDER_SIZE ,Datas::EFFECTS_THUNDER_SIZE }, Datas::EFFECTS_THUNDER_TEX,
+		getCameraMain().DrawQuad({ {position.x - 145.0f,position.y - 85.0f} ,Datas::EFFECTS_THUNDER_SIZE ,Datas::EFFECTS_THUNDER_SIZE }, Datas::EFFECTS_THUNDER_TEX,
 			static_cast<int>(elapsedFrame) % 7, static_cast<int>(elapsedFrame) / 7);
 	}
 }

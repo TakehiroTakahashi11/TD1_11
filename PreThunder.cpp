@@ -40,10 +40,10 @@ void PreThunder::Draw()
 {
 	if (!isEnd) {
 		if (elapsedSub == 0.0f) {
-			getCameraMain().DrawQuad({ {position.x - 200.0f,position.y - 160.0f} ,Datas::EFFECTS_PRETHUNDER_SIZE ,Datas::EFFECTS_PRETHUNDER_SIZE }, Datas::EFFECTS_PRETHUNDER_TEX, static_cast<int>(elapsedSub));
+			getCameraMain().DrawQuad({ {position.x - 200.0f,position.y - 200.0f} ,Datas::EFFECTS_PRETHUNDER_SIZE ,Datas::EFFECTS_PRETHUNDER_SIZE }, Datas::EFFECTS_PRETHUNDER_TEX, static_cast<int>(elapsedSub));
 		}
 		else {
-			getCameraMain().DrawQuad({ {position.x - 200.0f,position.y - 160.0f} ,Datas::EFFECTS_PRETHUNDER_SIZE ,Datas::EFFECTS_PRETHUNDER_SIZE }, Datas::EFFECTS_PRETHUNDER_TEX,
+			getCameraMain().DrawQuad({ {position.x - 200.0f,position.y - 200.0f} ,Datas::EFFECTS_PRETHUNDER_SIZE ,Datas::EFFECTS_PRETHUNDER_SIZE }, Datas::EFFECTS_PRETHUNDER_TEX,
 				(static_cast<int>(elapsedSub) / 2) % 6, (static_cast<int>(elapsedSub) / 2) / 6);
 		}
 	}
