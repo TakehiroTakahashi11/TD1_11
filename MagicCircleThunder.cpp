@@ -47,14 +47,14 @@ void MagicCircleThunder::Update() {
 		effects[i].theta += 1.0f / 60.0f * static_cast<float>(M_PI) * Delta::getTotalDelta();
 			effects[i].position = pGame.getBoss().GetPosition() + effects[i].rotation.Rotated(effects[i].rotatetheta) * MagicCircleRadius;
 
-		if (effects[i].size < 128) {
-			effects[i].size += 0.01f * 128 * Delta::getTotalDelta();
+		if (effects[i].size < 256) {
+			effects[i].size += 0.01f * 256 * Delta::getTotalDelta();
 		}
 		else {
-			effects[i].size = 128.0f;
+			effects[i].size = 256.0f;
 		}
 
-		if (effects[i].size == 128.0f) {
+		if (effects[i].size == 256.0f) {
 			effects[i].rotatetheta += 1.0f / 60.0f * static_cast<float>(M_PI) * Delta::getTotalDelta();
 			effects[i].position = pGame.getBoss().GetPosition() + effects[i].rotation.Rotated(effects[i].rotatetheta) * MagicCircleRadius;
 
@@ -106,11 +106,11 @@ void MagicCircleThunder::Update() {
 
 void MagicCircleThunder::Draw() {
 	for (int i = 0; i < effects.size(); i++) {
-		Quad temp = { { effects[i].position.x - effects[i].size * 0.5f, effects[i].position.y - effects[i].size * 0.5f }, effects[i].size, effects[i].size };
+		Quad temp = { { effects[i].position.x - effects[i].size , effects[i].position.y - effects[i].size }, effects[i].size * 2.0f, effects[i].size * 2.0f };
 		temp = temp.Translation(-effects[i].position).Rotation(-effects[i].theta).Translation(effects[i].position);
 		Novice::SetBlendMode(kBlendModeAdd);
 		getCameraMain().DrawQuad(temp, Datas::MAGIC_CIRCLE_VINNET_TEX);
-		temp = { { effects[i].position.x - effects[i].size, effects[i].position.y - effects[i].size }, effects[i].size * 2.0f, effects[i].size * 2.0f };
+		temp = { { effects[i].position.x - effects[i].size * 0.5f, effects[i].position.y - effects[i].size * 0.5f }, effects[i].size, effects[i].size };
 		temp = temp.Translation(-effects[i].position).Rotation(-effects[i].theta).Translation(effects[i].position);
 		Novice::SetBlendMode(kBlendModeNormal);
 		getCameraMain().DrawQuad(temp, Datas::MAGIC_CIRCLE_TEX);
