@@ -38,14 +38,12 @@ void InGameScene::Draw() {
 	getGame().getBoss().Draw();
 	EffectManager::Draw1();
 
-	// ビネット
-	Novice::SetBlendMode(kBlendModeMultily);
-	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
-	Novice::SetBlendMode(kBlendModeNormal);
-
 	// エフェクト描画
 	BulletManager::Draw();
 	EffectManager::Draw2();
+
+	// ビネット
+	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
 
 	// UI
 	Novice::ScreenPrintf(10, 860, "health:%.1f", getPlayer().GetHealth());
