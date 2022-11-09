@@ -175,6 +175,9 @@
     <ClCompile Include="MagicCircleThunder.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="BulletDeath.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -370,6 +373,9 @@
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="MagicCircleThunder.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletDeath.h">
       <Filter>Module\Effect</Filter>
     </ClInclude>
   </ItemGroup>
