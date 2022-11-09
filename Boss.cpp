@@ -90,6 +90,9 @@ void Boss::Update()
 
 void Boss::Draw()
 {
+	Novice::SetBlendMode(kBlendModeAdd);
+	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_VINNET_TEX);
+	Novice::SetBlendMode(kBlendModeNormal);
 	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_TEX,
 		static_cast<int>(anim) % Datas::BOSS1_ANIM_MAX_X, anim < Datas::BOSS1_ANIM_MAX_X ? 0 : 1);
 }

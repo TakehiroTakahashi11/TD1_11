@@ -66,6 +66,9 @@ void Thunder::Update()
 void Thunder::Draw()
 {
 	if (!isEnd) {
+		Novice::SetBlendMode(kBlendModeAdd);
+		getCameraMain().DrawQuad({ {position.x - 145.0f,position.y - 85.0f} ,Datas::EFFECTS_THUNDER_SIZE ,Datas::EFFECTS_THUNDER_SIZE }, Datas::EFFECTS_THUNDER_VINNET_TEX);
+		Novice::SetBlendMode(kBlendModeNormal);
 		getCameraMain().DrawQuad({ {position.x - 145.0f,position.y - 85.0f} ,Datas::EFFECTS_THUNDER_SIZE ,Datas::EFFECTS_THUNDER_SIZE }, Datas::EFFECTS_THUNDER_TEX,
 			static_cast<int>(elapsedFrame) % 7, static_cast<int>(elapsedFrame) / 7);
 	}

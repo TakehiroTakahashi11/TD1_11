@@ -108,6 +108,7 @@ public:
     static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
     static Texture BOSS1_TEX;// テクスチャ
+    static Texture BOSS1_VINNET_TEX;// テクスチャ
 
     // =========================
     // EFFECTS
@@ -125,6 +126,7 @@ public:
     static constexpr int EFFECTS_THUNDER_SIZE_Y = 76;// 当たり判定大きさ
     static constexpr int EFFECTS_THUNDER_SIZE_X = 113;// 当たり判定大きさ
     static Texture EFFECTS_THUNDER_TEX;// テクスチャ
+    static Texture EFFECTS_THUNDER_VINNET_TEX;// テクスチャ
 
     static constexpr float EFFECTS_PRETHUNDER_SIZE = 400.0f;// テクスチャ
     static Texture EFFECTS_PRETHUNDER_TEX;// テクスチャ
@@ -153,6 +155,7 @@ public:
     static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ
 
     static Texture MAGIC_CIRCLE_TEX;// テクスチャ
+    static Texture MAGIC_CIRCLE_VINNET_TEX;// テクスチャ
 
     // ブースト
     static Texture PLAYER_BOOST_TEX;// テクスチャ
