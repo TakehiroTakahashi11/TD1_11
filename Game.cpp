@@ -158,14 +158,13 @@ void Game::Update() {
 
 /// @brief 描画処理
 void Game::Draw() {
+    Novice::SetBlendMode(kBlendModeNormal);
     Novice::DrawBox(0, 0, static_cast<int>(Datas::SCREEN_WIDTH), static_cast<int>(Datas::SCREEN_HEIGHT), 0.0f, 0x1B182CFF, kFillModeSolid);
 
     // 現在のシーンに応じて描画処理
     pScene[mNowScene]->Draw();
 
-    // エフェクト描画
-    BulletManager::Draw();
-    EffectManager::Draw2();
+
 }
 
 /// @brief 終了時処理

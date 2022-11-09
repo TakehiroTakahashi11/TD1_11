@@ -9,6 +9,7 @@
 #include "Boss.h"
 #include "Game.h"
 #include "Map.h"
+#include "BulletManager.h"
 
 InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
 {
@@ -36,6 +37,23 @@ void InGameScene::Draw() {
 	getGame().getPlayer().Draw();
 	getGame().getBoss().Draw();
 	EffectManager::Draw1();
+
+	// ビネット
+	Novice::SetBlendMode(kBlendModeMultily);
+	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
+	Novice::SetBlendMode(kBlendModeNormal);
+
+	// エフェクト描画
+	BulletManager::Draw();
+	EffectManager::Draw2();
+
+	// UI
+	Novice::ScreenPrintf(10, 860, "health:%.1f", getPlayer().GetHealth());
+	getCameraUI().DrawQuad({ {150,200},getPlayer().GetHealth(),30 }, Datas::BackGroundTex,0,0,RED);
+	Novice::ScreenPrintf(10, 910, "guard:%.1f", getPlayer().GetStamina());
+	getCameraUI().DrawQuad({ {150,150},getPlayer().GetStamina(),30 }, Datas::BackGroundTex,0,0,BLUE);
+	Novice::ScreenPrintf(10, 960, "charge:%.1f", getPlayer().GetCharge());
+	getCameraUI().DrawQuad({ {150,100},getPlayer().GetCharge(),30 }, Datas::BackGroundTex);
 }
 
 void InGameScene::Finalise() {
