@@ -10,6 +10,8 @@
 #include "Player.h"
 #include "Gauntlets.h"
 #include "Map.h"
+#include <Novice.h>
+#include "EffectManager.h"
 
 BossAttack1::BossAttack1(Game& game, Vector2D pos, int n) : BaseBullet(game, pos)
 {
@@ -90,6 +92,7 @@ void BossAttack1::Update()
 			if (pGame.getMap().IsWall(bossAttack1[i].position, bossAttack1[i].size)) {// もし壁より外なら
 				//エフェクト終了
 				bossAttack1[i].isEnd = true;
+				EffectManager::MakeNewEffect(bossAttack1[i].position, kBulletDeath);
 			}
 
 			// 移動処理
@@ -99,12 +102,12 @@ void BossAttack1::Update()
 			if (!isInv) {
 				if (!isGuard) {
 					if (isDash) {
-						if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition1()).Length()
-							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition2()).Length()
-							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition3()).Length()
-							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition4()).Length()
-							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition5()).Length()
-							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition6()).Length()) {
+						if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition(0)).Length()
+							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition(1)).Length()
+							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition(2)).Length()
+							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition(3)).Length()
+							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition(4)).Length()
+							|| Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.4f > (bossAttack1[i].position - pGame.getPlayer().GetJustDodgePosition(5)).Length()) {
 							pGame.getPlayer().SetIsJustDodge();
 						}
 					}
@@ -123,6 +126,7 @@ void BossAttack1::Update()
 						pGame.getPlayer().SetGuardDis(Datas::BOSS_ATTACK1_DAMAGE);
 						//
 						bossAttack1[i].isEnd = true;
+						EffectManager::MakeNewEffect(bossAttack1[i].position, kBulletDeath);
 					}
 					else if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
 						pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
@@ -141,12 +145,14 @@ void BossAttack1::Update()
 
 void BossAttack1::Draw()
 {
+	Novice::SetBlendMode(kBlendModeAdd);
 	for (int i = 0; i < BossAttack1MaxNum; i++) {
 		if (!bossAttack1[i].isEnd) {
 			getCameraMain().DrawQuad({ {bossAttack1[i].position.x - bossAttack1[i].size.x * 0.5f,bossAttack1[i].position.y - bossAttack1[i].size.y * 0.5f},
 				bossAttack1[i].size.x,bossAttack1[i].size.y }, Datas::BOSS_ATTACK1_TEX);
 		}
 	}
+	Novice::SetBlendMode(kBlendModeNormal);
 }
 
 bool BossAttack1::endCheck()

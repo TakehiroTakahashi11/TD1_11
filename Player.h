@@ -38,6 +38,9 @@ private:
 	/// @brief 防御処理
 	void Guard();
 
+	/// @brief チャージ攻撃
+	void ChargeAttack();
+
 	/// @brief カメラ処理
 	void MoveCamera();
 
@@ -54,12 +57,7 @@ public:// ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
 	Vector2D GetCenterPosition() { return centerPosition; }
-	Vector2D GetJustDodgePosition1() { return JustDodgePosition1; }
-	Vector2D GetJustDodgePosition2() { return JustDodgePosition2; }
-	Vector2D GetJustDodgePosition3() { return JustDodgePosition3; }
-	Vector2D GetJustDodgePosition4() { return JustDodgePosition4; }
-	Vector2D GetJustDodgePosition5() { return JustDodgePosition5; }
-	Vector2D GetJustDodgePosition6() { return JustDodgePosition6; }
+	Vector2D GetJustDodgePosition(int n) { return JustDodgePosition[n]; }
 	Vector2D GetVelocity() { return velocity; }
 	Vector2D GetDirection() { return direction; }
 	bool GetIsDash() { return isDash; }
@@ -67,14 +65,22 @@ public:// ゲッターセッター
 	bool GetIsInvincible() { return isInv; }
 	bool GetIsDrawn() { return isDrawn; }
 	float GetIsDir();
+	float GetHealth() { return health; }
+	float GetStamina() { return stamina; }
+	float GetCharge() { return charge; }
 
 	void SetDamage(float damage) { health -= damage; taken_damage += damage; isInv = true; }
 	void SetIsJustDodge() { justDodge = true; }
-	void SetGuardDis(float damage) { stamina -= damage * 3.0f; }
+	void AddCharge(float c) { charge += c; }
+	void SetGuardDis(float damage) { stamina -= damage; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove() { isDash = false; isGuard = false; }
 
 private:
+	// 経過
+	float elapsedFrame;
+	float beforeElapsedFrame;
+
 	// 入力
 	Controller::StickMagnitude l_stick_mag;
 	Controller::StickMagnitude r_stick_mag;
@@ -84,12 +90,7 @@ private:
 	// 中心位置
 	Vector2D centerPosition;
 	// ジャスト回避判定位置
-	Vector2D JustDodgePosition1;
-	Vector2D JustDodgePosition2;
-	Vector2D JustDodgePosition3;
-	Vector2D JustDodgePosition4;
-	Vector2D JustDodgePosition5;
-	Vector2D JustDodgePosition6;
+	Vector2D JustDodgePosition[13];
 	// 移動量
 	Vector2D velocity;
 	// 方向

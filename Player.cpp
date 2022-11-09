@@ -22,6 +22,9 @@ Player::Player(Game& pGame)
 
 /// @brief 初期化処理
 void Player::Init() {
+	elapsedFrame = 0.0f;
+	beforeElapsedFrame = 0.0f;
+
 	width = Datas::PLAYER_WIDTH;
 	height = Datas::PLAYER_HEIGHT;
 
@@ -31,12 +34,19 @@ void Player::Init() {
 
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	centerPosition = { Datas::PLAYER_POS_X + Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_POS_Y + Datas::PLAYER_HEIGHT * 0.5f };
-	JustDodgePosition1 = { -50000.0f,-50000.0f };
-	JustDodgePosition2 = { -50000.0f,-50000.0f };
-	JustDodgePosition3 = { -50000.0f,-50000.0f };
-	JustDodgePosition4 = { -50000.0f,-50000.0f };
-	JustDodgePosition5 = { -50000.0f,-50000.0f };
-	JustDodgePosition6 = { -50000.0f,-50000.0f };
+	JustDodgePosition[0] = { -50000.0f,-50000.0f };
+	JustDodgePosition[1] = { -50000.0f,-50000.0f };
+	JustDodgePosition[2] = { -50000.0f,-50000.0f };
+	JustDodgePosition[3] = { -50000.0f,-50000.0f };
+	JustDodgePosition[4] = { -50000.0f,-50000.0f };
+	JustDodgePosition[5] = { -50000.0f,-50000.0f };
+	JustDodgePosition[6] = { -50000.0f,-50000.0f };
+	JustDodgePosition[7] = { -50000.0f,-50000.0f };
+	JustDodgePosition[8] = { -50000.0f,-50000.0f };
+	JustDodgePosition[9] = { -50000.0f,-50000.0f };
+	JustDodgePosition[10] = { -50000.0f,-50000.0f };
+	JustDodgePosition[11] = { -50000.0f,-50000.0f };
+	JustDodgePosition[12] = { -50000.0f,-50000.0f };
 	velocity = { 0.0f,0.0f };
 	direction = { 0.0f,1.0f };
 	speed = Datas::PLAYER_SPD;
@@ -50,6 +60,8 @@ void Player::Init() {
 	guard_break = false;
 
 	justDodge = false;
+
+	charge = 0.0f;
 
 	isInv = false;
 	inv_count = 0.0f;
@@ -72,6 +84,11 @@ void Player::Init() {
 
 /// @brief 更新処理
 void Player::Update() {// =====================================================================================
+	elapsedFrame += Delta::getTotalDelta();
+	if (beforeElapsedFrame + 0.5f < elapsedFrame) {
+		beforeElapsedFrame = elapsedFrame;
+	}
+
 	// 基本処理
 	if (!isKnockBack) {// ノックバックされていないなら
 		Dash();// ダッシュ処理
@@ -221,11 +238,24 @@ void Player::Move()
 
 void Player::Dash() {
 	if (!isDash) {// ダッシュ中でないなら入力を取る
+		JustDodgePosition[0] = { -50000.0f,-50000.0f };
+		JustDodgePosition[1] = { -50000.0f,-50000.0f };
+		JustDodgePosition[2] = { -50000.0f,-50000.0f };
+		JustDodgePosition[3] = { -50000.0f,-50000.0f };
+		JustDodgePosition[4] = { -50000.0f,-50000.0f };
+		JustDodgePosition[5] = { -50000.0f,-50000.0f };
+		JustDodgePosition[6] = { -50000.0f,-50000.0f };
+		JustDodgePosition[7] = { -50000.0f,-50000.0f };
+		JustDodgePosition[8] = { -50000.0f,-50000.0f };
+		JustDodgePosition[9] = { -50000.0f,-50000.0f };
+		JustDodgePosition[10] = { -50000.0f,-50000.0f };
+		JustDodgePosition[11] = { -50000.0f,-50000.0f };
+		JustDodgePosition[12] = { -50000.0f,-50000.0f };
 		if (IsCntMode()) {// コントローラー
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
-				JustDodgePosition1 = centerPosition;
+				JustDodgePosition[0] = centerPosition;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
@@ -233,7 +263,7 @@ void Player::Dash() {
 			if (Key::IsTrigger(DIK_SPACE)) {// SPACEを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
-				JustDodgePosition1 = centerPosition;
+				JustDodgePosition[0] = centerPosition;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
@@ -243,56 +273,69 @@ void Player::Dash() {
 
 		dash_length += Delta::getTotalDelta();// カウントフレーム加算
 
-		if (Datas::PLAYER_DASH_START_RIGID + Datas::PLAYER_DASH_LEN + Datas::PLAYER_DASH_END_RIGID < dash_length) {// 最大距離までダッシュして、硬直も終わったら
+		if (Datas::PLAYER_DASH_LEN  < dash_length) {// 最大距離までダッシュしたら
 			isDash = false;// ダッシュオフ
-			JustDodgePosition1 = { -50000.0f,-50000.0f };
-			JustDodgePosition2 = { -50000.0f,-50000.0f };
-			JustDodgePosition3 = { -50000.0f,-50000.0f };
-			JustDodgePosition4 = { -50000.0f,-50000.0f };
-			JustDodgePosition5 = { -50000.0f,-50000.0f };
-			JustDodgePosition6 = { -50000.0f,-50000.0f };
+			JustDodgePosition[0] = { -50000.0f,-50000.0f };
+			JustDodgePosition[1] = { -50000.0f,-50000.0f };
+			JustDodgePosition[2] = { -50000.0f,-50000.0f };
+			JustDodgePosition[3] = { -50000.0f,-50000.0f };
+			JustDodgePosition[4] = { -50000.0f,-50000.0f };
+			JustDodgePosition[5] = { -50000.0f,-50000.0f };
+			JustDodgePosition[6] = { -50000.0f,-50000.0f };
+			JustDodgePosition[7] = { -50000.0f,-50000.0f };
+			JustDodgePosition[8] = { -50000.0f,-50000.0f };
+			JustDodgePosition[9] = { -50000.0f,-50000.0f };
+			JustDodgePosition[10] = { -50000.0f,-50000.0f };
+			JustDodgePosition[11] = { -50000.0f,-50000.0f };
+			JustDodgePosition[12] = { -50000.0f,-50000.0f };
 			if (justDodge) {
 				CheckJust();
 			}
 		}
-		else if (Datas::PLAYER_DASH_LEN < dash_length) {// 最大距離までダッシュしたら
-			// 硬直
-			// 何かしらのなにか、アニメーションだの
-		}
-		else if(Datas::Datas::PLAYER_DASH_START_RIGID < dash_length) {// 最初の硬直が終わってたら
+		else if (dash_length < Datas::PLAYER_DASH_LEN) {
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
-			if (isDashAnim) {
+			if (beforeElapsedFrame == elapsedFrame) {
 				if (justDodge) {
 					EffectManager::MakeNewEffect(position, kPlayerDash);
+					EffectManager::MakeNewEffect(centerPosition, kPlayerBoost);
 				}
-				EffectManager::MakeNewEffect(centerPosition, kPlayerBoost);
-				isDashAnim = false;
-				if (JustDodgePosition1.x == -50000.0f) {
-					JustDodgePosition1 = centerPosition;
+				if (JustDodgePosition[1].x == -50000.0f) {
+					JustDodgePosition[1] = centerPosition;
 				}
-				else if (JustDodgePosition2.x == -50000.0f) {
-					JustDodgePosition2 = centerPosition;
+				else if (JustDodgePosition[2].x == -50000.0f) {
+					JustDodgePosition[2] = centerPosition;
 				}
-				else if (JustDodgePosition3.x == -50000.0f) {
-					JustDodgePosition3 = centerPosition;
+				else if (JustDodgePosition[3].x == -50000.0f) {
+					JustDodgePosition[3] = centerPosition;
 				}
-				else if (JustDodgePosition4.x == -50000.0f) {
-					JustDodgePosition4 = centerPosition;
+				else if (JustDodgePosition[4].x == -50000.0f) {
+					JustDodgePosition[4] = centerPosition;
 				}
-				else if (JustDodgePosition5.x == -50000.0f) {
-					JustDodgePosition5 = centerPosition;
+				else if (JustDodgePosition[5].x == -50000.0f) {
+					JustDodgePosition[5] = centerPosition;
 				}
-				else if (JustDodgePosition6.x == -50000.0f) {
-					JustDodgePosition6 = centerPosition;
+				else if (JustDodgePosition[6].x == -50000.0f) {
+					JustDodgePosition[6] = centerPosition;
+				}
+				else if (JustDodgePosition[7].x == -50000.0f) {
+					JustDodgePosition[7] = centerPosition;
+				}
+				else if (JustDodgePosition[8].x == -50000.0f) {
+					JustDodgePosition[8] = centerPosition;
+				}
+				else if (JustDodgePosition[9].x == -50000.0f) {
+					JustDodgePosition[9] = centerPosition;
+				}
+				else if (JustDodgePosition[10].x == -50000.0f) {
+					JustDodgePosition[10] = centerPosition;
+				}
+				else if (JustDodgePosition[11].x == -50000.0f) {
+					JustDodgePosition[11] = centerPosition;
+				}
+				else if (JustDodgePosition[12].x == -50000.0f) {
+					JustDodgePosition[12] = centerPosition;
 				}
 			}
-			else {
-				isDashAnim = true;
-			}
-		}
-		else {
-			// 硬直
-			// 何かしらのなにか、アニメーションだの
 		}
 	}
 }
@@ -310,6 +353,20 @@ void Player::Guard() {
 		if (Key::IsPressed(DIK_Z)) {// Zが押されているなら
 			isGuard = true;// ガード中にする
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
+		}
+	}
+}
+
+void Player::ChargeAttack()
+{
+	if (IsCntMode()) {// コントローラー
+		if (Controller::IsPressedButton(0, Controller::bB)) {// Lbが押されているなら
+
+		}
+	}
+	else {// キーボード
+		if (Key::IsPressed(DIK_X)) {// Zが押されているなら
+
 		}
 	}
 }
@@ -397,6 +454,7 @@ void Player::WallCollision()
 
 void Player::CheckJust()
 {
+	charge += Datas::PLAYER_JUSTDODGE_CHARGE;
 	justDodge = false;
 }
 

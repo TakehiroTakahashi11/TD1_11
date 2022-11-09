@@ -33,12 +33,19 @@ void Thunder::Update()
 	if (2.5f < elapsedFrame && !isChecked) {
 		if (!pGame.getPlayer().GetIsInvincible()) {
 			if (pGame.getPlayer().GetIsDash()) {
-				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition1())
-					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition2())
-					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition3())
-					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition4())
-					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition5())
-					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition6())) {
+				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(0))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(1))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(2))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(3))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(4))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(5))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(6))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(7))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(8))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(9))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(10))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(11))
+					|| My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, Datas::EFFECTS_THUNDER_SIZE_X * 1.5f, pGame.getPlayer().GetJustDodgePosition(12))) {
 					pGame.getPlayer().SetIsJustDodge();
 				}
 			}

@@ -112,6 +112,7 @@ void Boss::PtoBCollision()
 				getPlayer().SetKnockBack(temp);
 				getPlayer().SetMove();
 				EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
+				getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
 			}
 		}
 		else {
