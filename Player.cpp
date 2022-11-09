@@ -295,8 +295,8 @@ void Player::Dash() {
 		else if (dash_length < Datas::PLAYER_DASH_LEN) {
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
 			if (beforeElapsedFrame == elapsedFrame) {
+				EffectManager::MakeNewEffect(position, kPlayerDash);
 				if (justDodge) {
-					EffectManager::MakeNewEffect(position, kPlayerDash);
 					EffectManager::MakeNewEffect(centerPosition, kPlayerBoost);
 				}
 				if (JustDodgePosition[1].x == -50000.0f) {
