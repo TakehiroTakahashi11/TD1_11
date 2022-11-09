@@ -23,8 +23,8 @@ public:
 	/// @brief プレイヤーとボスの判定
 	void PtoBCollision();
 
-	/// @brief 
 	Vector2D GetPosition() { return position; };
+	float GetHealth() { return health; };
 
 private:
 	// ノックバック
@@ -77,6 +77,8 @@ private:
 private:
 	// ホームポジション
 	Vector2D homePos;
+	// 体力
+	float health;
 
 	// ノックバック
 	bool isKnockBack;

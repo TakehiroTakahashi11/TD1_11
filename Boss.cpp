@@ -20,6 +20,8 @@ void Boss::Init()
 {
 	position = { Datas::BOSS1_POS_X,Datas::BOSS1_POS_Y };
 	homePos = { 0.0f,0.0f };
+	health = Datas::BOSS1_HEALTH_MAX;
+
 	width = Datas::BOSS1_WIDTH;
 	height = Datas::BOSS1_HEIGHT;
 
@@ -116,6 +118,7 @@ void Boss::PtoBCollision()
 				getPlayer().SetMove();
 				EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
 				getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
+				health -= Datas::PLAYER_ATTACK_DAMAGE;
 			}
 		}
 		else {
