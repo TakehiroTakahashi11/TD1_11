@@ -30,9 +30,9 @@ public:
     static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
 
     static constexpr float PLAYER_MAX_STAMINA = 300.0f;//最大ガード値
-    static constexpr float PLAYER_GUARD_STAMINA = 0.1f;// ガード消費スタミナ
+    static constexpr float PLAYER_GUARD_STAMINA = 0.35f;// ガード消費スタミナ
     static constexpr float PLAYER_GUARD_COOLTIME = 70.0f;// 再度ガードできるガード値
-    static constexpr float PLAYER_STAMINA_REGEN = 0.25f;// ガード値自然回復
+    static constexpr float PLAYER_STAMINA_REGEN = 0.5f;// ガード値自然回復
 
     static constexpr float PLAYER_MAX_INV = 50.0f;// 無敵時間
 
@@ -42,12 +42,14 @@ public:
 
     static constexpr int PLAYER_DASH_SPD = 35;// ダッシュの速度
     static constexpr float PLAYER_DASH_LEN = 7.0f;// ダッシュする時間の長さ(フレーム)
-    static constexpr float PLAYER_DASH_START_RIGID = 0.0f;// ダッシュ前アニメーション時間の長さ(フレーム)
-    static constexpr float PLAYER_DASH_END_RIGID = 2.0f;// ダッシュ後アニメーション時間の長さ(フレーム)
+    static constexpr float PLAYER_DASH_COOLTIME = 4.0f;// ダッシュクールダウン
 
     static constexpr float PLAYER_KNOCKBACK_POWER = 20.0f;// ボスに当たった時のノックバック力
     static constexpr float PLAYER_KNOCKBACK_DIS = 0.7f;// ノックバック速度が減る速度
     static constexpr float PLAYER_KNOCKBACK_RIGID = 15.0f;// ノックバック後の硬直時間(フレーム)
+
+    static constexpr float PLAYER_ATTACK_CHARGE = 15.0f;// ジャスト回避した時のチャージ力
+    static constexpr float PLAYER_JUSTDODGE_CHARGE = 70.0f;// ジャスト回避した時のチャージ力
 
     static constexpr float PLAYER_CAMARA_OFFSET = 100.0f;// カメラ
     static constexpr float PLAYER_CAMARA_SPD = 5.0f;// カメラが戻る速度
@@ -93,8 +95,8 @@ public:
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
 
     // タイムライン関係
-    static constexpr float BOSS_TIMELINE_DISTANCE_1 = 450.0f;// ボスが行動を変える距離1
-    static constexpr float BOSS_TIMELINE_DISTANCE_2 = 700.0f;// ボスが行動を変える距離2
+    static constexpr float BOSS_TIMELINE_DISTANCE_1 = 600.0f;// ボスが行動を変える距離1
+    static constexpr float BOSS_TIMELINE_DISTANCE_2 = 800.0f;// ボスが行動を変える距離2
 
     static constexpr float BOSS_ATTACK1_OFFSET = 160.0f;// アタック1の後に攻撃が行われない時間
     static constexpr float BOSS_THUNDER1_OFFSET = 350.0f;
@@ -131,20 +133,23 @@ public:
     static constexpr float BOSS_ATTACK1_SHOOT_DIS = 5.0f;// 発射間隔
     static constexpr float BOSS_ATTACK1_WAVE_DIS = 50.0f;// ウェーブ間隔
     static constexpr float BOSS_ATTACK1_SPEED = 10.0f;// 速度
-    static constexpr float BOSS_ATTACK1_DAMAGE = 5.0f;// ダメージ
+    static constexpr float BOSS_ATTACK1_DAMAGE = 10.0f;// ダメージ
 
     // テクスチャ
     static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ
     static Texture BOSS_ATTACK1_TEX;// テクスチャ
 
+    // 弾消滅
+    static Texture BULLET_DEATH_TEX;// テクスチャ
+
     // 雷攻撃
     static constexpr float BOSS_THUNDER1_PREPRETIME = 90.0f;// 魔法陣予兆表示時間
     static constexpr float BOSS_THUNDER1_PRETIME = 15.0f;// 予兆表示時間
     static constexpr float BOSS_THUNDER1_TIME_DIS = 50.0f;// 発射間隔
-    static constexpr float BOSS_THUNDER1_SHAKE_AMP_X = 7.0f;// カメラシェイク振幅
-    static constexpr float BOSS_THUNDER1_SHAKE_AMP_Y = 5.0f;// カメラシェイク振幅
-    static constexpr float BOSS_THUNDER1_SHAKE_DIS_X = -0.3f;// カメラシェイク減衰
-    static constexpr float BOSS_THUNDER1_SHAKE_DIS_Y = -0.3f;// カメラシェイク減衰
+    static constexpr float BOSS_THUNDER1_SHAKE_AMP_X = 10.0f;// カメラシェイク振幅
+    static constexpr float BOSS_THUNDER1_SHAKE_AMP_Y = 13.0f;// カメラシェイク振幅
+    static constexpr float BOSS_THUNDER1_SHAKE_DIS_X = -0.15f;// カメラシェイク減衰
+    static constexpr float BOSS_THUNDER1_SHAKE_DIS_Y = -0.15f;// カメラシェイク減衰
     static constexpr float BOSS_THUNDER1_DAMAGE = 30.0f;// ダメージ
 
     static Texture MAGIC_CIRCLE_TEX;// テクスチャ
@@ -167,6 +172,10 @@ public:
     static constexpr float STAGE1_HEIGHT = 1024.0f;
     static constexpr float STAGE1_MAP_X = STAGE1_WIDTH * 2 / MAP_SIZE;// ステージ1の横幅のマップチップ数
     static constexpr float STAGE1_MAP_Y = STAGE1_HEIGHT * 2 / MAP_SIZE;
+
+    // =========================
+    // UI
+    static Texture VINETT_TEX;
 
     // =========================
     // 仮Texture
