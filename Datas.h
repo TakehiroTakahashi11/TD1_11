@@ -92,6 +92,7 @@ public:
     static constexpr int BOSS1_COL_WIDTH = 180;// 第一形態の当たり判定横
     static constexpr int BOSS1_COL_HEIGHT = 128;// 第一形態の当たり判定縦
 
+    static constexpr float BOSS1_HEALTH_MAX = 300.0f;// 第一形態の当たった時のダメージ
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
 
     // タイムライン関係

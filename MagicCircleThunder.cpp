@@ -110,6 +110,8 @@ void MagicCircleThunder::Draw() {
 		temp = temp.Translation(-effects[i].position).Rotation(-effects[i].theta).Translation(effects[i].position);
 		Novice::SetBlendMode(kBlendModeAdd);
 		getCameraMain().DrawQuad(temp, Datas::MAGIC_CIRCLE_VINNET_TEX);
+		temp = { { effects[i].position.x - effects[i].size, effects[i].position.y - effects[i].size }, effects[i].size * 2.0f, effects[i].size * 2.0f };
+		temp = temp.Translation(-effects[i].position).Rotation(-effects[i].theta).Translation(effects[i].position);
 		Novice::SetBlendMode(kBlendModeNormal);
 		getCameraMain().DrawQuad(temp, Datas::MAGIC_CIRCLE_TEX);
 	}
