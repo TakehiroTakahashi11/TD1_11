@@ -8,6 +8,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Datas.h"
+#include <Novice.h>
 
 PreThunder::PreThunder(Game& game, Vector2D pos) : BaseEffect(game, pos)
 {
