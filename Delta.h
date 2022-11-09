@@ -22,7 +22,6 @@ private:
 public:
 	/// @brief 更新(デルタタイムをアップデート)
 	static void Update();
-	
 	/// @brief ゲッター
 	static float getDeltaTime() { return mDeltaTime; }
 	static float getDynDelta() { return mDynDeltaTime; }
@@ -30,7 +29,7 @@ public:
 
 	/// @brief セッター
 	static void SetDynDelta(float dyn) { mDynDeltaTime = dyn; }
-	static void MoveDynDelta(float dyn) { mDynDeltaTime += dyn; }
+	static void MoveDynDelta(float dyn) { mDynDeltaTime += dyn; if (mDynDeltaTime < 0.1f) { mDynDeltaTime = 0.1f; } if (1.0f < mDynDeltaTime) { mDynDeltaTime = 1.0f; }	}
 private:
 	Delta();
 	~Delta();
