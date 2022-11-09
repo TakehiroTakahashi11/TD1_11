@@ -29,10 +29,10 @@ public:
 
     static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
 
-    static constexpr float PLAYER_MAX_STAMINA = 300.0f;//最大ガード値
-    static constexpr float PLAYER_GUARD_STAMINA = 0.35f;// ガード消費スタミナ
+    static constexpr float PLAYER_MAX_STAMINA = 200.0f;//最大ガード値
+    static constexpr float PLAYER_GUARD_STAMINA = 0.0f;// ガード消費スタミナ
     static constexpr float PLAYER_GUARD_COOLTIME = 70.0f;// 再度ガードできるガード値
-    static constexpr float PLAYER_STAMINA_REGEN = 0.5f;// ガード値自然回復
+    static constexpr float PLAYER_STAMINA_REGEN = 0.3f;// ガード値自然回復
 
     static constexpr float PLAYER_MAX_INV = 50.0f;// 無敵時間
 
@@ -48,7 +48,8 @@ public:
     static constexpr float PLAYER_KNOCKBACK_DIS = 0.7f;// ノックバック速度が減る速度
     static constexpr float PLAYER_KNOCKBACK_RIGID = 15.0f;// ノックバック後の硬直時間(フレーム)
 
-    static constexpr float PLAYER_ATTACK_CHARGE = 15.0f;// ジャスト回避した時のチャージ力
+    static constexpr float PLAYER_ATTACK_DAMAGE = 10.0f;// プレイヤー攻撃力
+    static constexpr float PLAYER_ATTACK_CHARGE = 15.0f;// 攻撃した時のチャージ力
     static constexpr float PLAYER_JUSTDODGE_CHARGE = 70.0f;// ジャスト回避した時のチャージ力
 
     static constexpr float PLAYER_CAMARA_OFFSET = 100.0f;// カメラ
