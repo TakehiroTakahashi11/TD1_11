@@ -13,8 +13,7 @@
 Thunder::Thunder(Game& game, Vector2D pos) : BaseEffect(game, pos)
 {
 	BaseInit(pos);
-	isChecked = false;
-}
+	isChecked = false;}
 
 Thunder::~Thunder()
 {
