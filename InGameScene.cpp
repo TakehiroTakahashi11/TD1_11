@@ -52,6 +52,9 @@ void InGameScene::Draw() {
 	getCameraUI().DrawQuad({ {150,150},getPlayer().GetStamina(),30 }, Datas::BackGroundTex,0,0,BLUE);
 	Novice::ScreenPrintf(10, 960, "charge:%.1f", getPlayer().GetCharge());
 	getCameraUI().DrawQuad({ {150,100},getPlayer().GetCharge(),30 }, Datas::BackGroundTex);
+
+	Novice::ScreenPrintf(10, 760, "boss:%.1f", getBoss().GetHealth());
+	getCameraUI().DrawQuad({ {150,300},getBoss().GetHealth() * 2.0f,30}, Datas::BackGroundTex);
 }
 
 void InGameScene::Finalise() {
