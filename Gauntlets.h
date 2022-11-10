@@ -14,19 +14,15 @@ public:
 	bool ChargeAttack();
 
 private:
-	/// @brief アニメーション関数
-	void Animation();
 
 public://ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
 
 private:
-	// ガードアニメーション角度
-	float guard_dir;
 	// ダッシュアニメーション
 	float dash_dis;
-	float dash_dir;
+	float dash_dis_acc;
 
 	// アニメーション
 	int x_anim;
