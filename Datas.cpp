@@ -2,8 +2,6 @@
 #include <Novice.h>
 #include "KeyMouseInput.h"
 
-
-Texture Datas::PLAYER_TEX = Texture(64, 64);
 Texture Datas::PLAYER_DASH_TEX = Texture(64, 64);
 Texture Datas::PLAYER_UP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_DOWN_TEX = Texture(128, 128);
@@ -13,7 +11,8 @@ Texture Datas::PLAYER_RIGHTUP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_LEFTUP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_RIGHTDOWN_TEX = Texture(128, 128);
 Texture Datas::PLAYER_LEFTDOWN_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_TEX = Texture(128, 128);
+Texture Datas::PLAYER_SHADOW_TEX = Texture(128, 128);
+
 Texture Datas::GAUNTLET_UP_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_DOWN_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_LEFT_TEX = Texture(128, 128);
@@ -40,8 +39,6 @@ Texture Datas::BackGroundTex = Texture(1920, 1080);
 
 void Datas::LoadTexture()
 {
-	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player.png"));
-	Per++;
 	PLAYER_DASH_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Dash.png"));
 	Per++;
 	PLAYER_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Up.png"));
@@ -60,7 +57,7 @@ void Datas::LoadTexture()
 	Per++;
 	PLAYER_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftDown.png"));
 	Per++;
-	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet.png"));
+	PLAYER_SHADOW_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Shadow.png"));
 	Per++;
 	GAUNTLET_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Up.png"));
 	Per++;
@@ -112,5 +109,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 34;
+const int Datas::Max_Per = 32;
 bool Datas::IsEnd = false;

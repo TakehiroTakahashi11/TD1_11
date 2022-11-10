@@ -236,6 +236,11 @@ void Player::Draw() {
 	// プレイヤー描画
 
 	if (isDrawn) {
+
+		Novice::SetBlendMode(kBlendModeAdd);
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.6f},width,height }, Datas::PLAYER_SHADOW_TEX);
+		Novice::SetBlendMode(kBlendModeNormal);
+
 		switch (directionState)
 		{
 		case Player::UP:

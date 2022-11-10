@@ -63,7 +63,6 @@ public:
     static constexpr int PLAYER_HEIGHT = 128;// 高さ
     static constexpr int PLAYER_INV_ANIM_SPD = 10;// 無敵アニメーション速度
 
-    static Texture PLAYER_TEX;// テクスチャ
     static Texture PLAYER_DASH_TEX;// テクスチャ
     static Texture PLAYER_UP_TEX;
     static Texture PLAYER_DOWN_TEX;
@@ -73,6 +72,8 @@ public:
     static Texture PLAYER_LEFTUP_TEX;
     static Texture PLAYER_RIGHTDOWN_TEX;
     static Texture PLAYER_LEFTDOWN_TEX;
+
+    static Texture PLAYER_SHADOW_TEX;
 
     // =========================
     // GAUNTLETS
@@ -91,7 +92,6 @@ public:
     static constexpr float GAUNTLET_GUARD_DIR_SPD = 15.0f;// ガード時、ガード解除時の回転の速さ
     static constexpr float GAUNTLET_DASH_DIS_SPD = 1.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(縦)
     static constexpr float GAUNTLET_DASH_DIR_SPD = 15.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(横)
-    static Texture GAUNTLET_TEX;// テクスチャ
     static Texture GAUNTLET_UP_TEX;
     static Texture GAUNTLET_DOWN_TEX;
     static Texture GAUNTLET_LEFT_TEX;

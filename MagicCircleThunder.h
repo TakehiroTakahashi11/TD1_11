@@ -23,6 +23,7 @@ private:
 		Vector2D velocity;
 		Vector2D rotation;
 		float theta = 0.0f;
+		float thetaSpeed = 0.0f;
 		float rotatetheta = 0.0f;
 		float size = 0.0f;
 	};
