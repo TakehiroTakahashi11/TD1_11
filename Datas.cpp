@@ -112,5 +112,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 18;
+const int Datas::Max_Per = 34;
 bool Datas::IsEnd = false;
