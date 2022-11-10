@@ -46,40 +46,73 @@ void Gauntlets::Draw()
 		Vector2D dir = getPlayer().GetDirection();
 		dir = dir.Rotated(-90 * M_PI / 180);
 		Vector2D p_pos = getPlayer().GetPosition();
+		Player::PLAYER_DIRECTION_STATE state = getPlayer().GetDirectionState();
+
+		if (getPlayer().GetIsGuard()) {
+			dir = dir.Rotated(90 * M_PI / 180);
+			switch (state)
+			{
+			case Player::UP:
+				state = Player::LEFT;
+				break;
+			case Player::DOWN:
+				state = Player::RIGHT;
+				break;
+			case Player::LEFT:
+				state = Player::DOWN;
+				break;
+			case Player::RIGHT:
+				state = Player::UP;
+				break;
+			case Player::RIGHTUP:
+				state = Player::LEFTUP;
+				break;
+			case Player::LEFTUP:
+				state = Player::LEFTDOWN;
+				break;
+			case Player::RIGHTDOWN:
+				state = Player::RIGHTUP;
+				break;
+			case Player::LEFTDOWN:
+				state = Player::RIGHTDOWN;
+				break;
+			default:
+				break;
+			}
+		}
+
 		Vector2D g_pos = p_pos + dir * Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
+		Quad temp = { {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT };
 
 		if (getPlayer().GetIsDash()) {
-			// g_pos.Rotated()
-		}
-		else if(getPlayer().GetIsGuard()) {
-
+			temp = temp.Translation(-g_pos).Rotation(90 * M_PI / 180).Translation(g_pos);
 		}
 
-		switch (getPlayer().GetDirectionState())
+		switch (state)
 		{
 		case Player::UP:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_UP_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_UP_TEX);
 			break;
 		case Player::DOWN:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_DOWN_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DOWN_TEX);
 			break;
 		case Player::LEFT:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_LEFT_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_LEFT_TEX);
 			break;
 		case Player::RIGHT:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_RIGHT_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_RIGHT_TEX);
 			break;
 		case Player::RIGHTUP:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_RIGHTUP_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_RIGHTUP_TEX);
 			break;
 		case Player::LEFTUP:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_LEFTUP_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_LEFTUP_TEX);
 			break;
 		case Player::RIGHTDOWN:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_RIGHTDOWN_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_RIGHTDOWN_TEX);
 			break;
 		case Player::LEFTDOWN:
-			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_LEFTDOWN_TEX);
+			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_LEFTDOWN_TEX);
 			break;
 		default:
 			break;
