@@ -5,6 +5,14 @@
 
 Texture Datas::PLAYER_TEX = Texture(64, 64);
 Texture Datas::PLAYER_DASH_TEX = Texture(64, 64);
+Texture Datas::PLAYER_UP_TEX = Texture(64, 64);
+Texture Datas::PLAYER_DOWN_TEX = Texture(64, 64);
+Texture Datas::PLAYER_LEFT_TEX = Texture(64, 64);
+Texture Datas::PLAYER_RIGHT_TEX = Texture(64, 64);
+Texture Datas::PLAYER_UPRIGHT_TEX = Texture(64, 64);
+Texture Datas::PLAYER_UPLEFT_TEX = Texture(64, 64);
+Texture Datas::PLAYER_DOWNRIGHT_TEX = Texture(64, 64);
+Texture Datas::PLAYER_DOWNLEFT_TEX = Texture(64, 64);
 Texture Datas::GAUNTLET_TEX = Texture(128, 128);
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::BOSS1_VINNET_TEX = Texture(512, 560);
@@ -27,6 +35,22 @@ void Datas::LoadTexture()
 	PLAYER_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player.png"));
 	Per++;
 	PLAYER_DASH_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Dash.png"));
+	Per++;
+	PLAYER_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Up.png"));
+	Per++;
+	PLAYER_DOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Down.png"));
+	Per++;
+	PLAYER_LEFT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Left.png"));
+	Per++;
+	PLAYER_RIGHT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Right.png"));
+	Per++;
+	PLAYER_UPRIGHT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightUp.png"));
+	Per++;
+	PLAYER_UPLEFT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftUp.png"));
+	Per++;
+	PLAYER_DOWNRIGHT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightDown.png"));
+	Per++;
+	PLAYER_DOWNLEFT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftDown.png"));
 	Per++;
 	GAUNTLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet.png"));
 	Per++;

@@ -365,7 +365,7 @@ void Player::ChargeAttack()
 		}
 	}
 	else {// キーボード
-		if (Key::IsPressed(DIK_X)) {// Zが押されているなら
+		if (Key::IsPressed(DIK_X)) {// Xが押されているなら
 
 		}
 	}
