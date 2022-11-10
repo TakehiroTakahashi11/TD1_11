@@ -118,18 +118,17 @@ void BossAttack1::Update()
 					}
 				}
 				else {
-					Vector2D g_pos = pGame.getGauntlets().GetPosition();
-					g_pos -= {Datas::GAUNTLET_HEIGHT * 0.5f, Datas::GAUNTLET_HEIGHT * 0.5f};
-
-					if (bossAttack1[i].size.x * 1.4f > (bossAttack1[i].position - g_pos).Length()) {
-						// ‹zŽû
-						pGame.getPlayer().SetGuardDis(Datas::BOSS_ATTACK1_DAMAGE);
-						//
-						bossAttack1[i].isEnd = true;
-						EffectManager::MakeNewEffect(bossAttack1[i].position, kBulletDeath);
-					}
-					else if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
-						pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+					if (Datas::PLAYER_HEIGHT * 0.3f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
+						//if () {// 
+						//	// ‹zŽû
+						//	pGame.getPlayer().SetGuardDis(Datas::BOSS_ATTACK1_DAMAGE);
+						//	//
+						//	bossAttack1[i].isEnd = true;
+						//	EffectManager::MakeNewEffect(bossAttack1[i].position, kBulletDeath);
+						//}
+						//else if () {
+						//	pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+						//}
 					}
 				}
 			}

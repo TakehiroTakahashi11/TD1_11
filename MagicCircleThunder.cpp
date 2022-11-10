@@ -34,6 +34,7 @@ void MagicCircleThunder::Init() {
 	for (int i = 0; i < effects.size(); i++) {
 		effects[i].size = 0;
 		effects[i].theta = 0;
+		effects[i].thetaSpeed = 0;
 		effects[i].rotatetheta = 0;
 		effects[i].rotation = Vector2D(0, 1).Rotated(i * (360.0f / effects.size() * (float)M_PI / 180.0f));
 		effects[i].position = position + effects[i].rotation.Rotated(effects[i].rotatetheta) * MagicCircleRadius;
@@ -55,7 +56,11 @@ void MagicCircleThunder::Update() {
 		}
 
 		if (effects[i].size == 256.0f) {
-			effects[i].rotatetheta += 1.0f / 60.0f * static_cast<float>(M_PI) * Delta::getTotalDelta();
+			effects[i].thetaSpeed += 0.015f / 60.0f * static_cast<float>(M_PI) * Delta::getTotalDelta();
+			if (effects[i].thetaSpeed > 0.55f) {
+				effects[i].thetaSpeed = 0.55f;
+			}
+			effects[i].rotatetheta += effects[i].thetaSpeed * Delta::getTotalDelta();
 			effects[i].position = pGame.getBoss().GetPosition() + effects[i].rotation.Rotated(effects[i].rotatetheta) * MagicCircleRadius;
 
 			if (effects[i].rotatetheta > 1.63f * static_cast<float>(M_PI)) {
@@ -70,7 +75,7 @@ void MagicCircleThunder::Update() {
 					effects.pop_back();
 				}
 			}
-			if (effects[i].rotatetheta > 2.3f * static_cast<float>(M_PI)) {
+			if (effects[i].rotatetheta > 2.8f * static_cast<float>(M_PI)) {
 				if (prethunder2_num == -1) {
 					thunder2pos = pGame.getPlayer().GetPosition();
 					prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
@@ -82,7 +87,7 @@ void MagicCircleThunder::Update() {
 					effects.pop_back();
 				}
 			}
-			if (effects[i].rotatetheta > 2.95f * static_cast<float>(M_PI)) {
+			if (effects[i].rotatetheta > 4.5f * static_cast<float>(M_PI)) {
 				if (prethunder3_num == -1) {
 					thunder3pos = pGame.getPlayer().GetPosition();
 					prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);
