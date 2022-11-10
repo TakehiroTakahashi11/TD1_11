@@ -33,6 +33,7 @@ void Player::Init() {
 	camera_pos = { 0.0f,0.0f };
 
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
+	beforePosition = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
 	JustDodgePosition[0] = { -50000.0f,-50000.0f };
 	JustDodgePosition[1] = { -50000.0f,-50000.0f };
 	JustDodgePosition[2] = { -50000.0f,-50000.0f };
@@ -49,6 +50,7 @@ void Player::Init() {
 	velocity = { 0.0f,0.0f };
 	direction = { 0.0f,1.0f };
 	speed = Datas::PLAYER_SPD;
+	anim = 0.0f;
 
 	healthMax = Datas::PLAYER_MAX_HEALTH;
 	health = Datas::PLAYER_MAX_HEALTH;
@@ -90,6 +92,9 @@ void Player::Update() {// ======================================================
 	if (beforeElapsedFrame + 0.5f < elapsedFrame) {
 		beforeElapsedFrame = elapsedFrame;
 	}
+
+	// 保存
+	beforePosition = position;
 
 	// 基本処理
 	if (!isKnockBack) {
@@ -183,6 +188,17 @@ void Player::Update() {// ======================================================
 		break;
 	}
 
+	// 
+	if (beforePosition == position) {
+		anim += Delta::getTotalDelta();
+		if (anim >= 80.0f) {
+			anim = 0.0f;
+		}
+	}
+	else {
+		anim = 0.0f;
+	}
+
 	// カメラ追尾
 	MoveCamera();
 	getCameraMain().setPosition(position + camera_pos);
@@ -223,28 +239,36 @@ void Player::Draw() {
 		switch (directionState)
 		{
 		case Player::UP:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX);
+			getGauntlets().Draw();
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX,anim / 10);
 			break;
 		case Player::DOWN:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX);
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX, anim / 10);
+			getGauntlets().Draw();
 			break;
 		case Player::LEFT:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX);
+			getGauntlets().Draw();
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX, anim / 10);
 			break;
 		case Player::RIGHT:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX);
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX, anim / 10);
+			getGauntlets().Draw();
 			break;
 		case Player::RIGHTUP:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX);
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX, anim / 10);
+			getGauntlets().Draw();
 			break;
 		case Player::LEFTUP:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX);
+			getGauntlets().Draw();
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX, anim / 10);
 			break;
 		case Player::RIGHTDOWN:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX);
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX, anim / 10);
+			getGauntlets().Draw();
 			break;
 		case Player::LEFTDOWN:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX);
+			getGauntlets().Draw();
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX, anim / 10);
 			break;
 		default:
 			break;
@@ -253,7 +277,7 @@ void Player::Draw() {
 
 	// =====================================================================================
 	// ガントレット描画
-	// getGauntlets().Draw();
+	
 }
 
 void Player::Move()

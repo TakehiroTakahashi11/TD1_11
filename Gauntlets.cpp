@@ -42,32 +42,53 @@ void Gauntlets::Update()
 
 void Gauntlets::Draw()
 {
-	if (getPlayer().GetIsDrawn()) {
-		Quad temp = { {0.0f,0.0f},0.0f,0.0f };
+	if (!getPlayer().GetIsGuardBreak()) {
+		Vector2D dir = getPlayer().GetDirection();
+		dir = dir.Rotated(-90 * M_PI / 180);
+		Vector2D p_pos = getPlayer().GetPosition();
+		Vector2D g_pos = p_pos + dir * Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
 
-		if (!getPlayer().GetIsGuardBreak()) {
-			if (getPlayer().GetIsGuard()) {// ガード中なら
-				temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-			}
-			else if (getPlayer().GetIsDash()) {// ダッシュ中なら
-				temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-			}
-			else if (getPlayer().GetIsChargeAttack()) {// チャージアタック中なら
-				temp = My::RotateCenter(chargePos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-			}
-			else {// ムーブ中なら
-				temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-			}
+		if (getPlayer().GetIsDash()) {
+			// g_pos.Rotated()
 		}
-		else {
-			// temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-			// getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-			// 壊れたガントレット描画
+		else if(getPlayer().GetIsGuard()) {
+
 		}
+
+		switch (getPlayer().GetDirectionState())
+		{
+		case Player::UP:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_UP_TEX);
+			break;
+		case Player::DOWN:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_DOWN_TEX);
+			break;
+		case Player::LEFT:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_LEFT_TEX);
+			break;
+		case Player::RIGHT:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_RIGHT_TEX);
+			break;
+		case Player::RIGHTUP:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_RIGHTUP_TEX);
+			break;
+		case Player::LEFTUP:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_LEFTUP_TEX);
+			break;
+		case Player::RIGHTDOWN:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_RIGHTDOWN_TEX);
+			break;
+		case Player::LEFTDOWN:
+			getCameraMain().DrawQuad({ {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT }, Datas::GAUNTLET_LEFTDOWN_TEX);
+			break;
+		default:
+			break;
+		}
+	}
+	else {
+		// temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+		// getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		// 壊れたガントレット描画
 	}
 }
 

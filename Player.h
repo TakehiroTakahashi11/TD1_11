@@ -101,6 +101,7 @@ private:
 	// カメラ位置
 	Vector2D camera_pos;
 
+	Vector2D beforePosition;
 	// ジャスト回避判定位置
 	Vector2D JustDodgePosition[13];
 	// 移動量
@@ -109,6 +110,8 @@ private:
 	Vector2D direction;
 	// 速度
 	float speed;
+	// アニメーション
+	float anim;
 
 	// 最大体力
 	float healthMax;

@@ -85,7 +85,7 @@ public:
     static constexpr float GAUNTLET_KNOCKBACK_DIS = 0.3f;// ノックバック速度が減る速度
 
     // アニメーション
-    static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 60;// プレイヤーとガントレットとの距離(通常)
+    static constexpr int GAUNTLET_PLAYER_MOVE_DISTANCE = 25;// プレイヤーとガントレットとの距離(通常)
     static constexpr int GAUNTLET_PLAYER_GUARD_DISTANCE = 46;// プレイヤーとガントレットとの距離(ガード中)
     static constexpr int GAUNTLET_PLAYER_DASH_DISTANCE = 90;// プレイヤーとガントレットとの距離(ダッシュ中)
     static constexpr float GAUNTLET_GUARD_DIR_SPD = 15.0f;// ガード時、ガード解除時の回転の速さ
