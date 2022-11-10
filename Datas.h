@@ -56,8 +56,8 @@ public:
     static constexpr float PLAYER_CAMARA_SPD = 5.0f;// カメラが戻る速度
 
     // アニメーション
-    static constexpr int PLAYER_WIDTH = 128;// 幅
-    static constexpr int PLAYER_HEIGHT = 128;// 高さ
+    static constexpr int PLAYER_WIDTH = 64;// 幅
+    static constexpr int PLAYER_HEIGHT = 64;// 高さ
     static constexpr int PLAYER_INV_ANIM_SPD = 10;// 無敵アニメーション速度
 
     static Texture PLAYER_TEX;// テクスチャ
@@ -66,10 +66,10 @@ public:
     static Texture PLAYER_DOWN_TEX;
     static Texture PLAYER_LEFT_TEX;
     static Texture PLAYER_RIGHT_TEX;
-    static Texture PLAYER_UPRIGHT_TEX;
-    static Texture PLAYER_UPLEFT_TEX;
-    static Texture PLAYER_DOWNRIGHT_TEX;
-    static Texture PLAYER_DOWNLEFT_TEX;
+    static Texture PLAYER_RIGHTUP_TEX;
+    static Texture PLAYER_LEFTUP_TEX;
+    static Texture PLAYER_RIGHTDOWN_TEX;
+    static Texture PLAYER_LEFTDOWN_TEX;
 
     // =========================
     // GAUNTLETS
@@ -89,6 +89,14 @@ public:
     static constexpr float GAUNTLET_DASH_DIS_SPD = 1.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(縦)
     static constexpr float GAUNTLET_DASH_DIR_SPD = 15.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(横)
     static Texture GAUNTLET_TEX;// テクスチャ
+    static Texture GAUNTLET_UP_TEX;
+    static Texture GAUNTLET_DOWN_TEX;
+    static Texture GAUNTLET_LEFT_TEX;
+    static Texture GAUNTLET_RIGHT_TEX;
+    static Texture GAUNTLET_RIGHTUP_TEX;
+    static Texture GAUNTLET_LEFTUP_TEX;
+    static Texture GAUNTLET_RIGHTDOWN_TEX;
+    static Texture GAUNTLET_LEFTDOWN_TEX;
 
     // =========================
     // BOSS1
