@@ -255,8 +255,13 @@ void Player::Draw() {
 			getGauntlets().Draw();
 			break;
 		case Player::RIGHTUP:
+			if (isGuard) {
+				getGauntlets().Draw();
+			}
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX, anim / 10);
-			getGauntlets().Draw();
+			if (!isGuard) {
+				getGauntlets().Draw();
+			}
 			break;
 		case Player::LEFTUP:
 			getGauntlets().Draw();
@@ -267,8 +272,13 @@ void Player::Draw() {
 			getGauntlets().Draw();
 			break;
 		case Player::LEFTDOWN:
-			getGauntlets().Draw();
+			if (!isGuard) {
+				getGauntlets().Draw();
+			}
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX, anim / 10);
+			if (isGuard) {
+				getGauntlets().Draw();
+			}
 			break;
 		default:
 			break;
