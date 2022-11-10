@@ -49,8 +49,11 @@ public:
     static constexpr float PLAYER_KNOCKBACK_RIGID = 15.0f;// ノックバック後の硬直時間(フレーム)
 
     static constexpr float PLAYER_ATTACK_DAMAGE = 10.0f;// プレイヤー攻撃力
+
     static constexpr float PLAYER_ATTACK_CHARGE = 15.0f;// 攻撃した時のチャージ力
     static constexpr float PLAYER_JUSTDODGE_CHARGE = 70.0f;// ジャスト回避した時のチャージ力
+    static constexpr float PLAYER_CHARGE_MAX = 500.0f;// 最大チャージ力
+    static constexpr float PLAYER_CHARGE_DIS = PLAYER_CHARGE_MAX / 5.0f;// ゲージ間隔
 
     static constexpr float PLAYER_CAMARA_OFFSET = 100.0f;// カメラ
     static constexpr float PLAYER_CAMARA_SPD = 5.0f;// カメラが戻る速度

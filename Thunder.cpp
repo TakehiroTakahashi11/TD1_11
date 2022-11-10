@@ -49,7 +49,7 @@ void Thunder::Update()
 				}
 			}
 			else {
-				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_X, pGame.getPlayer().GetCenterPosition())) {
+				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_X, pGame.getPlayer().GetPosition())) {
 					pGame.getPlayer().SetDamage(Datas::BOSS_THUNDER1_DAMAGE);
 				}
 			}

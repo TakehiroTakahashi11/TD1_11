@@ -60,7 +60,7 @@ void MagicCircleThunder::Update() {
 
 			if (effects[i].rotatetheta > 1.63f * static_cast<float>(M_PI)) {
 				if (prethunder1_num == -1) {
-					thunder1pos = pGame.getPlayer().GetCenterPosition();
+					thunder1pos = pGame.getPlayer().GetPosition();
 					prethunder1_num = EffectManager::MakeNewEffect(thunder1pos, kPreThunder);
 				}
 				if (!thunder1_created && EffectManager::GetIsEnd(prethunder1_num)) {
@@ -72,7 +72,7 @@ void MagicCircleThunder::Update() {
 			}
 			if (effects[i].rotatetheta > 2.3f * static_cast<float>(M_PI)) {
 				if (prethunder2_num == -1) {
-					thunder2pos = pGame.getPlayer().GetCenterPosition();
+					thunder2pos = pGame.getPlayer().GetPosition();
 					prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
 				}
 				if (!thunder2_created && EffectManager::GetIsEnd(prethunder2_num)) {
@@ -84,7 +84,7 @@ void MagicCircleThunder::Update() {
 			}
 			if (effects[i].rotatetheta > 2.95f * static_cast<float>(M_PI)) {
 				if (prethunder3_num == -1) {
-					thunder3pos = pGame.getPlayer().GetCenterPosition();
+					thunder3pos = pGame.getPlayer().GetPosition();
 					prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);
 				}
 				if (!thunder3_created && EffectManager::GetIsEnd(prethunder3_num)) {

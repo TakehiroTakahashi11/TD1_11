@@ -80,7 +80,7 @@ void BossAttack1::Init()
 void BossAttack1::Update()
 {
 	// “–‚½‚è”»’è—péŒ¾
-	Vector2D p_pos = pGame.getPlayer().GetCenterPosition();
+	Vector2D p_pos = pGame.getPlayer().GetPosition();
 	Vector2D g_pos = pGame.getGauntlets().GetPosition();
 	bool isDash = pGame.getPlayer().GetIsDash();
 	bool isGuard = pGame.getPlayer().GetIsGuard();

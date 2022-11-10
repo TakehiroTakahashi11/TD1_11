@@ -22,12 +22,17 @@ Gauntlets::~Gauntlets()
 void Gauntlets::Init()
 {
 	position = { 0.0f,0.0f };
-	health = 300.0f;
+
 	guard_dir = 0.0f;
 	dash_dis = 0.0f;
 	dash_dir = 0.0f;
+
 	x_anim = 0;
-	isBreak = false;
+
+	chargeAttackFrame = 0.0f;
+	chargeAttackSpeed = 0.0f;
+
+	chargePos = { 0.0f,0.0f };
 }
 
 void Gauntlets::Update()
@@ -40,19 +45,61 @@ void Gauntlets::Draw()
 	if (getPlayer().GetIsDrawn()) {
 		Quad temp = { {0.0f,0.0f},0.0f,0.0f };
 
-		if (getPlayer().GetIsGuard()) {// ガード中なら
-			temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		if (!getPlayer().GetIsGuardBreak()) {
+			if (getPlayer().GetIsGuard()) {// ガード中なら
+				temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+			}
+			else if (getPlayer().GetIsDash()) {// ダッシュ中なら
+				temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+			}
+			else if (getPlayer().GetIsChargeAttack()) {// チャージアタック中なら
+				temp = My::RotateCenter(chargePos, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+			}
+			else {// ムーブ中なら
+				temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+			}
 		}
-		else if (getPlayer().GetIsDash()) {// ダッシュ中なら
-			temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
-		}
-		else {// ムーブ中なら
-			temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
-			getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+		else {
+			// temp = My::RotateCenter(position, atan2f(getPlayer().GetDirection().y, getPlayer().GetDirection().x) + static_cast<float>(guard_dir * M_PI / 180), Datas::GAUNTLET_WIDTH, Datas::GAUNTLET_HEIGHT);
+			// getCameraMain().DrawQuad(temp, Datas::GAUNTLET_TEX);
+			// 壊れたガントレット描画
 		}
 	}
+}
+
+bool Gauntlets::ChargeAttack()
+{
+	if (InitFlag) {
+		chargePos = getPlayer().GetPosition();
+		InitFlag = false;
+		chargeAttackFrame = 0.0f;
+		chargeAttackSpeed = 0.0f;
+	}
+
+	chargeAttackFrame += Delta::getDeltaTime();
+	Vector2D dir = getPlayer().GetDirection();
+
+	if (chargeAttackFrame < 50.0f) {
+		Delta::MoveDynDelta(-0.15f);
+		chargeAttackSpeed -= 0.3f * Delta::getTotalDelta();
+	}
+	else if (chargeAttackFrame < 60.0f) {
+		Delta::SetDynDelta(1.0f);
+		chargeAttackSpeed = 70.0f;
+	}
+
+	chargePos += dir * chargeAttackSpeed;
+
+	if (60.0f < chargeAttackFrame) {// 終了処理
+		chargeAttackFrame = 0.0f;
+		InitFlag = true;
+		return true;
+	}
+	return false;
 }
 
 void Gauntlets::Animation()

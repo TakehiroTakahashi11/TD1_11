@@ -20,6 +20,9 @@ public:
 	/// @brief 衝突判定
 	void Collision();
 
+	// チャージに対するノックバック
+	void ChargeKnockBack();
+
 	/// @brief プレイヤーとボスの判定
 	void PtoBCollision();
 

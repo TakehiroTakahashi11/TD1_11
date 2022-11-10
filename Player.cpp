@@ -33,7 +33,6 @@ void Player::Init() {
 	camera_pos = { 0.0f,0.0f };
 
 	position = { Datas::PLAYER_POS_X, Datas::PLAYER_POS_Y };
-	centerPosition = { Datas::PLAYER_POS_X + Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_POS_Y + Datas::PLAYER_HEIGHT * 0.5f };
 	JustDodgePosition[0] = { -50000.0f,-50000.0f };
 	JustDodgePosition[1] = { -50000.0f,-50000.0f };
 	JustDodgePosition[2] = { -50000.0f,-50000.0f };
@@ -61,7 +60,8 @@ void Player::Init() {
 
 	justDodge = false;
 
-	charge = 0.0f;
+	isChargeAttack = false;
+	charge = 100.0f;
 
 	isInv = false;
 	inv_count = 0.0f;
@@ -90,7 +90,11 @@ void Player::Update() {// ======================================================
 	}
 
 	// 基本処理
-	if (!isKnockBack) {// ノックバックされていないなら
+	if (!isKnockBack) {
+		ChargeAttack();
+	}
+
+	if (!isKnockBack && !isChargeAttack) {// ノックバックされていないならチャージアタック中でないなら
 		Dash();// ダッシュ処理
 		if (!isDash && !guard_break) {// ダッシュ中でないなら
 			Guard();// ガード処理
@@ -143,15 +147,12 @@ void Player::Update() {// ======================================================
 		}
 	}
 
-	// 中心座標割り出し
-	centerPosition = { position.x - Datas::PLAYER_WIDTH * 0.5f, position.y - Datas::PLAYER_HEIGHT * 0.5f };
-
 	// 壁判定
 	WallCollision();
 
 	// カメラ追尾
 	MoveCamera();
-	getCameraMain().setPosition(centerPosition + camera_pos);
+	getCameraMain().setPosition(position + camera_pos);
 
 	// =====================================================================================
 	// ガントレットの更新処理
@@ -185,13 +186,12 @@ void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
 	if (isDrawn) {
-		Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
-		getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_TEX);
 	}
 
 	// =====================================================================================
 	// ガントレット描画
-	getGauntlets().Draw();
+	// getGauntlets().Draw();
 }
 
 void Player::Move()
@@ -255,7 +255,7 @@ void Player::Dash() {
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
-				JustDodgePosition[0] = centerPosition;
+				JustDodgePosition[0] = position;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
@@ -263,7 +263,7 @@ void Player::Dash() {
 			if (Key::IsTrigger(DIK_SPACE)) {// SPACEを押したなら
 				isDash = true;// ダッシュ中に変更
 				dash_length = 0.0f;// ダッシュした長さを初期化
-				JustDodgePosition[0] = centerPosition;
+				JustDodgePosition[0] = position;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
 			}
 		}
@@ -295,45 +295,45 @@ void Player::Dash() {
 		else if (dash_length < Datas::PLAYER_DASH_LEN) {
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
 			if (beforeElapsedFrame == elapsedFrame) {
-				EffectManager::MakeNewEffect(centerPosition, kPlayerBoost);
+				EffectManager::MakeNewEffect(position, kPlayerBoost);
 				if (justDodge) {
 					EffectManager::MakeNewEffect(position, kPlayerDash);
 				}
 				if (JustDodgePosition[1].x == -50000.0f) {
-					JustDodgePosition[1] = centerPosition;
+					JustDodgePosition[1] = position;
 				}
 				else if (JustDodgePosition[2].x == -50000.0f) {
-					JustDodgePosition[2] = centerPosition;
+					JustDodgePosition[2] = position;
 				}
 				else if (JustDodgePosition[3].x == -50000.0f) {
-					JustDodgePosition[3] = centerPosition;
+					JustDodgePosition[3] = position;
 				}
 				else if (JustDodgePosition[4].x == -50000.0f) {
-					JustDodgePosition[4] = centerPosition;
+					JustDodgePosition[4] = position;
 				}
 				else if (JustDodgePosition[5].x == -50000.0f) {
-					JustDodgePosition[5] = centerPosition;
+					JustDodgePosition[5] = position;
 				}
 				else if (JustDodgePosition[6].x == -50000.0f) {
-					JustDodgePosition[6] = centerPosition;
+					JustDodgePosition[6] = position;
 				}
 				else if (JustDodgePosition[7].x == -50000.0f) {
-					JustDodgePosition[7] = centerPosition;
+					JustDodgePosition[7] = position;
 				}
 				else if (JustDodgePosition[8].x == -50000.0f) {
-					JustDodgePosition[8] = centerPosition;
+					JustDodgePosition[8] = position;
 				}
 				else if (JustDodgePosition[9].x == -50000.0f) {
-					JustDodgePosition[9] = centerPosition;
+					JustDodgePosition[9] = position;
 				}
 				else if (JustDodgePosition[10].x == -50000.0f) {
-					JustDodgePosition[10] = centerPosition;
+					JustDodgePosition[10] = position;
 				}
 				else if (JustDodgePosition[11].x == -50000.0f) {
-					JustDodgePosition[11] = centerPosition;
+					JustDodgePosition[11] = position;
 				}
 				else if (JustDodgePosition[12].x == -50000.0f) {
-					JustDodgePosition[12] = centerPosition;
+					JustDodgePosition[12] = position;
 				}
 			}
 		}
@@ -359,14 +359,34 @@ void Player::Guard() {
 
 void Player::ChargeAttack()
 {
-	if (IsCntMode()) {// コントローラー
-		if (Controller::IsPressedButton(0, Controller::bB)) {// Lbが押されているなら
-
+	if (!isChargeAttack && !isDash) {
+		if (IsCntMode()) {// コントローラー
+			if (Controller::IsTriggerButton(0, Controller::bB)) {// bBが押されているなら
+				if (charge < Datas::PLAYER_CHARGE_DIS) {
+					// 押せない演出
+				}
+				else {
+					isChargeAttack = true;
+				}
+			}
+		}
+		else {// キーボード
+			if (Key::IsTrigger(DIK_X)) {// Xが押されているなら
+				if (charge < Datas::PLAYER_CHARGE_DIS) {
+					// 押せない演出
+				}
+				else {
+					isChargeAttack = true;
+				}
+			}
 		}
 	}
-	else {// キーボード
-		if (Key::IsPressed(DIK_X)) {// Zが押されているなら
-
+	if(isChargeAttack) {
+		if (getGauntlets().ChargeAttack()) {
+			isChargeAttack = false;
+			guard_break = true;
+			stamina = 0.0f;
+			charge = 0;
 		}
 	}
 }
@@ -412,39 +432,31 @@ void Player::WallCollision()
 	switch (getGame().getMap().GetMapNum())
 	{
 	case 0:
-		if (centerPosition.x - Datas::PLAYER_WIDTH * 0.5f < -Datas::STAGE0_WIDTH) {// もし壁より外なら
-			centerPosition.x = Datas::PLAYER_WIDTH * 0.5f - Datas::STAGE0_WIDTH;
-			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		if (position.x - Datas::PLAYER_WIDTH * 0.5f < -Datas::STAGE0_WIDTH) {// もし壁より外なら
+			position.x = Datas::PLAYER_WIDTH * 0.5f - Datas::STAGE0_WIDTH;
 		}
-		if (Datas::STAGE0_WIDTH < centerPosition.x + Datas::PLAYER_WIDTH * 0.5f) {
-			centerPosition.x = Datas::STAGE0_WIDTH - Datas::PLAYER_WIDTH * 0.5f;
-			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		if (Datas::STAGE0_WIDTH < position.x + Datas::PLAYER_WIDTH * 0.5f) {
+			position.x = Datas::STAGE0_WIDTH - Datas::PLAYER_WIDTH * 0.5f;
 		}
-		if (centerPosition.y - Datas::PLAYER_HEIGHT * 0.5f < -Datas::STAGE0_HEIGHT) {
-			centerPosition.y = Datas::PLAYER_HEIGHT * 0.5f - Datas::STAGE0_HEIGHT;
-			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		if (position.y - Datas::PLAYER_HEIGHT * 0.5f < -Datas::STAGE0_HEIGHT) {
+			position.y = Datas::PLAYER_HEIGHT * 0.5f - Datas::STAGE0_HEIGHT;
 		}
-		if (Datas::STAGE0_HEIGHT < centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f) {
-			centerPosition.y = Datas::STAGE0_HEIGHT - Datas::PLAYER_HEIGHT * 0.5f;
-			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		if (Datas::STAGE0_HEIGHT < position.y + Datas::PLAYER_HEIGHT * 0.5f) {
+			position.y = Datas::STAGE0_HEIGHT - Datas::PLAYER_HEIGHT * 0.5f;
 		}
 		break;
 	case 1:
-		if (centerPosition.x - Datas::PLAYER_WIDTH * 0.5f < -Datas::STAGE1_WIDTH) {// もし壁より外なら
-			centerPosition.x = Datas::PLAYER_WIDTH * 0.5f - Datas::STAGE1_WIDTH;
-			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		if (position.x - Datas::PLAYER_WIDTH * 0.5f < -Datas::STAGE1_WIDTH) {// もし壁より外なら
+			position.x = Datas::PLAYER_WIDTH * 0.5f - Datas::STAGE1_WIDTH;
 		}
-		if (Datas::STAGE1_WIDTH < centerPosition.x + Datas::PLAYER_WIDTH * 0.5f) {
-			centerPosition.x = Datas::STAGE1_WIDTH - Datas::PLAYER_WIDTH * 0.5f;
-			position.x = centerPosition.x + Datas::PLAYER_WIDTH * 0.5f;
+		if (Datas::STAGE1_WIDTH < position.x + Datas::PLAYER_WIDTH * 0.5f) {
+			position.x = Datas::STAGE1_WIDTH - Datas::PLAYER_WIDTH * 0.5f;
 		}
-		if (centerPosition.y - Datas::PLAYER_HEIGHT * 0.5f < -Datas::STAGE1_HEIGHT) {
-			centerPosition.y = Datas::PLAYER_HEIGHT * 0.5f - Datas::STAGE1_HEIGHT;
-			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		if (position.y - Datas::PLAYER_HEIGHT * 0.5f < -Datas::STAGE1_HEIGHT) {
+			position.y = Datas::PLAYER_HEIGHT * 0.5f - Datas::STAGE1_HEIGHT;
 		}
-		if (Datas::STAGE1_HEIGHT < centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f) {
-			centerPosition.y = Datas::STAGE1_HEIGHT - Datas::PLAYER_HEIGHT * 0.5f;
-			position.y = centerPosition.y + Datas::PLAYER_HEIGHT * 0.5f;
+		if (Datas::STAGE1_HEIGHT < position.y + Datas::PLAYER_HEIGHT * 0.5f) {
+			position.y = Datas::STAGE1_HEIGHT - Datas::PLAYER_HEIGHT * 0.5f;
 		}
 		break;
 	default:

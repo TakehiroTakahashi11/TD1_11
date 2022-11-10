@@ -11,17 +11,17 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	bool ChargeAttack();
+
+private:
 	/// @brief アニメーション関数
 	void Animation();
 
 public://ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
-	bool GetIsBreak() { return isBreak; }
 
-private:// 耐久力
-	float health;
-
+private:
 	// ガードアニメーション角度
 	float guard_dir;
 	// ダッシュアニメーション
@@ -31,6 +31,10 @@ private:// 耐久力
 	// アニメーション
 	int x_anim;
 
-	// 壊れているか
-	bool isBreak;
+	Vector2D chargePos;
+	// チャージアタック
+	float chargeAttackFrame;
+	float chargeAttackSpeed;
+
+	bool InitFlag;
 };

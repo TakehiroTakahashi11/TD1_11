@@ -106,7 +106,7 @@ void Boss::Collision()
 
 void Boss::PtoBCollision()
 {
-	if (!isFloating) {// 浮いてないなら
+	if (!isFloating && !getPlayer().GetIsGuardBreak()) {// 浮いてないならガードブレイクしていないなら
 		Vector2D center = { Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_HEIGHT * 0.5f };
 		Vector2D p_pos = getPlayer().GetPosition() - center;
 		if (getPlayer().GetIsDash()) {
@@ -154,7 +154,7 @@ void Boss::KnockBack()
 void Boss::TimeLine()
 {
 	if (canMigration) {
-		if ((position - getPlayer().GetCenterPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {
+		if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {
 			switch (My::Random(1, 5))
 			{
 			case 1:
@@ -175,7 +175,7 @@ void Boss::TimeLine()
 				break;
 			}
 		}
-		else if ((position - getPlayer().GetCenterPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
+		else if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
 			switch (My::Random(1, 5))
 			{
 			case 1:

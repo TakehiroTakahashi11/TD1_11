@@ -53,15 +53,17 @@ private:
 	/// @brief ジャスト回避
 	void CheckJust();
 
+
 public:// ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
-	Vector2D GetCenterPosition() { return centerPosition; }
 	Vector2D GetJustDodgePosition(int n) { return JustDodgePosition[n]; }
 	Vector2D GetVelocity() { return velocity; }
 	Vector2D GetDirection() { return direction; }
 	bool GetIsDash() { return isDash; }
 	bool GetIsGuard() { return isGuard; }
+	bool GetIsGuardBreak() { return guard_break; }
+	bool GetIsChargeAttack() { return isChargeAttack; }
 	bool GetIsInvincible() { return isInv; }
 	bool GetIsDrawn() { return isDrawn; }
 	float GetIsDir();
@@ -87,8 +89,6 @@ private:
 	// カメラ位置
 	Vector2D camera_pos;
 
-	// 中心位置
-	Vector2D centerPosition;
 	// ジャスト回避判定位置
 	Vector2D JustDodgePosition[13];
 	// 移動量
@@ -115,6 +115,8 @@ private:
 	// ジャスト回避したか
 	bool justDodge;
 
+	// チャージアタック中か
+	bool isChargeAttack;
 	// 溜め
 	float charge;
 
