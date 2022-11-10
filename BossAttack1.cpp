@@ -125,16 +125,15 @@ void BossAttack1::Update()
 				}
 				else {
 					if (Datas::PLAYER_HEIGHT * 0.2f + bossAttack1[i].size.x * 0.5f > (bossAttack1[i].position - p_pos).Length()) {
-						//if () {// 
-						//	// ‹zŽû
-						//	pGame.getPlayer().SetGuardDis(Datas::BOSS_ATTACK1_DAMAGE);
-						//	//
-						//	bossAttack1[i].isEnd = true;
-						//	EffectManager::MakeNewEffect(bossAttack1[i].position, kBulletDeath);
-						//}
-						//else if () {
-						//	pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
-						//}
+						if (0 > bossAttack1[i].velocity.Dot(pGame.getPlayer().GetDirection())) {// 
+							// ‹zŽû
+							pGame.getPlayer().SetGuardDis(Datas::BOSS_ATTACK1_DAMAGE);
+							bossAttack1[i].isEnd = true;
+							EffectManager::MakeNewEffect(bossAttack1[i].position, kBulletDeath);
+						}
+						else {
+							pGame.getPlayer().SetDamage(Datas::BOSS_ATTACK1_DAMAGE);
+						}
 					}
 				}
 			}
