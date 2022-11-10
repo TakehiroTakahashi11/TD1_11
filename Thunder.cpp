@@ -23,7 +23,7 @@ void Thunder::Init()
 {
 	elapsedFrame = 0.0f;
 	isChecked = false;
-	layer = 2;
+	layer = 1;
 }
 
 void Thunder::Update()
@@ -51,10 +51,13 @@ void Thunder::Update()
 			}
 			else {
 				if (My::CollisonCircletoPoint(position, Datas::EFFECTS_THUNDER_SIZE_X, Datas::EFFECTS_THUNDER_SIZE_X, pGame.getPlayer().GetPosition() - p)) {
+					Vector2D temp = pGame.getPlayer().GetPosition() - p - position;
+					pGame.getPlayer().SetKnockBack(temp.Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 					pGame.getPlayer().SetDamage(Datas::BOSS_THUNDER1_DAMAGE);
 				}
 			}
 		}
+		// ‰¹
 		isChecked = true;
 	}
 
