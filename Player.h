@@ -28,6 +28,17 @@ public:
 		Dash3
 	};
 
+	enum PLAYER_DIRECTION_STATE {
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT,
+		RIGHTUP,
+		LEFTUP,
+		RIGHTDOWN,
+		LEFTDOWN
+	};
+
 private:
 	/// @brief 移動処理
 	void Move();
@@ -70,6 +81,7 @@ public:// ゲッターセッター
 	float GetHealth() { return health; }
 	float GetStamina() { return stamina; }
 	float GetCharge() { return charge; }
+	PLAYER_DIRECTION_STATE GetDirectionState() { return directionState; }
 
 	void SetDamage(float damage) { health -= damage; taken_damage += damage; isInv = true; }
 	void SetIsJustDodge() { justDodge = true; }
@@ -148,4 +160,8 @@ private:
 
 	// アニメーション
 	float move_anim;
+
+	//方向ステイト
+	PLAYER_DIRECTION_STATE directionState;
+
 };

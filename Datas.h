@@ -15,7 +15,7 @@ public:
     static constexpr float SCREEN_HALF_HEIGHT = SCREEN_HEIGHT * 0.5f;
 
     // モード
-    static constexpr bool FULL_SCREEN_MODE = true;// フルスクにするか
+    static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
     static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
     static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
@@ -65,6 +65,14 @@ public:
 
     static Texture PLAYER_TEX;// テクスチャ
     static Texture PLAYER_DASH_TEX;// テクスチャ
+    static Texture PLAYER_UP_TEX;
+    static Texture PLAYER_DOWN_TEX;
+    static Texture PLAYER_LEFT_TEX;
+    static Texture PLAYER_RIGHT_TEX;
+    static Texture PLAYER_RIGHTUP_TEX;
+    static Texture PLAYER_LEFTUP_TEX;
+    static Texture PLAYER_RIGHTDOWN_TEX;
+    static Texture PLAYER_LEFTDOWN_TEX;
 
     // =========================
     // GAUNTLETS
@@ -84,6 +92,14 @@ public:
     static constexpr float GAUNTLET_DASH_DIS_SPD = 1.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(縦)
     static constexpr float GAUNTLET_DASH_DIR_SPD = 15.0f;// ダッシュ時、ダッシュ解除時の動きの速さ(横)
     static Texture GAUNTLET_TEX;// テクスチャ
+    static Texture GAUNTLET_UP_TEX;
+    static Texture GAUNTLET_DOWN_TEX;
+    static Texture GAUNTLET_LEFT_TEX;
+    static Texture GAUNTLET_RIGHT_TEX;
+    static Texture GAUNTLET_RIGHTUP_TEX;
+    static Texture GAUNTLET_LEFTUP_TEX;
+    static Texture GAUNTLET_RIGHTDOWN_TEX;
+    static Texture GAUNTLET_LEFTDOWN_TEX;
 
     // =========================
     // BOSS1

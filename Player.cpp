@@ -79,6 +79,8 @@ void Player::Init() {
 
 	move_anim = 0.0f;
 
+	directionState = UP;
+
 	getGauntlets().Init();
 }
 
@@ -185,6 +187,13 @@ void Player::Update() {// ======================================================
 void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
+
+	//if (direcitonState == UP) {
+	//	
+	//	Quad temp = Quad(position, width, height);
+	//	getCameraMain().DrawQuad(temp, Datas::PLAYER_UP_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
+	//}
+
 	if (isDrawn) {
 		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_TEX);
 	}
