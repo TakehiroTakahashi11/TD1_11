@@ -56,8 +56,8 @@ public:
     static constexpr float PLAYER_CAMARA_SPD = 5.0f;// カメラが戻る速度
 
     // アニメーション
-    static constexpr int PLAYER_WIDTH = 64;// 幅
-    static constexpr int PLAYER_HEIGHT = 64;// 高さ
+    static constexpr int PLAYER_WIDTH = 128;// 幅
+    static constexpr int PLAYER_HEIGHT = 128;// 高さ
     static constexpr int PLAYER_INV_ANIM_SPD = 10;// 無敵アニメーション速度
 
     static Texture PLAYER_TEX;// テクスチャ

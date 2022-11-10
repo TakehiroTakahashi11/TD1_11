@@ -79,6 +79,8 @@ void Player::Init() {
 
 	move_anim = 0.0f;
 
+	direcitonState = UP;
+
 	getGauntlets().Init();
 }
 
@@ -176,6 +178,8 @@ void Player::Update() {// ======================================================
 		Novice::ScreenPrintf(200, 40, "PLAYER_POS_Y:%.1f", position.y);
 
 		Novice::ScreenPrintf(500, 540, "JUST:%d", justDodge);
+		Novice::ScreenPrintf(500, 700, "directionX:%f", direction.x);
+		Novice::ScreenPrintf(500, 800, "directionY:%f", direction.y);
 	}
 	// =====================================================================================
 }
@@ -184,10 +188,17 @@ void Player::Update() {// ======================================================
 void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
-	if (isDrawn) {
-		Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
-		getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
+
+	if (direcitonState == UP) {
+		
+		Quad temp = Quad(position, width, height);
+		getCameraMain().DrawQuad(temp, Datas::PLAYER_UP_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
 	}
+
+	//if (isDrawn) {
+	//	Quad temp = My::RotateCenter(position, atan2f(direction.y, direction.x), width, height);// 回転
+	//	getCameraMain().DrawQuad(temp, Datas::PLAYER_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
+	//}
 
 	// =====================================================================================
 	// ガントレット描画

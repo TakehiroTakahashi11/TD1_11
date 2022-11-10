@@ -146,4 +146,18 @@ private:
 
 	// アニメーション
 	float move_anim;
+
+	enum PLAYER_DIRECTION_STATE {
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT,
+		RIGHTUP,
+		LEFTUP,
+		RIGHTDOWN,
+		LEFTDOWN
+	};
+
+	PLAYER_DIRECTION_STATE direcitonState;
+
 };
