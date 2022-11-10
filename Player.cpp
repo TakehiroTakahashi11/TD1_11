@@ -79,7 +79,7 @@ void Player::Init() {
 
 	move_anim = 0.0f;
 
-	direcitonState = UP;
+	directionState = UP;
 
 	getGauntlets().Init();
 }
