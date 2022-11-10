@@ -152,6 +152,37 @@ void Player::Update() {// ======================================================
 	// 壁判定
 	WallCollision();
 
+	// 方向
+	switch (My::VectorDirection8(direction))
+	{
+	case 0:
+		directionState = UP;
+		break;
+	case 1:
+		directionState = LEFTUP;
+		break;
+	case 2:
+		directionState = LEFT;
+		break;
+	case 3:
+		directionState = LEFTDOWN;
+		break;
+	case 4:
+		directionState = DOWN;
+		break;
+	case 5:
+		directionState = RIGHTDOWN;
+		break;
+	case 6:
+		directionState = RIGHT;
+		break;
+	case 7:
+		directionState = RIGHTUP;
+		break;
+	default:
+		break;
+	}
+
 	// カメラ追尾
 	MoveCamera();
 	getCameraMain().setPosition(position + camera_pos);
@@ -188,14 +219,36 @@ void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
 
-	//if (direcitonState == UP) {
-	//	
-	//	Quad temp = Quad(position, width, height);
-	//	getCameraMain().DrawQuad(temp, Datas::PLAYER_UP_TEX, static_cast<int>(move_anim / Datas::PLAYER_ANIM_SPD));// 実際に描画
-	//}
-
 	if (isDrawn) {
-		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_TEX);
+		switch (directionState)
+		{
+		case Player::UP:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX);
+			break;
+		case Player::DOWN:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX);
+			break;
+		case Player::LEFT:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX);
+			break;
+		case Player::RIGHT:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX);
+			break;
+		case Player::RIGHTUP:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX);
+			break;
+		case Player::LEFTUP:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX);
+			break;
+		case Player::RIGHTDOWN:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX);
+			break;
+		case Player::LEFTDOWN:
+			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX);
+			break;
+		default:
+			break;
+		}
 	}
 
 	// =====================================================================================
