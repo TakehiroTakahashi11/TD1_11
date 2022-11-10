@@ -28,7 +28,6 @@ private:
 		float size = 0.0f;
 	};
 
-
 	Vector2D thunder1pos;
 	Vector2D thunder2pos;
 	Vector2D thunder3pos;
