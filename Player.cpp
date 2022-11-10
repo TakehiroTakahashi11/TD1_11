@@ -237,8 +237,8 @@ void Player::Draw() {
 
 	if (isDrawn) {
 
-		Novice::SetBlendMode(kBlendModeAdd);
-		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.6f},width,height }, Datas::PLAYER_SHADOW_TEX);
+		Novice::SetBlendMode(kBlendModeAdd	);
+		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.7f},width,height }, Datas::PLAYER_SHADOW_TEX);
 		Novice::SetBlendMode(kBlendModeNormal);
 
 		switch (directionState)
@@ -568,10 +568,20 @@ void Player::WallCollision()
 void Player::CheckJust()
 {
 	charge += Datas::PLAYER_JUSTDODGE_CHARGE;
+	// 音
 	justDodge = false;
 }
 
 float Player::GetIsDir()
 {
 	return static_cast<float>(atan2f(direction.y, direction.x) - 90 * M_PI / 180);
+}
+
+void Player::SetDamage(float damage)
+{
+	health -= damage;
+	taken_damage += damage;
+	isInv = true;
+
+	// 音
 }

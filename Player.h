@@ -68,7 +68,7 @@ private:
 public:// ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
-	Vector2D GetJustDodgePosition(int n) { return JustDodgePosition[n]; }
+	Vector2D GetJustDodgePosition(int n) { Vector2D p = { 0.0f,Datas::PLAYER_WIDTH * 0.3f }; return JustDodgePosition[n] - p; }
 	Vector2D GetVelocity() { return velocity; }
 	Vector2D GetDirection() { return direction; }
 	bool GetIsDash() { return isDash; }
@@ -83,7 +83,7 @@ public:// ゲッターセッター
 	float GetCharge() { return charge; }
 	PLAYER_DIRECTION_STATE GetDirectionState() { return directionState; }
 
-	void SetDamage(float damage) { health -= damage; taken_damage += damage; isInv = true; }
+	void SetDamage(float damage);
 	void SetIsJustDodge() { justDodge = true; }
 	void AddCharge(float c) { charge += c; }
 	void SetGuardDis(float damage) { stamina -= damage; }
