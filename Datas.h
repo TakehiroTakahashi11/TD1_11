@@ -41,12 +41,12 @@ public:
     static constexpr float PLAYER_ANIM_MAX = 8.0f;// 移動アニメーション最大コマ
 
     static constexpr int PLAYER_DASH_SPD = 35;// ダッシュの速度
-    static constexpr float PLAYER_DASH_LEN = 7.0f;// ダッシュする時間の長さ(フレーム)
+    static constexpr float PLAYER_DASH_LEN = 11.0f;// ダッシュする時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_COOLTIME = 4.0f;// ダッシュクールダウン
 
     static constexpr float PLAYER_KNOCKBACK_POWER = 20.0f;// ボスに当たった時のノックバック力
     static constexpr float PLAYER_KNOCKBACK_DIS = 0.7f;// ノックバック速度が減る速度
-    static constexpr float PLAYER_KNOCKBACK_RIGID = 15.0f;// ノックバック後の硬直時間(フレーム)
+    static constexpr float PLAYER_KNOCKBACK_RIGID = 5.0f;// ノックバック後の硬直時間(フレーム)
 
     static constexpr float PLAYER_ATTACK_DAMAGE = 10.0f;// プレイヤー攻撃力
 
@@ -100,6 +100,15 @@ public:
     static Texture GAUNTLET_LEFTUP_TEX;
     static Texture GAUNTLET_RIGHTDOWN_TEX;
     static Texture GAUNTLET_LEFTDOWN_TEX;
+
+    static Texture GAUNTLET_DASH_UP_TEX;
+    static Texture GAUNTLET_DASH_DOWN_TEX;
+    static Texture GAUNTLET_DASH_LEFT_TEX;
+    static Texture GAUNTLET_DASH_RIGHT_TEX;
+    static Texture GAUNTLET_DASH_RIGHTUP_TEX;
+    static Texture GAUNTLET_DASH_LEFTUP_TEX;
+    static Texture GAUNTLET_DASH_RIGHTDOWN_TEX;
+    static Texture GAUNTLET_DASH_LEFTDOWN_TEX;
 
     // =========================
     // BOSS1

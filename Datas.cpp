@@ -21,6 +21,16 @@ Texture Datas::GAUNTLET_RIGHTUP_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_LEFTUP_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_RIGHTDOWN_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_LEFTDOWN_TEX = Texture(128, 128);
+
+Texture Datas::GAUNTLET_DASH_UP_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_DOWN_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_LEFT_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_RIGHT_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_RIGHTUP_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_LEFTUP_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_RIGHTDOWN_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_LEFTDOWN_TEX = Texture(128, 128);
+
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::BOSS1_VINNET_TEX = Texture(512, 560);
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
@@ -41,6 +51,7 @@ void Datas::LoadTexture()
 {
 	PLAYER_DASH_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Dash.png"));
 	Per++;
+
 	PLAYER_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Up.png"));
 	Per++;
 	PLAYER_DOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Down.png"));
@@ -59,6 +70,7 @@ void Datas::LoadTexture()
 	Per++;
 	PLAYER_SHADOW_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Shadow.png"));
 	Per++;
+
 	GAUNTLET_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Up.png"));
 	Per++;
 	GAUNTLET_DOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Down.png"));
@@ -75,6 +87,24 @@ void Datas::LoadTexture()
 	Per++;
 	GAUNTLET_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_LeftDown.png"));
 	Per++;
+
+	GAUNTLET_DASH_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Up_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_DOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Down_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_LEFT_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Left_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_RIGHT_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_Right_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_RIGHTUP_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_RightUp_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_LEFTUP_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_LeftUp_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_RIGHTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_RightDown_Dash.png"));
+	Per++;
+	GAUNTLET_DASH_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_LeftDown_Dash.png"));
+	Per++;
+
 	BOSS1_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
 	Per++;
 	BOSS1_VINNET_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss/BossVinnet.png"));
@@ -109,5 +139,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 32;
+const int Datas::Max_Per = 39;
 bool Datas::IsEnd = false;
