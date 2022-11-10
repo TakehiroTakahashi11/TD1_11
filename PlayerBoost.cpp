@@ -7,6 +7,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "Delta.h"
+#include "Player.h"
 
 PlayerBoost::PlayerBoost(Game& game, Vector2D pos) : BaseEffect(game, pos)
 {
@@ -19,6 +20,8 @@ PlayerBoost::~PlayerBoost()
 
 void PlayerBoost::Init()
 {
+	position += (-pGame.getPlayer().GetDirection() * 10.0f);
+	position.y -= Datas::PLAYER_HEIGHT * 0.3f;
 	for (int i = 0; i < PlayerBoostMaxNum; i++) {
 		//エフェクトの位置、速度、サイズ初期化
 		boostEffect[i].position = { My::RandomF(position.x - 15.0f, position.x + 15.0f, 1), My::RandomF(position.y - 15.0f, position.y + 15.0f, 1) };
@@ -38,15 +41,12 @@ void PlayerBoost::Init()
 void PlayerBoost::Update()
 {
 	for (int i = 0; i < PlayerBoostMaxNum; i++) {
-		if (boostEffect[i].currentAlpha < 0x00 || boostEffect[i].size.x <= 0 || boostEffect[i].size.y <= 0) {
+		if (boostEffect[i].currentAlpha < 0 || boostEffect[i].size.x <= 0 || boostEffect[i].size.y <= 0) {
 
 			//エフェクト消去
 			boostEffect[i].isEnd = true;
 
 			boostEffect[i].currentAlpha = 0;
-
-			//経過フレーム初期化
-			boostEffect[i].elapseFrame = 0.0f;
 		}
 
 		if (boostEffect[i].isEnd == false) {
