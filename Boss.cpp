@@ -119,6 +119,8 @@ void Boss::PtoBCollision()
 				EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
 				getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
 				health -= Datas::PLAYER_ATTACK_DAMAGE;
+
+				// ‰¹
 			}
 		}
 		else {
@@ -129,7 +131,8 @@ void Boss::PtoBCollision()
 				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos - (temp * 2.0f), kHit);
+
+				// ‰¹
 			}
 		}
 	}
