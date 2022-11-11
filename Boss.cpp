@@ -53,6 +53,9 @@ void Boss::Init()
 
 	attack1_2Flag = false;
 
+	attack2Flag = false;
+	attack2Elapsed = 0.0f;
+
 	thunder1Flag = false;
 
 	thunder1_1Flag = false;
@@ -172,16 +175,16 @@ void Boss::TimeLine()
 			switch (My::Random(1, 5))
 			{
 			case 1:
-				SetNextAction(kAttack1);
+				SetNextAction(kAttack2);
 				break;
 			case 2:
-				SetNextAction(kAttack1_1);
+				SetNextAction(kAttack2);
 				break;
 			case 3:
 				SetNextAction(kAttack1_2);
 				break;
 			case 4:
-				SetNextAction(kAttack1_1);
+				SetNextAction(kAttack2);
 				break;
 			case 5:
 			default:
@@ -193,13 +196,13 @@ void Boss::TimeLine()
 			switch (My::Random(1, 5))
 			{
 			case 1:
-				SetNextAction(kAttack1);
+				SetNextAction(kAttack2);
 				break;
 			case 2:
 				SetNextAction(kThunder1);
 				break;
 			case 3:
-				SetNextAction(kAttack1);
+				SetNextAction(kAttack1_2);
 				break;
 			case 4:
 				SetNextAction(kThunder1);
@@ -251,7 +254,7 @@ void Boss::SetNextAction(BossAction bossaction)
 {
 	switch (bossaction)
 	{
-	case Boss::kAttack1:
+	/*case Boss::kAttack1:
 		if (!attack1Flag) {
 			attack1Flag = true;
 			attack1Elapsed = 0.0f;
@@ -286,7 +289,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
 		}
-		break;
+		break;*/
 	case Boss::kAttack1_2:
 		if (!attack1_2Flag) {
 			attack1_2Flag = true;
@@ -301,6 +304,14 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack1bullet8Time = 0.0f;
 			attack1bullet9Time = 0.0f;
 			attack1bullet10Time = 0.0f;
+			canMigration = false;
+			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+		}
+		break;
+	case Boss::kAttack2:
+		if (!attack2Flag) {
+			attack2Flag = true;
+			attack2Elapsed = 0.0f;
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
 		}
@@ -343,6 +354,9 @@ void Boss::Action()
 	}
 	if (attack1_2Flag) {
 		Attack1_2();
+	}
+	if (attack2Flag) {
+		Attack2();
 	}
 	if (thunder1Flag) {
 		Thunder1();
@@ -471,6 +485,10 @@ void Boss::Attack1_2()
 		attack1bullet1Time = attack1Elapsed;
 		attack1_2Flag = false;
 	}
+}
+
+void Boss::Attack2()
+{
 }
 
 void Boss::Thunder1()
