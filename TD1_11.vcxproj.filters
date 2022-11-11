@@ -178,6 +178,9 @@
     <ClCompile Include="BulletDeath.cpp">
       <Filter>Module\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="BossAttack2.cpp">
+      <Filter>Module\Ballet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -377,6 +380,9 @@
     </ClInclude>
     <ClInclude Include="BulletDeath.h">
       <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAttack2.h">
+      <Filter>Module\Ballet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

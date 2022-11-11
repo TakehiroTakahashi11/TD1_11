@@ -22,6 +22,15 @@ Texture Datas::PLAYER_DASH_LEFTUP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_DASH_RIGHTDOWN_TEX = Texture(128, 128);
 Texture Datas::PLAYER_DASH_LEFTDOWN_TEX = Texture(128, 128);
 
+Texture Datas::PLAYER_BOOST_UP_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_DOWN_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_LEFT_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_RIGHT_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_RIGHTUP_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_LEFTUP_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_RIGHTDOWN_TEX = Texture(128, 128);
+Texture Datas::PLAYER_BOOST_LEFTDOWN_TEX = Texture(128, 128);
+
 Texture Datas::PLAYER_SHADOW_TEX = Texture(128, 128);
 
 Texture Datas::GAUNTLET_UP_TEX = Texture(128, 128);
@@ -33,14 +42,14 @@ Texture Datas::GAUNTLET_LEFTUP_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_RIGHTDOWN_TEX = Texture(128, 128);
 Texture Datas::GAUNTLET_LEFTDOWN_TEX = Texture(128, 128);
 
-Texture Datas::GAUNTLET_DASH_UP_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_DOWN_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_LEFT_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_RIGHT_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_RIGHTUP_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_LEFTUP_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_RIGHTDOWN_TEX = Texture(128, 128);
-Texture Datas::GAUNTLET_DASH_LEFTDOWN_TEX = Texture(128, 128);
+Texture Datas::GAUNTLET_DASH_UP_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_DOWN_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_LEFT_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_RIGHT_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_RIGHTUP_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_LEFTUP_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_RIGHTDOWN_TEX = Texture(512, 512);
+Texture Datas::GAUNTLET_DASH_LEFTDOWN_TEX = Texture(512, 512);
 
 Texture Datas::BOSS1_TEX = Texture(512, 560);
 Texture Datas::BOSS1_VINNET_TEX = Texture(512, 560);
@@ -97,6 +106,23 @@ void Datas::LoadTexture()
 	PLAYER_DASH_RIGHTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightDown_Dash.png"));
 	Per++;
 	PLAYER_DASH_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftDown_Dash.png"));
+	Per++;
+
+	PLAYER_BOOST_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Up_Boost.png"));
+	Per++;
+	PLAYER_BOOST_DOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Down_Boost.png"));
+	Per++;
+	PLAYER_BOOST_LEFT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Left_Boost.png"));
+	Per++;
+	PLAYER_BOOST_RIGHT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Right_Boost.png"));
+	Per++;
+	PLAYER_BOOST_RIGHTUP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightUp_Boost.png"));
+	Per++;
+	PLAYER_BOOST_LEFTUP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftUp_Boost.png"));
+	Per++;
+	PLAYER_BOOST_RIGHTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightDown_Boost.png"));
+	Per++;
+	PLAYER_BOOST_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftDown_Boost.png"));
 	Per++;
 
 	PLAYER_SHADOW_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Shadow.png"));
@@ -174,5 +200,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 49;
+const int Datas::Max_Per = 59;
 bool Datas::IsEnd = false;

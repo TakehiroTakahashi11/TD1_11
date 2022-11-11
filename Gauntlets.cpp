@@ -53,40 +53,40 @@ void Gauntlets::Draw()
 				dash_dis = Datas::GAUNTLET_PLAYER_DASH_DISTANCE;
 			}
 			dir = dir.Rotated(90 * M_PI / 180);
-			Vector2D g_pos = p_pos + dir * dash_dis;
+			Vector2D g_pos = p_pos;
 
 			if (getPlayer().GetIsChargeAttack()) {
 				g_pos += chargePos;
 			}
 
-			Quad temp = { {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT };
-			Vector2D ld = { -5.0f, 25.0f };
+			float g_anim = getPlayer().GetDashAnim() / 2 + 1;
+
+			Quad temp = { {g_pos.x - 512 * 0.5f,g_pos.y - 512 * 0.5f}, 512 , 512 };
 			switch (state)
 			{
 			case Player::UP:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_UP_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_UP_TEX, g_anim);
 				break;
 			case Player::DOWN:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_DOWN_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_DOWN_TEX, g_anim);
 				break;
 			case Player::LEFT:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFT_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFT_TEX, g_anim);
 				break;
 			case Player::RIGHT:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHT_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHT_TEX, g_anim);
 				break;
 			case Player::RIGHTUP:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHTUP_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHTUP_TEX, g_anim);
 				break;
 			case Player::LEFTUP:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFTUP_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFTUP_TEX, g_anim);
 				break;
 			case Player::RIGHTDOWN:
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHTDOWN_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHTDOWN_TEX, g_anim);
 				break;
 			case Player::LEFTDOWN:
-				temp = temp.Translation(ld);
-				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFTDOWN_TEX);
+				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFTDOWN_TEX, g_anim);
 				break;
 			default:
 				break;

@@ -41,7 +41,8 @@ public:
     static constexpr float PLAYER_ANIM_MAX = 8.0f;// 移動アニメーション最大コマ
 
     static constexpr int PLAYER_DASH_SPD = 35;// ダッシュの速度
-    static constexpr float PLAYER_DASH_LEN = 11.0f;// ダッシュする時間の長さ(フレーム)
+    static constexpr float PLAYER_BEFORE_DASH = 4.0f;// ダッシュ準備フレーム
+    static constexpr float PLAYER_DASH_LEN = 12.0f;// ダッシュする時間の長さ(フレーム)
     static constexpr float PLAYER_DASH_COOLTIME = 4.0f;// ダッシュクールダウン
 
     static constexpr float PLAYER_KNOCKBACK_POWER = 20.0f;// ボスに当たった時のノックバック力
@@ -82,6 +83,15 @@ public:
     static Texture PLAYER_DASH_LEFTUP_TEX;
     static Texture PLAYER_DASH_RIGHTDOWN_TEX;
     static Texture PLAYER_DASH_LEFTDOWN_TEX;
+
+    static Texture PLAYER_BOOST_UP_TEX;
+    static Texture PLAYER_BOOST_DOWN_TEX;
+    static Texture PLAYER_BOOST_LEFT_TEX;
+    static Texture PLAYER_BOOST_RIGHT_TEX;
+    static Texture PLAYER_BOOST_RIGHTUP_TEX;
+    static Texture PLAYER_BOOST_LEFTUP_TEX;
+    static Texture PLAYER_BOOST_RIGHTDOWN_TEX;
+    static Texture PLAYER_BOOST_LEFTDOWN_TEX;
 
     static Texture PLAYER_SHADOW_TEX;
 
@@ -141,8 +151,9 @@ public:
     static constexpr float BOSS_TIMELINE_DISTANCE_1 = 600.0f;// ボスが行動を変える距離1
     static constexpr float BOSS_TIMELINE_DISTANCE_2 = 800.0f;// ボスが行動を変える距離2
 
-    static constexpr float BOSS_ATTACK1_OFFSET = 160.0f;// アタック1の後に攻撃が行われない時間
-    static constexpr float BOSS_THUNDER1_OFFSET = 350.0f;
+    static constexpr float BOSS_ATTACK1_OFFSET = 180.0f;// アタック1の後に攻撃が行われない時間
+    static constexpr float BOSS_ATTACK2_OFFSET = 350.0f;// アタック1の後に攻撃が行われない時間
+    static constexpr float BOSS_THUNDER1_OFFSET = 300.0f;
 
     // アニメーション
     static constexpr float BOSS1_MOVE_SPD = 0.02f;// ふわふわ速度
@@ -179,6 +190,8 @@ public:
     static constexpr float BOSS_ATTACK1_WAVE_DIS = 50.0f;// ウェーブ間隔
     static constexpr float BOSS_ATTACK1_SPEED = 10.0f;// 速度
     static constexpr float BOSS_ATTACK1_DAMAGE = 10.0f;// ダメージ
+
+    static constexpr float BOSS_ATTACK2_SHOOT_DIS = 10.0f;// 発射間隔
 
     // テクスチャ
     static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ

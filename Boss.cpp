@@ -53,6 +53,19 @@ void Boss::Init()
 
 	attack1_2Flag = false;
 
+	attack2Flag = false;
+	attack2Elapsed = 0.0f;
+	attack2bullet1Time = 0.0f;
+	attack2bullet2Time = 0.0f;
+	attack2bullet3Time = 0.0f;
+	attack2bullet4Time = 0.0f;
+	attack2bullet5Time = 0.0f;
+	attack2bullet6Time = 0.0f;
+	attack2bullet7Time = 0.0f;
+	attack2bullet8Time = 0.0f;
+	attack2bullet9Time = 0.0f;
+	attack2bullet10Time = 0.0f;
+
 	thunder1Flag = false;
 
 	thunder1_1Flag = false;
@@ -172,16 +185,16 @@ void Boss::TimeLine()
 			switch (My::Random(1, 5))
 			{
 			case 1:
-				SetNextAction(kAttack1);
+				SetNextAction(kAttack2);
 				break;
 			case 2:
-				SetNextAction(kAttack1_1);
+				SetNextAction(kAttack2);
 				break;
 			case 3:
 				SetNextAction(kAttack1_2);
 				break;
 			case 4:
-				SetNextAction(kAttack1_1);
+				SetNextAction(kAttack2);
 				break;
 			case 5:
 			default:
@@ -193,13 +206,13 @@ void Boss::TimeLine()
 			switch (My::Random(1, 5))
 			{
 			case 1:
-				SetNextAction(kAttack1);
+				SetNextAction(kAttack2);
 				break;
 			case 2:
 				SetNextAction(kThunder1);
 				break;
 			case 3:
-				SetNextAction(kAttack1);
+				SetNextAction(kAttack1_2);
 				break;
 			case 4:
 				SetNextAction(kThunder1);
@@ -251,7 +264,7 @@ void Boss::SetNextAction(BossAction bossaction)
 {
 	switch (bossaction)
 	{
-	case Boss::kAttack1:
+	/*case Boss::kAttack1:
 		if (!attack1Flag) {
 			attack1Flag = true;
 			attack1Elapsed = 0.0f;
@@ -286,7 +299,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
 		}
-		break;
+		break;*/
 	case Boss::kAttack1_2:
 		if (!attack1_2Flag) {
 			attack1_2Flag = true;
@@ -301,6 +314,14 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack1bullet8Time = 0.0f;
 			attack1bullet9Time = 0.0f;
 			attack1bullet10Time = 0.0f;
+			canMigration = false;
+			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+		}
+		break;
+	case Boss::kAttack2:
+		if (!attack2Flag) {
+			attack2Flag = true;
+			attack2Elapsed = 0.0f;
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
 		}
@@ -343,6 +364,9 @@ void Boss::Action()
 	}
 	if (attack1_2Flag) {
 		Attack1_2();
+	}
+	if (attack2Flag) {
+		Attack2();
 	}
 	if (thunder1Flag) {
 		Thunder1();
@@ -470,6 +494,52 @@ void Boss::Attack1_2()
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet1Time = attack1Elapsed;
 		attack1_2Flag = false;
+	}
+}
+
+void Boss::Attack2()
+{
+	attack2Elapsed += Delta::getTotalDelta();
+	if (attack2bullet1Time == -1.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet1Time = attack2Elapsed;
+	}
+	if (attack2bullet2Time == 0.0f && attack2Elapsed - attack2bullet1Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet1Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet2Time = attack2Elapsed;
+	}
+	if (attack2bullet3Time == 0.0f && attack2Elapsed - attack2bullet2Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet2Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet3Time = attack2Elapsed;
+	}
+	if (attack2bullet4Time == 0.0f && attack2Elapsed - attack2bullet3Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet3Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet4Time = attack2Elapsed;
+	}
+	if (attack2bullet5Time == 0.0f && attack2Elapsed - attack2bullet4Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet4Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet5Time = attack2Elapsed;
+	}
+	if (attack2bullet6Time == 0.0f && attack2Elapsed - attack2bullet5Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet5Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet6Time = attack2Elapsed;
+	}
+	if (attack2bullet7Time == 0.0f && attack2Elapsed - attack2bullet6Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet6Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet7Time = attack2Elapsed;
+	}
+	if (attack2bullet8Time == 0.0f && attack2Elapsed - attack2bullet7Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet7Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet8Time = attack2Elapsed;
+	}
+	if (attack2bullet9Time == 0.0f && attack2Elapsed - attack2bullet8Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet8Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet9Time = attack2Elapsed;
+	}
+	if (attack2bullet10Time == 0.0f && attack2Elapsed - attack2bullet9Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet9Time != 0.0f) {
+		BulletManager::MakeNewBullet(position, kBossAttack2);
+		attack2bullet10Time = attack2Elapsed;
+		attack2Flag = false;
 	}
 }
 

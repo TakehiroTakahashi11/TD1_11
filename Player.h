@@ -82,6 +82,7 @@ public:// ゲッターセッター
 	float GetHealth() { return health; }
 	float GetStamina() { return stamina; }
 	float GetCharge() { return charge; }
+	float GetDashAnim() { return dash_anim; }
 	PLAYER_DIRECTION_STATE GetDirectionState() { return directionState; }
 
 	void SetDamage(float damage);
@@ -89,7 +90,7 @@ public:// ゲッターセッター
 	void AddCharge(float c) { charge += c; }
 	void SetGuardDis(float damage) { stamina -= damage; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
-	void SetMove() { isDash = false; isGuard = false; }
+	void SetMove();
 
 private:
 	// 経過
@@ -156,8 +157,6 @@ private:
 	float dash_speed;
 	// ダッシュ中か
 	bool isDash;
-	// ダッシュアニメーションフラグ
-	bool isDashAnim;
 
 	// ガード中か
 	bool isGuard;
@@ -165,6 +164,7 @@ private:
 	// アニメーション
 	float move_anim;
 	float dash_anim;
+	float justDodge_anim;
 
 	//方向ステイト
 	PLAYER_DIRECTION_STATE directionState;

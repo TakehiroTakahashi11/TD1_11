@@ -43,9 +43,10 @@ private:
 	enum BossAction
 	{
 		kMove1,
-		kAttack1,
-		kAttack1_1,
+		// kAttack1,
+		// kAttack1_1,
 		kAttack1_2,
+		kAttack2,
 		kThunder1,
 		kThunder1_1,
 
@@ -68,6 +69,8 @@ private:
 	// çUåÇ1_2
 	void Attack1_2();
 
+	// çUåÇ1
+	void Attack2();
 
 	// çUåÇ1
 	void Thunder1();
@@ -123,6 +126,20 @@ private:
 
 	// Attack1_2
 	bool attack1_2Flag;
+
+	// Attack2
+	bool attack2Flag;
+	float attack2Elapsed;
+	float attack2bullet1Time;
+	float attack2bullet2Time;
+	float attack2bullet3Time;
+	float attack2bullet4Time;
+	float attack2bullet5Time;
+	float attack2bullet6Time;
+	float attack2bullet7Time;
+	float attack2bullet8Time;
+	float attack2bullet9Time;
+	float attack2bullet10Time;
 
 	// Thunder1
 	bool thunder1Flag;

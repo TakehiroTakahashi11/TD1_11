@@ -74,12 +74,12 @@ void Player::Init() {
 	dash_length = 0.0f;
 	dash_speed = Datas::PLAYER_DASH_SPD;
 	isDash = false;
-	isDashAnim = false;
 
 	isGuard = false;
 
 	move_anim = 0.0f;
 	dash_anim = 0.0f;
+	justDodge_anim = 0.0f;
 
 	directionState = UP;
 
@@ -247,8 +247,11 @@ void Player::Draw() {
 				getGauntlets().Draw();
 			}
 
-			if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_UP_TEX, dash_anim);
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_UP_TEX, justDodge_anim);
+			}
+			else if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_UP_TEX, dash_anim);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX, anim / 10);
@@ -259,7 +262,10 @@ void Player::Draw() {
 			}
 			break;
 		case Player::DOWN:
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_DOWN_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_DOWN_TEX, dash_anim);
 			}
 			else {
@@ -273,7 +279,10 @@ void Player::Draw() {
 				getGauntlets().Draw();
 			}
 
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_LEFT_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFT_TEX, dash_anim);
 			}
 			else {
@@ -285,7 +294,10 @@ void Player::Draw() {
 			}
 			break;
 		case Player::RIGHT:
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_RIGHT_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHT_TEX, dash_anim);
 			}
 			else {
@@ -299,7 +311,10 @@ void Player::Draw() {
 				getGauntlets().Draw();
 			}
 
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_RIGHTUP_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTUP_TEX, dash_anim);
 			}
 			else {
@@ -313,7 +328,10 @@ void Player::Draw() {
 		case Player::LEFTUP:
 			getGauntlets().Draw();
 
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_LEFTUP_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTUP_TEX, dash_anim);
 			}
 			else {
@@ -323,7 +341,10 @@ void Player::Draw() {
 			break;
 		case Player::RIGHTDOWN:
 
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_RIGHTDOWN_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTDOWN_TEX, dash_anim);
 			}
 			else {
@@ -337,7 +358,10 @@ void Player::Draw() {
 				getGauntlets().Draw();
 			}
 
-			if (isDash) {
+			if (justDodge) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_LEFTDOWN_TEX, justDodge_anim);
+			}
+			else if (isDash) {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTDOWN_TEX, dash_anim);
 			}
 			else {
@@ -433,9 +457,10 @@ void Player::Dash() {
 
 		dash_length += Delta::getTotalDelta();// カウントフレーム加算
 
-		if (Datas::PLAYER_DASH_LEN  < dash_length) {// 最大距離までダッシュしたら
+		if (Datas::PLAYER_DASH_LEN + Datas::PLAYER_BEFORE_DASH < dash_length) {// 最大距離までダッシュしたら
 			isDash = false;// ダッシュオフ
 			dash_anim = 0.0f;
+			justDodge_anim = 0.0f;
 			JustDodgePosition[0] = { -50000.0f,-50000.0f };
 			JustDodgePosition[1] = { -50000.0f,-50000.0f };
 			JustDodgePosition[2] = { -50000.0f,-50000.0f };
@@ -453,13 +478,14 @@ void Player::Dash() {
 				CheckJust();
 			}
 		}
-		else if (dash_length < Datas::PLAYER_DASH_LEN) {
+		else if (Datas::PLAYER_BEFORE_DASH < dash_length && dash_length < Datas::PLAYER_DASH_LEN + Datas::PLAYER_BEFORE_DASH) {
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
 			dash_anim += Delta::getTotalDelta();
 			if (beforeElapsedFrame == elapsedFrame) {
 				EffectManager::MakeNewEffect(position, kPlayerBoost);
 				if (justDodge) {
-					EffectManager::MakeNewEffect(position, kPlayerDash);
+					justDodge_anim += Delta::getDeltaTime();
+					// EffectManager::MakeNewEffect(position, kPlayerDash);
 				}
 				if (JustDodgePosition[1].x == -50000.0f) {
 					JustDodgePosition[1] = position;
@@ -498,6 +524,9 @@ void Player::Dash() {
 					JustDodgePosition[12] = position;
 				}
 			}
+		}
+		else {
+			dash_anim += Delta::getTotalDelta();
 		}
 	}
 }
@@ -645,4 +674,28 @@ void Player::SetDamage(float damage)
 	isInv = true;
 
 	// 音
+}
+
+void Player::SetMove()
+{
+	isDash = false;// ダッシュオフ
+	dash_anim = 0.0f;
+	justDodge_anim = 0.0f;
+	JustDodgePosition[0] = { -50000.0f,-50000.0f };
+	JustDodgePosition[1] = { -50000.0f,-50000.0f };
+	JustDodgePosition[2] = { -50000.0f,-50000.0f };
+	JustDodgePosition[3] = { -50000.0f,-50000.0f };
+	JustDodgePosition[4] = { -50000.0f,-50000.0f };
+	JustDodgePosition[5] = { -50000.0f,-50000.0f };
+	JustDodgePosition[6] = { -50000.0f,-50000.0f };
+	JustDodgePosition[7] = { -50000.0f,-50000.0f };
+	JustDodgePosition[8] = { -50000.0f,-50000.0f };
+	JustDodgePosition[9] = { -50000.0f,-50000.0f };
+	JustDodgePosition[10] = { -50000.0f,-50000.0f };
+	JustDodgePosition[11] = { -50000.0f,-50000.0f };
+	JustDodgePosition[12] = { -50000.0f,-50000.0f };
+	if (justDodge) {
+		CheckJust();
+	}
+	isGuard = false;
 }

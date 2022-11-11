@@ -101,6 +101,7 @@
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="BossAttack1.cpp" />
     <ClCompile Include="BossAttack1Anim.cpp" />
+    <ClCompile Include="BossAttack2.cpp" />
     <ClCompile Include="BulletDeath.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="C:\KamataEngine\DirectXGame\base\DirectXCommon.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="AttackEffect.h" />
     <ClInclude Include="BossAttack1.h" />
     <ClInclude Include="BossAttack1Anim.h" />
+    <ClInclude Include="BossAttack2.h" />
     <ClInclude Include="BulletDeath.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="BaseBullet.h" />
