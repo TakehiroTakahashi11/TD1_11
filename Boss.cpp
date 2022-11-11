@@ -84,6 +84,16 @@ void Boss::Update()
 	// アニメーション
 	Animation();
 
+	if (0 < tremblingFrame) {
+		tremblingFrame -= Delta::getDeltaTime();
+		trembPos.x = My::RandomF(-25.0f, 25.0f, 1);
+		trembPos.y = My::RandomF(-25.0f, 25.0f, 1);
+	}
+	else {
+		tremblingFrame = 0.0f;
+		trembPos = { 0.0f,0.0f };
+	}
+
 	if (Datas::DEBUG_MODE) {
 		Novice::ScreenPrintf(0, 0, "BOSS_POS_X:%.1f", position.x);
 		Novice::ScreenPrintf(200, 0, "BOSS_POS_Y:%.1f", position.y);
@@ -95,7 +105,7 @@ void Boss::Draw()
 	Novice::SetBlendMode(kBlendModeAdd);
 	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_VINNET_TEX);
 	Novice::SetBlendMode(kBlendModeNormal);
-	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_TEX,
+	getCameraMain().DrawQuad({ {position.x - width * 0.5f + trembPos.x,position.y - height * 0.5f + trembPos.y},width,height }, Datas::BOSS1_TEX,
 		static_cast<int>(anim) % Datas::BOSS1_ANIM_MAX_X, anim < Datas::BOSS1_ANIM_MAX_X ? 0 : 1);
 }
 
@@ -107,10 +117,9 @@ void Boss::Collision()
 void Boss::PtoBCollision()
 {
 	if (!isFloating && !getPlayer().GetIsGuardBreak()) {// 浮いてないならガードブレイクしていないなら
-		Vector2D center = { Datas::PLAYER_WIDTH * 0.5f, Datas::PLAYER_HEIGHT * 0.5f };
-		Vector2D p_pos = getPlayer().GetPosition() - center;
-		if (getPlayer().GetIsDash()) {
-			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos)) {
+		Vector2D p_pos = getPlayer().GetPosition();
+		if (getPlayer().GetIsDash()) {// 攻撃
+			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos + getPlayer().GetDirection() * 50.0f)) {
 				knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
 				isKnockBack = true;
 				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
@@ -120,6 +129,9 @@ void Boss::PtoBCollision()
 				getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
 				health -= Datas::PLAYER_ATTACK_DAMAGE;
 
+				tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
+
+				Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
 				// 音
 			}
 		}
@@ -131,7 +143,7 @@ void Boss::PtoBCollision()
 				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
 				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				getPlayer().SetMove();
-
+				
 				// 音
 			}
 		}

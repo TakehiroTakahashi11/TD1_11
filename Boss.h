@@ -80,6 +80,10 @@ private:
 private:
 	// ホームポジション
 	Vector2D homePos;
+
+	// 
+	Vector2D trembPos;
+
 	// 体力
 	float health;
 
@@ -132,4 +136,7 @@ private:
 
 	// アニメーション
 	float anim;
+
+	// 震え
+	float tremblingFrame;
 };

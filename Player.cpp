@@ -235,25 +235,34 @@ void Player::Draw() {
 	// =====================================================================================
 	// プレイヤー描画
 
+	Novice::SetBlendMode(kBlendModeAdd);
+	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.7f},width,height }, Datas::PLAYER_SHADOW_TEX);
+	Novice::SetBlendMode(kBlendModeNormal);
+
 	if (isDrawn) {
-
-		Novice::SetBlendMode(kBlendModeAdd	);
-		getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.7f},width,height }, Datas::PLAYER_SHADOW_TEX);
-		Novice::SetBlendMode(kBlendModeNormal);
-
 		switch (directionState)
 		{
 		case Player::UP:
-			getGauntlets().Draw();
+			if (!isChargeAttack) {
+				getGauntlets().Draw();
+			}
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX,anim / 10);
+			if (isChargeAttack) {
+				getGauntlets().Draw();
+			}
 			break;
 		case Player::DOWN:
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX, anim / 10);
 			getGauntlets().Draw();
 			break;
 		case Player::LEFT:
-			getGauntlets().Draw();
+			if (!isChargeAttack) {
+				getGauntlets().Draw();
+			}
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX, anim / 10);
+			if (isChargeAttack) {
+				getGauntlets().Draw();
+			}
 			break;
 		case Player::RIGHT:
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX, anim / 10);
@@ -273,15 +282,20 @@ void Player::Draw() {
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX, anim / 10);
 			break;
 		case Player::RIGHTDOWN:
+			if (!isChargeAttack) {
+				getGauntlets().Draw();
+			}
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX, anim / 10);
-			getGauntlets().Draw();
+			if (isChargeAttack) {
+				getGauntlets().Draw();
+			}
 			break;
 		case Player::LEFTDOWN:
-			if (!isGuard) {
+			if (!isGuard && !isChargeAttack) {
 				getGauntlets().Draw();
 			}
 			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX, anim / 10);
-			if (isGuard) {
+			if (isGuard || isChargeAttack) {
 				getGauntlets().Draw();
 			}
 			break;
@@ -289,10 +303,6 @@ void Player::Draw() {
 			break;
 		}
 	}
-
-	// =====================================================================================
-	// ガントレット描画
-	
 }
 
 void Player::Move()

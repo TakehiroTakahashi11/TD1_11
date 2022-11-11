@@ -34,7 +34,7 @@ public:
     static constexpr float PLAYER_GUARD_COOLTIME = 70.0f;// 再度ガードできるガード値
     static constexpr float PLAYER_STAMINA_REGEN = 0.3f;// ガード値自然回復
 
-    static constexpr float PLAYER_MAX_INV = 50.0f;// 無敵時間
+    static constexpr float PLAYER_MAX_INV = 80.0f;// 無敵時間
 
     static constexpr int PLAYER_SPD = 8;// 移動の速度
     static constexpr int PLAYER_ANIM_SPD = 5;// 移動アニメーション頻度(フレーム)
@@ -123,6 +123,9 @@ public:
 
     static constexpr float BOSS1_HEALTH_MAX = 300.0f;// 第一形態の当たった時のダメージ
     static constexpr float BOSS1_HIT_DAMAGE = 30.0f;// 第一形態の当たった時のダメージ
+
+    static constexpr float BOSS1_ATTACK_HITSTOP = 5.0f;// ボスを殴った時のヒットストップフレーム
+    static constexpr float BOSS1_CHARGE_ATTACK_HITSTOP = 10.0f;// ボスを殴った時のヒットストップフレーム
 
     // タイムライン関係
     static constexpr float BOSS_TIMELINE_DISTANCE_1 = 600.0f;// ボスが行動を変える距離1

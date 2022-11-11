@@ -16,6 +16,16 @@ void Delta::Update() {
 
 	// 次フレーム用に代入
 	mOldTime = mNowTime;
+
+	// ヒットストップ
+	if (0 < hitStopTime) {
+		mDynDeltaTime = 0.1f;
+		hitStopTime -= mDeltaTime;
+	}
+	else {
+		hitStopTime = 0.0f;
+		mDynDeltaTime = 1.0f;
+	}
 }
 
 
@@ -25,3 +35,4 @@ float Delta::mDynDeltaTime = 1.0f;
 float Delta::mDeltaTime = 1.0f;
 clock_t Delta::mNowTime = 0;
 clock_t Delta::mOldTime = 0;
+float Delta::hitStopTime = 0.0f;

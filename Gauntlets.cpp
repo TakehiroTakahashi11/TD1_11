@@ -46,15 +46,21 @@ void Gauntlets::Draw()
 		Vector2D p_pos = getPlayer().GetPosition();
 		Player::PLAYER_DIRECTION_STATE state = getPlayer().GetDirectionState();
 
-		if (getPlayer().GetIsDash()) {
-			dash_dis_acc += dash_dis_acc * 2.5f * Delta::getTotalDelta();
-			dash_dis += dash_dis_acc * Delta::getTotalDelta();
+		if (getPlayer().GetIsDash() || getPlayer().GetIsChargeAttack()) {
+			dash_dis_acc += dash_dis_acc * 1.5f * Delta::getTotalDelta();
+			dash_dis += dash_dis_acc * 0.5f * Delta::getTotalDelta();
 			if (dash_dis > Datas::GAUNTLET_PLAYER_DASH_DISTANCE) {
 				dash_dis = Datas::GAUNTLET_PLAYER_DASH_DISTANCE;
 			}
 			dir = dir.Rotated(90 * M_PI / 180);
 			Vector2D g_pos = p_pos + dir * dash_dis;
+
+			if (getPlayer().GetIsChargeAttack()) {
+				g_pos += chargePos;
+			}
+
 			Quad temp = { {g_pos.x - Datas::GAUNTLET_WIDTH * 0.5f,g_pos.y - Datas::GAUNTLET_HEIGHT * 0.5f}, Datas::GAUNTLET_WIDTH , Datas::GAUNTLET_HEIGHT };
+			Vector2D ld = { -5.0f, 25.0f };
 			switch (state)
 			{
 			case Player::UP:
@@ -79,6 +85,7 @@ void Gauntlets::Draw()
 				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_RIGHTDOWN_TEX);
 				break;
 			case Player::LEFTDOWN:
+				temp = temp.Translation(ld);
 				getCameraMain().DrawQuad(temp, Datas::GAUNTLET_DASH_LEFTDOWN_TEX);
 				break;
 			default:
@@ -86,13 +93,14 @@ void Gauntlets::Draw()
 			}
 		}
 		else {
-			dash_dis_acc -= dash_dis_acc * 2.5f * Delta::getTotalDelta();
-			dash_dis -= dash_dis_acc * Delta::getTotalDelta();
-			if (dash_dis < Datas::GAUNTLET_PLAYER_MOVE_DISTANCE) {
-				dash_dis = Datas::GAUNTLET_PLAYER_MOVE_DISTANCE;
-			}
+			dash_dis_acc -= dash_dis_acc * 1.5f * Delta::getTotalDelta();
 			if (dash_dis_acc < 1.0f) {
 				dash_dis_acc = 1.0f;
+			}
+
+			dash_dis -= dash_dis_acc * Delta::getTotalDelta();
+			if (dash_dis < 0.0f) {
+				dash_dis = 0.0f;
 			}
 
 			if (getPlayer().GetIsGuard()) {// ƒK[ƒhŽž‰ñ“]
@@ -170,7 +178,7 @@ void Gauntlets::Draw()
 bool Gauntlets::ChargeAttack()
 {
 	if (InitFlag) {
-		chargePos = getPlayer().GetPosition();
+		chargePos = { 0.0f,0.0f };
 		InitFlag = false;
 		chargeAttackFrame = 0.0f;
 		chargeAttackSpeed = 0.0f;
