@@ -3,6 +3,7 @@
 #include "ControllerInput.h"
 #include "Gauntlets.h"
 #include "Datas.h"
+#include "Delta.h"
 
 class Gauntlets;
 
@@ -84,7 +85,7 @@ public:// ゲッターセッター
 	PLAYER_DIRECTION_STATE GetDirectionState() { return directionState; }
 
 	void SetDamage(float damage);
-	void SetIsJustDodge() { justDodge = true; }
+	void SetIsJustDodge() { if (!justDodge) { Delta::HitStop(5.0f); } justDodge = true; }
 	void AddCharge(float c) { charge += c; }
 	void SetGuardDis(float damage) { stamina -= damage; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
@@ -163,6 +164,7 @@ private:
 
 	// アニメーション
 	float move_anim;
+	float dash_anim;
 
 	//方向ステイト
 	PLAYER_DIRECTION_STATE directionState;

@@ -18,13 +18,16 @@ void Delta::Update() {
 	mOldTime = mNowTime;
 
 	// ヒットストップ
-	if (0 < hitStopTime) {
-		mDynDeltaTime = 0.1f;
-		hitStopTime -= mDeltaTime;
-	}
-	else {
-		hitStopTime = 0.0f;
-		mDynDeltaTime = 1.0f;
+	if (isHitStop) {
+		if (0 < hitStopTime) {
+			mDynDeltaTime = 0.1f;
+			hitStopTime -= mDeltaTime;
+		}
+		else {
+			hitStopTime = 0.0f;
+			mDynDeltaTime = 1.0f;
+			isHitStop = false;
+		}
 	}
 }
 
@@ -36,3 +39,4 @@ float Delta::mDeltaTime = 1.0f;
 clock_t Delta::mNowTime = 0;
 clock_t Delta::mOldTime = 0;
 float Delta::hitStopTime = 0.0f;
+bool Delta::isHitStop = false;
