@@ -131,9 +131,6 @@ private:
 	// Thunder1_1
 	bool thunder1_1Flag;
 
-	// 浮いているか
-	bool isFloating;
-
 	// アニメーション
 	float anim;
 

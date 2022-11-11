@@ -57,8 +57,6 @@ void Boss::Init()
 
 	thunder1_1Flag = false;
 
-	isFloating = false;
-
 	anim = 0.0f;
 }
 
@@ -86,8 +84,8 @@ void Boss::Update()
 
 	if (0 < tremblingFrame) {
 		tremblingFrame -= Delta::getDeltaTime();
-		trembPos.x = My::RandomF(-25.0f, 25.0f, 1);
-		trembPos.y = My::RandomF(-25.0f, 25.0f, 1);
+		trembPos.x = My::RandomF(-45.0f, 45.0f, 1);
+		trembPos.y = My::RandomF(-45.0f, 45.0f, 1);
 	}
 	else {
 		tremblingFrame = 0.0f;
@@ -116,12 +114,12 @@ void Boss::Collision()
 
 void Boss::PtoBCollision()
 {
-	if (!isFloating && !getPlayer().GetIsGuardBreak()) {// 浮いてないならガードブレイクしていないなら
+	if (!getPlayer().GetIsGuardBreak()) {// 浮いてないならガードブレイクしていないなら
 		Vector2D p_pos = getPlayer().GetPosition();
 		if (getPlayer().GetIsDash()) {// 攻撃
 			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos + getPlayer().GetDirection() * 50.0f)) {
-				knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
-				isKnockBack = true;
+				/*knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
+				isKnockBack = true;*/
 				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
 				getPlayer().SetKnockBack(temp);
 				getPlayer().SetMove();
