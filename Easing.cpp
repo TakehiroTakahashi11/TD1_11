@@ -94,9 +94,8 @@ void Easing::MoveT(){
     }
 }
 
-/// @brief t イージング処理関数
-/// @return EasedT
-float Easing::CalcT(){
+float Easing::CalcT()
+{
 	float easedT = 0.0f;
 
 	const float c1 = 1.70158f;
@@ -194,7 +193,7 @@ float Easing::CalcT(){
 			: (powf(2.0f * t - 2.0f, 2.0f) * ((c2 + 1.0f) * (t * 2.0f - 2.0f) + c2) + 2.0f) / 2.0f;
 		break;
 	case Easing::kInElastic:
-		easedT = t = 0.0f
+		easedT = t == 0.0f
 			? 0.0f
 			: t = 1.0f
 			? 1.0f
@@ -203,14 +202,14 @@ float Easing::CalcT(){
 	case Easing::kOutElastic:
 		easedT = t == 0.0f
 			? 0.0f
-			: t = 1.0f
+			: t == 1.0f
 			? 1.0f
 			: powf(2.0f, -10.0f * t) * sinf((t * 10.0f - 0.75f) * c4) + 1.0f;
 		break;
 	case Easing::kInOutElastic:
 		easedT = t == 0.0f
 			? 0.0f
-			: t = 1.0f
+			: t == 1.0f
 			? 1.0f
 			: t < 0.5f
 			? -(powf(2.0f, 20.0f * t - 10.0f) * sinf((20.0f * t - 11.125f) * c5)) / 2.0f
@@ -241,7 +240,7 @@ float Easing::CalcT(){
 		break;
 	}
 
-    return easedT;
+	return easedT;
 }
 
 float Easing::OutBounce(float t) {
