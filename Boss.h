@@ -130,6 +130,16 @@ private:
 	// Attack2
 	bool attack2Flag;
 	float attack2Elapsed;
+	float attack2bullet1Time;
+	float attack2bullet2Time;
+	float attack2bullet3Time;
+	float attack2bullet4Time;
+	float attack2bullet5Time;
+	float attack2bullet6Time;
+	float attack2bullet7Time;
+	float attack2bullet8Time;
+	float attack2bullet9Time;
+	float attack2bullet10Time;
 
 	// Thunder1
 	bool thunder1Flag;
