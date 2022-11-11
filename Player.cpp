@@ -248,10 +248,10 @@ void Player::Draw() {
 			}
 
 			if (justDodge) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_UP_TEX, justDodge_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_UP_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_UP_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_UP_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX, anim / 10);
@@ -266,7 +266,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_DOWN_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_DOWN_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_DOWN_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX, anim / 10);
@@ -283,7 +283,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_LEFT_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFT_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFT_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX, anim / 10);
@@ -298,7 +298,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_RIGHT_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHT_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHT_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX, anim / 10);
@@ -315,7 +315,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_RIGHTUP_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTUP_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTUP_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX, anim / 10);
@@ -332,7 +332,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_LEFTUP_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTUP_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTUP_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX, anim / 10);
@@ -345,7 +345,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_RIGHTDOWN_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTDOWN_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTDOWN_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX, anim / 10);
@@ -362,7 +362,7 @@ void Player::Draw() {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_BOOST_LEFTDOWN_TEX, justDodge_anim);
 			}
 			else if (isDash) {
-				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTDOWN_TEX, dash_anim);
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTDOWN_TEX, dash_anim / 5 > 2 ? 2 : dash_anim / 5);
 			}
 			else {
 				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX, anim / 10);
