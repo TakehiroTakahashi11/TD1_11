@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "Camera.h"
 #include "KeyMouseInput.h"
-#include "Delta.h"
 #include <Novice.h>
 #include "Gauntlets.h"
 #include "MyFunc.h"
@@ -80,6 +79,7 @@ void Player::Init() {
 	isGuard = false;
 
 	move_anim = 0.0f;
+	dash_anim = 0.0f;
 
 	directionState = UP;
 
@@ -246,55 +246,104 @@ void Player::Draw() {
 			if (!isChargeAttack) {
 				getGauntlets().Draw();
 			}
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX,anim / 10);
+
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_UP_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_UP_TEX, anim / 10);
+			}
+
 			if (isChargeAttack) {
 				getGauntlets().Draw();
 			}
 			break;
 		case Player::DOWN:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX, anim / 10);
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_DOWN_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DOWN_TEX, anim / 10);
+			}
+
 			getGauntlets().Draw();
 			break;
 		case Player::LEFT:
 			if (!isChargeAttack) {
 				getGauntlets().Draw();
 			}
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX, anim / 10);
+
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFT_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFT_TEX, anim / 10);
+			}
+
 			if (isChargeAttack) {
 				getGauntlets().Draw();
 			}
 			break;
 		case Player::RIGHT:
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX, anim / 10);
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHT_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHT_TEX, anim / 10);
+			}
+
 			getGauntlets().Draw();
 			break;
 		case Player::RIGHTUP:
 			if (isGuard) {
 				getGauntlets().Draw();
 			}
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX, anim / 10);
+
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTUP_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTUP_TEX, anim / 10);
+			}
+
 			if (!isGuard) {
 				getGauntlets().Draw();
 			}
 			break;
 		case Player::LEFTUP:
 			getGauntlets().Draw();
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX, anim / 10);
+
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTUP_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTUP_TEX, anim / 10);
+			}
+
 			break;
 		case Player::RIGHTDOWN:
-			if (!isChargeAttack) {
-				getGauntlets().Draw();
+
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_RIGHTDOWN_TEX, dash_anim);
 			}
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX, anim / 10);
-			if (isChargeAttack) {
-				getGauntlets().Draw();
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_RIGHTDOWN_TEX, anim / 10);
 			}
+
+			getGauntlets().Draw();
 			break;
 		case Player::LEFTDOWN:
 			if (!isGuard && !isChargeAttack) {
 				getGauntlets().Draw();
 			}
-			getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX, anim / 10);
+
+			if (isDash) {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_DASH_LEFTDOWN_TEX, dash_anim);
+			}
+			else {
+				getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::PLAYER_LEFTDOWN_TEX, anim / 10);
+			}
+
 			if (isGuard || isChargeAttack) {
 				getGauntlets().Draw();
 			}
@@ -386,6 +435,7 @@ void Player::Dash() {
 
 		if (Datas::PLAYER_DASH_LEN  < dash_length) {// 最大距離までダッシュしたら
 			isDash = false;// ダッシュオフ
+			dash_anim = 0.0f;
 			JustDodgePosition[0] = { -50000.0f,-50000.0f };
 			JustDodgePosition[1] = { -50000.0f,-50000.0f };
 			JustDodgePosition[2] = { -50000.0f,-50000.0f };
@@ -405,6 +455,7 @@ void Player::Dash() {
 		}
 		else if (dash_length < Datas::PLAYER_DASH_LEN) {
 			position += velocity * Delta::getTotalDelta();// 実際に加算して移動
+			dash_anim += Delta::getTotalDelta();
 			if (beforeElapsedFrame == elapsedFrame) {
 				EffectManager::MakeNewEffect(position, kPlayerBoost);
 				if (justDodge) {

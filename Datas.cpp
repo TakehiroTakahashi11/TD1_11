@@ -3,6 +3,7 @@
 #include "KeyMouseInput.h"
 
 Texture Datas::PLAYER_DASH_TEX = Texture(64, 64);
+
 Texture Datas::PLAYER_UP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_DOWN_TEX = Texture(128, 128);
 Texture Datas::PLAYER_LEFT_TEX = Texture(128, 128);
@@ -11,6 +12,16 @@ Texture Datas::PLAYER_RIGHTUP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_LEFTUP_TEX = Texture(128, 128);
 Texture Datas::PLAYER_RIGHTDOWN_TEX = Texture(128, 128);
 Texture Datas::PLAYER_LEFTDOWN_TEX = Texture(128, 128);
+
+Texture Datas::PLAYER_DASH_UP_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_DOWN_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_LEFT_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_RIGHT_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_RIGHTUP_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_LEFTUP_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_RIGHTDOWN_TEX = Texture(128, 128);
+Texture Datas::PLAYER_DASH_LEFTDOWN_TEX = Texture(128, 128);
+
 Texture Datas::PLAYER_SHADOW_TEX = Texture(128, 128);
 
 Texture Datas::GAUNTLET_UP_TEX = Texture(128, 128);
@@ -70,6 +81,24 @@ void Datas::LoadTexture()
 	Per++;
 	PLAYER_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftDown.png"));
 	Per++;
+
+	PLAYER_DASH_UP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Up_Dash.png"));
+	Per++;
+	PLAYER_DASH_DOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Down_Dash.png"));
+	Per++;
+	PLAYER_DASH_LEFT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Left_Dash.png"));
+	Per++;
+	PLAYER_DASH_RIGHT_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Right_Dash.png"));
+	Per++;
+	PLAYER_DASH_RIGHTUP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightUp_Dash.png"));
+	Per++;
+	PLAYER_DASH_LEFTUP_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftUp_Dash.png"));
+	Per++;
+	PLAYER_DASH_RIGHTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_RightDown_Dash.png"));
+	Per++;
+	PLAYER_DASH_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_LeftDown_Dash.png"));
+	Per++;
+
 	PLAYER_SHADOW_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Shadow.png"));
 	Per++;
 
@@ -145,5 +174,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 41;
+const int Datas::Max_Per = 49;
 bool Datas::IsEnd = false;

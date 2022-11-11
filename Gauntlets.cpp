@@ -188,7 +188,7 @@ bool Gauntlets::ChargeAttack()
 	Vector2D dir = getPlayer().GetDirection();
 
 	if (chargeAttackFrame < 50.0f) {
-		Delta::MoveDynDelta(-0.15f);
+		Delta::MoveDynDelta(-0.03f * Delta::getDeltaTime());
 		chargeAttackSpeed -= 0.3f * Delta::getTotalDelta();
 	}
 	else if (chargeAttackFrame < 60.0f) {

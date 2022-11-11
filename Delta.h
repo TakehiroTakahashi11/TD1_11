@@ -22,6 +22,7 @@ private:
 
 	/// @brief ヒットストップする時間
 	static float hitStopTime;
+	static bool isHitStop;
 public:
 	/// @brief 更新(デルタタイムをアップデート)
 	static void Update();
@@ -32,9 +33,9 @@ public:
 
 	/// @brief セッター
 	static void SetDynDelta(float dyn) { mDynDeltaTime = dyn; }
-	static void MoveDynDelta(float dyn) { mDynDeltaTime += dyn; if (mDynDeltaTime < 0.1f) { mDynDeltaTime = 0.1f; } if (1.0f < mDynDeltaTime) { mDynDeltaTime = 1.0f; }	}
+	static void MoveDynDelta(float dyn) { mDynDeltaTime += dyn; if (mDynDeltaTime < 0.1f) { mDynDeltaTime = 0.1f; }	}
 
-	static void HitStop(float frame) { hitStopTime = frame; }
+	static void HitStop(float frame) { hitStopTime = frame; isHitStop = true;}
 private:
 	Delta();
 	~Delta();
