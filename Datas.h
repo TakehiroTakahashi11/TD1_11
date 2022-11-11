@@ -192,6 +192,7 @@ public:
     static constexpr float BOSS_ATTACK1_DAMAGE = 10.0f;// ダメージ
 
     static constexpr float BOSS_ATTACK2_SHOOT_DIS = 10.0f;// 発射間隔
+    static constexpr float BOSS_ATTACK2_SPEED = 30.0f;// 速度
 
     // テクスチャ
     static constexpr int BOSS_ATTACK1_SIZE = 32;// 大きさ

@@ -27,7 +27,7 @@ void BossAttack2::Init()
 	for (int i = 0; i < BossAttack2MaxNum; i++) {
 		//弾が向かう方向
 		Vector2D dir = position - pGame.getPlayer().GetPosition();
-		bossAttack2[i].theta = atan2f(dir.y, dir.x);
+		bossAttack2[i].theta = atan2f(-dir.y, -dir.x);
 
 		//弾の位置、速度、サイズ初期化
 		bossAttack2[i].velocity = { cosf(bossAttack2[i].theta), sinf(bossAttack2[i].theta) };
@@ -61,7 +61,7 @@ void BossAttack2::Update()
 			}
 
 			// 移動処理
-			bossAttack2[i].position += bossAttack2[i].velocity * Datas::BOSS_ATTACK1_SPEED * Delta::getTotalDelta();
+			bossAttack2[i].position += bossAttack2[i].velocity * Datas::BOSS_ATTACK2_SPEED * Delta::getTotalDelta();
 
 			// 当たり判定
 			if (!isInv) {

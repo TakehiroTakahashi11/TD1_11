@@ -322,8 +322,18 @@ void Boss::SetNextAction(BossAction bossaction)
 		if (!attack2Flag) {
 			attack2Flag = true;
 			attack2Elapsed = 0.0f;
+			attack2bullet1Time = -1.0f;
+			attack2bullet2Time = 0.0f;
+			attack2bullet3Time = 0.0f;
+			attack2bullet4Time = 0.0f;
+			attack2bullet5Time = 0.0f;
+			attack2bullet6Time = 0.0f;
+			attack2bullet7Time = 0.0f;
+			attack2bullet8Time = 0.0f;
+			attack2bullet9Time = 0.0f;
+			attack2bullet10Time = 0.0f;
 			canMigration = false;
-			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+			migrationTime = Datas::BOSS_ATTACK2_OFFSET;
 		}
 		break;
 	case Boss::kThunder1:
