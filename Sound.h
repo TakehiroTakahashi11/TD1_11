@@ -42,6 +42,7 @@ public:
 	/// @brief 一時停止解除
 	void Resume();
 
+	void SetHandle(int h) { handle = h; }
 private:
 	// サウンドハンドル
 	int soundhandle;	

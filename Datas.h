@@ -214,6 +214,10 @@ public:
     static Texture VINETT_TEX;
 
     // =========================
+    // Sound
+    static Sound PLAYER_PUNCH_SOUND;
+
+    // =========================
     // ‰¼Texture
     static Texture BackGroundTex;
 

@@ -47,6 +47,8 @@ Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
 Texture Datas::BackGroundTex = Texture(1920, 1080);
 
+Sound Datas::PLAYER_PUNCH_SOUND = Sound(false, 0.2f);
+
 void Datas::LoadTexture()
 {
 	PLAYER_DASH_TEX.SetHandle(Novice::LoadTexture("./Resources/Player/Player_Dash.png"));
@@ -135,9 +137,13 @@ void Datas::LoadTexture()
 	Per++;
 	BackGroundTex.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
+
+	PLAYER_PUNCH_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/punch.wav"));
+	Per++;
+
 	IsEnd = true;
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 39;
+const int Datas::Max_Per = 41;
 bool Datas::IsEnd = false;

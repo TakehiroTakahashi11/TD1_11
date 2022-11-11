@@ -133,6 +133,7 @@ void Boss::PtoBCollision()
 
 				Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
 				// ‰¹
+				Datas::PLAYER_PUNCH_SOUND.PlayOnce();
 			}
 		}
 		else {
