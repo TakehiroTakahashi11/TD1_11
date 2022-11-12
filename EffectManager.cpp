@@ -9,6 +9,7 @@
 #include "PlayerBoost.h"
 #include "MagicCircleThunder.h"
 #include "BulletDeath.h"
+#include "BossAttack1Anim.h"
 
 void EffectManager::Init(Game& Game)
 {
@@ -110,6 +111,10 @@ int EffectManager::MakeNewEffect(Vector2D position, EffectType effectType)
 			case EffectType::kBulletDeath:
 				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				effects[nextIndex] = new BulletDeath(*pGame, position);// ’Ç‰Á
+				break;
+			case EffectType::kPrePreBullet:
+				delete effects[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				effects[nextIndex] = new BossAttack1Anim(*pGame, position);// ’Ç‰Á
 				break;
 			case EffectType::NoneEffect:
 			default:

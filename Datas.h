@@ -199,7 +199,14 @@ public:
     static Texture BOSS_ATTACK1_TEX;// テクスチャ
 
     // 弾消滅
+    static Texture PRE_BULLET_TEX;// テクスチャ
     static Texture BULLET_DEATH_TEX;// テクスチャ
+
+    // 魔法陣
+    static Texture BULLET_CIRCLE_TEX1;// テクスチャ
+    static Texture BULLET_CIRCLE_TEX2;// テクスチャ
+    static Texture BULLET_CIRCLE_TEX3;// テクスチャ
+    static Texture BULLET_CIRCLE_VINNET_TEX;// テクスチャ
 
     // 雷攻撃
     static constexpr float BOSS_THUNDER1_PREPRETIME = 90.0f;// 魔法陣予兆表示時間

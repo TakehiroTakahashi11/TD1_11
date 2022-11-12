@@ -127,37 +127,35 @@ void Boss::Collision()
 
 void Boss::PtoBCollision()
 {
-	if (!getPlayer().GetIsGuardBreak()) {// •‚‚¢‚Ä‚È‚¢‚È‚çƒK[ƒhƒuƒŒƒCƒN‚µ‚Ä‚¢‚È‚¢‚È‚ç
-		Vector2D p_pos = getPlayer().GetPosition();
-		if (getPlayer().GetIsDash()) {// UŒ‚
-			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos + getPlayer().GetDirection() * 50.0f)) {
-				/*knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
-				isKnockBack = true;*/
-				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
-				getPlayer().SetKnockBack(temp);
-				getPlayer().SetMove();
-				EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
-				getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
-				health -= Datas::PLAYER_ATTACK_DAMAGE;
+	Vector2D p_pos = getPlayer().GetPosition();
+	if (getPlayer().GetIsDash() && !getPlayer().GetIsGuardBreak()) {// UŒ‚
+		if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos + getPlayer().GetDirection() * 50.0f)) {
+			/*knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
+			isKnockBack = true;*/
+			Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
+			getPlayer().SetKnockBack(temp);
+			getPlayer().SetMove();
+			EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
+			getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
+			health -= Datas::PLAYER_ATTACK_DAMAGE;
 
-				tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
+			tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
 
-				Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
-				// ‰¹
-				Datas::PLAYER_PUNCH_SOUND.PlayOnce();
-			}
+			Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
+			// ‰¹
+			Datas::PLAYER_PUNCH_SOUND.PlayOnce();
 		}
-		else {
-			if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos)) {
-				if (!getPlayer().GetIsInvincible()) {
-					getPlayer().SetDamage(Datas::BOSS1_HIT_DAMAGE);
-				}
-				Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
-				getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
-				getPlayer().SetMove();
-				
-				// ‰¹
+	}
+	else {
+		if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos)) {
+			if (!getPlayer().GetIsInvincible()) {
+				getPlayer().SetDamage(Datas::BOSS1_HIT_DAMAGE);
 			}
+			Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
+			getPlayer().SetKnockBack((p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
+			getPlayer().SetMove();
+
+			// ‰¹
 		}
 	}
 }
@@ -316,6 +314,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack1bullet10Time = 0.0f;
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+			EffectManager::MakeNewEffect(position, kPrePreBullet);
 		}
 		break;
 	case Boss::kAttack2:
@@ -491,7 +490,7 @@ void Boss::Attack1_1()
 void Boss::Attack1_2()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == -1.0f) {
+	if (attack1bullet1Time == -1.0f && attack1Elapsed > 145.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_9);
 		BulletManager::MakeNewBullet(position, kBossAttack1_8);
 		BulletManager::MakeNewBullet(position, kBossAttack1_7);
@@ -510,7 +509,7 @@ void Boss::Attack1_2()
 void Boss::Attack2()
 {
 	attack2Elapsed += Delta::getTotalDelta();
-	if (attack2bullet1Time == -1.0f) {
+	if (attack2bullet1Time == -1.0f && attack1Elapsed > 100.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack2);
 		attack2bullet1Time = attack2Elapsed;
 	}

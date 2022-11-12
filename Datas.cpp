@@ -59,9 +59,16 @@ Texture Datas::EFFECTS_THUNDER_TEX = Texture(400, 400);
 Texture Datas::EFFECTS_THUNDER_VINNET_TEX = Texture(400, 400);
 Texture Datas::EFFECTS_PRETHUNDER_TEX = Texture(400, 400);
 Texture Datas::BOSS_ATTACK1_TEX = Texture(32, 32);
+Texture Datas::PRE_BULLET_TEX = Texture(200, 200);
 Texture Datas::BULLET_DEATH_TEX = Texture(32, 32);
+Texture Datas::BULLET_CIRCLE_TEX1 = Texture(256, 256);
+Texture Datas::BULLET_CIRCLE_TEX2 = Texture(256, 256);
+Texture Datas::BULLET_CIRCLE_TEX3 = Texture(256, 256);
+Texture Datas::BULLET_CIRCLE_VINNET_TEX = Texture(256, 256);
+
 Texture Datas::MAGIC_CIRCLE_TEX = Texture(256, 256);
 Texture Datas::MAGIC_CIRCLE_VINNET_TEX = Texture(512, 512);
+
 Texture Datas::PLAYER_BOOST_TEX = Texture(32, 32);
 Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
@@ -176,10 +183,22 @@ void Datas::LoadTexture()
 	Per++;
 	EFFECTS_PRETHUNDER_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/PreThunder.png"));
 	Per++;
+
 	BOSS_ATTACK1_TEX.SetHandle(Novice::LoadTexture("./Resources/Bullet/Bullet.png"));
+	Per++;
+	PRE_BULLET_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Bullet/PreBullet.png"));
 	Per++;
 	BULLET_DEATH_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Bullet/BulletDeath.png"));
 	Per++;
+	BULLET_CIRCLE_TEX1.SetHandle(Novice::LoadTexture("./Resources/Effect/Bullet/MagicCircle1_Bullet.png"));
+	Per++;
+	BULLET_CIRCLE_TEX2.SetHandle(Novice::LoadTexture("./Resources/Effect/Bullet/MagicCircle2_Bullet.png"));
+	Per++;
+	BULLET_CIRCLE_TEX3.SetHandle(Novice::LoadTexture("./Resources/Effect/Bullet/MagicCircle3_Bullet.png"));
+	Per++;
+	BULLET_CIRCLE_VINNET_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Bullet/MagicCircle_Bullet_Vinnet.png"));
+	Per++;
+
 	PLAYER_BOOST_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Boost/Boost.png"));
 	Per++;
 	MAGIC_CIRCLE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/MagicCircle.png"));
@@ -200,5 +219,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 59;
+const int Datas::Max_Per = 64;
 bool Datas::IsEnd = false;
