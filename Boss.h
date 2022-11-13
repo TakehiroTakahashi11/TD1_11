@@ -1,5 +1,6 @@
 #pragma once
 #include "Obj.h"
+#include "Easing.h"
 
 class Boss : public Obj
 {
@@ -47,8 +48,11 @@ private:
 		// kAttack1_1,
 		kAttack1_2,
 		kAttack2,
+		kRush1,
+		kRush1_2,
 		kThunder1,
 		kThunder1_1,
+		kMine1,
 
 		None
 	};
@@ -72,10 +76,19 @@ private:
 	// 攻撃1
 	void Attack2();
 
+	// 突撃1
+	void Rush1();
+
+	// 突撃2
+	void Rush1_2();
+
 	// 攻撃1
 	void Thunder1();
 	// 攻撃1_1
 	void Thunder1_1();
+
+	// 地雷
+	void Mine1();
 
 	// アニメーション
 	void Animation();
@@ -103,6 +116,8 @@ private:
 	bool canMigration;
 	// 移行できるまでの時間
 	float migrationTime;
+	// 前回の行動
+	BossAction beforeAction;
 
 	// Move1
 	float moveTheta;
@@ -141,12 +156,28 @@ private:
 	float attack2bullet9Time;
 	float attack2bullet10Time;
 
+	// Rush1
+	bool rush1Flag;
+	float rush1Elapsed;
+	Easing boss_rush;
+	int rush_ef_num;
+
+	// Rush1_2
+	bool rush1_2Flag;
+
 	// Thunder1
 	bool thunder1Flag;
 	int thunder1num;
 
 	// Thunder1_1
 	bool thunder1_1Flag;
+
+	// Mine1
+	bool mine1Flag;
+	float mine1Elapsed;
+	int mine1;
+	int mine2;
+	int mine3;
 
 	// アニメーション
 	float anim;

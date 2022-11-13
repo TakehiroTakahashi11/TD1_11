@@ -66,9 +66,21 @@ void Boss::Init()
 	attack2bullet9Time = 0.0f;
 	attack2bullet10Time = 0.0f;
 
+	rush1Flag = false;
+	rush1Elapsed = 0.0f;
+	rush_ef_num = -1;
+
+	rush1_2Flag = false;
+
 	thunder1Flag = false;
 
 	thunder1_1Flag = false;
+
+	mine1Flag = false;
+	mine1Elapsed = 0.0f;
+	mine1 = -1;
+	mine2 = -1;
+	mine3 = -1;
 
 	anim = 0.0f;
 }
@@ -178,68 +190,39 @@ void Boss::KnockBack()
 
 void Boss::TimeLine()
 {
+	// AI
 	if (canMigration) {
-		if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {
+
+		if (beforeAction == None) {
 			switch (My::Random(1, 5))
 			{
 			case 1:
-				SetNextAction(kAttack2);
+				SetNextAction(kMine1);
 				break;
 			case 2:
-				SetNextAction(kAttack2);
+				SetNextAction(kRush1);
 				break;
 			case 3:
-				SetNextAction(kAttack1_2);
+				SetNextAction(kRush1_2);
 				break;
 			case 4:
-				SetNextAction(kAttack2);
+				SetNextAction(kRush1);
 				break;
 			case 5:
 			default:
-				SetNextAction(kAttack1_2);
+				SetNextAction(kRush1_2);
 				break;
 			}
 		}
-		else if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
-			switch (My::Random(1, 5))
-			{
-			case 1:
-				SetNextAction(kAttack2);
-				break;
-			case 2:
-				SetNextAction(kThunder1);
-				break;
-			case 3:
-				SetNextAction(kAttack1_2);
-				break;
-			case 4:
-				SetNextAction(kThunder1);
-				break;
-			case 5:
-			default:
-				SetNextAction(None);
-				break;
-			}
+
+		if (mine1 == -1) {
+			SetNextAction(kMine1);
 		}
 		else {
-			switch (My::Random(1, 5))
-			{
-			case 1:
-				SetNextAction(kThunder1);
-				break;
-			case 2:
-				SetNextAction(kThunder1_1);
-				break;
-			case 3:
-				SetNextAction(kThunder1);
-				break;
-			case 4:
-				SetNextAction(kThunder1_1);
-				break;
-			case 5:
-			default:
-				SetNextAction(None);
-				break;
+			if (BulletManager::GetIsEnd(mine1) &&
+				BulletManager::GetIsEnd(mine2) &&
+				BulletManager::GetIsEnd(mine3)) {
+				SetNextAction(kMine1);
 			}
 		}
 	}
@@ -260,6 +243,8 @@ void Boss::Migration()
 
 void Boss::SetNextAction(BossAction bossaction)
 {
+	beforeAction = bossaction;
+
 	switch (bossaction)
 	{
 	/*case Boss::kAttack1:
@@ -335,6 +320,34 @@ void Boss::SetNextAction(BossAction bossaction)
 			migrationTime = Datas::BOSS_ATTACK2_OFFSET;
 		}
 		break;
+	case Boss::kRush1:
+		if (!rush1Flag) {
+			rush1Flag = true;
+			rush1Elapsed = 0.0f;
+			rush_ef_num = -1;
+			boss_rush.SetStart(position.y);
+			boss_rush.SetEnd(1500);
+			boss_rush.SetVel(0.02f);
+			boss_rush.SetT(0.0f);
+			boss_rush.SetMode(Easing::kOutQuad);
+			canMigration = false;
+			migrationTime = Datas::BOSS_RUSH1_OFFSET;
+		}
+		break;
+	case Boss::kRush1_2:
+		if (!rush1_2Flag) {
+			rush1_2Flag = true;
+			rush1Elapsed = 0.0f;
+			rush_ef_num = -1;
+			boss_rush.SetStart(position.y);
+			boss_rush.SetEnd(1500);
+			boss_rush.SetVel(0.007f);
+			boss_rush.SetT(0.0f);
+			boss_rush.SetMode(Easing::kInElastic);
+			canMigration = false;
+			migrationTime = Datas::BOSS_RUSH1_2_OFFSET;
+		}
+		break;
 	case Boss::kThunder1:
 		if (!thunder1Flag) {
 			thunder1Flag = true;;
@@ -351,6 +364,14 @@ void Boss::SetNextAction(BossAction bossaction)
 			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
 		}
 		break;
+	case Boss::kMine1:
+		if (!mine1Flag) {
+			mine1Flag = true;
+			canMigration = false;
+			mine1Elapsed = 0.0f;
+			migrationTime = Datas::BOSS_MINE1_OFFSET;
+		}
+		break;
 	case Boss::None:
 	default:
 		canMigration = false;
@@ -361,7 +382,7 @@ void Boss::SetNextAction(BossAction bossaction)
 
 void Boss::Action()
 {
-	if (!isKnockBack) {
+	if (!isKnockBack && !rush1Flag) {
 		Move1();
 	}
 
@@ -377,11 +398,20 @@ void Boss::Action()
 	if (attack2Flag) {
 		Attack2();
 	}
+	if (rush1Flag) {
+		Rush1();
+	}
+	if (rush1_2Flag) {
+		Rush1_2();
+	}
 	if (thunder1Flag) {
 		Thunder1();
 	}
 	if (thunder1_1Flag) {
 		Thunder1_1();
+	}
+	if (mine1Flag) {
+		Mine1();
 	}
 }
 
@@ -552,6 +582,83 @@ void Boss::Attack2()
 	}
 }
 
+void Boss::Rush1()
+{
+	rush1Elapsed += Delta::getTotalDelta();
+
+	boss_rush.Move(Delta::getTotalDelta());
+
+	position.y = boss_rush.p;
+
+	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
+
+		if (rush_ef_num == -1) {
+			rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPreRush);
+		}
+		if (rush1Elapsed >= 150) {
+			EffectManager::SetEnd(rush_ef_num);
+			rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPrePreRush);
+			position.x = getPlayer().GetPosition().x;
+			boss_rush.SetStart(1500);
+			boss_rush.SetEnd(-1500);
+			boss_rush.SetVel(0.01f);
+			boss_rush.SetMode(Easing::kInOutQuart);
+		}
+	}
+
+	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == -1500) {
+
+		boss_rush.SetStart(-1500);
+		boss_rush.SetEnd(0.0f);
+		boss_rush.SetVel(0.005f);
+		boss_rush.SetMode(Easing::kInOutQuart);
+		EffectManager::SetEnd(rush_ef_num);
+	}
+
+	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
+		rush1Flag = false;
+		rush1Elapsed = 0.0f;
+		homePos = position;
+	}
+}
+
+void Boss::Rush1_2()
+{
+	rush1Elapsed += Delta::getTotalDelta();
+
+	boss_rush.Move(Delta::getTotalDelta());
+
+	position.y = boss_rush.p;
+
+	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
+		if (rush1Elapsed >= 500) {
+			position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width,1);
+			if (rush_ef_num == -1) {
+				rush_ef_num = EffectManager::MakeNewEffect(position, kPrePreRush);
+			}
+			boss_rush.SetStart(1500);
+			boss_rush.SetEnd(-1500);
+			boss_rush.SetVel(0.01f);
+			boss_rush.SetMode(Easing::kInOutQuart);
+		}
+	}
+
+	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == -1500) {
+
+		boss_rush.SetStart(-1500);
+		boss_rush.SetEnd(0.0f);
+		boss_rush.SetVel(0.005f);
+		boss_rush.SetMode(Easing::kInOutQuart);
+		EffectManager::SetEnd(rush_ef_num);
+	}
+
+	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
+		rush1Flag = false;
+		rush1Elapsed = 0.0f;
+		homePos = position;
+	}
+}
+
 void Boss::Thunder1()
 {
 	if (thunder1num == -1) {
@@ -572,10 +679,19 @@ void Boss::Thunder1_1()
 	}
 }
 
+void Boss::Mine1()
+{
+	mine1Elapsed += Delta::getTotalDelta();
+
+	if (mine1Elapsed > 60.0f) {
+		mine1 = BulletManager::MakeNewBullet({ My::RandomF(-800.0f,800.0f,1),My::RandomF(400.0f,900.0f,1) }, kBossAttackMine1);
+		mine2 = BulletManager::MakeNewBullet({ My::RandomF(-100.0f,-900.0f,1),My::RandomF(400.0f,-900.0f,1) }, kBossAttackMine1);
+		mine3 = BulletManager::MakeNewBullet({ My::RandomF(400.0f,900.0f,1),My::RandomF(400.0f,-900.0f,1) }, kBossAttackMine1);
+		mine1Flag = false;
+	}
+}
+
 void Boss::Animation()
 {
-	anim += Delta::getTotalDelta() / Datas::BOSS1_ANIM_SPD;
-	if (Datas::BOSS1_ANIM_MAX_X * Datas::BOSS1_ANIM_MAX_Y < anim) {
-		anim = 0.0f;
-	}
+	
 }
