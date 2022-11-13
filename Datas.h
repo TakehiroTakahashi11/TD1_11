@@ -151,9 +151,12 @@ public:
     static constexpr float BOSS_TIMELINE_DISTANCE_1 = 600.0f;// ボスが行動を変える距離1
     static constexpr float BOSS_TIMELINE_DISTANCE_2 = 800.0f;// ボスが行動を変える距離2
 
-    static constexpr float BOSS_ATTACK1_OFFSET = 180.0f;// アタック1の後に攻撃が行われない時間
-    static constexpr float BOSS_ATTACK2_OFFSET = 350.0f;// アタック1の後に攻撃が行われない時間
-    static constexpr float BOSS_THUNDER1_OFFSET = 300.0f;
+    static constexpr float BOSS_ATTACK1_OFFSET = 200.0f;// アタック1の後に攻撃が行われない時間
+    static constexpr float BOSS_ATTACK2_OFFSET = 350.0f;// 
+    static constexpr float BOSS_RUSH1_OFFSET = 300.0f;// 
+    static constexpr float BOSS_RUSH1_2_OFFSET = 700.0f;// 
+    static constexpr float BOSS_THUNDER1_OFFSET = 200.0f;
+    static constexpr float BOSS_MINE1_OFFSET = 200.0f;
 
     // アニメーション
     static constexpr float BOSS1_MOVE_SPD = 0.02f;// ふわふわ速度
@@ -184,6 +187,9 @@ public:
 
     static constexpr float EFFECTS_PRETHUNDER_SIZE = 400.0f;// テクスチャ
     static Texture EFFECTS_PRETHUNDER_TEX;// テクスチャ
+
+    static constexpr float EFFECTS_PRERUSH_WIDTH = 300.0f;
+    static constexpr float EFFECTS_PRERUSH_HEIGHT = 2048.0f;
 
     static constexpr float BOSS_ATTACK1_DIS = 100.0f;// 初期位置の中心からの距離
     static constexpr float BOSS_ATTACK1_SHOOT_DIS = 5.0f;// 発射間隔
@@ -223,6 +229,20 @@ public:
 
     // ブースト
     static Texture PLAYER_BOOST_TEX;// テクスチャ
+
+    // 突撃
+    static Texture PRE_RUSH_TEX;// テクスチャ
+    static Texture RUSH_INDICATE_TEX;// テクスチャ
+
+    // 地雷
+    static constexpr float MINE_SIZE = 32.0f;
+    static constexpr float MINE_DAMAGE = 20.0f;
+    static Texture MINE_TEX;// テクスチャ
+
+    // 雑魚敵
+    static constexpr float ENEMY1_SIZE = 32.0f;
+    static constexpr float ENEMY1_DAMAGE = 20.0f;
+    static Texture ENEMY1_TEX;// テクスチャ
 
     // =========================
     // Map
