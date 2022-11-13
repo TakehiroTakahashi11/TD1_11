@@ -130,9 +130,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Module\Obj</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Module\Obj</Filter>
-    </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Module\Obj</Filter>
     </ClCompile>
@@ -179,6 +176,18 @@
       <Filter>Module\Effect</Filter>
     </ClCompile>
     <ClCompile Include="BossAttack2.cpp">
+      <Filter>Module\Ballet</Filter>
+    </ClCompile>
+    <ClCompile Include="PreRush.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="PrePreRush.cpp">
+      <Filter>Module\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>Module\Ballet</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy1.cpp">
       <Filter>Module\Ballet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -333,9 +342,6 @@
     <ClInclude Include="Player.h">
       <Filter>Module\Obj</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Module\Obj</Filter>
-    </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Module\Obj</Filter>
     </ClInclude>
@@ -382,6 +388,18 @@
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="BossAttack2.h">
+      <Filter>Module\Ballet</Filter>
+    </ClInclude>
+    <ClInclude Include="PreRush.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="PrePreRush.h">
+      <Filter>Module\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
+      <Filter>Module\Ballet</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy1.h">
       <Filter>Module\Ballet</Filter>
     </ClInclude>
   </ItemGroup>
