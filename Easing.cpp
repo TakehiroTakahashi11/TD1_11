@@ -195,7 +195,7 @@ float Easing::CalcT()
 	case Easing::kInElastic:
 		easedT = t == 0.0f
 			? 0.0f
-			: t = 1.0f
+			: t == 1.0f
 			? 1.0f
 			: -powf(2.0f, 10.0f * t - 10.0f) * sinf((t * 10.0f - 10.75f) * c4);
 		break;
