@@ -13,6 +13,8 @@ enum EffectType {
 	kPlayerBoost,
 	kBulletDeath,
 	kPrePreBullet,
+	kPreRush,
+	kPrePreRush,
 };
 
 class BaseEffect
