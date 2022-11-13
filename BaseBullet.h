@@ -16,6 +16,8 @@ enum BulletType {
 	kBossAttack1_9,
 	kBossAttack1_10,
 	kBossAttack2,
+	kBossAttackMine1,
+	kBossAttackEnemy1,
 };
 
 class BaseBullet
