@@ -148,7 +148,7 @@ public:
     static constexpr float BOSS1_CHARGE_ATTACK_HITSTOP = 10.0f;// ボスを殴った時のヒットストップフレーム
 
     // タイムライン関係
-    static constexpr float BOSS_TIMELINE_DISTANCE_1 = 600.0f;// ボスが行動を変える距離1
+    static constexpr float BOSS_TIMELINE_DISTANCE_1 = 500.0f;// ボスが行動を変える距離1
     static constexpr float BOSS_TIMELINE_DISTANCE_2 = 800.0f;// ボスが行動を変える距離2
 
     static constexpr float BOSS_ATTACK1_OFFSET = 200.0f;// アタック1の後に攻撃が行われない時間
@@ -157,6 +157,8 @@ public:
     static constexpr float BOSS_RUSH1_2_OFFSET = 700.0f;// 
     static constexpr float BOSS_THUNDER1_OFFSET = 200.0f;
     static constexpr float BOSS_MINE1_OFFSET = 200.0f;
+
+    static constexpr float BOSS1_DASH_COOLTIME = 1000.0f;
 
     // アニメーション
     static constexpr float BOSS1_MOVE_SPD = 0.02f;// ふわふわ速度
@@ -235,12 +237,12 @@ public:
     static Texture RUSH_INDICATE_TEX;// テクスチャ
 
     // 地雷
-    static constexpr float MINE_SIZE = 32.0f;
+    static constexpr float MINE_SIZE = 64.0f;
     static constexpr float MINE_DAMAGE = 20.0f;
     static Texture MINE_TEX;// テクスチャ
 
     // 雑魚敵
-    static constexpr float ENEMY1_SIZE = 32.0f;
+    static constexpr float ENEMY1_SIZE = 64.0f;
     static constexpr float ENEMY1_DAMAGE = 20.0f;
     static Texture ENEMY1_TEX;// テクスチャ
 

@@ -33,8 +33,10 @@ void Boss::Init()
 
 	canMigration = false;
 	migrationTime = 120.0f;
+	beforeAction = None;
 
 	moveTheta = 0.0f;
+	dashCoolTime = 0.0f;
 
 	attack1Flag = false;
 	attack1Elapsed = 0.0f;
@@ -192,38 +194,132 @@ void Boss::TimeLine()
 {
 	// AI
 	if (canMigration) {
+		if (beforeAction == kAttack1_1 || beforeAction == kAttack1_2 || beforeAction == kAttack2) {
+			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
+				SetNextAction(None);
+				return;
+			}
+		}
 
-		if (beforeAction == None) {
-			switch (My::Random(1, 5))
+		if (beforeAction == kRush1 || beforeAction == kRush1_2) {
+			switch (My::Random(0, 1))
 			{
+			case 0:
+				SetNextAction(kThunder1);
+				break;
 			case 1:
-				SetNextAction(kMine1);
+				SetNextAction(None);
 				break;
-			case 2:
-				SetNextAction(kRush1);
-				break;
-			case 3:
-				SetNextAction(kRush1_2);
-				break;
-			case 4:
-				SetNextAction(kRush1);
-				break;
-			case 5:
 			default:
-				SetNextAction(kRush1_2);
 				break;
+			}
+			return;
+		}
+
+		if (beforeAction == kThunder1) {
+			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
+				SetNextAction(kAttack1_2);
+				return;
+			}
+			else {
+				SetNextAction(kAttack2);
+				return;
 			}
 		}
 
 		if (mine1 == -1) {
 			SetNextAction(kMine1);
+			return;
 		}
-		else {
+		else {// ’n—‹‚ªˆê‚Â‚à–³‚¢‚È‚ç
 			if (BulletManager::GetIsEnd(mine1) &&
 				BulletManager::GetIsEnd(mine2) &&
 				BulletManager::GetIsEnd(mine3)) {
 				SetNextAction(kMine1);
+				return;
 			}
+		}
+
+		if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
+			switch (My::Random(0, 6))
+			{
+			case 0:
+				SetNextAction(kAttack1_2);
+				break;
+			case 1:
+				SetNextAction(kAttack1_2);
+				break;
+			case 2:
+				SetNextAction(kAttack1);
+				break;
+			case 3:
+				SetNextAction(kAttack1_1);
+				break;
+			case 4:
+				SetNextAction(kAttack2);
+				break;
+			case 5:
+				SetNextAction(kRush1);
+				break;
+			default:
+				SetNextAction(kRush1_2);
+				break;
+			}
+			return;
+		}
+		else if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
+			switch (My::Random(0, 6))
+			{
+			case 0:
+				SetNextAction(kAttack1_2);
+				break;
+			case 1:
+				SetNextAction(kAttack1);
+				break;
+			case 2:
+				SetNextAction(kAttack2);
+				break;
+			case 3:
+				SetNextAction(kRush1);
+				break;
+			case 4:
+				SetNextAction(kRush1_2);
+				break;
+			case 5:
+				SetNextAction(kThunder1);
+				break;
+			default:
+				SetNextAction(kThunder1);
+				break;
+			}
+			return;
+		}
+		else {
+			switch (My::Random(0, 6))
+			{
+			case 0:
+				SetNextAction(kAttack1_2);
+				break;
+			case 1:
+				SetNextAction(kThunder1);
+				break;
+			case 2:
+				SetNextAction(kAttack2);
+				break;
+			case 3:
+				SetNextAction(kRush1);
+				break;
+			case 4:
+				SetNextAction(kRush1);
+				break;
+			case 5:
+				SetNextAction(kRush1_2);
+				break;
+			default:
+				SetNextAction(kRush1_2);
+				break;
+			}
+			return;
 		}
 	}
 }
@@ -375,14 +471,14 @@ void Boss::SetNextAction(BossAction bossaction)
 	case Boss::None:
 	default:
 		canMigration = false;
-		migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+		migrationTime = Datas::BOSS_ATTACK1_OFFSET * 0.25f;
 		break;
 	}
 }
 
 void Boss::Action()
 {
-	if (!isKnockBack && !rush1Flag) {
+	if (!isKnockBack && !rush1Flag && !rush1_2Flag) {
 		Move1();
 	}
 
@@ -653,7 +749,7 @@ void Boss::Rush1_2()
 	}
 
 	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
-		rush1Flag = false;
+		rush1_2Flag = false;
 		rush1Elapsed = 0.0f;
 		homePos = position;
 	}

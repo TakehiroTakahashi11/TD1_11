@@ -75,9 +75,9 @@ Texture Datas::PLAYER_BOOST_TEX = Texture(32, 32);
 Texture Datas::PRE_RUSH_TEX = Texture(128, 512);
 Texture Datas::RUSH_INDICATE_TEX = Texture(48, 48);
 
-Texture Datas::MINE_TEX = Texture(32, 32);
+Texture Datas::MINE_TEX = Texture(64, 64);
 
-Texture Datas::ENEMY1_TEX = Texture(32, 32);
+Texture Datas::ENEMY1_TEX = Texture(64, 64);
 
 Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
@@ -216,9 +216,9 @@ void Datas::LoadTexture()
 	RUSH_INDICATE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Rush/RushIndicate.png"));
 	Per++;
 
-	MINE_TEX.SetHandle(Novice::LoadTexture("./Resources/Bullet/Bullet.png"));
+	MINE_TEX.SetHandle(Novice::LoadTexture("./Resources/Enemy/LandMine_Enemy.png"));
 
-	ENEMY1_TEX.SetHandle(Novice::LoadTexture("./Resources/Bullet/Bullet.png"));
+	ENEMY1_TEX.SetHandle(Novice::LoadTexture("./Resources/Enemy/Attack_Enemy.png"));
 
 	MAGIC_CIRCLE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/MagicCircle.png"));
 	Per++;

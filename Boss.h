@@ -44,8 +44,8 @@ private:
 	enum BossAction
 	{
 		kMove1,
-		// kAttack1,
-		// kAttack1_1,
+		kAttack1,
+		kAttack1_1,
 		kAttack1_2,
 		kAttack2,
 		kRush1,
@@ -120,6 +120,9 @@ private:
 	BossAction beforeAction;
 
 	// Move1
+	float dashCoolTime;
+	Vector2D dashVelDis;
+	Vector2D dashVel;
 	float moveTheta;
 
 	// Attack1
