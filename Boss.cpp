@@ -505,9 +505,8 @@ void Boss::SetNextAction(BossAction bossaction)
 			rush2Flag = true;
 			rush2Elapsed = 0.0f;
 			rush2_ef_num = -1;
-			homePos = position;
-			boss_rush2_X.SetStart(position.x);
-			boss_rush2_Y.SetStart(position.y);
+			boss_rush2_X.SetStart(homePos.x);
+			boss_rush2_Y.SetStart(homePos.y);
 			boss_rush2_X.SetEnd(getPlayer().GetPosition().x);
 			boss_rush2_Y.SetEnd(getPlayer().GetPosition().y);
 			boss_rush2_X.SetVel(0.06f);

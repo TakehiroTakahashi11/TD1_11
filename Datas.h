@@ -153,12 +153,12 @@ public:
 
     static constexpr float BOSS_ATTACK1_OFFSET = 200.0f;// アタック1の後に攻撃が行われない時間
     static constexpr float BOSS_ATTACK1_2_OFFSET = 90.0f;
-    static constexpr float BOSS_ATTACK2_OFFSET = 350.0f;// 
+    static constexpr float BOSS_ATTACK2_OFFSET = 130.0f;// 
     static constexpr float BOSS_RUSH1_OFFSET = 300.0f;// 
     static constexpr float BOSS_RUSH1_2_OFFSET = 700.0f;// 
     static constexpr float BOSS_RUSH2_OFFSET = 200.0f;
     static constexpr float BOSS_THUNDER1_OFFSET = 200.0f;
-    static constexpr float BOSS_MINE1_OFFSET = 200.0f;
+    static constexpr float BOSS_MINE1_OFFSET = 30.0f;
 
     static constexpr float BOSS1_DASH_COOLTIME = 1000.0f;
 
