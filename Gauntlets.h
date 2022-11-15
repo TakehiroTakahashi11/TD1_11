@@ -18,6 +18,7 @@ private:
 public://ゲッターセッター
 
 	Vector2D GetPosition() { return position; }
+	void SetEndChargeAtk() { chargeAttackFrame = 70.0f; }
 
 private:
 	// ダッシュアニメーション

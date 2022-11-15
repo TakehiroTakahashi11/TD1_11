@@ -10,6 +10,8 @@
 #include <cmath>
 #include "KeyMouseInput.h"
 #include "BulletManager.h"
+#include "Map.h"
+#include "Game.h"
 
 Boss::Boss(Game& pGame) : Obj(pGame)
 {
@@ -73,6 +75,10 @@ void Boss::Init()
 	rush_ef_num = -1;
 
 	rush1_2Flag = false;
+
+	rush2Flag = false;
+	rush2Elapsed = 0.0f;
+	rush2_ef_num = -1;
 
 	thunder1Flag = false;
 
@@ -142,7 +148,27 @@ void Boss::Collision()
 void Boss::PtoBCollision()
 {
 	Vector2D p_pos = getPlayer().GetPosition();
-	if (getPlayer().GetIsDash() && !getPlayer().GetIsGuardBreak()) {// çUåÇ
+	if (getPlayer().GetIsChargeAttack()) {
+		if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, getGauntlets().GetPosition())) {
+			knockBackVel = (position - p_pos).Normalized() * 300.0f;
+			isKnockBack = true;
+			Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
+			getPlayer().SetKnockBack(temp);
+			getPlayer().SetMove();
+			getGauntlets().SetEndChargeAtk();
+			EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
+			getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
+			health -= Datas::PLAYER_ATTACK_DAMAGE;
+
+			tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
+
+			Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
+			// âπ
+			Datas::PLAYER_PUNCH_SOUND.PlayOnce();
+		}
+
+	}
+	else if (getPlayer().GetIsDash() && !getPlayer().GetIsGuardBreak()) {// çUåÇ
 		if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos + getPlayer().GetDirection() * 50.0f)) {
 			/*knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
 			isKnockBack = true;*/
@@ -182,6 +208,11 @@ void Boss::KnockBack()
 			knockBackVel.setZero();
 		}
 		position += knockBackVel * Delta::getTotalDelta();
+		if (getGame().getMap().IsWall(position, { width,height })) {
+			isKnockBack = false;
+			Delta::HitStop(60.0f);
+			getCameraMain().CameraShake({ 15.0f,15.0f }, { -0.5f,-0.5f }, 60.0f);
+		}
 	}
 	else {
 		isKnockBack = false;
@@ -216,13 +247,38 @@ void Boss::TimeLine()
 			return;
 		}
 
+		if (beforeAction == kRush2) {
+			SetNextAction(kRush1);
+			return;
+		}
+
 		if (beforeAction == kThunder1) {
 			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ãóó£Ç™ãﬂÇ¢Ç»ÇÁ
-				SetNextAction(kAttack1_2);
+				switch (My::Random(0, 1))
+				{
+				case 0:
+					SetNextAction(kAttack1_2);
+					break;
+				case 1:
+					SetNextAction(kRush2);
+					break;
+				default:
+					break;
+				}
 				return;
 			}
 			else {
-				SetNextAction(kAttack2);
+				switch (My::Random(0, 1))
+				{
+				case 0:
+					SetNextAction(kAttack1_1);
+					break;
+				case 1:
+					SetNextAction(kAttack2);
+					break;
+				default:
+					break;
+				}
 				return;
 			}
 		}
@@ -283,7 +339,7 @@ void Boss::TimeLine()
 				SetNextAction(kRush1);
 				break;
 			case 4:
-				SetNextAction(kRush1_2);
+				SetNextAction(kRush2);
 				break;
 			case 5:
 				SetNextAction(kThunder1);
@@ -304,19 +360,19 @@ void Boss::TimeLine()
 				SetNextAction(kThunder1);
 				break;
 			case 2:
-				SetNextAction(kAttack2);
+				SetNextAction(kAttack1_1);
 				break;
 			case 3:
-				SetNextAction(kRush1);
+				SetNextAction(kAttack1);
 				break;
 			case 4:
 				SetNextAction(kRush1);
 				break;
 			case 5:
-				SetNextAction(kRush1_2);
+				SetNextAction(kRush2);
 				break;
 			default:
-				SetNextAction(kRush1_2);
+				SetNextAction(kRush2);
 				break;
 			}
 			return;
@@ -343,7 +399,7 @@ void Boss::SetNextAction(BossAction bossaction)
 
 	switch (bossaction)
 	{
-	/*case Boss::kAttack1:
+	case Boss::kAttack1:
 		if (!attack1Flag) {
 			attack1Flag = true;
 			attack1Elapsed = 0.0f;
@@ -378,7 +434,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
 		}
-		break;*/
+		break;
 	case Boss::kAttack1_2:
 		if (!attack1_2Flag) {
 			attack1_2Flag = true;
@@ -394,7 +450,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack1bullet9Time = 0.0f;
 			attack1bullet10Time = 0.0f;
 			canMigration = false;
-			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+			migrationTime = Datas::BOSS_ATTACK1_2_OFFSET;
 			EffectManager::MakeNewEffect(position, kPrePreBullet);
 		}
 		break;
@@ -442,6 +498,27 @@ void Boss::SetNextAction(BossAction bossaction)
 			boss_rush.SetMode(Easing::kInElastic);
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH1_2_OFFSET;
+		}
+		break;
+	case Boss::kRush2:
+		if (!rush2Flag) {
+			rush2Flag = true;
+			rush2Elapsed = 0.0f;
+			rush2_ef_num = -1;
+			homePos = position;
+			boss_rush2_X.SetStart(position.x);
+			boss_rush2_Y.SetStart(position.y);
+			boss_rush2_X.SetEnd(getPlayer().GetPosition().x);
+			boss_rush2_Y.SetEnd(getPlayer().GetPosition().y);
+			boss_rush2_X.SetVel(0.06f);
+			boss_rush2_Y.SetVel(0.06f);
+			boss_rush2_X.SetT(0.0f);
+			boss_rush2_Y.SetT(0.0f);
+			boss_rush2_X.SetMode(Easing::kInQuad);
+			boss_rush2_Y.SetMode(Easing::kInQuad);
+			canMigration = false;
+			migrationTime = Datas::BOSS_RUSH2_OFFSET;
+			tremblingFrame = 20.0f;
 		}
 		break;
 	case Boss::kThunder1:
@@ -499,6 +576,9 @@ void Boss::Action()
 	}
 	if (rush1_2Flag) {
 		Rush1_2();
+	}
+	if (rush2Flag) {
+		Rush2();
 	}
 	if (thunder1Flag) {
 		Thunder1();
@@ -752,6 +832,24 @@ void Boss::Rush1_2()
 		rush1_2Flag = false;
 		rush1Elapsed = 0.0f;
 		homePos = position;
+	}
+}
+
+void Boss::Rush2()
+{
+	rush2Elapsed += Delta::getTotalDelta();
+	rush2_ef_num = -1;
+
+	if (rush2Elapsed > 40.0f) {
+		boss_rush2_X.Move(Delta::getTotalDelta());
+		boss_rush2_Y.Move(Delta::getTotalDelta());
+	}
+
+	position = { boss_rush2_X.p, boss_rush2_Y.p };
+
+	if (boss_rush2_X.IsEnd() || boss_rush2_Y.IsEnd()) {
+		homePos = position;
+		rush2Flag = false;
 	}
 }
 

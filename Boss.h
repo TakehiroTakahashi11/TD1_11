@@ -50,6 +50,7 @@ private:
 		kAttack2,
 		kRush1,
 		kRush1_2,
+		kRush2,
 		kThunder1,
 		kThunder1_1,
 		kMine1,
@@ -79,8 +80,11 @@ private:
 	// “ËŒ‚1
 	void Rush1();
 
-	// “ËŒ‚2
+	// “ËŒ‚1_2
 	void Rush1_2();
+
+	// “ËŒ‚2
+	void Rush2();
 
 	// UŒ‚1
 	void Thunder1();
@@ -167,6 +171,14 @@ private:
 
 	// Rush1_2
 	bool rush1_2Flag;
+
+	// Rush2
+	bool rush2Flag;
+	float rush2Elapsed;
+	Easing boss_rush2_X;
+	Easing boss_rush2_Y;
+	int rush2_ef_num;
+
 
 	// Thunder1
 	bool thunder1Flag;

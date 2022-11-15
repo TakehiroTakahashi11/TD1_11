@@ -91,6 +91,7 @@ void Gauntlets::Draw()
 			default:
 				break;
 			}
+			position = g_pos;
 		}
 		else {
 			dash_dis_acc -= dash_dis_acc * 1.5f * Delta::getTotalDelta();
@@ -168,6 +169,8 @@ void Gauntlets::Draw()
 			default:
 				break;
 			}
+
+			position = g_pos;
 		}
 	}
 	else {

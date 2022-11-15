@@ -698,4 +698,5 @@ void Player::SetMove()
 		CheckJust();
 	}
 	isGuard = false;
+	isChargeAttack = false;
 }
