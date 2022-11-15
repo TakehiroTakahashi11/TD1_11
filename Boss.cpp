@@ -170,8 +170,6 @@ void Boss::PtoBCollision()
 	}
 	else if (getPlayer().GetIsDash() && !getPlayer().GetIsGuardBreak()) {// çUåÇ
 		if (My::CollisonCircletoPoint(position, Datas::BOSS1_COL_WIDTH, Datas::BOSS1_COL_HEIGHT, p_pos + getPlayer().GetDirection() * 50.0f)) {
-			/*knockBackVel = (position - p_pos).Normalized() * Datas::GAUNTLET_KNOCKBACK_POWER;
-			isKnockBack = true;*/
 			Vector2D temp = { (p_pos - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER };
 			getPlayer().SetKnockBack(temp);
 			getPlayer().SetMove();
@@ -554,7 +552,7 @@ void Boss::SetNextAction(BossAction bossaction)
 
 void Boss::Action()
 {
-	if (!isKnockBack && !rush1Flag && !rush1_2Flag) {
+	if (!isKnockBack && !rush1Flag && !rush1_2Flag && !rush2Flag) {
 		Move1();
 	}
 

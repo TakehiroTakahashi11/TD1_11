@@ -151,12 +151,12 @@ public:
     static constexpr float BOSS_TIMELINE_DISTANCE_1 = 500.0f;// ボスが行動を変える距離1
     static constexpr float BOSS_TIMELINE_DISTANCE_2 = 800.0f;// ボスが行動を変える距離2
 
-    static constexpr float BOSS_ATTACK1_OFFSET = 200.0f;// アタック1の後に攻撃が行われない時間
+    static constexpr float BOSS_ATTACK1_OFFSET = 100.0f;// アタック1の後に攻撃が行われない時間
     static constexpr float BOSS_ATTACK1_2_OFFSET = 90.0f;
-    static constexpr float BOSS_ATTACK2_OFFSET = 130.0f;// 
+    static constexpr float BOSS_ATTACK2_OFFSET = 110.0f;// 
     static constexpr float BOSS_RUSH1_OFFSET = 300.0f;// 
     static constexpr float BOSS_RUSH1_2_OFFSET = 700.0f;// 
-    static constexpr float BOSS_RUSH2_OFFSET = 200.0f;
+    static constexpr float BOSS_RUSH2_OFFSET = 160.0f;
     static constexpr float BOSS_THUNDER1_OFFSET = 200.0f;
     static constexpr float BOSS_MINE1_OFFSET = 30.0f;
 
@@ -242,6 +242,7 @@ public:
     static constexpr float MINE_SIZE = 64.0f;
     static constexpr float MINE_DAMAGE = 20.0f;
     static Texture MINE_TEX;// テクスチャ
+    static Texture MINE_EXPLODE_TEX;
 
     // 雑魚敵
     static constexpr float ENEMY1_SIZE = 64.0f;

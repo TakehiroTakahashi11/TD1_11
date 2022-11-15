@@ -76,6 +76,7 @@ Texture Datas::PRE_RUSH_TEX = Texture(128, 512);
 Texture Datas::RUSH_INDICATE_TEX = Texture(48, 48);
 
 Texture Datas::MINE_TEX = Texture(64, 64);
+Texture Datas::MINE_EXPLODE_TEX = Texture(64, 64);
 
 Texture Datas::ENEMY1_TEX = Texture(64, 64);
 
@@ -217,6 +218,7 @@ void Datas::LoadTexture()
 	Per++;
 
 	MINE_TEX.SetHandle(Novice::LoadTexture("./Resources/Enemy/LandMine_Enemy.png"));
+	MINE_EXPLODE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Rush/PreRush.png"));
 
 	ENEMY1_TEX.SetHandle(Novice::LoadTexture("./Resources/Enemy/Attack_Enemy.png"));
 
