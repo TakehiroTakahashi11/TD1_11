@@ -20,10 +20,12 @@ void InGameScene::Init() {
 
 	// 初期化を抜ける
 	getGame().ChangePhase(Game::kUpdate);
+
+	isTutorial = false;
 }
 
 void InGameScene::Update() {
-	// if(チュートリアル終了){
+	// if(isTutorial){
 	getGame().getMap().SetMapNum(1);// ステージ1に
 	// }
 

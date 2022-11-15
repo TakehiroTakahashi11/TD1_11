@@ -546,7 +546,7 @@ void Boss::SetNextAction(BossAction bossaction)
 	case Boss::None:
 	default:
 		canMigration = false;
-		migrationTime = Datas::BOSS_ATTACK1_OFFSET * 0.25f;
+		migrationTime = Datas::BOSS_ATTACK1_OFFSET;
 		break;
 	}
 }
@@ -804,8 +804,8 @@ void Boss::Rush1_2()
 	position.y = boss_rush.p;
 
 	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
-		position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width, 1);
-		if (rush1Elapsed >= 500) {
+		if (rush1Elapsed >= 300) {
+			position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width, 1);
 			if (rush_ef_num == -1) {
 				rush_ef_num = EffectManager::MakeNewEffect(position, kPrePreRush);
 			}
