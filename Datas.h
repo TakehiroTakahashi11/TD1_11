@@ -156,7 +156,7 @@ public:
     static constexpr float BOSS_ATTACK2_OFFSET = 350.0f;// 
     static constexpr float BOSS_RUSH1_OFFSET = 300.0f;// 
     static constexpr float BOSS_RUSH1_2_OFFSET = 700.0f;// 
-    static constexpr float BOSS_RUSH2_OFFSET = 300.0f;
+    static constexpr float BOSS_RUSH2_OFFSET = 200.0f;
     static constexpr float BOSS_THUNDER1_OFFSET = 200.0f;
     static constexpr float BOSS_MINE1_OFFSET = 200.0f;
 
