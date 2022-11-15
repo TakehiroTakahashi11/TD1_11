@@ -12,6 +12,7 @@
 #include "Map.h"
 #include <Novice.h>
 #include "EffectManager.h"
+#include "BulletManager.h"
 
 Mine::Mine(Game& game, Vector2D pos) : BaseBullet(game, pos)
 {
@@ -48,6 +49,7 @@ void Mine::Update()
 				pGame.getPlayer().SetKnockBack((pGame.getPlayer().GetPosition() - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				// 音
 				// ばくはつエフェクト依頼
+				BulletManager::MakeNewBullet(position, kBossAttackMineExplode1);
 				isEnd = true;
 			}
 		}
@@ -61,6 +63,7 @@ void Mine::Update()
 	if (elapsedFrame > 500.0f) {
 		// 音
 		// ばくはつエフェクト
+		BulletManager::MakeNewBullet(position, kBossAttackMineExplode1);
 		isEnd = true;
 	}
 }

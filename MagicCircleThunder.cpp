@@ -65,7 +65,7 @@ void MagicCircleThunder::Update() {
 			effects[i].rotatetheta += effects[i].thetaSpeed * Delta::getTotalDelta();
 			effects[i].position = pGame.getBoss().GetPosition() + effects[i].rotation.Rotated(effects[i].rotatetheta) * MagicCircleRadius;
 
-			if (effects[i].rotatetheta > 1.63f * static_cast<float>(M_PI)) {
+			if (effects[i].rotatetheta > 0.5f * static_cast<float>(M_PI)) {
 				if (prethunder1_num == -1) {
 					thunder1pos = pGame.getPlayer().GetPosition();
 					prethunder1_num = EffectManager::MakeNewEffect(thunder1pos, kPreThunder);
@@ -77,7 +77,7 @@ void MagicCircleThunder::Update() {
 					effects.pop_back();
 				}
 			}
-			if (effects[i].rotatetheta > 2.6f * static_cast<float>(M_PI)) {
+			if (effects[i].rotatetheta > 1.5f * static_cast<float>(M_PI)) {
 				if (prethunder2_num == -1) {
 					thunder2pos = pGame.getPlayer().GetPosition();
 					prethunder2_num = EffectManager::MakeNewEffect(thunder2pos, kPreThunder);
@@ -89,7 +89,7 @@ void MagicCircleThunder::Update() {
 					effects.pop_back();
 				}
 			}
-			if (effects[i].rotatetheta > 3.5f * static_cast<float>(M_PI)) {
+			if (effects[i].rotatetheta > 2.5f * static_cast<float>(M_PI)) {
 				if (prethunder3_num == -1) {
 					thunder3pos = pGame.getPlayer().GetPosition();
 					prethunder3_num = EffectManager::MakeNewEffect(thunder3pos, kPreThunder);

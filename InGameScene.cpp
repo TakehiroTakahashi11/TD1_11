@@ -16,7 +16,7 @@ InGameScene::InGameScene(Game& pGame) : BaseScene(pGame)
 }
 
 void InGameScene::Init() {
-	getCameraMain().setScale(1.0f);
+	getCameraMain().setScale(0.6f);
 
 	// ‰Šú‰»‚ğ”²‚¯‚é
 	getGame().ChangePhase(Game::kUpdate);

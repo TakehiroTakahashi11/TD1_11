@@ -17,6 +17,7 @@ enum BulletType {
 	kBossAttack1_10,
 	kBossAttack2,
 	kBossAttackMine1,
+	kBossAttackMineExplode1,
 	kBossAttackEnemy1,
 };
 

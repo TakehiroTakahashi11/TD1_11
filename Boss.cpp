@@ -503,8 +503,9 @@ void Boss::SetNextAction(BossAction bossaction)
 			rush2Flag = true;
 			rush2Elapsed = 0.0f;
 			rush2_ef_num = -1;
-			boss_rush2_X.SetStart(homePos.x);
-			boss_rush2_Y.SetStart(homePos.y);
+			boss_rush2_X.SetStart(position.x);
+			boss_rush2_Y.SetStart(position.y);
+			homePos = position;
 			boss_rush2_X.SetEnd(getPlayer().GetPosition().x);
 			boss_rush2_Y.SetEnd(getPlayer().GetPosition().y);
 			boss_rush2_X.SetVel(0.06f);
@@ -764,14 +765,13 @@ void Boss::Rush1()
 	position.y = boss_rush.p;
 
 	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
-
+		position.x = getPlayer().GetPosition().x;
 		if (rush_ef_num == -1) {
 			rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPreRush);
 		}
 		if (rush1Elapsed >= 150) {
 			EffectManager::SetEnd(rush_ef_num);
 			rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPrePreRush);
-			position.x = getPlayer().GetPosition().x;
 			boss_rush.SetStart(1500);
 			boss_rush.SetEnd(-1500);
 			boss_rush.SetVel(0.01f);
@@ -804,8 +804,8 @@ void Boss::Rush1_2()
 	position.y = boss_rush.p;
 
 	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
+		position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width, 1);
 		if (rush1Elapsed >= 500) {
-			position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width,1);
 			if (rush_ef_num == -1) {
 				rush_ef_num = EffectManager::MakeNewEffect(position, kPrePreRush);
 			}
@@ -840,9 +840,8 @@ void Boss::Rush2()
 	if (rush2Elapsed > 40.0f) {
 		boss_rush2_X.Move(Delta::getTotalDelta());
 		boss_rush2_Y.Move(Delta::getTotalDelta());
+		position = { boss_rush2_X.p, boss_rush2_Y.p };
 	}
-
-	position = { boss_rush2_X.p, boss_rush2_Y.p };
 
 	if (boss_rush2_X.IsEnd() || boss_rush2_Y.IsEnd()) {
 		homePos = position;

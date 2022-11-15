@@ -3,6 +3,7 @@
 #include "BossAttack1.h"
 #include "BossAttack2.h"
 #include "Mine.h"
+#include "MineExplode.h"
 #include "Enemy1.h"
 
 void BulletManager::Init(Game& Game)
@@ -105,6 +106,10 @@ int BulletManager::MakeNewBullet(Vector2D position, BulletType bulletType)
 			case BulletType::kBossAttackMine1:
 				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
 				bullets[nextIndex] = new Mine(*pGame, position);// ’Ç‰Á
+				break;
+			case BulletType::kBossAttackMineExplode1:
+				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete
+				bullets[nextIndex] = new MineExplode(*pGame, position);// ’Ç‰Á
 				break;
 			case BulletType::kBossAttackEnemy1:
 				delete bullets[nextIndex];// “ü‚Á‚Ä‚é‚Ì‚ðdelete

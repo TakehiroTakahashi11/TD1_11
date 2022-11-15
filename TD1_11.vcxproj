@@ -128,6 +128,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="MineExplode.cpp" />
     <ClCompile Include="MyFunc.cpp" />
     <ClCompile Include="Obj.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="MagicCircleThunder.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mine.h" />
+    <ClInclude Include="MineExplode.h" />
     <ClInclude Include="MyFunc.h" />
     <ClInclude Include="Obj.h" />
     <ClInclude Include="Player.h" />
