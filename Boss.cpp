@@ -91,6 +91,13 @@ void Boss::Init()
 	mine3 = -1;
 
 	anim = 0.0f;
+
+	rightSpear.theta = 90 * M_PI / 180;
+	leftSpear.theta = 90 * M_PI / 180;
+
+
+	isPreSpear = false;
+	preSpearFrame = 0.0f;
 }
 
 void Boss::Update()
@@ -136,8 +143,33 @@ void Boss::Draw()
 	Novice::SetBlendMode(kBlendModeAdd);
 	getCameraMain().DrawQuad({ {position.x - width * 0.5f,position.y - height * 0.5f},width,height }, Datas::BOSS1_VINNET_TEX);
 	Novice::SetBlendMode(kBlendModeNormal);
-	getCameraMain().DrawQuad({ {position.x - width * 0.5f + trembPos.x,position.y - height * 0.5f + trembPos.y},width,height }, Datas::BOSS1_TEX,
-		static_cast<int>(anim) % Datas::BOSS1_ANIM_MAX_X, anim < Datas::BOSS1_ANIM_MAX_X ? 0 : 1);
+	getCameraMain().DrawQuad({ {boss_bodyPos.x - 128,boss_bodyPos.y - 128}, 256,256 }, Datas::BOSS1_bodyBack);
+	getCameraMain().DrawQuad({ {boss_leg2Pos.x - 136,boss_leg2Pos.y - 112}, 272, 224 }, Datas::BOSS1_leg2);
+	getCameraMain().DrawQuad({ {boss_leg1Pos.x - 112,boss_leg1Pos.y - 56}, 224, 112 }, Datas::BOSS1_leg1);
+
+	Quad lu = { {boss_leftupArmPos.x - 80,boss_leftupArmPos.y - 56}, 160, 112 };
+	lu = lu.Translation(-boss_leftupArmPos).Rotation(upArm_theta.p).Translation(boss_leftupArmPos);
+	Quad ru = { {boss_rightupArmPos.x - 80,boss_rightupArmPos.y - 56}, 160, 112 };
+	ru = ru.Translation(-boss_rightupArmPos).Rotation(-upArm_theta.p).Translation(boss_rightupArmPos);
+	Quad ld = { {boss_leftdownArmPos.x - 96,boss_leftdownArmPos.y - 64}, 192, 128 };
+	ld = ld.Translation(-boss_leftdownArmPos).Rotation(downArm_theta.p).Translation(boss_leftdownArmPos);
+	Quad rd = { {boss_rightdownArmPos.x - 96,boss_rightdownArmPos.y - 64}, 192, 128 };
+	rd = rd.Translation(-boss_rightdownArmPos).Rotation(-downArm_theta.p).Translation(boss_rightdownArmPos);
+
+	getCameraMain().DrawQuad(lu, Datas::BOSS1_leftupArm, uparmFrame * 160);
+	getCameraMain().DrawQuad(ru, Datas::BOSS1_rightupArm, uparmFrame * 160);
+	getCameraMain().DrawQuad(ld, Datas::BOSS1_leftdownArm, uparmFrame * 192);
+	getCameraMain().DrawQuad(rd, Datas::BOSS1_rightdownArm, uparmFrame * 192);
+	getCameraMain().DrawQuad({ {boss_bodyPos.x - 256,boss_bodyPos.y - 128}, 512, 256 }, Datas::BOSS1_body);
+	getCameraMain().DrawQuad({ {boss_ringPos.x - 64,boss_ringPos.y - 32}, 128, 64 }, Datas::BOSS1_ring);
+
+	//if (leftSpear.isPre || leftSpear.isInject) {
+	//	screen.DrawQuad(leftSpear.position.x, leftSpear.position.y, 0, 0, leftSpear.theta, 384, 384, leftSpeargraph, WHITE, 1.0f);
+	//}
+
+	//if (rightSpear.isPre || rightSpear.isInject) {
+	//	screen.DrawQuad(rightSpear.position.x, rightSpear.position.y, 0, 0, rightSpear.theta, 384, 384, rightSpeargraph, WHITE, 1.0f);
+	//}
 }
 
 void Boss::Collision()
@@ -340,7 +372,7 @@ void Boss::TimeLine()
 				SetNextAction(kRush2);
 				break;
 			case 5:
-				SetNextAction(kThunder1);
+				SetNextAction(kRush2);
 				break;
 			default:
 				SetNextAction(kThunder1);
@@ -413,6 +445,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack1bullet10Time = 0.0f;
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::kAttack1_1:
@@ -431,6 +464,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack1bullet10Time = 0.0f;
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_OFFSET;
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::kAttack1_2:
@@ -450,6 +484,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK1_2_OFFSET;
 			EffectManager::MakeNewEffect(position, kPrePreBullet);
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::kAttack2:
@@ -468,6 +503,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			attack2bullet10Time = 0.0f;
 			canMigration = false;
 			migrationTime = Datas::BOSS_ATTACK2_OFFSET;
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::kRush1:
@@ -482,6 +518,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			boss_rush.SetMode(Easing::kOutQuad);
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH1_OFFSET;
+			bossstate = PreFightAttack;
 		}
 		break;
 	case Boss::kRush1_2:
@@ -496,6 +533,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			boss_rush.SetMode(Easing::kInElastic);
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH1_2_OFFSET;
+			bossstate = PreFightAttack;
 		}
 		break;
 	case Boss::kRush2:
@@ -516,7 +554,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			boss_rush2_Y.SetMode(Easing::kInQuad);
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH2_OFFSET;
-			tremblingFrame = 20.0f;
+			bossstate = PreFightAttack;
 		}
 		break;
 	case Boss::kThunder1:
@@ -525,6 +563,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			thunder1num = -1;
 			canMigration = false;
 			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::kThunder1_1:
@@ -533,6 +572,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			thunder1num = -1;
 			canMigration = false;
 			migrationTime = Datas::BOSS_THUNDER1_OFFSET;
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::kMine1:
@@ -541,6 +581,7 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			mine1Elapsed = 0.0f;
 			migrationTime = Datas::BOSS_MINE1_OFFSET;
+			bossstate = PreMageAttack;
 		}
 		break;
 	case Boss::None:
@@ -602,7 +643,7 @@ void Boss::Move1()
 void Boss::Attack1()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == -1.0f) {
+	if (attack1bullet1Time == -1.0f && attack1Elapsed > 140.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet1Time = attack1Elapsed;
 	}
@@ -648,7 +689,7 @@ void Boss::Attack1()
 void Boss::Attack1_1()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == -1.0f) {
+	if (attack1bullet1Time == -1.0f && attack1Elapsed > 140.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet1Time = attack1Elapsed;
 	}
@@ -713,7 +754,7 @@ void Boss::Attack1_2()
 void Boss::Attack2()
 {
 	attack2Elapsed += Delta::getTotalDelta();
-	if (attack2bullet1Time == -1.0f && attack1Elapsed > 100.0f) {
+	if (attack2bullet1Time == -1.0f && attack1Elapsed > 300.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack2);
 		attack2bullet1Time = attack2Elapsed;
 	}
@@ -760,38 +801,40 @@ void Boss::Rush1()
 {
 	rush1Elapsed += Delta::getTotalDelta();
 
-	boss_rush.Move(Delta::getTotalDelta());
+	if (rush1Elapsed > 100.0f) {
+		boss_rush.Move(Delta::getTotalDelta());
 
-	position.y = boss_rush.p;
+		position.y = boss_rush.p;
 
-	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
-		position.x = getPlayer().GetPosition().x;
-		if (rush_ef_num == -1) {
-			rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPreRush);
+		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
+			position.x = getPlayer().GetPosition().x;
+			if (rush_ef_num == -1) {
+				rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPreRush);
+			}
+			if (rush1Elapsed >= 150) {
+				EffectManager::SetEnd(rush_ef_num);
+				rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPrePreRush);
+				boss_rush.SetStart(1500);
+				boss_rush.SetEnd(-1500);
+				boss_rush.SetVel(0.01f);
+				boss_rush.SetMode(Easing::kInOutQuart);
+			}
 		}
-		if (rush1Elapsed >= 150) {
-			EffectManager::SetEnd(rush_ef_num);
-			rush_ef_num = EffectManager::MakeNewEffect(getPlayer().GetPosition(), kPrePreRush);
-			boss_rush.SetStart(1500);
-			boss_rush.SetEnd(-1500);
-			boss_rush.SetVel(0.01f);
+
+		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == -1500) {
+
+			boss_rush.SetStart(-1500);
+			boss_rush.SetEnd(0.0f);
+			boss_rush.SetVel(0.005f);
 			boss_rush.SetMode(Easing::kInOutQuart);
+			EffectManager::SetEnd(rush_ef_num);
 		}
-	}
 
-	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == -1500) {
-
-		boss_rush.SetStart(-1500);
-		boss_rush.SetEnd(0.0f);
-		boss_rush.SetVel(0.005f);
-		boss_rush.SetMode(Easing::kInOutQuart);
-		EffectManager::SetEnd(rush_ef_num);
-	}
-
-	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
-		rush1Flag = false;
-		rush1Elapsed = 0.0f;
-		homePos = position;
+		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
+			rush1Flag = false;
+			rush1Elapsed = 0.0f;
+			homePos = position;
+		}
 	}
 }
 
@@ -799,36 +842,40 @@ void Boss::Rush1_2()
 {
 	rush1Elapsed += Delta::getTotalDelta();
 
-	boss_rush.Move(Delta::getTotalDelta());
+	if (rush1Elapsed > 100.0f) {
 
-	position.y = boss_rush.p;
+		boss_rush.Move(Delta::getTotalDelta());
 
-	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
-		if (rush1Elapsed >= 300) {
-			position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width, 1);
-			if (rush_ef_num == -1) {
-				rush_ef_num = EffectManager::MakeNewEffect(position, kPrePreRush);
+		position.y = boss_rush.p;
+
+		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 1500) {
+			if (rush1Elapsed >= 300) {
+				position.x = My::RandomF(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width, 1);
+				if (rush_ef_num == -1) {
+					rush_ef_num = EffectManager::MakeNewEffect(position, kPrePreRush);
+				}
+				boss_rush.SetStart(1500);
+				boss_rush.SetEnd(-1500);
+				boss_rush.SetVel(0.01f);
+				boss_rush.SetMode(Easing::kInOutQuart);
 			}
-			boss_rush.SetStart(1500);
-			boss_rush.SetEnd(-1500);
-			boss_rush.SetVel(0.01f);
-			boss_rush.SetMode(Easing::kInOutQuart);
 		}
-	}
 
-	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == -1500) {
+		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == -1500) {
 
-		boss_rush.SetStart(-1500);
-		boss_rush.SetEnd(0.0f);
-		boss_rush.SetVel(0.005f);
-		boss_rush.SetMode(Easing::kInOutQuart);
-		EffectManager::SetEnd(rush_ef_num);
-	}
+			boss_rush.SetStart(-1500);
+			boss_rush.SetEnd(0.0f);
+			boss_rush.SetVel(0.005f);
+			boss_rush.SetMode(Easing::kInOutQuart);
+			EffectManager::SetEnd(rush_ef_num);
+		}
 
-	if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
-		rush1_2Flag = false;
-		rush1Elapsed = 0.0f;
-		homePos = position;
+		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
+			rush1_2Flag = false;
+			rush1Elapsed = 0.0f;
+			homePos = position;
+		}
+
 	}
 }
 
@@ -883,5 +930,230 @@ void Boss::Mine1()
 
 void Boss::Animation()
 {
-	
+	boss_centerPos = position;
+
+	//体揺らす用の角度加算
+	theta += 5.0f / 180 * M_PI;
+
+	//後ろの車輪回す用の角度加算　攻撃中は加速して回る
+	bodyBack_theta += 3.0f / 180 * M_PI * bodyBack_accel;
+
+	//攻撃が終わるとだんだん元の速度に戻る
+	if (bodyBack_accel > 1.0f && bossstate != MageAttack && bossstate != FightAttack) {
+		bodyBack_accel -= 0.05f;
+	}
+
+	//腕以外の各部位を中心座標を基準として追従、ゆらゆら
+	boss_bodyPos.x = boss_centerPos.x;
+	boss_ringPos.x = boss_centerPos.x;
+	boss_leg1Pos.x = boss_centerPos.x;
+	boss_leg2Pos.x = boss_centerPos.x;
+	boss_bodyPos.y = boss_centerPos.y + sinf(theta) * 8;
+	boss_leg1Pos.y = boss_centerPos.y - 150 + sinf(theta + 2) * 8;
+	boss_leg2Pos.y = boss_centerPos.y - 225 + sinf(theta + 2.5) * 8;
+	boss_ringPos.y = boss_centerPos.y + 150 + sinf(theta + 1.5) * 8;
+
+	//ボスの状態処理Mageは遠距離、Fightは近距離
+	switch (bossstate)
+	{
+	case Wait:
+
+		//待機中の腕を追従、ゆらゆら
+		boss_leftupArmPos.x = boss_centerPos.x - 150;
+		boss_rightupArmPos.x = boss_centerPos.x + 150;
+		boss_leftupArmPos.y = boss_centerPos.y + 50 + sinf(theta + 1) * 5;
+		boss_rightupArmPos.y = boss_centerPos.y + 50 + sinf(theta + 1) * 5;
+
+		boss_leftdownArmPos.x = boss_centerPos.x - 150;
+		boss_rightdownArmPos.x = boss_centerPos.x + 150;
+		boss_leftdownArmPos.y = boss_centerPos.y - 100 + sinf(theta + 1) * 5;
+		boss_rightdownArmPos.y = boss_centerPos.y - 100 + sinf(theta + 1) * 5;
+
+		//Mage攻撃フラグが立つとイージングの初期値をセットし、Mage準備ステイトへ移行
+		if (nextstate == PreMageAttack) {
+
+			leftupArm_move_x = Easing(boss_leftupArmPos.x, boss_centerPos.x - 75, motionspeed, Easing::kInCubic);
+			leftupArm_move_y = Easing(boss_leftupArmPos.y, boss_centerPos.y + 50, motionspeed, Easing::kInCubic);
+			rightupArm_move_x = Easing(boss_rightupArmPos.x, boss_centerPos.x + 75, motionspeed, Easing::kInCubic);
+			rightupArm_move_y = Easing(boss_rightupArmPos.y, boss_centerPos.y + 50, motionspeed, Easing::kInCubic);
+			upArm_theta = Easing(0, 700 * M_PI / 180, motionspeed, Easing::kInCubic);
+
+			nextstate = Wait;
+			bossstate = PreMageAttack;
+
+		}
+
+		//Fight攻撃フラグが立つとイージングの初期値をセットし、Fight準備ステイトへ移行
+		if (nextstate == PreFightAttack) {
+
+			leftdownArm_move_x = Easing(boss_leftdownArmPos.x, boss_centerPos.x - 75, motionspeed, Easing::kInCubic);
+			leftdownArm_move_y = Easing(boss_leftdownArmPos.y, boss_centerPos.y - 100, motionspeed, Easing::kInCubic);
+			rightdownArm_move_x = Easing(boss_rightdownArmPos.x, boss_centerPos.x + 75, motionspeed, Easing::kInCubic);
+			rightdownArm_move_y = Easing(boss_rightdownArmPos.y, boss_centerPos.y - 100, motionspeed, Easing::kInCubic);
+			downArm_theta = Easing(0, 700 * M_PI / 180, motionspeed, Easing::kInCubic);
+
+			nextstate = Wait;
+			bossstate = PreFightAttack;
+
+		}
+
+		break;
+	case PreMageAttack:
+
+		//イージング動かす
+
+		leftupArm_move_x.Move(1.0f);
+		leftupArm_move_y.Move(1.0f);
+		rightupArm_move_x.Move(1.0f);
+		rightupArm_move_y.Move(1.0f);
+		upArm_theta.Move(1.0f);
+
+		//pの値を代入
+		boss_leftupArmPos = Vector2D(leftupArm_move_x.p, leftupArm_move_y.p);
+		boss_rightupArmPos = Vector2D(rightupArm_move_x.p, rightupArm_move_y.p);
+
+		//上腕リソースのアニメーション
+
+		if ((int)frame % 4 == 0 && uparmFrame < 5) {
+			uparmFrame++;
+		}
+
+		//モーション終了後自動的に攻撃中の状態へ移行
+
+		if (leftupArm_move_x.IsEnd() == true) {
+			bossstate = MageAttack;
+		}
+
+		break;
+	case MageAttack:
+
+		//攻撃中腕を追従、ゆらゆら
+		boss_leftupArmPos.x = boss_centerPos.x - 75;
+		boss_rightupArmPos.x = boss_centerPos.x + 75;
+		boss_leftupArmPos.y = boss_centerPos.y + 50 + sinf(theta + 1) * 5;
+		boss_rightupArmPos.y = boss_centerPos.y + 50 + sinf(theta + 1) * 5;
+
+		boss_leftdownArmPos.x = boss_centerPos.x - 150;
+		boss_rightdownArmPos.x = boss_centerPos.x + 150;
+		boss_leftdownArmPos.y = boss_centerPos.y - 100 + sinf(theta + 1) * 5;
+		boss_rightdownArmPos.y = boss_centerPos.y - 100 + sinf(theta + 1) * 5;
+
+		bodyBack_accel += 0.01f;
+
+		//攻撃が終わり次第攻撃後の状態へ移動
+
+		if (nextstate = AfterMageAttack) {
+
+			leftupArm_move_x = Easing(boss_leftupArmPos.x, boss_centerPos.x - 150, motionspeed, Easing::kInCubic);
+			leftupArm_move_y = Easing(boss_leftupArmPos.y, boss_centerPos.y + 50, motionspeed, Easing::kInCubic);
+			rightupArm_move_x = Easing(boss_rightupArmPos.x, boss_centerPos.x + 150, motionspeed, Easing::kInCubic);
+			rightupArm_move_y = Easing(boss_rightupArmPos.y, boss_centerPos.y + 50, motionspeed, Easing::kInCubic);
+			upArm_theta = Easing(700 * M_PI / 180, 0, motionspeed, Easing::kInCubic);
+
+			nextstate = Wait;
+			bossstate = AfterMageAttack;
+
+		}
+
+		break;
+	case AfterMageAttack:
+
+		//イージング処理
+
+		leftupArm_move_x.Move(1.0f);
+		leftupArm_move_y.Move(1.0f);
+		rightupArm_move_x.Move(1.0f);
+		rightupArm_move_y.Move(1.0f);
+		upArm_theta.Move(1.0f);
+
+		//pの値を代入
+
+		boss_leftupArmPos = Vector2D(leftupArm_move_x.p, leftupArm_move_y.p);
+		boss_rightupArmPos = Vector2D(rightupArm_move_x.p, rightupArm_move_y.p);
+
+		//アニメーション
+
+		if ((int)frame % 4 == 0 && uparmFrame > 0) {
+			uparmFrame--;
+		}
+
+		//モーション終了後待機中へ遷移
+
+		if (leftupArm_move_x.IsEnd() == true) {
+			bossstate = Wait;
+		}
+
+		break;
+	case PreFightAttack://ここから下は名前が違うだけでほぼ同じ処理
+
+
+		leftdownArm_move_x.Move(1.0f);
+		leftdownArm_move_y.Move(1.0f);
+		rightdownArm_move_x.Move(1.0f);
+		rightdownArm_move_y.Move(1.0f);
+		downArm_theta.Move(1.0f);
+
+
+
+		boss_leftdownArmPos = Vector2D(leftdownArm_move_x.p, leftdownArm_move_y.p);
+		boss_rightdownArmPos = Vector2D(rightdownArm_move_x.p, rightdownArm_move_y.p);
+
+		if ((int)frame % 4 == 0 && downarmFrame < 5) {
+			downarmFrame++;
+		}
+
+		if (leftdownArm_move_x.IsEnd() == true) {
+			bossstate = FightAttack;
+		}
+
+		break;
+	case FightAttack:
+
+		boss_leftupArmPos.x = boss_centerPos.x - 150;
+		boss_rightupArmPos.x = boss_centerPos.x + 150;
+		boss_leftupArmPos.y = boss_centerPos.y + 50 + sinf(theta + 1) * 5;
+		boss_rightupArmPos.y = boss_centerPos.y + 50 + sinf(theta + 1) * 5;
+
+		boss_leftdownArmPos.x = boss_centerPos.x - 75;
+		boss_rightdownArmPos.x = boss_centerPos.x + 75;
+		boss_leftdownArmPos.y = boss_centerPos.y - 100 + sinf(theta + 1) * 5;
+		boss_rightdownArmPos.y = boss_centerPos.y - 100 + sinf(theta + 1) * 5;
+
+		bodyBack_accel += 0.01f;
+
+		if (nextstate == AfterFightAttack) {
+
+			leftdownArm_move_x = Easing(boss_leftdownArmPos.x, boss_centerPos.x - 150, motionspeed, Easing::kInCubic);
+			leftdownArm_move_y = Easing(boss_leftdownArmPos.y, boss_centerPos.y - 100, motionspeed, Easing::kInCubic);
+			rightdownArm_move_x = Easing(boss_rightdownArmPos.x, boss_centerPos.x + 150, motionspeed, Easing::kInCubic);
+			rightdownArm_move_y = Easing(boss_rightdownArmPos.y, boss_centerPos.y - 100, motionspeed, Easing::kInCubic);
+			downArm_theta = Easing(700 * M_PI / 180, 0, motionspeed, Easing::kInCubic);
+
+			nextstate = Wait;
+			bossstate = AfterFightAttack;
+
+		}
+
+		break;
+	case AfterFightAttack:
+
+		leftdownArm_move_x.Move(1.0f);
+		leftdownArm_move_y.Move(1.0f);
+		rightdownArm_move_x.Move(1.0f);
+		rightdownArm_move_y.Move(1.0f);
+		downArm_theta.Move(1.0f);
+
+		boss_leftdownArmPos = Vector2D(leftdownArm_move_x.p, leftdownArm_move_y.p);
+		boss_rightdownArmPos = Vector2D(rightdownArm_move_x.p, rightdownArm_move_y.p);
+
+		if ((int)frame % 4 == 0 && downarmFrame > 0) {
+			downarmFrame--;
+		}
+
+		if (leftdownArm_move_x.IsEnd() == true) {
+			bossstate = Wait;
+		}
+
+		break;
+	}
 }

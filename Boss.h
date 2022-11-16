@@ -31,6 +31,77 @@ public:
 	float GetHealth() { return health; };
 
 private:
+	struct Spear {
+		Vector2D position = Vector2D();
+		Vector2D direction = Vector2D();
+		float theta = 0;
+		int frame = 0;
+		bool isPre = false;
+		bool isInject = false;
+		Easing speed = Easing(5, 50, 0.01f, Easing::kOutBack);
+	};
+
+	Spear leftSpear;
+	Spear rightSpear;
+
+	bool isPreSpear;
+	int preSpearFrame;
+
+	enum BossState {
+		Wait,
+		PreMageAttack,
+		MageAttack,
+		AfterMageAttack,
+		PreFightAttack,
+		FightAttack,
+		AfterFightAttack
+	};
+
+	BossState bossstate = Wait;
+	BossState nextstate = Wait;
+
+	float frame = 0.0f;
+
+	float motionspeed = 0.02f;
+
+	float theta = 0;
+
+	Vector2D boss_centerPos = Vector2D(500, 500);
+	Vector2D boss_bodyPos = Vector2D(boss_centerPos.x, boss_centerPos.y);
+	Vector2D boss_leftupArmPos = Vector2D(boss_centerPos.x - 150, boss_centerPos.y + 50);
+	Vector2D boss_rightupArmPos = Vector2D(boss_centerPos.x + 150, boss_centerPos.y + 50);
+	Vector2D boss_leftdownArmPos = Vector2D(boss_centerPos.x - 150, boss_centerPos.y - 100);
+	Vector2D boss_rightdownArmPos = Vector2D(boss_centerPos.x + 150, boss_centerPos.y - 100);
+	Vector2D boss_ringPos = Vector2D(boss_centerPos.x, boss_centerPos.y + 150);
+	Vector2D boss_leg1Pos = Vector2D(boss_centerPos.x, boss_centerPos.y - 150);
+	Vector2D boss_leg2Pos = Vector2D(boss_centerPos.x, boss_centerPos.y - 225);
+
+	Easing leftupArm_move_x = Easing(boss_leftupArmPos.x, boss_centerPos.x - 75, 0.01, Easing::kInCubic);
+	Easing leftupArm_move_y = Easing(boss_leftupArmPos.y, boss_centerPos.y + 50, 0.01, Easing::kInCubic);
+	Easing rightupArm_move_x = Easing(boss_rightupArmPos.x, boss_centerPos.x + 75, 0.01, Easing::kInCubic);
+	Easing rightupArm_move_y = Easing(boss_rightupArmPos.y, boss_centerPos.y + 50, 0.01, Easing::kInCubic);
+
+	Easing leftdownArm_move_x = Easing(boss_leftdownArmPos.x, boss_centerPos.x - 75, 0.01, Easing::kInCubic);
+	Easing leftdownArm_move_y = Easing(boss_leftdownArmPos.y, boss_centerPos.y - 50, 0.01, Easing::kInCubic);
+	Easing rightdownArm_move_x = Easing(boss_rightdownArmPos.x, boss_centerPos.x + 75, 0.01, Easing::kInCubic);
+	Easing rightdownArm_move_y = Easing(boss_rightdownArmPos.y, boss_centerPos.y - 50, 0.01, Easing::kInCubic);
+
+	Easing upArm_theta = Easing(0, 700 * 3.14 / 180, 0.01, Easing::kInCubic);
+
+	Easing downArm_theta = Easing(0, 700 * 3.14 / 180, 0.01, Easing::kInCubic);
+
+	float bodyBack_theta = 0;
+	float bodyBack_accel = 1.0f;
+
+	float uparmFrame = 0.0f;
+	float downarmFrame = 0.0f;
+
+	bool isAttack1 = false;
+	bool isAttack2 = false;
+	bool isAttack1End = false;
+	bool isAttack2End = false;
+
+
 	// ノックバック
 	void KnockBack();
 

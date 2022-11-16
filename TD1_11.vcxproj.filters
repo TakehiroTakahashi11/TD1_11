@@ -38,7 +38,7 @@
     <Filter Include="Module\Map">
       <UniqueIdentifier>{7425941c-cec8-4f1c-a007-5cfc2c8fc0db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Module\Ballet">
+    <Filter Include="Module\Bullet">
       <UniqueIdentifier>{0cc464ff-f6e1-4b68-8c1e-47ef918f6dc7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -143,13 +143,13 @@
       <Filter>Module\Map</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="BaseBullet.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="BossAttack1.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Thunder.cpp">
       <Filter>Module\Effect</Filter>
@@ -176,7 +176,7 @@
       <Filter>Module\Effect</Filter>
     </ClCompile>
     <ClCompile Include="BossAttack2.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="PreRush.cpp">
       <Filter>Module\Effect</Filter>
@@ -185,13 +185,16 @@
       <Filter>Module\Effect</Filter>
     </ClCompile>
     <ClCompile Include="Mine.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Enemy1.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="MineExplode.cpp">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Lazer.cpp">
+      <Filter>Module\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -358,13 +361,13 @@
       <Filter>Module\Map</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BaseBullet.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BossAttack1.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Thunder.h">
       <Filter>Module\Effect</Filter>
@@ -391,7 +394,7 @@
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="BossAttack2.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="PreRush.h">
       <Filter>Module\Effect</Filter>
@@ -400,13 +403,16 @@
       <Filter>Module\Effect</Filter>
     </ClInclude>
     <ClInclude Include="Mine.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Enemy1.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="MineExplode.h">
-      <Filter>Module\Ballet</Filter>
+      <Filter>Module\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Lazer.h">
+      <Filter>Module\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

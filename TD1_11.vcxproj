@@ -123,6 +123,7 @@
     <ClCompile Include="Gauntlets.cpp" />
     <ClCompile Include="InGameScene.cpp" />
     <ClCompile Include="KeyMouseInput.cpp" />
+    <ClCompile Include="Lazer.cpp" />
     <ClCompile Include="LoadScene.cpp" />
     <ClCompile Include="MagicCircleThunder.cpp" />
     <ClCompile Include="main.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Gauntlets.h" />
     <ClInclude Include="InGameScene.h" />
     <ClInclude Include="KeyMouseInput.h" />
+    <ClInclude Include="Lazer.h" />
     <ClInclude Include="Lerp.h" />
     <ClInclude Include="LoadScene.h" />
     <ClInclude Include="MagicCircleThunder.h" />

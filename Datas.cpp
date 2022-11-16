@@ -51,8 +51,21 @@ Texture Datas::GAUNTLET_DASH_LEFTUP_TEX = Texture(512, 512);
 Texture Datas::GAUNTLET_DASH_RIGHTDOWN_TEX = Texture(512, 512);
 Texture Datas::GAUNTLET_DASH_LEFTDOWN_TEX = Texture(512, 512);
 
-Texture Datas::BOSS1_TEX = Texture(512, 560);
+//Texture Datas::BOSS1_leftSpear = Texture(512, 560);
+//Texture Datas::BOSS1_rightSpear = Texture(512, 560);
+
+Texture Datas::BOSS1_body = Texture(512, 256);
+Texture Datas::BOSS1_leftupArm = Texture(160, 112);
+Texture Datas::BOSS1_rightupArm = Texture(160, 112);
+Texture Datas::BOSS1_leftdownArm = Texture(192, 128);
+Texture Datas::BOSS1_rightdownArm = Texture(192, 128);
+
+Texture Datas::BOSS1_ring = Texture(128, 64);
+Texture Datas::BOSS1_leg1 = Texture(224, 112);
+Texture Datas::BOSS1_leg2 = Texture(272, 224);
+Texture Datas::BOSS1_bodyBack = Texture(256, 256);
 Texture Datas::BOSS1_VINNET_TEX = Texture(512, 560);
+
 Texture Datas::EFFECTS_HIT_TEX = Texture(EFFECTS_HIT_SIZE, EFFECTS_HIT_SIZE);
 Texture Datas::EFFECTS_ATK_TEX = Texture(EFFECTS_ATK_SIZE, EFFECTS_ATK_SIZE);
 Texture Datas::EFFECTS_THUNDER_TEX = Texture(400, 400);
@@ -79,6 +92,8 @@ Texture Datas::MINE_TEX = Texture(64, 64);
 Texture Datas::MINE_EXPLODE_TEX = Texture(64, 64);
 
 Texture Datas::ENEMY1_TEX = Texture(64, 64);
+
+Texture Datas::LAZER_TEX = Texture(400, 400);
 
 Texture Datas::MAP_TEX = Texture(64, 64);
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
@@ -179,8 +194,31 @@ void Datas::LoadTexture()
 	GAUNTLET_DASH_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_LeftDown_Dash.png"));
 	Per++;
 
-	BOSS1_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
+	//BOSS1_leftSpear.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
+	//Per++;
+	//BOSS1_rightSpear.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
+	//Per++;
+
+	BOSS1_body.SetHandle(Novice::LoadTexture("./Resources/Boss/body.png"));
 	Per++;
+	BOSS1_leftupArm.SetHandle(Novice::LoadTexture("./Resources/Boss/leftup_arm.png"));
+	Per++;
+	BOSS1_rightupArm.SetHandle(Novice::LoadTexture("./Resources/Boss/rightup_arm.png"));
+	Per++;
+	BOSS1_leftdownArm.SetHandle(Novice::LoadTexture("./Resources/Boss/leftdown_arm.png"));
+	Per++;
+	BOSS1_rightdownArm.SetHandle(Novice::LoadTexture("./Resources/Boss/rightdown_arm.png"));
+	Per++;
+
+	BOSS1_ring.SetHandle(Novice::LoadTexture("./Resources/Boss/ring.png"));
+	Per++;
+	BOSS1_leg1.SetHandle(Novice::LoadTexture("./Resources/Boss/leg1.png"));
+	Per++;
+	BOSS1_leg2.SetHandle(Novice::LoadTexture("./Resources/Boss/leg2.png"));
+	Per++;
+	BOSS1_bodyBack.SetHandle(Novice::LoadTexture("./Resources/Boss/back_body.png"));
+	Per++;
+
 	BOSS1_VINNET_TEX.SetHandle(Novice::LoadTexture("./Resources/Boss/BossVinnet.png"));
 	Per++;
 	EFFECTS_HIT_TEX.SetHandle(Novice::LoadTexture("white1x1.png"));
@@ -221,6 +259,8 @@ void Datas::LoadTexture()
 	MINE_EXPLODE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Rush/PreRush.png"));
 
 	ENEMY1_TEX.SetHandle(Novice::LoadTexture("./Resources/Enemy/Attack_Enemy.png"));
+
+	LAZER_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Laser/Laser.png"));
 
 	MAGIC_CIRCLE_TEX.SetHandle(Novice::LoadTexture("./Resources/Effect/Thunder/MagicCircle.png"));
 	Per++;

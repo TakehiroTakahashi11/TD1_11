@@ -151,14 +151,14 @@ public:
     static constexpr float BOSS_TIMELINE_DISTANCE_1 = 500.0f;// ボスが行動を変える距離1
     static constexpr float BOSS_TIMELINE_DISTANCE_2 = 800.0f;// ボスが行動を変える距離2
 
-    static constexpr float BOSS_ATTACK1_OFFSET = 160.0f;// アタック1の後に攻撃が行われない時間
-    static constexpr float BOSS_ATTACK1_2_OFFSET = 90.0f;
-    static constexpr float BOSS_ATTACK2_OFFSET = 110.0f;// 
-    static constexpr float BOSS_RUSH1_OFFSET = 300.0f;// 
+    static constexpr float BOSS_ATTACK1_OFFSET = 520.0f;// アタック1の後に攻撃が行われない時間
+    static constexpr float BOSS_ATTACK1_2_OFFSET = 520.0f;
+    static constexpr float BOSS_ATTACK2_OFFSET = 420.0f;// 
+    static constexpr float BOSS_RUSH1_OFFSET = 320.0f;// 
     static constexpr float BOSS_RUSH1_2_OFFSET = 500.0f;// 
-    static constexpr float BOSS_RUSH2_OFFSET = 200.0f;
-    static constexpr float BOSS_THUNDER1_OFFSET = 200.0f;
-    static constexpr float BOSS_MINE1_OFFSET = 30.0f;
+    static constexpr float BOSS_RUSH2_OFFSET = 240.0f;
+    static constexpr float BOSS_THUNDER1_OFFSET = 300.0f;
+    static constexpr float BOSS_MINE1_OFFSET = 100.0f;
 
     static constexpr float BOSS1_DASH_COOLTIME = 1000.0f;
 
@@ -168,7 +168,18 @@ public:
     static constexpr int BOSS1_ANIM_SPD = 3;// アニメーション速度
     static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
-    static Texture BOSS1_TEX;// テクスチャ
+
+    //static Texture BOSS1_leftSpear;
+    //static Texture BOSS1_rightSpear;
+    static Texture BOSS1_body;
+    static Texture BOSS1_leftupArm;
+    static Texture BOSS1_rightupArm;
+    static Texture BOSS1_leftdownArm;
+    static Texture BOSS1_rightdownArm;
+    static Texture BOSS1_ring;
+    static Texture BOSS1_leg1;
+    static Texture BOSS1_leg2;
+    static Texture BOSS1_bodyBack;
     static Texture BOSS1_VINNET_TEX;// テクスチャ
 
     // =========================
@@ -250,6 +261,11 @@ public:
     static constexpr float ENEMY1_SIZE = 64.0f;
     static constexpr float ENEMY1_DAMAGE = 20.0f;
     static Texture ENEMY1_TEX;// テクスチャ
+
+    // レーザー
+    static constexpr float LAZER_SIZE = 200.0f;
+    static constexpr float LAZER_DAMAGE = 20.0f;
+    static Texture LAZER_TEX;// テクスチャ
 
     // =========================
     // Map
