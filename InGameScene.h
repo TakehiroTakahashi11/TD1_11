@@ -12,5 +12,5 @@ public:
 	void Finalise() override;
 
 private:
-
+	bool isTutorial;
 };
