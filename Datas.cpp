@@ -51,8 +51,8 @@ Texture Datas::GAUNTLET_DASH_LEFTUP_TEX = Texture(512, 512);
 Texture Datas::GAUNTLET_DASH_RIGHTDOWN_TEX = Texture(512, 512);
 Texture Datas::GAUNTLET_DASH_LEFTDOWN_TEX = Texture(512, 512);
 
-//Texture Datas::BOSS1_leftSpear = Texture(512, 560);
-//Texture Datas::BOSS1_rightSpear = Texture(512, 560);
+Texture Datas::BOSS1_leftSpear = Texture(512, 560);
+Texture Datas::BOSS1_rightSpear = Texture(512, 560);
 
 Texture Datas::BOSS1_body = Texture(512, 256);
 Texture Datas::BOSS1_leftupArm = Texture(160, 112);
@@ -194,10 +194,10 @@ void Datas::LoadTexture()
 	GAUNTLET_DASH_LEFTDOWN_TEX.SetHandle(Novice::LoadTexture("./Resources/Gauntlet/Gauntlet_LeftDown_Dash.png"));
 	Per++;
 
-	//BOSS1_leftSpear.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
-	//Per++;
-	//BOSS1_rightSpear.SetHandle(Novice::LoadTexture("./Resources/Boss/Boss1.png"));
-	//Per++;
+	BOSS1_leftSpear.SetHandle(Novice::LoadTexture("./Resources/Boss/spear_left.png"));
+	Per++;
+	BOSS1_rightSpear.SetHandle(Novice::LoadTexture("./Resources/Boss/spear_right.png"));
+	Per++;
 
 	BOSS1_body.SetHandle(Novice::LoadTexture("./Resources/Boss/body.png"));
 	Per++;

@@ -158,7 +158,7 @@ public:
     static constexpr float BOSS_RUSH1_2_OFFSET = 500.0f;// 
     static constexpr float BOSS_RUSH2_OFFSET = 240.0f;
     static constexpr float BOSS_THUNDER1_OFFSET = 300.0f;
-    static constexpr float BOSS_MINE1_OFFSET = 100.0f;
+    static constexpr float BOSS_MINE1_OFFSET = 240.0f;
 
     static constexpr float BOSS1_DASH_COOLTIME = 1000.0f;
 
@@ -169,8 +169,8 @@ public:
     static constexpr int BOSS1_ANIM_MAX_X = 23;// アニメーション横最大コマ
     static constexpr int BOSS1_ANIM_MAX_Y = 2;// アニメーション横最大コマ
 
-    //static Texture BOSS1_leftSpear;
-    //static Texture BOSS1_rightSpear;
+    static Texture BOSS1_leftSpear;
+    static Texture BOSS1_rightSpear;
     static Texture BOSS1_body;
     static Texture BOSS1_leftupArm;
     static Texture BOSS1_rightupArm;
