@@ -156,8 +156,8 @@ public:
     static constexpr float BOSS_ATTACK2_OFFSET = 420.0f;// 
     static constexpr float BOSS_RUSH1_OFFSET = 320.0f;// 
     static constexpr float BOSS_RUSH1_2_OFFSET = 500.0f;// 
-    static constexpr float BOSS_RUSH2_OFFSET = 240.0f;
-    static constexpr float BOSS_THUNDER1_OFFSET = 300.0f;
+    static constexpr float BOSS_RUSH2_OFFSET = 440.0f;
+    static constexpr float BOSS_THUNDER1_OFFSET = 600.0f;
     static constexpr float BOSS_MINE1_OFFSET = 240.0f;
 
     static constexpr float BOSS1_DASH_COOLTIME = 1000.0f;
@@ -207,6 +207,7 @@ public:
     static constexpr float EFFECTS_PRERUSH_HEIGHT = 2048.0f;
 
     static constexpr float BOSS_ATTACK1_DIS = 100.0f;// 初期位置の中心からの距離
+    static constexpr float BOSS_ATTACK_FIS = 120.0f;// 発射間隔
     static constexpr float BOSS_ATTACK1_SHOOT_DIS = 5.0f;// 発射間隔
     static constexpr float BOSS_ATTACK1_WAVE_DIS = 50.0f;// ウェーブ間隔
     static constexpr float BOSS_ATTACK1_SPEED = 10.0f;// 速度

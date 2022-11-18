@@ -444,7 +444,7 @@ void Boss::SetNextAction(BossAction bossaction)
 		if (!attack1Flag) {
 			attack1Flag = true;
 			attack1Elapsed = 0.0f;
-			attack1bullet1Time = -1.0f;
+			attack1bullet1Time = 999.0f;
 			attack1bullet2Time = 0.0f;
 			attack1bullet3Time = 0.0f;
 			attack1bullet4Time = 0.0f;
@@ -463,7 +463,7 @@ void Boss::SetNextAction(BossAction bossaction)
 		if (!attack1_1Flag) {
 			attack1_1Flag = true;
 			attack1Elapsed = 0.0f;
-			attack1bullet1Time = -1.0f;
+			attack1bullet1Time = 999.0f;
 			attack1bullet2Time = 0.0f;
 			attack1bullet3Time = 0.0f;
 			attack1bullet4Time = 0.0f;
@@ -482,7 +482,7 @@ void Boss::SetNextAction(BossAction bossaction)
 		if (!attack1_2Flag) {
 			attack1_2Flag = true;
 			attack1Elapsed = 0.0f;
-			attack1bullet1Time = -1.0f;
+			attack1bullet1Time = 999.0f;
 			attack1bullet2Time = 0.0f;
 			attack1bullet3Time = 0.0f;
 			attack1bullet4Time = 0.0f;
@@ -502,7 +502,7 @@ void Boss::SetNextAction(BossAction bossaction)
 		if (!attack2Flag) {
 			attack2Flag = true;
 			attack2Elapsed = 0.0f;
-			attack2bullet1Time = -1.0f;
+			attack2bullet1Time = 999.0f;
 			attack2bullet2Time = 0.0f;
 			attack2bullet3Time = 0.0f;
 			attack2bullet4Time = 0.0f;
@@ -656,7 +656,7 @@ void Boss::Move1()
 void Boss::Attack1()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == -1.0f && attack1Elapsed > 340.0f) {
+	if (attack1bullet1Time == 999.0f && attack1Elapsed > Datas::BOSS_ATTACK_FIS) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet1Time = attack1Elapsed;
 	}
@@ -703,7 +703,7 @@ void Boss::Attack1()
 void Boss::Attack1_1()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == -1.0f && attack1Elapsed > 340.0f) {
+	if (attack1bullet1Time == 999.0f && attack1Elapsed > 140.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1);
 		attack1bullet1Time = attack1Elapsed;
 	}
@@ -750,7 +750,7 @@ void Boss::Attack1_1()
 void Boss::Attack1_2()
 {
 	attack1Elapsed += Delta::getTotalDelta();
-	if (attack1bullet1Time == -1.0f && attack1Elapsed > 145.0f) {
+	if (attack1bullet1Time == 999.0f && attack1Elapsed > 145.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack1_9);
 		BulletManager::MakeNewBullet(position, kBossAttack1_8);
 		BulletManager::MakeNewBullet(position, kBossAttack1_7);
@@ -770,7 +770,7 @@ void Boss::Attack1_2()
 void Boss::Attack2()
 {
 	attack2Elapsed += Delta::getTotalDelta();
-	if (attack2bullet1Time == -1.0f && attack1Elapsed > 300.0f) {
+	if (attack2bullet1Time == 999.0f && attack1Elapsed > 140.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack2);
 		attack2bullet1Time = attack2Elapsed;
 	}
@@ -903,7 +903,7 @@ void Boss::Rush2()
 	rush2Elapsed += Delta::getTotalDelta();
 	rush2_ef_num = -1;
 
-	if (rush2Elapsed > 40.0f) {
+	if (rush2Elapsed > 440.0f) {
 		boss_rush2_X.Move(Delta::getTotalDelta());
 		boss_rush2_Y.Move(Delta::getTotalDelta());
 		position = { boss_rush2_X.p, boss_rush2_Y.p };
