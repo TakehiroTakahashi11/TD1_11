@@ -30,6 +30,18 @@ public:
 	Vector2D GetPosition() { return position; };
 	float GetHealth() { return health; };
 
+	bool GetmoveTutorial() { return moveTutorial; }
+	bool GetguardTutorial() { return guardTutorial; }
+	bool GetdashTutorial() { return dashTutorial; }
+	bool GetjustTutorial() { return justTutorial; }
+	bool GetchargeTutorial() { return chargeTutorial; }
+
+	void SetmoveTutorial() { moveTutorial = true; dashTutorial = false; }
+	void SetdashTutorial() { dashTutorial = true; guardTutorial = false; }
+	void SetguardTutorial() { guardTutorial = true; justTutorial = false; }
+	void SetjustTutorial() { justTutorial = true; chargeTutorial = false; }
+	void SetchargeTutorial() { chargeTutorial = true; }
+
 private:
 	struct Spear {
 		Vector2D position = Vector2D();
@@ -100,13 +112,16 @@ private:
 	bool isAttack2 = false;
 	bool isAttack1End = false;
 	bool isAttack2End = false;
-
+	
 
 	// ノックバック
 	void KnockBack();
 
 	// タイムライン
 	void TimeLine();
+
+	// チュートリアル用タイムライン
+	void Tutorial();
 
 	// 移行減算
 	void Migration();
@@ -193,6 +208,19 @@ private:
 	float migrationTime;
 	// 前回の行動
 	BossAction beforeAction;
+
+	// チュートリアルじゃない
+	bool isnTutorial;
+	//
+	bool moveTutorial;
+	//
+	bool guardTutorial;
+	//
+	bool dashTutorial;
+	//
+	bool justTutorial;
+	//
+	bool chargeTutorial;
 
 	// Move1
 	float dashCoolTime;

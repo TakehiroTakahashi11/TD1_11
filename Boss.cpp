@@ -98,6 +98,13 @@ void Boss::Init()
 
 	isPreSpear = false;
 	preSpearFrame = 0.0f;
+
+	isnTutorial = false;
+	moveTutorial = false;
+	guardTutorial = false;
+	dashTutorial = false;
+	justTutorial = false;
+	chargeTutorial = false;
 }
 
 void Boss::Update()
@@ -106,7 +113,12 @@ void Boss::Update()
 	Migration();
 
 	// アクション管理タイムライン
-	TimeLine();
+	if (!isnTutorial) {
+		Tutorial();
+	}
+	else {
+		TimeLine();
+	}
 
 	// アクション
 	Action();
@@ -199,7 +211,9 @@ void Boss::PtoBCollision()
 			getGauntlets().SetEndChargeAtk();
 			EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
 			getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
-			health -= Datas::PLAYER_ATTACK_DAMAGE;
+			if (isnTutorial) {
+				health -= Datas::PLAYER_ATTACK_DAMAGE;
+			}
 
 			tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
 
@@ -216,7 +230,9 @@ void Boss::PtoBCollision()
 			getPlayer().SetMove();
 			EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
 			getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
-			health -= Datas::PLAYER_ATTACK_DAMAGE;
+			if (isnTutorial) {
+				health -= Datas::PLAYER_ATTACK_DAMAGE;
+			}
 
 			tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
 
@@ -243,14 +259,14 @@ void Boss::KnockBack()
 {
 	if (knockBackVel.x != 0.0f || knockBackVel.y != 0.0f) {
 		knockBackVel -= knockBackVel.Normalized() * Datas::GAUNTLET_KNOCKBACK_DIS * Delta::getTotalDelta();
-		if (knockBackVel.Length() < Datas::GAUNTLET_KNOCKBACK_DIS + 0.1f) {
+		if (knockBackVel.Length() < Datas::GAUNTLET_KNOCKBACK_DIS + 0.01f) {
 			knockBackVel.setZero();
 		}
 		position += knockBackVel * Delta::getTotalDelta();
 		if (getGame().getMap().IsWall(position, { width,height })) {
 			isKnockBack = false;
 			Delta::HitStop(60.0f);
-			getCameraMain().CameraShake({ 15.0f,15.0f }, { -0.5f,-0.5f }, 60.0f);
+			getCameraMain().CameraShake({ 15.0f,15.0f }, { -0.5f,-0.5f }, 45.0f);
 		}
 	}
 	else {
@@ -266,6 +282,11 @@ void Boss::TimeLine()
 {
 	// AI
 	if (canMigration) {
+
+		// test
+		// SetNextAction(kAttack2);
+
+#pragma region AI
 		if (beforeAction == kAttack1_1 || beforeAction == kAttack1_2 || beforeAction == kAttack2) {
 			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// 距離が近いなら
 				SetNextAction(None);
@@ -418,6 +439,28 @@ void Boss::TimeLine()
 			}
 			return;
 		}
+#pragma endregion
+
+	}
+}
+
+void Boss::Tutorial()
+{
+	if (canMigration) {
+		if (beforeAction == None) {
+			SetNextAction(kAttack1_2);
+		}
+
+		if (beforeAction == kAttack1_2) {
+			SetNextAction(None);
+		}
+	}
+	
+	if ((moveTutorial && justTutorial && dashTutorial && guardTutorial && chargeTutorial)
+		&& (!getPlayer().GetIsChargeAttack() && !getPlayer().GetIsDash())) {
+		getPlayer().SetMove();
+		isnTutorial = true;
+		getGame().getMap().SetMapNum(1);
 	}
 }
 
@@ -566,6 +609,16 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH2_OFFSET;
 			nextstate = PreFightAttack;
+			rightSpear.isPre = true;
+			leftSpear.isPre = true;
+			rightSpear.isInject = false;
+			leftSpear.isInject = false;
+			rightSpear.frame = 0;
+			leftSpear.frame = 0;
+			rightSpear.position = Vector2D(boss_bodyPos.x + 150, boss_bodyPos.y + 100);
+			leftSpear.position = Vector2D(boss_bodyPos.x - 150, boss_bodyPos.y + 100);
+			leftSpear.speed = Easing(20, 60, 0.01f, Easing::kOutBack);
+			rightSpear.speed = Easing(20, 60, 0.01f, Easing::kOutBack);
 		}
 		break;
 	case Boss::kThunder1:
@@ -913,6 +966,41 @@ void Boss::Rush2()
 		homePos = position;
 		rush2Flag = false;
 		nextstate = AfterFightAttack;
+	}
+
+	if (rightSpear.isPre) {
+		rightSpear.frame += Delta::getTotalDelta();
+		rightSpear.theta = atan2(boss_rush2_Y.GetEnd() - rightSpear.position.y, boss_rush2_X.GetEnd() - rightSpear.position.x);
+		rightSpear.direction = Vector2D(cosf(rightSpear.theta), sinf(rightSpear.theta));
+
+		if (rightSpear.frame > 80) {
+			rightSpear.isInject = true;
+			rightSpear.isPre = false;
+			rightSpear.frame = 0;
+		}
+	}
+
+	if (leftSpear.isPre == true) {
+		leftSpear.frame += Delta::getTotalDelta();
+		leftSpear.theta = atan2(boss_rush2_Y.GetEnd() - leftSpear.position.y, boss_rush2_X.GetEnd() - leftSpear.position.x);
+		leftSpear.direction = Vector2D(cosf(leftSpear.theta), sinf(leftSpear.theta));
+
+		if (leftSpear.frame > 120) {
+			leftSpear.isInject = true;
+			leftSpear.isPre = false;
+			leftSpear.frame = 0;
+		}
+
+	}
+
+	if (rightSpear.isInject) {
+		rightSpear.speed.Move(Delta::getTotalDelta());
+		rightSpear.position += rightSpear.direction * rightSpear.speed.p;
+	}
+
+	if (leftSpear.isInject) {
+		leftSpear.speed.Move(Delta::getTotalDelta());
+		leftSpear.position += leftSpear.direction * leftSpear.speed.p;
 	}
 }
 
