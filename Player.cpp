@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "EffectManager.h"
 #include "Map.h"
+#include "Boss.h"
 
 /// @brief コンストラクタ
 /// @param pGame ゲームのポインタ
@@ -224,8 +225,6 @@ void Player::Update() {// ======================================================
 		}
 		Novice::ScreenPrintf(0, 40, "PLAYER_POS_X:%.1f", position.x);
 		Novice::ScreenPrintf(200, 40, "PLAYER_POS_Y:%.1f", position.y);
-
-		Novice::ScreenPrintf(500, 540, "JUST:%d", justDodge);
 	}
 	// =====================================================================================
 }
@@ -410,6 +409,9 @@ void Player::Move()
 	// アニメーション
 	if ((velocity.x != 0.0f || velocity.y != 0.0f) && !isGuard) {
 		move_anim += Delta::getTotalDelta();// 動いていたらアニメーション
+		if (!getBoss().GetmoveTutorial()) {
+			getBoss().SetmoveTutorial();
+		}
 	}
 	else {
 		move_anim = 0.0f;
@@ -438,6 +440,9 @@ void Player::Dash() {
 		if (IsCntMode()) {// コントローラー
 			if (Controller::IsTriggerButton(0, Controller::rSHOULDER)) {// RBを押したなら
 				isDash = true;// ダッシュ中に変更
+				if (!getBoss().GetdashTutorial()) {
+					getBoss().SetdashTutorial();
+				}
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				JustDodgePosition[0] = position;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
@@ -446,6 +451,9 @@ void Player::Dash() {
 		else {// キーボード
 			if (Key::IsTrigger(DIK_SPACE)) {// SPACEを押したなら
 				isDash = true;// ダッシュ中に変更
+				if (!getBoss().GetdashTutorial()) {
+					getBoss().SetdashTutorial();
+				}
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				JustDodgePosition[0] = position;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
@@ -537,12 +545,18 @@ void Player::Guard() {
 	if (IsCntMode()) {// コントローラー
 		if (Controller::IsPressedButton(0, Controller::lSHOULDER)) {// Lbが押されているなら
 			isGuard = true;// ガード中にする
+			if (!getBoss().GetguardTutorial()) {
+				getBoss().SetguardTutorial();
+			}
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
 	}
 	else {// キーボード
 		if (Key::IsPressed(DIK_Z)) {// Zが押されているなら
 			isGuard = true;// ガード中にする
+			if (!getBoss().GetguardTutorial()) {
+				getBoss().SetguardTutorial();
+			}
 			stamina -= Datas::PLAYER_GUARD_STAMINA;
 		}
 	}
@@ -558,6 +572,9 @@ void Player::ChargeAttack()
 				}
 				else {
 					isChargeAttack = true;
+					if (!getBoss().GetchargeTutorial()) {
+						getBoss().SetchargeTutorial();
+					}
 				}
 			}
 		}
@@ -568,6 +585,9 @@ void Player::ChargeAttack()
 				}
 				else {
 					isChargeAttack = true;
+					if (!getBoss().GetchargeTutorial()) {
+						getBoss().SetchargeTutorial();
+					}
 				}
 			}
 		}
@@ -659,6 +679,8 @@ void Player::CheckJust()
 {
 	charge += Datas::PLAYER_JUSTDODGE_CHARGE;
 	// 音
+
+	getBoss().SetjustTutorial();
 	justDodge = false;
 }
 
