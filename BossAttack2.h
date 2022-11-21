@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseBullet.h"
 
-#define BossAttack2MaxNum 1
+#define BossAttack2MaxNum 4
 
 class BossAttack2 : public BaseBullet
 {

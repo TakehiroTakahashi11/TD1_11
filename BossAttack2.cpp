@@ -27,6 +27,21 @@ void BossAttack2::Init()
 	for (int i = 0; i < BossAttack2MaxNum; i++) {
 		//弾が向かう方向
 		Vector2D dir = position - pGame.getPlayer().GetPosition();
+		switch (i)
+		{
+		case 1:
+			dir = dir.Rotated(0.5f * M_PI);
+			break;
+		case 2:
+			dir = dir.Rotated(M_PI);
+			break;
+		case 3:
+			dir = dir.Rotated(1.5f * M_PI);
+			break;
+		case 0:
+		default:
+			break;
+		}
 		bossAttack2[i].theta = atan2f(-dir.y, -dir.x);
 
 		//弾の位置、速度、サイズ初期化
