@@ -35,8 +35,8 @@ void MineExplode::Update()
 	else {
 		// “–‚½‚è”»’è
 		if (!pGame.getPlayer().GetIsInvincible()) {
-			if ((position.x - Datas::MINE_EXPLODE_SIZE * 0.5f < pGame.getPlayer().GetPosition().x && pGame.getPlayer().GetPosition().x < position.x - Datas::MINE_EXPLODE_SIZE * 0.5f)
-				||(position.y - Datas::MINE_EXPLODE_SIZE * 0.5f < pGame.getPlayer().GetPosition().y && pGame.getPlayer().GetPosition().y < position.y - Datas::MINE_EXPLODE_SIZE * 0.5f)) {
+			if ((position.x - Datas::MINE_EXPLODE_SIZE * 0.5f < pGame.getPlayer().GetPosition().x && pGame.getPlayer().GetPosition().x < position.x + Datas::MINE_EXPLODE_SIZE * 0.5f)
+				||(position.y - Datas::MINE_EXPLODE_SIZE * 0.5f < pGame.getPlayer().GetPosition().y && pGame.getPlayer().GetPosition().y < position.y + Datas::MINE_EXPLODE_SIZE * 0.5f)) {
 				pGame.getPlayer().SetDamage(Datas::MINE_EXPLODE_DAMAGE);
 				pGame.getPlayer().SetMove();
 				pGame.getPlayer().SetKnockBack((pGame.getPlayer().GetPosition() - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
