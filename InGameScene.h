@@ -11,6 +11,4 @@ public:
 	void Draw() override;
 	void Finalise() override;
 
-private:
-	bool isTutorial;
 };
