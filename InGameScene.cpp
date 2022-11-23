@@ -68,11 +68,13 @@ void InGameScene::Draw() {
 		if (IsCntMode()) {
 			if (Controller::IsTriggerButton(0, Controller::bB)) {
 				getPlayer().SetisGameOver();
+				alpha = 0x00;
 			}
 		}
 		else {
 			if (Key::IsTrigger(DIK_SPACE)) {
 				getPlayer().SetisGameOver();
+				alpha = 0x00;
 			}
 		}
 	}

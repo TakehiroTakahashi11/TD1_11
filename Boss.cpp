@@ -114,6 +114,10 @@ void Boss::Init()
 
 	movePosEaseX.SetMode(Easing::kInBack);
 	movePosEaseY.SetMode(Easing::kInBack);
+	movePosEaseX.SetStart(0.0f);
+	movePosEaseY.SetStart(0.0f);
+	movePosEaseX.SetEnd(0.0f);
+	movePosEaseY.SetEnd(0.0f);
 	movePosEaseX.SetVel(0.01f);
 	movePosEaseY.SetVel(0.01f);
 	Move2Reset = false;
