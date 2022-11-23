@@ -32,6 +32,7 @@ void Gauntlets::Init()
 	chargeAttackSpeed = 0.0f;
 
 	chargePos = { 0.0f,0.0f };
+	InitFlag = false;
 }
 
 void Gauntlets::Update()

@@ -93,6 +93,7 @@ public:// ゲッターセッター
 	void SetGuardDis(float damage) { stamina -= damage; Datas::GUARD_SOUND.PlayOnce(); }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove();
+	void SetCharge() { charge = 0.0f; }
 	void SetisGameOver();
 	void SetisGameClear();
 

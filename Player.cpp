@@ -239,14 +239,14 @@ void Player::Update() {// ======================================================
 		// =====================================================================================
 		// ガントレットの更新処理
 		getGauntlets().Update();
-
-		if (charge > Datas::PLAYER_CHARGE_MAX) {
-			charge = Datas::PLAYER_CHARGE_MAX;
-		}
 	}
 	else {
 
 
+	}
+
+	if (charge > Datas::PLAYER_CHARGE_MAX) {
+		charge = Datas::PLAYER_CHARGE_MAX;
 	}
 
 	// =====================================================================================
@@ -510,6 +510,7 @@ void Player::Dash() {
 
 		if (Datas::PLAYER_DASH_LEN + Datas::PLAYER_BEFORE_DASH < dash_length) {// 最大距離までダッシュしたら
 			isDash = false;// ダッシュオフ
+			Delta::HitStop(0.0f);
 			dash_anim = 0.0f;
 			justDodge_anim = 0.0f;
 			JustDodgePosition[0] = { -50000.0f,-50000.0f };
@@ -615,6 +616,7 @@ void Player::ChargeAttack()
 				}
 				else {
 					isChargeAttack = true;
+					getGauntlets().SetChargeAtkInit();
 					if (!getBoss().GetchargeTutorial()) {
 						getBoss().SetchargeTutorial();
 					}
@@ -628,6 +630,7 @@ void Player::ChargeAttack()
 				}
 				else {
 					isChargeAttack = true;
+					getGauntlets().SetChargeAtkInit();
 					Datas::SPECIAL_SOUND.PlayOnce();
 					if (!getBoss().GetchargeTutorial()) {
 						getBoss().SetchargeTutorial();
@@ -639,6 +642,7 @@ void Player::ChargeAttack()
 	if(isChargeAttack) {
 		if (getGauntlets().ChargeAttack()) {
 			isChargeAttack = false;
+			SetMove();
 			guard_break = true;
 			stamina = 0.0f;
 			charge = 0.0f;
@@ -724,7 +728,7 @@ void Player::CheckJust()
 	charge += Datas::PLAYER_JUSTDODGE_CHARGE;
 	// 音
 	Datas::BOOST_SOUND.PlayOnce();
-	Delta::HitStop(240.0f);
+	Delta::HitStop(60.0f);
 
 	getBoss().SetjustTutorial();
 	justDodge = false;
@@ -778,6 +782,7 @@ void Player::SetMove()
 	isGuard = false;
 	isChargeAttack = false;
 }
+
 
 void Player::SetisGameOver() 
 {

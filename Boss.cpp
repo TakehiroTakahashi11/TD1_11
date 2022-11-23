@@ -232,8 +232,8 @@ void Boss::PtoBCollision()
 			getPlayer().SetKnockBack(temp);
 			getPlayer().SetMove();
 			getGauntlets().SetEndChargeAtk();
+			getPlayer().SetCharge();
 			EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
-			getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
 			if (isnTutorial) {
 				int n = getPlayer().GetCharge() / Datas::PLAYER_CHARGE_DIS;
 				health -= Datas::PLAYER_ATTACK_DAMAGE * n;
@@ -491,6 +491,8 @@ void Boss::Tutorial()
 		getPlayer().SetMove();
 		isnTutorial = true;
 		getGame().getMap().SetMapNum(1);
+		Datas::BGM.SetVolume(0.018f);
+		Datas::TITLE_BGM.SetVolume(0.0f);
 	}
 }
 
