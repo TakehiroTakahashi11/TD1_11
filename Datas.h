@@ -17,7 +17,7 @@ public:
     // モード
     static constexpr bool FULL_SCREEN_MODE = false;// フルスクにするか
     static constexpr bool MOUSE_INV_MODE = true;// マウス非表示にするか
-    static constexpr bool DEBUG_MODE = true;// デバッグ用モードにするか
+    static constexpr bool DEBUG_MODE = false;// デバッグ用モードにするか
     static constexpr float DEBUG_SPEED = 1.0f;// デバッグ用の画面速度変更
     static constexpr float VIBRATION = 0.3f;// コントローラーバイブレーション倍率
 

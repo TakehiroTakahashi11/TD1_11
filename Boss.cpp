@@ -730,10 +730,7 @@ void Boss::Move1()
 				movePosEaseY.SetEnd(My::Random(-Datas::STAGE1_HEIGHT + width, Datas::STAGE1_HEIGHT - width));
 				Move2frame = 0.0f;
 				Move2cnt++;
-				if (Move2Reset) {
-					Move2Reset = false;
-					Move2cnt = 0;
-				}
+				Move2Reset = false;
 			}
 			else {
 				Move2frame += Delta::getTotalDelta();
