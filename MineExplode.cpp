@@ -43,10 +43,10 @@ void MineExplode::Update()
 				pGame.getPlayer().SetKnockBack((pGame.getPlayer().GetPosition() - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				// 音
 				// ばくはつエフェクト依頼
-				isCheck = true;
 				Datas::BOSS_EXPLOSION_SOUND.PlayOnce();
 			}
 		}
+		isCheck = true;
 	}
 
 	if (isCheck) {
