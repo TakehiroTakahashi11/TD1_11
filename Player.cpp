@@ -63,7 +63,7 @@ void Player::Init() {
 	justDodge = false;
 
 	isChargeAttack = false;
-	charge = 100.0f;
+	charge = 0.0f;
 
 	isInv = false;
 	inv_count = 0.0f;
@@ -641,7 +641,7 @@ void Player::ChargeAttack()
 			isChargeAttack = false;
 			guard_break = true;
 			stamina = 0.0f;
-			charge = 0;
+			charge = 0.0f;
 		}
 	}
 }

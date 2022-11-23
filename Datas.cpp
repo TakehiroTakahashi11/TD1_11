@@ -99,7 +99,9 @@ Texture Datas::MAP_TEX = Texture(64, 64);
 
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
 Texture Datas::UI_TEX = Texture(400, 160);
-Texture Datas::UI_HEALTH_TEX = Texture(400, 160);
+Texture Datas::UI_HEALTH_TEX = Texture(278, 160);
+Texture Datas::UI_GUARD_TEX = Texture(133, 160);
+Texture Datas::UI_CHARGE_TEX = Texture(160, 160);
 Texture Datas::CLEAR_TEX = Texture(700, 500);
 Texture Datas::GAMEOVER_TEX = Texture(700, 500);
 
@@ -293,6 +295,10 @@ void Datas::LoadTexture()
 	UI_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_UI.png"));
 	Per++;
 	UI_HEALTH_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_Health.png"));
+	Per++;
+	UI_GUARD_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_Guard.png"));
+	Per++;
+	UI_CHARGE_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_Charge.png"));
 	Per++;
 	CLEAR_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/gameclear.png"));
 	Per++;

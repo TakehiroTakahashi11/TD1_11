@@ -290,6 +290,8 @@ public:
     static Texture VINETT_TEX;
     static Texture UI_TEX;
     static Texture UI_HEALTH_TEX;
+    static Texture UI_GUARD_TEX;
+    static Texture UI_CHARGE_TEX;
     static Texture CLEAR_TEX;
     static Texture GAMEOVER_TEX;
 

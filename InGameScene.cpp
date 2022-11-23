@@ -82,7 +82,9 @@ void InGameScene::Draw() {
 
 
 	// ui
-	getCameraUI().DrawQuad({ {30,890}, 400 * (getPlayer().GetHealth() / Datas::PLAYER_MAX_HEALTH), 160}, Datas::UI_HEALTH_TEX);
+	getCameraUI().DrawQuad({ {126,890}, 278 * (getPlayer().GetHealth() / Datas::PLAYER_MAX_HEALTH), 160}, Datas::UI_HEALTH_TEX);
+	getCameraUI().DrawQuad({ {153,890}, 133 * (getPlayer().GetStamina() / Datas::PLAYER_MAX_STAMINA), 160 }, Datas::UI_GUARD_TEX);
+	getCameraUI().DrawQuad({ {157,890}, 400 * (getPlayer().GetCharge() / Datas::PLAYER_CHARGE_MAX), 160 }, Datas::UI_CHARGE_TEX);
 
 	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
 
