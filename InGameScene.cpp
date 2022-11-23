@@ -29,7 +29,7 @@ void InGameScene::Update() {
 	getGame().getPlayer().Update();
 	getGame().getBoss().Update();
 
-	if (getPlayer().GetisGameOver()) {
+	if (getPlayer().GetisGameOver() || getPlayer().GetisGameClear()) {
 		alpha -= Delta::getTotalDelta() * 3.0f;
 		if (alpha < 0x66) {
 			alpha = 0x66;
@@ -79,6 +79,10 @@ void InGameScene::Draw() {
 
 	// ビネット
 	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
+
+
+	// ui
+	getCameraUI().DrawQuad({ {30,890}, 400 * (getPlayer().GetHealth() / Datas::PLAYER_MAX_HEALTH), 160}, Datas::UI_HEALTH_TEX);
 
 	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
 

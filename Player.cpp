@@ -88,7 +88,13 @@ void Player::Init() {
 	isGameOverProc = false;
 	gameOverFrame = 0.0f;
 
+	isGameClear = false;
+	isGameClearProc = false;
+	gameClearFrame = 0.0f;
+
 	getGauntlets().Init();
+
+	isDrawn = true;
 }
 
 /// @brief 更新処理
@@ -103,8 +109,18 @@ void Player::Update() {// ======================================================
 			isGameOverProc = false;
 		}
 	}
+	if (isGameClearProc) {
+		Delta::MoveDynDelta(-0.05f);
+		gameClearFrame += Delta::getDeltaTime();
+		if (gameClearFrame >= 100.0f) {
+			Delta::SetDynDelta(1.0f);
+			gameClearFrame = 0.0f;
+			isGameClear = true;
+			isGameClearProc = false;
+		}
+	}
 
-	if (!isGameOver) {
+	if (!isGameOver && !isGameClear) {
 		elapsedFrame += Delta::getTotalDelta();
 		if (beforeElapsedFrame + 0.5f < elapsedFrame) {
 			beforeElapsedFrame = elapsedFrame;
@@ -223,6 +239,10 @@ void Player::Update() {// ======================================================
 		// =====================================================================================
 		// ガントレットの更新処理
 		getGauntlets().Update();
+
+		if (charge > Datas::PLAYER_CHARGE_MAX) {
+			charge = Datas::PLAYER_CHARGE_MAX;
+		}
 	}
 	else {
 
@@ -762,6 +782,12 @@ void Player::SetMove()
 void Player::SetisGameOver() 
 {
 	isGameOver = false;
+	isGameClear = false;
 	getBoss().Init();
 	Init();
+}
+
+void Player::SetisGameClear()
+{
+	isGameClearProc = true;
 }

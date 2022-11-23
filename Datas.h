@@ -27,7 +27,7 @@ public:
     static constexpr float PLAYER_POS_X = 0.0f;// 初期ポジションx
     static constexpr float PLAYER_POS_Y = -500.0f;// 初期ポジションy
 
-    static constexpr float PLAYER_MAX_HEALTH = 30.0f;//最大体力
+    static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
 
     static constexpr float PLAYER_MAX_STAMINA = 200.0f;//最大ガード値
     static constexpr float PLAYER_GUARD_STAMINA = 0.0f;// ガード消費スタミナ
@@ -54,7 +54,7 @@ public:
     static constexpr float PLAYER_ATTACK_CHARGE = 15.0f;// 攻撃した時のチャージ力
     static constexpr float PLAYER_JUSTDODGE_CHARGE = 70.0f;// ジャスト回避した時のチャージ力
     static constexpr float PLAYER_CHARGE_MAX = 500.0f;// 最大チャージ力
-    static constexpr float PLAYER_CHARGE_DIS = PLAYER_CHARGE_MAX / 5.0f;// ゲージ間隔
+    static constexpr float PLAYER_CHARGE_DIS = PLAYER_CHARGE_MAX / 3.0f;// ゲージ間隔
 
     static constexpr float PLAYER_CAMARA_OFFSET = 100.0f;// カメラ
     static constexpr float PLAYER_CAMARA_SPD = 5.0f;// カメラが戻る速度
@@ -289,6 +289,7 @@ public:
     // UI
     static Texture VINETT_TEX;
     static Texture UI_TEX;
+    static Texture UI_HEALTH_TEX;
     static Texture CLEAR_TEX;
     static Texture GAMEOVER_TEX;
 

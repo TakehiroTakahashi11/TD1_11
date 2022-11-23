@@ -125,7 +125,7 @@ void Boss::Init()
 
 void Boss::Update()
 {
-	if (!getPlayer().GetisGameOver()) {
+	if (!getPlayer().GetisGameOver() && !getPlayer().GetisGameClear()) {
 		// ˆÚs‰Â”\‚©ŒvZ
 		Migration();
 
@@ -160,12 +160,17 @@ void Boss::Update()
 			tremblingFrame = 0.0f;
 			trembPos = { 0.0f,0.0f };
 		}
+
+		if (health <= 0.0f) {
+			getPlayer().SetisGameClear();
+		}
 	}
 
 	if (Datas::DEBUG_MODE) {
 		Novice::ScreenPrintf(0, 0, "BOSS_POS_X:%.1f", position.x);
 		Novice::ScreenPrintf(200, 0, "BOSS_POS_Y:%.1f", position.y);
 	}
+
 }
 
 void Boss::Draw()
@@ -230,7 +235,8 @@ void Boss::PtoBCollision()
 			EffectManager::MakeNewEffect(p_pos - (temp * 8.5f), kAtttack);
 			getPlayer().AddCharge(Datas::PLAYER_ATTACK_CHARGE);
 			if (isnTutorial) {
-				health -= Datas::PLAYER_ATTACK_DAMAGE;
+				int n = getPlayer().GetCharge() / Datas::PLAYER_CHARGE_DIS;
+				health -= Datas::PLAYER_ATTACK_DAMAGE * n;
 			}
 
 			tremblingFrame = Datas::BOSS1_ATTACK_HITSTOP;
