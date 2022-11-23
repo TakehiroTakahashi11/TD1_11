@@ -159,6 +159,7 @@ public:
     static constexpr float BOSS_RUSH2_OFFSET = 440.0f;
     static constexpr float BOSS_THUNDER1_OFFSET = 600.0f;
     static constexpr float BOSS_MINE1_OFFSET = 240.0f;
+    static constexpr float BOSS_MOVE2_OFFSET = 240.0f;
 
     static constexpr float BOSS1_DASH_COOLTIME = 1000.0f;
 

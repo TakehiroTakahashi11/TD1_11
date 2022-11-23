@@ -137,11 +137,11 @@ public:
 
 	/// @brief Startをセットする ついでにtも0に戻る
 	/// @param S 開始値
-	void SetStart(float S){ t = 0.0f; start = S; }
+	void SetStart(float S) { t = 0.0f; start = S; p = start; }
 
 	/// @brief Endをセットする ついでにtも良い感じになる
 	/// @param E 終了値
-	void SetEnd(float E){ end = E; t = (start - p)/(start - end); }
+	void SetEnd(float E) { end = E; t = 0.0f; p = start; }
 
 	/// @brief velocityをセットする
 	/// @param Vel 速度

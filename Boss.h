@@ -30,6 +30,7 @@ public:
 	Vector2D GetPosition() { return position; };
 	float GetHealth() { return health; };
 
+	bool GetisnTutorial() { return isnTutorial; }
 	bool GetmoveTutorial() { return moveTutorial; }
 	bool GetguardTutorial() { return guardTutorial; }
 	bool GetdashTutorial() { return dashTutorial; }
@@ -187,6 +188,12 @@ private:
 	// ホームポジション
 	Vector2D homePos;
 
+	// 移動目標ポジション
+	Vector2D movePos;
+	Vector2D movePosEaseResult;
+	Easing movePosEaseX;
+	Easing movePosEaseY;
+
 	// 
 	Vector2D trembPos;
 
@@ -298,4 +305,8 @@ private:
 
 	// 震え
 	float tremblingFrame;
+
+	int Move2cnt;
+	float Move2frame;
+	bool Move2Reset;
 };

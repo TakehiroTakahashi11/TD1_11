@@ -691,7 +691,9 @@ float Player::GetIsDir()
 
 void Player::SetDamage(float damage)
 {
-	health -= damage;
+	if (getBoss().GetisnTutorial()) {
+		health -= damage;
+	}
 	taken_damage += damage;
 	isInv = true;
 

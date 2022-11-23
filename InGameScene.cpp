@@ -53,44 +53,47 @@ void InGameScene::Draw() {
 	Novice::ScreenPrintf(10, 760, "boss:%.1f", getBoss().GetHealth());
 	getCameraUI().DrawQuad({ {150,300},getBoss().GetHealth() * 2.0f,30}, Datas::BackGroundTex);
 
-	if (!getBoss().GetmoveTutorial()) {
-		if (IsCntMode()) {
-			Novice::ScreenPrintf(1400, 500, "tutorial : move [R stick]");
+
+	if (!getBoss().GetisnTutorial()) {
+		if (!getBoss().GetmoveTutorial()) {
+			if (IsCntMode()) {
+				Novice::ScreenPrintf(1400, 500, "tutorial : move [R stick]");
+			}
+			else {
+				Novice::ScreenPrintf(1400, 500, "tutorial : move [WASD]");
+			}
 		}
-		else {
-			Novice::ScreenPrintf(1400, 500, "tutorial : move [WASD]");
+		else if (!getBoss().GetdashTutorial()) {
+			if (IsCntMode()) {
+				Novice::ScreenPrintf(1400, 500, "tutorial : dash [R button]");
+			}
+			else {
+				Novice::ScreenPrintf(1400, 500, "tutorial : dash [SPACE]");
+			}
 		}
-	}
-	else if (!getBoss().GetdashTutorial()) {
-		if (IsCntMode()) {
-			Novice::ScreenPrintf(1400, 500, "tutorial : dash [R button]");
+		else if (!getBoss().GetguardTutorial()) {
+			if (IsCntMode()) {
+				Novice::ScreenPrintf(1400, 500, "tutorial : guard [L button]");
+			}
+			else {
+				Novice::ScreenPrintf(1400, 500, "tutorial : guard [Z]");
+			}
 		}
-		else {
-			Novice::ScreenPrintf(1400, 500, "tutorial : dash [SPACE]");
+		else if (!getBoss().GetjustTutorial()) {
+			if (IsCntMode()) {
+				Novice::ScreenPrintf(1400, 500, "tutorial : justDodge [R button]");
+			}
+			else {
+				Novice::ScreenPrintf(1400, 500, "tutorial : justDodge [SPACE]");
+			}
 		}
-	}
-	else if (!getBoss().GetguardTutorial()) {
-		if (IsCntMode()) {
-			Novice::ScreenPrintf(1400, 500, "tutorial : guard [L button]");
-		}
-		else {
-			Novice::ScreenPrintf(1400, 500, "tutorial : guard [Z]");
-		}
-	}
-	else if (!getBoss().GetjustTutorial()) {
-		if (IsCntMode()) {
-			Novice::ScreenPrintf(1400, 500, "tutorial : justDodge [R button]");
-		}
-		else {
-			Novice::ScreenPrintf(1400, 500, "tutorial : justDodge [SPACE]");
-		}
-	}
-	else if (!getBoss().GetchargeTutorial()) {
-		if (IsCntMode()) {
-			Novice::ScreenPrintf(1400, 500, "tutorial : chargeAttack [B]");
-		}
-		else {
-			Novice::ScreenPrintf(1400, 500, "tutorial : chargeAttack [X]");
+		else if (!getBoss().GetchargeTutorial()) {
+			if (IsCntMode()) {
+				Novice::ScreenPrintf(1400, 500, "tutorial : chargeAttack [B]");
+			}
+			else {
+				Novice::ScreenPrintf(1400, 500, "tutorial : chargeAttack [X]");
+			}
 		}
 	}
 }

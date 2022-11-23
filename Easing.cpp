@@ -60,14 +60,15 @@ void Easing::Move(float deltatime){
     // デルタタイム保存
     delta = deltatime;
 
+
+	// tを加算
+	MoveT();
+
     // tをイージング
     float easedT = CalcT();
 
     // 線形補完
     p = LinearInter(start,end,easedT);
-
-    // tを加算
-    MoveT();
 }
 
 // ====private======================================================

@@ -16,6 +16,12 @@
 Boss::Boss(Game& pGame) : Obj(pGame)
 {
 	Init();
+	isnTutorial = false;
+	moveTutorial = false;
+	guardTutorial = false;
+	dashTutorial = false;
+	justTutorial = false;
+	chargeTutorial = false;
 }
 
 void Boss::Init()
@@ -99,12 +105,18 @@ void Boss::Init()
 	isPreSpear = false;
 	preSpearFrame = 0.0f;
 
-	isnTutorial = false;
-	moveTutorial = false;
-	guardTutorial = false;
-	dashTutorial = false;
-	justTutorial = false;
-	chargeTutorial = false;
+	isnTutorial = true;
+	moveTutorial = true;
+	guardTutorial = true;
+	dashTutorial = true;
+	justTutorial = true;
+	chargeTutorial = true;
+
+	movePosEaseX.SetMode(Easing::kInBack);
+	movePosEaseY.SetMode(Easing::kInBack);
+	movePosEaseX.SetVel(0.01f);
+	movePosEaseY.SetVel(0.01f);
+	Move2Reset = false;
 }
 
 void Boss::Update()
@@ -284,7 +296,12 @@ void Boss::TimeLine()
 	if (canMigration) {
 
 		// test
-		// SetNextAction(kAttack2);
+		/*if (beforeAction == kRush1_2) {
+			SetNextAction(None);
+		}
+		else {
+			SetNextAction(kRush1_2);
+		}*/
 
 #pragma region AI
 		if (beforeAction == kAttack1_1 || beforeAction == kAttack1_2 || beforeAction == kAttack2) {
@@ -573,6 +590,8 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH1_OFFSET;
 			nextstate = PreFightAttack;
+			Move2cnt = 3;
+			Move2Reset = true;
 		}
 		break;
 	case Boss::kRush1_2:
@@ -588,6 +607,8 @@ void Boss::SetNextAction(BossAction bossaction)
 			canMigration = false;
 			migrationTime = Datas::BOSS_RUSH1_2_OFFSET;
 			nextstate = PreFightAttack;
+			Move2cnt = 3;
+			Move2Reset = true;
 		}
 		break;
 	case Boss::kRush2:
@@ -619,6 +640,8 @@ void Boss::SetNextAction(BossAction bossaction)
 			leftSpear.position = Vector2D(boss_bodyPos.x - 150, boss_bodyPos.y + 100);
 			leftSpear.speed = Easing(20, 60, 0.01f, Easing::kOutBack);
 			rightSpear.speed = Easing(20, 60, 0.01f, Easing::kOutBack);
+			Move2cnt = 3;
+			Move2Reset = true;
 		}
 		break;
 	case Boss::kThunder1:
@@ -698,6 +721,42 @@ void Boss::Action()
 
 void Boss::Move1()
 {
+	if (isnTutorial) {
+		if ((movePosEaseX.IsEnd() && movePosEaseY.IsEnd()) || Move2Reset) {
+			movePosEaseX.SetStart(homePos.x);
+			movePosEaseY.SetStart(homePos.y);
+			if (Move2cnt < 3) {
+				movePosEaseX.SetEnd(My::Random(-Datas::STAGE1_WIDTH + width, Datas::STAGE1_WIDTH - width));
+				movePosEaseY.SetEnd(My::Random(-Datas::STAGE1_HEIGHT + width, Datas::STAGE1_HEIGHT - width));
+				Move2frame = 0.0f;
+				Move2cnt++;
+				if (Move2Reset) {
+					Move2Reset = false;
+					Move2cnt = 0;
+				}
+			}
+			else {
+				Move2frame += Delta::getTotalDelta();
+				if (Move2frame > Datas::BOSS_MOVE2_OFFSET) {
+					Move2cnt = 0;
+					Move2frame = 0.0f;
+				}
+			}
+		}
+
+		if (Move2cnt < 3) {
+			movePosEaseX.Move(Delta::getTotalDelta());
+			movePosEaseY.Move(Delta::getTotalDelta());
+		}
+		else {
+			Move2Reset = true;
+		}
+
+		homePos.x = movePosEaseX.p;
+		homePos.y = movePosEaseY.p;
+	}
+
+	position.x = homePos.x;
 	position.y = homePos.y + sinf(moveTheta) * Datas::BOSS1_MOVE_AMP;
 	moveTheta += Datas::BOSS1_MOVE_SPD * Delta::getTotalDelta();
 
@@ -862,6 +921,8 @@ void Boss::Attack2()
 	if (attack2bullet10Time == 0.0f && attack2Elapsed - attack2bullet9Time > Datas::BOSS_ATTACK2_SHOOT_DIS && attack2bullet9Time != 0.0f) {
 		BulletManager::MakeNewBullet(position, kBossAttack2);
 		attack2bullet10Time = attack2Elapsed;
+		Move2cnt = 2;
+		Move2Reset = true;
 		attack2Flag = false;
 		nextstate = AfterMageAttack;
 	}
@@ -904,6 +965,8 @@ void Boss::Rush1()
 			rush1Flag = false;
 			rush1Elapsed = 0.0f;
 			homePos = position;
+			Move2cnt = 2;
+			Move2Reset = true;
 			nextstate = AfterFightAttack;
 		}
 	}
@@ -944,7 +1007,9 @@ void Boss::Rush1_2()
 		if (boss_rush.IsEnd() == true && boss_rush.GetEnd() == 0.0f) {
 			rush1_2Flag = false;
 			rush1Elapsed = 0.0f;
+			Move2cnt = 2;
 			homePos = position;
+			Move2Reset = true;
 			nextstate = AfterFightAttack;
 		}
 
@@ -956,7 +1021,7 @@ void Boss::Rush2()
 	rush2Elapsed += Delta::getTotalDelta();
 	rush2_ef_num = -1;
 
-	if (rush2Elapsed > 440.0f) {
+	if (leftSpear.isInject && rightSpear.isInject) {
 		boss_rush2_X.Move(Delta::getTotalDelta());
 		boss_rush2_Y.Move(Delta::getTotalDelta());
 		position = { boss_rush2_X.p, boss_rush2_Y.p };
@@ -964,7 +1029,13 @@ void Boss::Rush2()
 
 	if (boss_rush2_X.IsEnd() || boss_rush2_Y.IsEnd()) {
 		homePos = position;
+		Move2cnt = 2;
+		Move2Reset = true;
 		rush2Flag = false;
+		rightSpear.isPre = false;
+		leftSpear.isPre = false;
+		rightSpear.isInject = false;
+		leftSpear.isInject = false;
 		nextstate = AfterFightAttack;
 	}
 
@@ -980,7 +1051,7 @@ void Boss::Rush2()
 		}
 	}
 
-	if (leftSpear.isPre == true) {
+	if (leftSpear.isPre) {
 		leftSpear.frame += Delta::getTotalDelta();
 		leftSpear.theta = atan2(boss_rush2_Y.GetEnd() - leftSpear.position.y, boss_rush2_X.GetEnd() - leftSpear.position.x);
 		leftSpear.direction = Vector2D(cosf(leftSpear.theta), sinf(leftSpear.theta));
