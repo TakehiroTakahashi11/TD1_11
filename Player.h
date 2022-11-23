@@ -84,6 +84,7 @@ public:// ゲッターセッター
 	float GetCharge() { return charge; }
 	float GetDashAnim() { return dash_anim; }
 	PLAYER_DIRECTION_STATE GetDirectionState() { return directionState; }
+	bool GetisGameOver() { return isGameOver; }
 
 	void SetDamage(float damage);
 	void SetIsJustDodge() { if (!justDodge) { Delta::HitStop(5.0f); } justDodge = true; }
@@ -91,8 +92,13 @@ public:// ゲッターセッター
 	void SetGuardDis(float damage) { stamina -= damage; }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove();
+	void SetisGameOver();
 
 private:
+	bool isGameOver;
+	bool isGameOverProc;
+	float gameOverFrame;
+
 	// 経過
 	float elapsedFrame;
 	float beforeElapsedFrame;

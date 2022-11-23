@@ -20,6 +20,7 @@ void InGameScene::Init() {
 
 	// èâä˙âªÇî≤ÇØÇÈ
 	getGame().ChangePhase(Game::kUpdate);
+	alpha = 0x00;
 }
 
 void InGameScene::Update() {
@@ -43,16 +44,38 @@ void InGameScene::Draw() {
 	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
 
 	// UI
-	Novice::ScreenPrintf(10, 860, "health:%.1f", getPlayer().GetHealth());
-	getCameraUI().DrawQuad({ {150,200},getPlayer().GetHealth(),30 }, Datas::BackGroundTex,0,0,RED);
-	Novice::ScreenPrintf(10, 910, "guard:%.1f", getPlayer().GetStamina());
-	getCameraUI().DrawQuad({ {150,150},getPlayer().GetStamina(),30 }, Datas::BackGroundTex,0,0,BLUE);
-	Novice::ScreenPrintf(10, 960, "charge:%.1f", getPlayer().GetCharge());
-	getCameraUI().DrawQuad({ {150,100},getPlayer().GetCharge(),30 }, Datas::BackGroundTex);
+	//getCameraUI().DrawQuad({ {150,200},getPlayer().GetHealth(),30 }, Datas::BackGroundTex,0,0,RED);
+	//getCameraUI().DrawQuad({ {150,150},getPlayer().GetStamina(),30 }, Datas::BackGroundTex,0,0,BLUE);
+	//getCameraUI().DrawQuad({ {150,100},getPlayer().GetCharge(),30 }, Datas::BackGroundTex);
 
-	Novice::ScreenPrintf(10, 760, "boss:%.1f", getBoss().GetHealth());
-	getCameraUI().DrawQuad({ {150,300},getBoss().GetHealth() * 2.0f,30}, Datas::BackGroundTex);
+	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
 
+	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex, 0, 0, BLACK - alpha);
+	if (getPlayer().GetisGameOver()) {
+		alpha -= Delta::getTotalDelta() * 3.0f;
+		if (alpha < 0x66) {
+			alpha = 0x66;
+		}
+	}
+	else {
+		alpha += Delta::getTotalDelta() * 3.0f;
+		if (alpha > 0xFF) {
+			alpha = 0xFF;
+		}
+	}
+
+	if (getPlayer().GetisGameOver()) {
+		if (IsCntMode()) {
+			if (Controller::IsTriggerButton(0, Controller::bB)) {
+				getPlayer().SetisGameOver();
+			}
+		}
+		else {
+			if (Key::IsTrigger(DIK_SPACE)) {
+				getPlayer().SetisGameOver();
+			}
+		}
+	}
 
 	if (!getBoss().GetisnTutorial()) {
 		if (!getBoss().GetmoveTutorial()) {

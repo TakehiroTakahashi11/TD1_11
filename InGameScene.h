@@ -11,4 +11,6 @@ public:
 	void Draw() override;
 	void Finalise() override;
 
+private:
+	int alpha;
 };

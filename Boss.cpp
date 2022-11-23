@@ -121,39 +121,41 @@ void Boss::Init()
 
 void Boss::Update()
 {
-	// 移行可能か計算
-	Migration();
+	if (!getPlayer().GetisGameOver()) {
+		// 移行可能か計算
+		Migration();
 
-	// アクション管理タイムライン
-	if (!isnTutorial) {
-		Tutorial();
-	}
-	else {
-		TimeLine();
-	}
+		// アクション管理タイムライン
+		if (!isnTutorial) {
+			Tutorial();
+		}
+		else {
+			TimeLine();
+		}
 
-	// アクション
-	Action();
+		// アクション
+		Action();
 
-	// 当たり判定
-	Collision();
+		// 当たり判定
+		Collision();
 
-	// ノックバック
-	if (isKnockBack) {
-		KnockBack();
-	}
+		// ノックバック
+		if (isKnockBack) {
+			KnockBack();
+		}
 
-	// アニメーション
-	Animation();
+		// アニメーション
+		Animation();
 
-	if (0 < tremblingFrame) {
-		tremblingFrame -= Delta::getDeltaTime();
-		trembPos.x = My::RandomF(-45.0f, 45.0f, 1);
-		trembPos.y = My::RandomF(-45.0f, 45.0f, 1);
-	}
-	else {
-		tremblingFrame = 0.0f;
-		trembPos = { 0.0f,0.0f };
+		if (0 < tremblingFrame) {
+			tremblingFrame -= Delta::getDeltaTime();
+			trembPos.x = My::RandomF(-45.0f, 45.0f, 1);
+			trembPos.y = My::RandomF(-45.0f, 45.0f, 1);
+		}
+		else {
+			tremblingFrame = 0.0f;
+			trembPos = { 0.0f,0.0f };
+		}
 	}
 
 	if (Datas::DEBUG_MODE) {

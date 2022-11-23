@@ -84,129 +84,150 @@ void Player::Init() {
 
 	directionState = UP;
 
+	isGameOver = false;
+	isGameOverProc = false;
+	gameOverFrame = 0.0f;
+
 	getGauntlets().Init();
 }
 
 /// @brief 更新処理
 void Player::Update() {// =====================================================================================
-	elapsedFrame += Delta::getTotalDelta();
-	if (beforeElapsedFrame + 0.5f < elapsedFrame) {
-		beforeElapsedFrame = elapsedFrame;
-	}
-
-	// 保存
-	beforePosition = position;
-
-	// 基本処理
-	if (!isKnockBack) {
-		ChargeAttack();
-	}
-
-	if (!isKnockBack && !isChargeAttack) {// ノックバックされていないならチャージアタック中でないなら
-		Dash();// ダッシュ処理
-		if (!isDash && !guard_break) {// ダッシュ中でないなら
-			Guard();// ガード処理
-		}
-		if (!isDash) {// ダッシュ中、ガード中でないなら
-			Move();// 移動処理
-		}
-
-		if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
-			direction = velocity.Normalized();// 移動量から方向を保存
+	if (isGameOverProc) {
+		Delta::MoveDynDelta(-0.05f);
+		gameOverFrame += Delta::getDeltaTime();
+		if (gameOverFrame >= 100.0f) {
+			Delta::SetDynDelta(1.0f);
+			gameOverFrame = 0.0f;
+			isGameOver = true;
+			isGameOverProc = false;
 		}
 	}
 
-	// スタミナリジェネ
-	if (!isDash && !isGuard) {
-		stamina += Datas::PLAYER_STAMINA_REGEN;
-	}
-	if (Datas::PLAYER_MAX_STAMINA < stamina) {
-		stamina = Datas::PLAYER_MAX_STAMINA;
-	}
-	if (stamina < 0.0f) {
-		stamina = 0.0f;
-		guard_break = true;
-		isGuard = false;
-	}
-	if (guard_break) {
-		if (Datas::PLAYER_GUARD_COOLTIME < stamina) {
-			guard_break = false;
-		}
-	}
-
-	// 仰け反り処理
-	if (isKnockBack) {
-		KnockBack();
-	}
-
-	// 無敵処理
-	if (isInv) {
-		inv_count += Delta::getTotalDelta();
-
-		if (static_cast<int>(inv_count) % Datas::PLAYER_INV_ANIM_SPD == 0) {
-			inv_count += 1.0f;
-			isDrawn = !isDrawn;
+	if (!isGameOver) {
+		elapsedFrame += Delta::getTotalDelta();
+		if (beforeElapsedFrame + 0.5f < elapsedFrame) {
+			beforeElapsedFrame = elapsedFrame;
 		}
 
-		if (Datas::PLAYER_MAX_INV < inv_count) {
-			inv_count = 0.0f;
-			isInv = false;
-			isDrawn = true;
+		// 保存
+		beforePosition = position;
+
+		// 基本処理
+		if (!isKnockBack) {
+			ChargeAttack();
 		}
-	}
 
-	// 壁判定
-	WallCollision();
+		if (!isKnockBack && !isChargeAttack) {// ノックバックされていないならチャージアタック中でないなら
+			Dash();// ダッシュ処理
+			if (!isDash && !guard_break) {// ダッシュ中でないなら
+				Guard();// ガード処理
+			}
+			if (!isDash) {// ダッシュ中、ガード中でないなら
+				Move();// 移動処理
+			}
 
-	// 方向
-	switch (My::VectorDirection8(direction))
-	{
-	case 0:
-		directionState = UP;
-		break;
-	case 1:
-		directionState = LEFTUP;
-		break;
-	case 2:
-		directionState = LEFT;
-		break;
-	case 3:
-		directionState = LEFTDOWN;
-		break;
-	case 4:
-		directionState = DOWN;
-		break;
-	case 5:
-		directionState = RIGHTDOWN;
-		break;
-	case 6:
-		directionState = RIGHT;
-		break;
-	case 7:
-		directionState = RIGHTUP;
-		break;
-	default:
-		break;
-	}
+			if (!isDash && (velocity.x != 0.0f || velocity.y != 0.0f)) {// ダッシュでなく、かつ方向が変わっていたら
+				direction = velocity.Normalized();// 移動量から方向を保存
+			}
+		}
 
-	// 
-	if (beforePosition == position) {
-		anim += Delta::getTotalDelta();
-		if (anim >= 80.0f) {
+		// スタミナリジェネ
+		if (!isDash && !isGuard) {
+			stamina += Datas::PLAYER_STAMINA_REGEN;
+		}
+		if (Datas::PLAYER_MAX_STAMINA < stamina) {
+			stamina = Datas::PLAYER_MAX_STAMINA;
+		}
+		if (stamina < 0.0f) {
+			stamina = 0.0f;
+			guard_break = true;
+			isGuard = false;
+		}
+		if (guard_break) {
+			if (Datas::PLAYER_GUARD_COOLTIME < stamina) {
+				guard_break = false;
+			}
+		}
+
+		// 仰け反り処理
+		if (isKnockBack) {
+			KnockBack();
+		}
+
+		// 無敵処理
+		if (isInv) {
+			inv_count += Delta::getTotalDelta();
+
+			if (static_cast<int>(inv_count) % Datas::PLAYER_INV_ANIM_SPD == 0) {
+				inv_count += 1.0f;
+				isDrawn = !isDrawn;
+			}
+
+			if (Datas::PLAYER_MAX_INV < inv_count) {
+				inv_count = 0.0f;
+				isInv = false;
+				isDrawn = true;
+			}
+		}
+
+		// 壁判定
+		WallCollision();
+
+		// 方向
+		switch (My::VectorDirection8(direction))
+		{
+		case 0:
+			directionState = UP;
+			break;
+		case 1:
+			directionState = LEFTUP;
+			break;
+		case 2:
+			directionState = LEFT;
+			break;
+		case 3:
+			directionState = LEFTDOWN;
+			break;
+		case 4:
+			directionState = DOWN;
+			break;
+		case 5:
+			directionState = RIGHTDOWN;
+			break;
+		case 6:
+			directionState = RIGHT;
+			break;
+		case 7:
+			directionState = RIGHTUP;
+			break;
+		default:
+			break;
+		}
+
+		// 
+		if (beforePosition == position) {
+			anim += Delta::getTotalDelta();
+			if (anim >= 80.0f) {
+				anim = 0.0f;
+			}
+		}
+		else {
 			anim = 0.0f;
 		}
+
+		// カメラ追尾
+		MoveCamera();
+		getCameraMain().setPosition(position + camera_pos);
+
+		// =====================================================================================
+		// ガントレットの更新処理
+		getGauntlets().Update();
 	}
 	else {
-		anim = 0.0f;
+
+
 	}
-
-	// カメラ追尾
-	MoveCamera();
-	getCameraMain().setPosition(position + camera_pos);
-
-	// =====================================================================================
-	// ガントレットの更新処理
-	getGauntlets().Update();
 
 	// =====================================================================================
 	// デバッグ用文字列
@@ -697,6 +718,10 @@ void Player::SetDamage(float damage)
 	taken_damage += damage;
 	isInv = true;
 
+	if (health <= 0.0f) {
+		isGameOverProc = true;
+	}
+
 	// 音
 }
 
@@ -723,4 +748,11 @@ void Player::SetMove()
 	}
 	isGuard = false;
 	isChargeAttack = false;
+}
+
+void Player::SetisGameOver() 
+{
+	isGameOver = false;
+	getBoss().Init();
+	Init();
 }
