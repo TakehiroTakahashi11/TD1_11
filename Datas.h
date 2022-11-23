@@ -52,8 +52,8 @@ public:
     static constexpr float PLAYER_ATTACK_DAMAGE = 10.0f;// プレイヤー攻撃力
 
     static constexpr float PLAYER_ATTACK_CHARGE = 15.0f;// 攻撃した時のチャージ力
-    static constexpr float PLAYER_JUSTDODGE_CHARGE = 70.0f;// ジャスト回避した時のチャージ力
-    static constexpr float PLAYER_CHARGE_MAX = 500.0f;// 最大チャージ力
+    static constexpr float PLAYER_JUSTDODGE_CHARGE = 100.0f;// ジャスト回避した時のチャージ力
+    static constexpr float PLAYER_CHARGE_MAX = 300.0f;// 最大チャージ力
     static constexpr float PLAYER_CHARGE_DIS = PLAYER_CHARGE_MAX / 3.0f;// ゲージ間隔
 
     static constexpr float PLAYER_CAMARA_OFFSET = 100.0f;// カメラ
@@ -311,6 +311,9 @@ public:
     static Sound BOSS_LASER_SOUND;
     static Sound BOSS_RUSH_SOUND;
     static Sound BOSS_THUNDER_SOUND;
+
+    static Sound BGM;
+    static Sound TITLE_BGM;
 
     // =========================
     // 仮Texture

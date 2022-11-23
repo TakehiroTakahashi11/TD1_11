@@ -22,6 +22,9 @@ void InGameScene::Init() {
 	getGame().ChangePhase(Game::kUpdate);
 	alpha = 0x00;
 	uiY.SetMode(Easing::kInBounce);
+
+	Datas::BGM.Play();
+	Datas::TITLE_BGM.Play();
 }
 
 void InGameScene::Update() {
@@ -51,6 +54,8 @@ void InGameScene::Update() {
 	}
 
 	if (getPlayer().GetisGameOver()) {
+		Datas::BGM.SetVolume(0.0f);
+		Datas::TITLE_BGM.SetVolume(0.01f);
 		if (IsCntMode()) {
 			if (Controller::IsTriggerButton(0, Controller::bB)) {
 				getPlayer().SetisGameOver();
@@ -84,7 +89,7 @@ void InGameScene::Draw() {
 	// ui
 	getCameraUI().DrawQuad({ {126,890}, 278 * (getPlayer().GetHealth() / Datas::PLAYER_MAX_HEALTH), 160}, Datas::UI_HEALTH_TEX);
 	getCameraUI().DrawQuad({ {153,890}, 133 * (getPlayer().GetStamina() / Datas::PLAYER_MAX_STAMINA), 160 }, Datas::UI_GUARD_TEX);
-	getCameraUI().DrawQuad({ {157,890}, 400 * (getPlayer().GetCharge() / Datas::PLAYER_CHARGE_MAX), 160 }, Datas::UI_CHARGE_TEX);
+	getCameraUI().DrawQuad({ {157,890}, 160 * (getPlayer().GetCharge() / Datas::PLAYER_CHARGE_MAX), 160 }, Datas::UI_CHARGE_TEX);
 
 	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
 

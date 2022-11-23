@@ -117,10 +117,13 @@ Sound Datas::SPECIAL_SOUND = Sound(false, 0.05f);
 
 Sound Datas::BOSS_BULLET_SOUND = Sound(false, 0.05f);
 Sound Datas::BOSS_EXPLOSION_SOUND = Sound(false, 0.1f);
-Sound Datas::BOSS_JUMP_SOUND = Sound(false, 0.2f);
-Sound Datas::BOSS_LASER_SOUND = Sound(false, 0.2f);
-Sound Datas::BOSS_RUSH_SOUND = Sound(false, 0.2f);
+Sound Datas::BOSS_JUMP_SOUND = Sound(false, 0.05f);
+Sound Datas::BOSS_LASER_SOUND = Sound(false, 0.05f);
+Sound Datas::BOSS_RUSH_SOUND = Sound(false, 0.05f);
 Sound Datas::BOSS_THUNDER_SOUND = Sound(false, 0.2f);
+
+Sound Datas::BGM = Sound(true, 0.0f);
+Sound Datas::TITLE_BGM = Sound(true, 0.01f);
 
 void Datas::LoadTexture()
 {
@@ -336,9 +339,14 @@ void Datas::LoadTexture()
 	BOSS_THUNDER_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/thunder.wav"));
 	Per++;
 
+	BGM.SetHandle(Novice::LoadAudio("./Resources/Sound/BGM/bgm.wav"));
+	Per++;
+	TITLE_BGM.SetHandle(Novice::LoadAudio("./Resources/Sound/BGM/bgm_lofi.wav"));
+	Per++;
+
 	IsEnd = true;
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 90;
+const int Datas::Max_Per = 92;
 bool Datas::IsEnd = false;
