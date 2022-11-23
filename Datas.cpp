@@ -96,7 +96,10 @@ Texture Datas::ENEMY1_TEX = Texture(64, 64);
 Texture Datas::LAZER_TEX = Texture(400, 400);
 
 Texture Datas::MAP_TEX = Texture(64, 64);
+
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
+Texture Datas::UI_TEX = Texture(400, 160);
+
 Texture Datas::BackGroundTex = Texture(1920, 1080);
 
 Sound Datas::PLAYER_PUNCH_SOUND = Sound(false, 0.2f);
@@ -268,8 +271,12 @@ void Datas::LoadTexture()
 	Per++;
 	MAP_TEX.SetHandle(Novice::LoadTexture("./Resources/Map/ChipTile.png"));
 	Per++;
+
 	VINETT_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Vinetting.png"));
 	Per++;
+	UI_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_UI.png"));
+	Per++;
+
 	BackGroundTex.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
 
@@ -280,5 +287,5 @@ void Datas::LoadTexture()
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 66;
+const int Datas::Max_Per = 76;
 bool Datas::IsEnd = false;

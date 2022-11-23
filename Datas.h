@@ -27,7 +27,7 @@ public:
     static constexpr float PLAYER_POS_X = 0.0f;// 初期ポジションx
     static constexpr float PLAYER_POS_Y = -500.0f;// 初期ポジションy
 
-    static constexpr float PLAYER_MAX_HEALTH = 300.0f;//最大体力
+    static constexpr float PLAYER_MAX_HEALTH = 30.0f;//最大体力
 
     static constexpr float PLAYER_MAX_STAMINA = 200.0f;//最大ガード値
     static constexpr float PLAYER_GUARD_STAMINA = 0.0f;// ガード消費スタミナ
@@ -288,6 +288,7 @@ public:
     // =========================
     // UI
     static Texture VINETT_TEX;
+    static Texture UI_TEX;
 
     // =========================
     // Sound
