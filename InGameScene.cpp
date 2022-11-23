@@ -93,12 +93,20 @@ void InGameScene::Draw() {
 
 	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
 
+
+	getCameraUI().DrawQuad({ {545,30}, 830 * (getBoss().GetHealth() / Datas::BOSS1_HEALTH_MAX), 1080 }, Datas::BOSS_UI_HEALTH_TEX);
+	getCameraUI().DrawQuad({ {0,30}, 1920, 1080 }, Datas::BOSS_UI_TEX);
+
+
 	// 暗く
 	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex, 0, 0, BLACK - alpha);
 
 	// ゲームオーバー
 	if (getPlayer().GetisGameOver()) {
 		getCameraUI().DrawQuad({ {1920 / 2 - 350,uiY.p}, 700, 500 }, Datas::GAMEOVER_TEX);
+	}
+	if (getPlayer().GetisGameClear()) {
+		getCameraUI().DrawQuad({ {1920 / 2 - 350,uiY.p}, 700, 500 }, Datas::CLEAR_TEX);
 	}
 
 	if (!getBoss().GetisnTutorial()) {

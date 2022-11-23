@@ -98,10 +98,15 @@ Texture Datas::LAZER_TEX = Texture(400, 400);
 Texture Datas::MAP_TEX = Texture(64, 64);
 
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
+
 Texture Datas::UI_TEX = Texture(400, 160);
 Texture Datas::UI_HEALTH_TEX = Texture(278, 160);
 Texture Datas::UI_GUARD_TEX = Texture(133, 160);
 Texture Datas::UI_CHARGE_TEX = Texture(160, 160);
+
+Texture Datas::BOSS_UI_TEX = Texture(1920, 1080);
+Texture Datas::BOSS_UI_HEALTH_TEX = Texture(830, 1080);
+
 Texture Datas::CLEAR_TEX = Texture(700, 500);
 Texture Datas::GAMEOVER_TEX = Texture(700, 500);
 
@@ -295,6 +300,7 @@ void Datas::LoadTexture()
 
 	VINETT_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Vinetting.png"));
 	Per++;
+
 	UI_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_UI.png"));
 	Per++;
 	UI_HEALTH_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_Health.png"));
@@ -303,6 +309,13 @@ void Datas::LoadTexture()
 	Per++;
 	UI_CHARGE_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_Charge.png"));
 	Per++;
+
+	BOSS_UI_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Boss_UI.png"));
+	Per++;
+	BOSS_UI_HEALTH_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Boss_Health.png"));
+	Per++;
+	
+
 	CLEAR_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/gameclear.png"));
 	Per++;
 	GAMEOVER_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/gameover.png"));

@@ -1041,7 +1041,7 @@ void Boss::Rush2()
 		position = { boss_rush2_X.p, boss_rush2_Y.p };
 	}
 
-	if (boss_rush2_X.IsEnd() || boss_rush2_Y.IsEnd()) {
+	if (boss_rush2_X.IsEnd() && boss_rush2_Y.IsEnd()) {
 		homePos = position;
 		Move2cnt = 2;
 		Move2Reset = true;
@@ -1070,7 +1070,7 @@ void Boss::Rush2()
 		leftSpear.theta = atan2(boss_rush2_Y.GetEnd() - leftSpear.position.y, boss_rush2_X.GetEnd() - leftSpear.position.x);
 		leftSpear.direction = Vector2D(cosf(leftSpear.theta), sinf(leftSpear.theta));
 
-		if (leftSpear.frame > 120) {
+		if (leftSpear.frame > 80) {
 			leftSpear.isInject = true;
 			Datas::BOSS_RUSH_SOUND.PlayOnce();
 			leftSpear.isPre = false;
