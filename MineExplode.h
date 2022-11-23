@@ -19,4 +19,5 @@ public:
 	void Draw() override;
 
 private:
+	bool isCheck;
 };

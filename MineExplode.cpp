@@ -25,6 +25,7 @@ MineExplode::~MineExplode()
 void MineExplode::Init()
 {
 	elapsedFrame = 0.0f;
+	isCheck = false;
 }
 
 void MineExplode::Update()
@@ -42,11 +43,12 @@ void MineExplode::Update()
 				pGame.getPlayer().SetKnockBack((pGame.getPlayer().GetPosition() - position).Normalized() * Datas::PLAYER_KNOCKBACK_POWER);
 				// 音
 				// ばくはつエフェクト依頼
+				isCheck = true;
 			}
 		}
 	}
 
-	if (elapsedFrame > 150.0f) {
+	if (isCheck) {
 		isEnd = true;
 	}
 }
