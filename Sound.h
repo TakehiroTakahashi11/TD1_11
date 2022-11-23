@@ -1,4 +1,5 @@
 #pragma once
+#include <Novice.h>
 
 class Sound
 {
@@ -21,11 +22,11 @@ public:
 
 	/// @brief セッター
 	/// @param volume 音量
-	void SetVolume(float _volume){ volume = _volume; };
+	void SetVolume(float _volume) { volume = _volume; Novice::SetAudioVolume(soundhandle, volume); }
 	
 	/// @brief 音量をvelocity分変える
 	/// @param velocity 変化量
-	void MoveVolume(float velocity){ volume += velocity; }
+	void MoveVolume(float velocity){ volume += velocity; Novice::SetAudioVolume(soundhandle, volume); }
 
 	/// @brief 音を再生する
 	void Play();
