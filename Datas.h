@@ -289,10 +289,25 @@ public:
     // UI
     static Texture VINETT_TEX;
     static Texture UI_TEX;
+    static Texture CLEAR_TEX;
+    static Texture GAMEOVER_TEX;
 
     // =========================
     // Sound
-    static Sound PLAYER_PUNCH_SOUND;
+    static Sound BOOST_SOUND;
+    static Sound DASH_SOUND;
+    static Sound EXPLOSION_SOUND;
+    static Sound GUARD_SOUND;
+    static Sound HIT_SOUND;
+    static Sound PUNCH_SOUND;
+    static Sound SPECIAL_SOUND;
+
+    static Sound BOSS_BULLET_SOUND;
+    static Sound BOSS_EXPLOSION_SOUND;
+    static Sound BOSS_JUMP_SOUND;
+    static Sound BOSS_LASER_SOUND;
+    static Sound BOSS_RUSH_SOUND;
+    static Sound BOSS_THUNDER_SOUND;
 
     // =========================
     // ‰¼Texture

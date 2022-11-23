@@ -44,6 +44,7 @@ void MineExplode::Update()
 				// 音
 				// ばくはつエフェクト依頼
 				isCheck = true;
+				Datas::BOSS_EXPLOSION_SOUND.PlayOnce();
 			}
 		}
 	}

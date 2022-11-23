@@ -237,7 +237,8 @@ void Boss::PtoBCollision()
 
 			Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
 			// ‰¹
-			Datas::PLAYER_PUNCH_SOUND.PlayOnce();
+			Datas::PUNCH_SOUND.PlayOnce();
+			Datas::EXPLOSION_SOUND.PlayOnce();
 		}
 
 	}
@@ -256,7 +257,7 @@ void Boss::PtoBCollision()
 
 			Delta::HitStop(Datas::BOSS1_ATTACK_HITSTOP);
 			// ‰¹
-			Datas::PLAYER_PUNCH_SOUND.PlayOnce();
+			Datas::PUNCH_SOUND.PlayOnce();
 		}
 	}
 	else {
@@ -952,6 +953,7 @@ void Boss::Rush1()
 				boss_rush.SetEnd(-1500);
 				boss_rush.SetVel(0.01f);
 				boss_rush.SetMode(Easing::kInOutQuart);
+				Datas::BOSS_RUSH_SOUND.PlayOnce();
 			}
 		}
 
@@ -995,6 +997,7 @@ void Boss::Rush1_2()
 				boss_rush.SetEnd(-1500);
 				boss_rush.SetVel(0.01f);
 				boss_rush.SetMode(Easing::kInOutQuart);
+				Datas::BOSS_RUSH_SOUND.PlayOnce();
 			}
 		}
 
@@ -1061,6 +1064,7 @@ void Boss::Rush2()
 
 		if (leftSpear.frame > 120) {
 			leftSpear.isInject = true;
+			Datas::BOSS_RUSH_SOUND.PlayOnce();
 			leftSpear.isPre = false;
 			leftSpear.frame = 0;
 		}

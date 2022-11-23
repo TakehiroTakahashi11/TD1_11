@@ -99,10 +99,25 @@ Texture Datas::MAP_TEX = Texture(64, 64);
 
 Texture Datas::VINETT_TEX = Texture(1920, 1080);
 Texture Datas::UI_TEX = Texture(400, 160);
+Texture Datas::CLEAR_TEX = Texture(700, 500);
+Texture Datas::GAMEOVER_TEX = Texture(700, 500);
 
 Texture Datas::BackGroundTex = Texture(1920, 1080);
 
-Sound Datas::PLAYER_PUNCH_SOUND = Sound(false, 0.2f);
+Sound Datas::BOOST_SOUND = Sound(false, 0.05f);
+Sound Datas::DASH_SOUND = Sound(false, 0.05f);
+Sound Datas::EXPLOSION_SOUND = Sound(false, 0.05f);
+Sound Datas::GUARD_SOUND = Sound(false, 0.05f);
+Sound Datas::HIT_SOUND = Sound(false, 0.05f);
+Sound Datas::PUNCH_SOUND = Sound(false, 0.05f);
+Sound Datas::SPECIAL_SOUND = Sound(false, 0.05f);
+
+Sound Datas::BOSS_BULLET_SOUND = Sound(false, 0.05f);
+Sound Datas::BOSS_EXPLOSION_SOUND = Sound(false, 0.1f);
+Sound Datas::BOSS_JUMP_SOUND = Sound(false, 0.2f);
+Sound Datas::BOSS_LASER_SOUND = Sound(false, 0.2f);
+Sound Datas::BOSS_RUSH_SOUND = Sound(false, 0.2f);
+Sound Datas::BOSS_THUNDER_SOUND = Sound(false, 0.2f);
 
 void Datas::LoadTexture()
 {
@@ -276,16 +291,45 @@ void Datas::LoadTexture()
 	Per++;
 	UI_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/Player_UI.png"));
 	Per++;
+	CLEAR_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/gameclear.png"));
+	Per++;
+	GAMEOVER_TEX.SetHandle(Novice::LoadTexture("./Resources/UI/gameover.png"));
+	Per++;
 
 	BackGroundTex.SetHandle(Novice::LoadTexture("white1x1.png"));
 	Per++;
 
-	PLAYER_PUNCH_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/punch.wav"));
+	BOOST_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/boost.wav"));
+	Per++;
+	DASH_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/dash.wav"));
+	Per++;
+	EXPLOSION_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/explosion.wav"));
+	Per++;
+	GUARD_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/guard.wav"));
+	Per++;
+	HIT_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/hit.wav"));
+	Per++;
+	PUNCH_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/punch.wav"));
+	Per++;
+	SPECIAL_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Player/special.wav"));
+	Per++;
+
+	BOSS_BULLET_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/bullet.wav"));
+	Per++;
+	BOSS_EXPLOSION_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/explosion.wav"));
+	Per++;
+	BOSS_JUMP_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/jump.wav"));
+	Per++;
+	BOSS_LASER_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/laser.wav"));
+	Per++;
+	BOSS_RUSH_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/rush.wav"));
+	Per++;
+	BOSS_THUNDER_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/thunder.wav"));
 	Per++;
 
 	IsEnd = true;
 }
 
 int Datas::Per = 0;
-const int Datas::Max_Per = 76;
+const int Datas::Max_Per = 90;
 bool Datas::IsEnd = false;

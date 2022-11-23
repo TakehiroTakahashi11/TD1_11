@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+#include "Easing.h"
 
 class InGameScene : public BaseScene
 {
@@ -13,4 +14,6 @@ public:
 
 private:
 	int alpha;
+
+	Easing uiY;
 };

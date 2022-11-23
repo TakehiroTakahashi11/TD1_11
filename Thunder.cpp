@@ -58,6 +58,7 @@ void Thunder::Update()
 			}
 		}
 		// ‰¹
+		Datas::BOSS_THUNDER_SOUND.PlayOnce();
 		isChecked = true;
 	}
 

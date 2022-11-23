@@ -89,7 +89,7 @@ public:// ゲッターセッター
 	void SetDamage(float damage);
 	void SetIsJustDodge() { if (!justDodge) { Delta::HitStop(5.0f); } justDodge = true; }
 	void AddCharge(float c) { charge += c; }
-	void SetGuardDis(float damage) { stamina -= damage; }
+	void SetGuardDis(float damage) { stamina -= damage; Datas::GUARD_SOUND.PlayOnce(); }
 	void SetKnockBack(Vector2D vel) { knockBackVel = vel; isKnockBack = true; knockBackRigidCount = Datas::PLAYER_KNOCKBACK_RIGID; }
 	void SetMove();
 	void SetisGameOver();

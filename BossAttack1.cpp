@@ -77,6 +77,7 @@ void BossAttack1::Init()
 	}
 
 	// ‰¹
+	Datas::BOSS_BULLET_SOUND.PlayOnce();
 }
 
 void BossAttack1::Update()

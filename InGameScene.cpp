@@ -21,41 +21,27 @@ void InGameScene::Init() {
 	// 初期化を抜ける
 	getGame().ChangePhase(Game::kUpdate);
 	alpha = 0x00;
+	uiY.SetMode(Easing::kInBounce);
 }
 
 void InGameScene::Update() {
 
 	getGame().getPlayer().Update();
 	getGame().getBoss().Update();
-}
 
-void InGameScene::Draw() {
-	getGame().getMap().Draw();
-	EffectManager::Draw0();
-	getGame().getPlayer().Draw();
-	getGame().getBoss().Draw();
-	EffectManager::Draw1();
-
-	// エフェクト描画
-	BulletManager::Draw();
-	EffectManager::Draw2();
-
-	// ビネット
-	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
-
-	// UI
-	//getCameraUI().DrawQuad({ {150,200},getPlayer().GetHealth(),30 }, Datas::BackGroundTex,0,0,RED);
-	//getCameraUI().DrawQuad({ {150,150},getPlayer().GetStamina(),30 }, Datas::BackGroundTex,0,0,BLUE);
-	//getCameraUI().DrawQuad({ {150,100},getPlayer().GetCharge(),30 }, Datas::BackGroundTex);
-
-	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
-
-	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex, 0, 0, BLACK - alpha);
 	if (getPlayer().GetisGameOver()) {
 		alpha -= Delta::getTotalDelta() * 3.0f;
 		if (alpha < 0x66) {
 			alpha = 0x66;
 		}
+		if (uiY.GetEnd() != 500.0f) {
+			uiY.SetStart(1500.0f);
+			uiY.SetEnd(500.0f);
+		}
+		if (uiY.GetEnd() == 500.0f && uiY.IsEnd()) {
+			uiY.SetStart(500.0f);
+		}
+		uiY.Move(Delta::getTotalDelta());
 	}
 	else {
 		alpha += Delta::getTotalDelta() * 3.0f;
@@ -77,6 +63,31 @@ void InGameScene::Draw() {
 				alpha = 0x00;
 			}
 		}
+	}
+}
+
+void InGameScene::Draw() {
+	getGame().getMap().Draw();
+	EffectManager::Draw0();
+	getGame().getPlayer().Draw();
+	getGame().getBoss().Draw();
+	EffectManager::Draw1();
+
+	// エフェクト描画
+	BulletManager::Draw();
+	EffectManager::Draw2();
+
+	// ビネット
+	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::VINETT_TEX);
+
+	getCameraUI().DrawQuad({ {30,890}, 400, 160}, Datas::UI_TEX);
+
+	// 暗く
+	getCameraUI().DrawQuad({ {0,0},1920,1080 }, Datas::BackGroundTex, 0, 0, BLACK - alpha);
+
+	// ゲームオーバー
+	if (getPlayer().GetisGameOver()) {
+		getCameraUI().DrawQuad({ {1920 / 2 - 350,uiY.p}, 700, 500 }, Datas::GAMEOVER_TEX);
 	}
 
 	if (!getBoss().GetisnTutorial()) {

@@ -464,6 +464,7 @@ void Player::Dash() {
 				if (!getBoss().GetdashTutorial()) {
 					getBoss().SetdashTutorial();
 				}
+				Datas::DASH_SOUND.PlayOnce();
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				JustDodgePosition[0] = position;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
@@ -475,6 +476,7 @@ void Player::Dash() {
 				if (!getBoss().GetdashTutorial()) {
 					getBoss().SetdashTutorial();
 				}
+				Datas::DASH_SOUND.PlayOnce();
 				dash_length = 0.0f;// ダッシュした長さを初期化
 				JustDodgePosition[0] = position;
 				velocity = direction * dash_speed;// 方向にダッシュ速度をかける
@@ -606,6 +608,7 @@ void Player::ChargeAttack()
 				}
 				else {
 					isChargeAttack = true;
+					Datas::SPECIAL_SOUND.PlayOnce();
 					if (!getBoss().GetchargeTutorial()) {
 						getBoss().SetchargeTutorial();
 					}
@@ -700,6 +703,8 @@ void Player::CheckJust()
 {
 	charge += Datas::PLAYER_JUSTDODGE_CHARGE;
 	// 音
+	Datas::BOOST_SOUND.PlayOnce();
+	Delta::HitStop(240.0f);
 
 	getBoss().SetjustTutorial();
 	justDodge = false;
@@ -720,6 +725,10 @@ void Player::SetDamage(float damage)
 
 	if (health <= 0.0f) {
 		isGameOverProc = true;
+		Datas::HIT_SOUND.PlayOnce();
+	}
+	else {
+		Datas::HIT_SOUND.PlayOnce();
 	}
 
 	// 音
