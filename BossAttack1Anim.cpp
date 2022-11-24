@@ -36,6 +36,8 @@ void BossAttack1Anim::Init()
 	circle1ThetaSpd = 0.0f;
 	circle2ThetaSpd = 0.0f;
 	circle3ThetaSpd = 0.0f;
+
+	Datas::BOSS_CIRCLE_SOUND.PlayOnce();
 }
 
 void BossAttack1Anim::Update()

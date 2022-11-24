@@ -22,6 +22,7 @@ MagicCircleThunder::MagicCircleThunder(Game& game, Vector2D pos) : BaseEffect(ga
 	thunder1_created = false;
 	thunder2_created = false;
 	thunder3_created = false;
+	Datas::BOSS_CIRCLE_SOUND.PlayOnce();
 }
 
 MagicCircleThunder::~MagicCircleThunder()

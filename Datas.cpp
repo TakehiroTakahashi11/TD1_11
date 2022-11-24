@@ -121,11 +121,12 @@ Sound Datas::PUNCH_SOUND = Sound(false, 0.05f);
 Sound Datas::SPECIAL_SOUND = Sound(false, 0.05f);
 
 Sound Datas::BOSS_BULLET_SOUND = Sound(false, 0.05f);
-Sound Datas::BOSS_EXPLOSION_SOUND = Sound(false, 0.1f);
+Sound Datas::BOSS_EXPLOSION_SOUND = Sound(false, 0.08f);
 Sound Datas::BOSS_JUMP_SOUND = Sound(false, 0.05f);
 Sound Datas::BOSS_LASER_SOUND = Sound(false, 0.05f);
 Sound Datas::BOSS_RUSH_SOUND = Sound(false, 0.05f);
-Sound Datas::BOSS_THUNDER_SOUND = Sound(false, 0.2f);
+Sound Datas::BOSS_THUNDER_SOUND = Sound(false, 0.05f);
+Sound Datas::BOSS_CIRCLE_SOUND = Sound(false, 0.05f);
 
 Sound Datas::BGM = Sound(true, 0.0f);
 Sound Datas::TITLE_BGM = Sound(true, 0.01f);
@@ -350,6 +351,8 @@ void Datas::LoadTexture()
 	BOSS_RUSH_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/rush.wav"));
 	Per++;
 	BOSS_THUNDER_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/thunder.wav"));
+	Per++;
+	BOSS_CIRCLE_SOUND.SetHandle(Novice::LoadAudio("./Resources/Sound/Boss/circle.wav"));
 	Per++;
 
 	BGM.SetHandle(Novice::LoadAudio("./Resources/Sound/BGM/bgm.wav"));

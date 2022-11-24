@@ -309,167 +309,167 @@ void Boss::TimeLine()
 	if (canMigration) {
 
 		// test
-		if (beforeAction == kRush2) {
+	/*	if (beforeAction == kRush2) {
 			SetNextAction(None);
 		}
 		else {
 			SetNextAction(kRush2);
+		}*/
+
+#pragma region AI
+		if (beforeAction == kAttack1_1 || beforeAction == kAttack1_2 || beforeAction == kAttack2) {
+			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
+				SetNextAction(None);
+				return;
+			}
 		}
 
-//#pragma region AI
-//		if (beforeAction == kAttack1_1 || beforeAction == kAttack1_2 || beforeAction == kAttack2) {
-//			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
-//				SetNextAction(None);
-//				return;
-//			}
-//		}
-//
-//		if (beforeAction == kRush1 || beforeAction == kRush1_2) {
-//			switch (My::Random(0, 1))
-//			{
-//			case 0:
-//				SetNextAction(kThunder1);
-//				break;
-//			case 1:
-//				SetNextAction(None);
-//				break;
-//			default:
-//				break;
-//			}
-//			return;
-//		}
-//
-//		if (beforeAction == kRush2) {
-//			SetNextAction(kRush1);
-//			return;
-//		}
-//
-//		if (beforeAction == kThunder1) {
-//			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
-//				switch (My::Random(0, 1))
-//				{
-//				case 0:
-//					SetNextAction(kAttack1_2);
-//					break;
-//				case 1:
-//					SetNextAction(kRush2);
-//					break;
-//				default:
-//					break;
-//				}
-//				return;
-//			}
-//			else {
-//				switch (My::Random(0, 1))
-//				{
-//				case 0:
-//					SetNextAction(kAttack1_1);
-//					break;
-//				case 1:
-//					SetNextAction(kAttack2);
-//					break;
-//				default:
-//					break;
-//				}
-//				return;
-//			}
-//		}
-//
-//		if (mine1 == -1) {
-//			SetNextAction(kMine1);
-//			return;
-//		}
-//		else {// ’n—‹‚ªˆê‚Â‚à–³‚¢‚È‚ç
-//			if (BulletManager::GetIsEnd(mine1) &&
-//				BulletManager::GetIsEnd(mine2) &&
-//				BulletManager::GetIsEnd(mine3)) {
-//				SetNextAction(kMine1);
-//				return;
-//			}
-//		}
-//
-//		if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
-//			switch (My::Random(0, 6))
-//			{
-//			case 0:
-//				SetNextAction(kAttack1_2);
-//				break;
-//			case 1:
-//				SetNextAction(kAttack1_2);
-//				break;
-//			case 2:
-//				SetNextAction(kAttack1);
-//				break;
-//			case 3:
-//				SetNextAction(kAttack1_1);
-//				break;
-//			case 4:
-//				SetNextAction(kAttack2);
-//				break;
-//			case 5:
-//				SetNextAction(kRush1);
-//				break;
-//			default:
-//				SetNextAction(kRush1_2);
-//				break;
-//			}
-//			return;
-//		}
-//		else if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
-//			switch (My::Random(0, 6))
-//			{
-//			case 0:
-//				SetNextAction(kAttack1_2);
-//				break;
-//			case 1:
-//				SetNextAction(kAttack1);
-//				break;
-//			case 2:
-//				SetNextAction(kAttack2);
-//				break;
-//			case 3:
-//				SetNextAction(kRush1);
-//				break;
-//			case 4:
-//				SetNextAction(kRush2);
-//				break;
-//			case 5:
-//				SetNextAction(kRush2);
-//				break;
-//			default:
-//				SetNextAction(kThunder1);
-//				break;
-//			}
-//			return;
-//		}
-//		else {
-//			switch (My::Random(0, 6))
-//			{
-//			case 0:
-//				SetNextAction(kAttack1_2);
-//				break;
-//			case 1:
-//				SetNextAction(kThunder1);
-//				break;
-//			case 2:
-//				SetNextAction(kAttack1_1);
-//				break;
-//			case 3:
-//				SetNextAction(kAttack1);
-//				break;
-//			case 4:
-//				SetNextAction(kRush1);
-//				break;
-//			case 5:
-//				SetNextAction(kRush2);
-//				break;
-//			default:
-//				SetNextAction(kRush2);
-//				break;
-//			}
-//			return;
-//		}
-//#pragma endregion
+		if (beforeAction == kRush1 || beforeAction == kRush1_2) {
+			switch (My::Random(0, 1))
+			{
+			case 0:
+				SetNextAction(kThunder1);
+				break;
+			case 1:
+				SetNextAction(None);
+				break;
+			default:
+				break;
+			}
+			return;
+		}
+
+		if (beforeAction == kRush2) {
+			SetNextAction(kRush1);
+			return;
+		}
+
+		if (beforeAction == kThunder1) {
+			if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
+				switch (My::Random(0, 1))
+				{
+				case 0:
+					SetNextAction(kAttack1_2);
+					break;
+				case 1:
+					SetNextAction(kRush2);
+					break;
+				default:
+					break;
+				}
+				return;
+			}
+			else {
+				switch (My::Random(0, 1))
+				{
+				case 0:
+					SetNextAction(kAttack1_1);
+					break;
+				case 1:
+					SetNextAction(kAttack2);
+					break;
+				default:
+					break;
+				}
+				return;
+			}
+		}
+
+		if (mine1 == -1) {
+			SetNextAction(kMine1);
+			return;
+		}
+		else {// ’n—‹‚ªˆê‚Â‚à–³‚¢‚È‚ç
+			if (BulletManager::GetIsEnd(mine1) &&
+				BulletManager::GetIsEnd(mine2) &&
+				BulletManager::GetIsEnd(mine3)) {
+				SetNextAction(kMine1);
+				return;
+			}
+		}
+
+		if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_1) {// ‹——£‚ª‹ß‚¢‚È‚ç
+			switch (My::Random(0, 6))
+			{
+			case 0:
+				SetNextAction(kAttack1_2);
+				break;
+			case 1:
+				SetNextAction(kAttack1_2);
+				break;
+			case 2:
+				SetNextAction(kAttack1);
+				break;
+			case 3:
+				SetNextAction(kAttack1_1);
+				break;
+			case 4:
+				SetNextAction(kAttack2);
+				break;
+			case 5:
+				SetNextAction(kRush1);
+				break;
+			default:
+				SetNextAction(kRush1_2);
+				break;
+			}
+			return;
+		}
+		else if ((position - getPlayer().GetPosition()).Length() < Datas::BOSS_TIMELINE_DISTANCE_2) {
+			switch (My::Random(0, 6))
+			{
+			case 0:
+				SetNextAction(kAttack1_2);
+				break;
+			case 1:
+				SetNextAction(kAttack1);
+				break;
+			case 2:
+				SetNextAction(kAttack2);
+				break;
+			case 3:
+				SetNextAction(kRush1);
+				break;
+			case 4:
+				SetNextAction(kRush2);
+				break;
+			case 5:
+				SetNextAction(kRush2);
+				break;
+			default:
+				SetNextAction(kThunder1);
+				break;
+			}
+			return;
+		}
+		else {
+			switch (My::Random(0, 6))
+			{
+			case 0:
+				SetNextAction(kAttack1_2);
+				break;
+			case 1:
+				SetNextAction(kThunder1);
+				break;
+			case 2:
+				SetNextAction(kAttack1_1);
+				break;
+			case 3:
+				SetNextAction(kAttack1);
+				break;
+			case 4:
+				SetNextAction(kRush1);
+				break;
+			case 5:
+				SetNextAction(kRush2);
+				break;
+			default:
+				SetNextAction(kRush2);
+				break;
+			}
+			return;
+		}
+#pragma endregion
 
 	}
 }
@@ -1035,7 +1035,7 @@ void Boss::Rush2()
 	rush2Elapsed += Delta::getTotalDelta();
 	rush2_ef_num = -1;
 
-	if (rush2Elapsed > 60.0f) {
+	if (rush2Elapsed > 50.0f) {
 		boss_rush2_X.Move(Delta::getTotalDelta());
 		boss_rush2_Y.Move(Delta::getTotalDelta());
 		position = { boss_rush2_X.p, boss_rush2_Y.p };

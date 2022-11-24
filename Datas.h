@@ -315,6 +315,7 @@ public:
     static Sound BOSS_LASER_SOUND;
     static Sound BOSS_RUSH_SOUND;
     static Sound BOSS_THUNDER_SOUND;
+    static Sound BOSS_CIRCLE_SOUND;
 
     static Sound BGM;
     static Sound TITLE_BGM;
